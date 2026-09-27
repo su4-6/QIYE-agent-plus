@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: atlas-desk
+  namespace: atlas-desk
+spec:
+  type: ClusterIP
+  selector:
+    app.kubernetes.io/name: atlas-desk
+  ports:
+    - name: http
+      port: 8000
+      targetPort: http

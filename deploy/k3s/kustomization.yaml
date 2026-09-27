@@ -1,0 +1,16 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - namespace.yaml
+  - configmap.yaml
+  - pvc.yaml
+  - deployment.yaml
+  - service.yaml
+  - reference-grant.yaml
+  - http-route.yaml
+
+images:
+  - name: atlas-desk
+    newName: ghcr.io/su4-6/qiye-agent-plus
+    newTag: latest

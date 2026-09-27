@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: atlas-desk-config
+  namespace: atlas-desk
+data:
+  APP_NAME: "Atlas Desk 企业工单智能处理系统"
+  APP_ENV: "production"
+  DATABASE_URL: "/app/data/tickets.db"
+  EMBEDDING_PROVIDER: "gemini"
+  EMBEDDING_MODEL: "gemini-embedding-2"
+  LLM_MODEL: "gemini-2.5-flash"
+  MAX_PUBLIC_HOURLY: "10"
+  MAX_LLM_DAILY: "100"
+  HIGH_RISK_KEYWORDS: "生产,支付,订单,财务,法务,高管,管理员,批量,数据删除,权限提升,海外访问"

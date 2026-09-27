@@ -8,7 +8,16 @@
 4. 生成至少 32 字节的随机 `SESSION_SECRET`，完成服务器 `.env`。
 5. 检查服务器可用内存、磁盘、80/443 监听和现有容器。启动后可用内存低于 700 MiB 时，将 `EMBEDDING_PROVIDER` 改为 `gemini` 或 `disabled`，重建索引并重新评测。
 
-## 部署与验证
+## 部署方式
+
+当前服务器已经运行 K3s 和 NGINX Gateway Fabric，优先使用
+[`deploy/k3s`](../deploy/k3s/README.md) 中的清单复用现有 80/443 入口和通配符证书。
+应用使用独立命名空间、ClusterIP 服务和持久卷；跨命名空间路由通过
+`ReferenceGrant` 明确授权。服务器资源不足时只准备清单，不执行发布。
+
+Docker Compose 保留为独立服务器或本机验收方案。
+
+## Docker Compose 部署与验证
 
 ```bash
 docker compose build
