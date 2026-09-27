@@ -1,124 +1,91 @@
 from __future__ import annotations
 
 from typing import NotRequired, Required, TypedDict
-#StateGraph — LangGraph 的核心类，定义状态机/工作流
+
 from langgraph.graph import END, StateGraph
-#大模型回答
-from app.llm import generate_ticket_answer
-#rag最后的检索函数
-from app.rag import retrieve_context
-#tools的几个功能
-from app.tools import (
-    classify_category,
-    create_it_ticket,
-    decide_approval,
-    evaluate_priority,
-    evaluate_risk_level,
-)
-#定义状态，这是工单处理流程中的"状态对象"。它贯穿整个流程，每一步都可以读取和添加字段。
+
+from app.knowledge import retrieve
+from app.llm import generate_grounded_answer
+from app.tools import classify_category, create_it_ticket, evaluate_priority, evaluate_risk_level
+
+
 class TicketState(TypedDict):
     title: Required[str]
     description: Required[str]
     requester: Required[str]
+    tenant_id: Required[str]
+    allow_llm: Required[bool]
     category: NotRequired[str]
     priority: NotRequired[str]
     risk_level: NotRequired[str]
     ticket_id: NotRequired[str]
-    retrieved_context: NotRequired[list[str]]
+    retrieval: NotRequired[dict]
+    citations: NotRequired[list[dict]]
+    confidence: NotRequired[float]
     needs_human_approval: NotRequired[bool]
     status: NotRequired[str]
     answer: NotRequired[str]
     answer_source: NotRequired[str]
-#调用tool三个功能
-def classify_node(state: TicketState) -> TicketState:
+
+
+def triage(state: TicketState) -> dict:
     category = classify_category(state["title"], state["description"])
     priority = evaluate_priority(state["title"], state["description"])
-    risk_level = evaluate_risk_level(
-        state["title"], state["description"], priority
-    )
-    return {
-        "category": category,
-        "priority": priority,
-        "risk_level": risk_level,
-    } # type: ignore
-#调用rag检索
-def retrieve_node(state: TicketState) -> TicketState:
-    query = f"{state.get('category', '')} {state['title']} {state['description']}"
-    return {"retrieved_context": retrieve_context(query, top_k=3)} # type: ignore
-#调用tool生成单号
-def action_node(state: TicketState) -> TicketState:
-    return {
-        "ticket_id": create_it_ticket(),
-        "needs_human_approval": decide_approval(
-            state.get("risk_level", "低风险")),
-    } # type: ignore
-#从状态中取出前面几步的结果，为生成答复做准备，一一对应rag的retrieved_context
-def draft_answer_node(state: TicketState) -> TicketState:
-    context = "\n".join(state.get("retrieved_context", []))
-    ticket_id = state.get("ticket_id", "")
-    category = state.get("category", "综合咨询")
-    priority = state.get("priority", "低")
-    risk_level = state.get("risk_level", "低风险")
+    return {"category": category, "priority": priority,
+            "risk_level": evaluate_risk_level(state["title"], state["description"], priority)}
 
-    if state.get("needs_human_approval"):
-        status = "待人工审批"
-        fallback_answer = (
-            f"已创建工单 {ticket_id}。\n"
-            f"系统识别该工单属于「{category}」，优先级为「{priority}」，"
-            f"风险等级为「{risk_level}」。\n"
-            f"该问题可能影响企业安全、生产稳定性或关键业务，需要人工审批后继续处理。\n"
-            f"参考知识：\n{context}"
-        )
+
+def search(state: TicketState) -> dict:
+    query = f"{state['category']} {state['title']} {state['description']}"
+    return {"retrieval": retrieve(query, state["tenant_id"], limit=5)}
+
+
+def decide(state: TicketState) -> dict:
+    result = state["retrieval"]
+    hits = result["hits"]
+    high_risk = state["risk_level"] in {"中风险", "高风险"}
+    confidence = min(0.99, 0.35 + (0.2 if result["sufficient"] else 0)
+                     + min(len(hits), 3) * 0.1 + (0.1 if hits and len(hits[0]["channels"]) == 2 else 0))
+    needs_human = high_risk or not result["sufficient"] or confidence < 0.65
+    citations = [{"chunk_id": h["id"], "document_id": h["document_id"], "title": h["title"],
+                  "version": h["version"], "excerpt": h["content"][:180]} for h in hits[:3]]
+    return {"ticket_id": create_it_ticket(), "confidence": round(confidence, 2),
+            "needs_human_approval": needs_human, "citations": citations}
+
+
+def answer(state: TicketState) -> dict:
+    hits = state["retrieval"]["hits"]
+    needs_human = state["needs_human_approval"]
+    generated, cited = generate_grounded_answer(
+        title=state["title"], description=state["description"], category=state["category"],
+        risk_level=state["risk_level"], hits=hits, allow_llm=state["allow_llm"],
+    )
+    if generated:
+        citations = [item for item in state["citations"] if item["chunk_id"] in cited]
+        return {"status": "待人工处理" if needs_human else "已给出处理建议",
+                "answer": generated, "answer_source": "检索增强生成", "citations": citations}
+    if not hits:
+        text = "未检索到足够的企业知识，系统已转交人工处理。请补充影响范围、错误信息和发生时间。"
     else:
-        status = "已给出处理建议"
-        fallback_answer = (
-            f"已创建工单 {ticket_id}。\n"
-            f"系统识别该工单属于「{category}」，优先级为「{priority}」，"
-            f"风险等级为「{risk_level}」。\n"
-            f"可先按以下知识库建议处理；如仍未解决，再转人工。\n"
-            f"参考知识：\n{context}"
-        )
+        suggestions = "\n".join(f"{i}. {hit['content']}" for i, hit in enumerate(hits[:3], 1))
+        prefix = "该工单需要人工确认，以下仅为审批前排查资料：" if needs_human else "可先依据以下知识库资料排查："
+        text = f"{prefix}\n{suggestions}"
+    return {"status": "待人工处理" if needs_human else "已给出处理建议",
+            "answer": text, "answer_source": "可追溯知识库答复"}
 
-    llm_answer = generate_ticket_answer(
-    title=state["title"],
-    description=state["description"],
-    category=category,
-    priority=priority,
-    risk_level=risk_level,
-    needs_human_approval=bool(state.get("needs_human_approval")),
-    context=context,
-    )
-    if llm_answer:
-        return {
-            "status": status,
-            "answer": llm_answer,
-            "answer_source": "大模型生成",
-        } # type: ignore
-    return {
-            "status": status,
-            "answer": fallback_answer,
-            "answer_source": "本地知识库兜底",
-        } # type: ignore
-#构建工作流图，创建一个状态图（state graph），状态类型是 TicketState
-#上面四个流程
+
 def build_graph():
-#状态图
     graph = StateGraph(TicketState)
-#四个节点
-    graph.add_node("工单分类", classify_node)
-    graph.add_node("知识检索", retrieve_node)
-    graph.add_node("工具执行", action_node)
-    graph.add_node("生成答复", draft_answer_node)
-#流程入口
-    graph.set_entry_point("工单分类")
-#edge（边）连接起来
-    graph.add_edge("工单分类", "知识检索")
-    graph.add_edge("知识检索", "工具执行")
-    graph.add_edge("工具执行", "生成答复")
-    graph.add_edge("生成答复", END)
-    
+    graph.add_node("意图与风险识别", triage)
+    graph.add_node("查询改写与混合召回", search)
+    graph.add_node("证据与人工转接判断", decide)
+    graph.add_node("生成与引用校验", answer)
+    graph.set_entry_point("意图与风险识别")
+    graph.add_edge("意图与风险识别", "查询改写与混合召回")
+    graph.add_edge("查询改写与混合召回", "证据与人工转接判断")
+    graph.add_edge("证据与人工转接判断", "生成与引用校验")
+    graph.add_edge("生成与引用校验", END)
     return graph.compile()
-#创建全局唯一的工单处理流程实例。其他模块通过 from app.agent import ticket_graph 来使用它。
-ticket_graph = build_graph()
 
-#agent.py 是整个项目的"指挥中心"。它不处理具体业务（分类交给 tools.py，检索交给 rag.py，AI 交给 llm.py），它只负责"调度"——先做什么、后做什么、数据怎么流转。这叫编排（orchestration）。
+
+ticket_graph = build_graph()

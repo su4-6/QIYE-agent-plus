@@ -5,3 +5,9 @@ python-dotenv==1.0.1
 langgraph==0.2.60
 langchain-core==0.3.28
 openai==1.90.0
+sqlite-vec==0.1.9
+fastembed==0.8.1
+jieba==0.42.1
+pypdf==6.1.1
+python-multipart==0.0.20
+google-genai>=1.40,<2

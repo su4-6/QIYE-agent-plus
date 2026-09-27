@@ -1,343 +1,47 @@
 <!doctype html>
 <html lang="zh-CN">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>企业工单智能处理 Agent 系统</title>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23146c5e'/%3E%3Cpath d='M8 23 16 7l8 16h-4l-1.5-3h-5L12 23z' fill='white'/%3E%3C/svg%3E">
+  <title>Atlas Desk · 企业工单智能处理</title>
   <style>
-    body { margin: 0; font-family: "Microsoft YaHei", Arial, sans-serif; background: #f6f7f9; color: #1f2937; }
-    header { background: #165dff; color: white; padding: 22px 36px; }
-    main { max-width: 1180px; margin: 0 auto; padding: 28px; }
-    h1 { margin: 0 0 8px; font-size: 26px; }
-    h2 { margin: 0 0 16px; font-size: 20px; }
-    .说明 { margin: 0; opacity: .92; }
-    .网格 { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; align-items: start; }
-    .面板 { background: white; border: 1px solid #e5e7eb; border-radius: 8px; padding: 20px; }
-    label { display: block; margin: 12px 0 6px; font-weight: 600; }
-    input, textarea, select { width: 100%; box-sizing: border-box; border: 1px solid #cbd5e1; border-radius: 6px; padding: 10px; font-size: 14px; }
-    textarea { min-height: 110px; resize: vertical; }
-    button { margin-top: 14px; border: 0; border-radius: 6px; padding: 10px 16px; background: #165dff; color: white; font-weight: 700; cursor: pointer; }
-    button + button { margin-left: 8px; background: #475569; }
-    .结果区 { display: grid; gap: 14px; }
-    .结果卡片 { border: 1px solid #e5e7eb; border-radius: 8px; padding: 16px; background: #ffffff; }
-    .结果标题 { display: flex; justify-content: space-between; gap: 12px; align-items: center; margin-bottom: 12px; }
-    .结果标题 strong { font-size: 17px; }
-    .徽标 { display: inline-block; border-radius: 999px; padding: 4px 10px; font-size: 12px; font-weight: 700; background: #e0f2fe; color: #075985; }
-    .徽标.高风险 { background: #fee2e2; color: #991b1b; }
-    .徽标.中风险 { background: #fef3c7; color: #92400e; }
-    .字段网格 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
-    .字段 { border-top: 1px solid #eef2f7; padding-top: 8px; }
-    .字段名 { color: #64748b; font-size: 12px; margin-bottom: 4px; }
-    .字段值 { color: #111827; font-size: 14px; line-height: 1.6; word-break: break-word; }
-    .来源条 { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 12px 0; padding: 10px 12px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 6px; }
-    .来源标签 { color: #64748b; font-size: 13px; font-weight: 600; }
-    .来源值 { display: inline-block; border-radius: 999px; padding: 4px 10px; font-size: 12px; font-weight: 700; background: #dcfce7; color: #166534; }
-    .来源值.本地知识库兜底 { background: #fef3c7; color: #92400e; }
-    .来源值.人工审批 { background: #ede9fe; color: #5b21b6; }
-    .建议 { margin-top: 12px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 6px; padding: 14px 16px; line-height: 1.75; }
-    .建议标题 { display: block; margin-bottom: 10px; color: #0f172a; font-size: 16px; }
-    .建议内容 { display: grid; gap: 8px; color: #111827; font-size: 15px; }
-    .建议内容 p { margin: 0; }
-    .建议内容 strong { color: #0f172a; font-weight: 700; }
-    .空状态 { color: #64748b; background: #f8fafc; border: 1px dashed #cbd5e1; border-radius: 8px; padding: 18px; }
-    .日志项 { border-left: 4px solid #165dff; padding: 10px 12px; background: #f8fafc; border-radius: 6px; margin-top: 10px; }
-    .日志详情 { color: #334155; font-size: 13px; line-height: 1.7; margin-top: 6px; white-space: pre-wrap; }
-    .提示 { color: #64748b; font-size: 13px; line-height: 1.7; }
-    .全宽 { grid-column: 1 / -1; }
-    .分页区 { display: flex; justify-content: center; align-items: center; gap: 12px; margin-top: 16px; }
-    .分页区 button { padding: 6px 14px; font-size: 13px; }
-    .分页区 span { color: #475569; font-size: 13px; }
-    @media (max-width: 980px) { .字段网格 { grid-template-columns: 1fr 1fr; } }
-    @media (max-width: 860px) { .网格 { grid-template-columns: 1fr; } main { padding: 16px; } }
-    @media (max-width: 560px) { .字段网格 { grid-template-columns: 1fr; } }
+    :root{--ink:#17212b;--muted:#68747f;--paper:#f4f1eb;--card:#fffdfa;--line:#dcd7ce;--brand:#146c5e;--warm:#dd7047;--danger:#a63c3c}
+    *{box-sizing:border-box}body{margin:0;color:var(--ink);background:var(--paper);font:15px/1.65 system-ui,"Microsoft YaHei",sans-serif}
+    header{padding:34px max(24px,calc((100% - 1120px)/2));background:#142b2a;color:#fff;display:flex;justify-content:space-between;gap:24px;align-items:end}
+    .eyebrow{font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:#a9d7ce}.brand{font:700 clamp(28px,5vw,50px)/1.05 Georgia,"Microsoft YaHei";margin:8px 0}.sub{max-width:660px;color:#c7d8d4}
+    .status{padding:7px 12px;border:1px solid #4d6d67;border-radius:99px;white-space:nowrap}.dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:#65d19a;margin-right:7px}
+    main{max-width:1120px;margin:34px auto;padding:0 24px;display:grid;grid-template-columns:minmax(0,1.1fr) minmax(320px,.9fr);gap:22px}
+    section{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:24px;box-shadow:0 12px 30px #3027190d}h2{font:700 22px Georgia,"Microsoft YaHei";margin:0 0 4px}.hint{color:var(--muted);margin:0 0 20px}
+    label{display:block;font-weight:650;margin:14px 0 6px}input,textarea{width:100%;padding:11px 12px;border:1px solid #c9c3b8;border-radius:9px;background:#fff;font:inherit}textarea{min-height:130px;resize:vertical}input:focus,textarea:focus{outline:2px solid #9fcfc5;border-color:var(--brand)}
+    button{border:0;border-radius:9px;padding:11px 17px;background:var(--brand);color:#fff;font-weight:700;cursor:pointer}button.secondary{background:#ebe7df;color:var(--ink)}button:disabled{opacity:.55;cursor:wait}.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+    .flow{display:grid;gap:9px}.step{padding:10px 12px;border-left:3px solid #b8cfc9;background:#f3f7f5;border-radius:4px}.step strong{display:block}.step small{color:var(--muted)}
+    #result{grid-column:1/-1}.empty{text-align:center;color:var(--muted);padding:34px}.topline{display:flex;justify-content:space-between;gap:18px;align-items:start}.badge{padding:4px 9px;background:#e4f2ee;color:#0e5a4e;border-radius:99px;font-size:12px;font-weight:700}.badge.risk{background:#f8e3dc;color:#963c24}
+    .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:18px 0}.metric{background:#f5f2ec;padding:12px;border-radius:9px}.metric small{display:block;color:var(--muted)}.answer{white-space:pre-wrap;padding:17px;border:1px solid var(--line);border-radius:10px;background:#fff}.sources{display:grid;gap:9px;margin-top:15px}.source{border-left:3px solid var(--warm);padding:8px 12px;background:#fff8f4}.source small{color:var(--muted)}.secret{margin-top:15px;padding:12px;background:#fff1c8;border-radius:9px;font-size:13px}.error{color:var(--danger)}
+    footer{max-width:1120px;margin:0 auto;padding:0 24px 34px;color:var(--muted);font-size:13px}@media(max-width:820px){header{align-items:start;flex-direction:column}main{grid-template-columns:1fr}.grid{grid-template-columns:repeat(2,1fr)}}
   </style>
 </head>
 <body>
-  <header>
-    <h1>企业工单智能处理 Agent 系统</h1>
-    <p class="说明">提交工单后，系统会自动分类、检索知识库、判断风险，并决定是否进入人工审批。</p>
-  </header>
-  <main class="网格">
-    <section class="面板">
-      <h2>提交工单</h2>
-      <label>工单标题</label>
-      <input id="工单标题" value="生产系统支付失败" />
-      <label>工单描述</label>
-      <textarea id="工单描述">线上订单支付大面积失败，需要立刻排查数据库和支付接口</textarea>
-      <label>提交人</label>
-      <input id="提交人" value="李四" />
-      <button onclick="提交工单()">提交并触发智能处理</button>
-      <button onclick="查看全部工单()">查看全部工单</button>
-      <p class="提示">高风险工单会进入人工审批，例如生产、支付、数据库、管理员权限、财务法务等场景。</p>
-    </section>
-
-    <section class="面板">
-      <h2>人工审批</h2>
-      <label>工单编号</label>
-      <input id="审批工单编号" placeholder="例如：IT-XXXXXXXX" />
-      <label>审批结果</label>
-      <select id="是否通过">
-        <option value="true">通过</option>
-        <option value="false">拒绝</option>
-      </select>
-      <label>审批人</label>
-      <input id="审批人" value="王经理" />
-      <label>审批意见</label>
-      <textarea id="审批意见">确认是生产故障，允许进入应急处理流程</textarea>
-      <button onclick="提交审批()">提交审批</button>
-      <button onclick="查看审计日志()">查看审计日志</button>
-    </section>
-
-    <section class="面板 全宽">
-      <h2>处理结果</h2>
-      <div id="结果" class="结果区">
-        <div class="空状态">等待操作...</div>
-      </div>
-      <div id="分页区" class="分页区" style="display:none;"></div>
-    </section>
-  </main>
-
-  <script>
-    let 当前页码 = 0;
-    const 每页条数 = 50;
-
-    function 转义文本(内容) {
-      return String(内容 ?? "")
-        .replaceAll("&", "&amp;")
-        .replaceAll("<", "&lt;")
-        .replaceAll(">", "&gt;")
-        .replaceAll('"', "&quot;")
-        .replaceAll("'", "&#039;");
-    }
-
-    function 格式化建议内容(内容) {
-      // 先对 AI 输出的 markdown 做格式化（加 HTML 标签）
-      let 文本 = String(内容 ?? "")
-        .replace(/^---$/gm, "")
-        // **粗体** → <strong>粗体</strong>
-        .replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>")
-        // 行首的 * 子条目 → • 圆点
-        .replace(/^(\s*)\*\s+/gm, "$1• ");
-      // 然后做 HTML 转义，但保留我们刚加的 <strong> 和 <br>
-      文本 = 文本
-        .replaceAll("&", "&amp;")
-        .replaceAll("<", "&lt;")
-        .replaceAll(">", "&gt;")
-        .replaceAll('"', "&quot;")
-        .replaceAll("'", "&#039;")
-        // 还原 <strong> 和 <br>
-        .replaceAll("&lt;strong&gt;", "<strong>")
-        .replaceAll("&lt;/strong&gt;", "</strong>")
-        .replaceAll("&lt;br&gt;", "<br>")
-        .replaceAll("&lt;p&gt;", "<p>")
-        .replaceAll("&lt;/p&gt;", "</p>");
-      // 双换行分段
-      return 文本
-        .split(/\n{2,}/)
-        .map(段落 => 段落.trim())
-        .filter(Boolean)
-        .map(段落 => `<p>${段落.replaceAll("\n", "<br>")}</p>`)
-        .join("");
-    }
-
-    function 渲染建议块(标题, 内容) {
-      if (!内容) return "";
-      return `
-        <div class="建议">
-          <strong class="建议标题">${转义文本(标题)}</strong>
-          <div class="建议内容">${格式化建议内容(内容)}</div>
-        </div>
-      `;
-    }
-
-    function 渲染来源条(来源) {
-      const 显示来源 = 来源 || "未知";
-      return `
-        <div class="来源条">
-          <span class="来源标签">回答来源</span>
-          <span class="来源值 ${转义文本(显示来源)}">${转义文本(显示来源)}</span>
-        </div>
-      `;
-    }
-
-    function 格式化布尔值(值) {
-      return 值 ? "是" : "否";
-    }
-
-    function 格式化详情(详情) {
-      if (!详情) return "无";
-      if (typeof 详情 === "string") {
-        try {
-          详情 = JSON.parse(详情);
-        } catch {
-          return 详情;
-        }
-      }
-      if (Array.isArray(详情)) {
-        return 详情.map(格式化详情).join("\n");
-      }
-      if (typeof 详情 === "object") {
-        const 优先字段 = ["工单标题", "工单描述", "提交人", "工单分类", "优先级", "风险等级", "当前状态", "是否通过", "审批人", "审批意见"];
-        return Object.entries(详情)
-          .filter(([键]) => 优先字段.includes(键))
-          .map(([键, 值]) => `${键}：${typeof 值 === "boolean" ? 格式化布尔值(值) : 值}`)
-          .join("\n") || "已记录系统处理详情";
-      }
-      return String(详情);
-    }
-
-    function 渲染字段(名称, 值) {
-      const 展示值 = typeof 值 === "boolean" ? 格式化布尔值(值) : 值;
-      return `
-        <div class="字段">
-          <div class="字段名">${转义文本(名称)}</div>
-          <div class="字段值">${转义文本(展示值 || "无")}</div>
-        </div>
-      `;
-    }
-
-    function 渲染工单卡片(工单) {
-      const 风险等级 = 工单["风险等级"] || "未知风险";
-      return `
-        <div class="结果卡片">
-          <div class="结果标题">
-            <strong>${转义文本(工单["工单标题"] || 工单["工单编号"] || "工单详情")}</strong>
-            <span class="徽标 ${转义文本(风险等级)}">${转义文本(风险等级)}</span>
-          </div>
-          <div class="字段网格">
-            ${渲染字段("工单编号", 工单["工单编号"])}
-            ${渲染字段("提交人", 工单["提交人"])}
-            ${渲染字段("工单分类", 工单["工单分类"])}
-            ${渲染字段("优先级", 工单["优先级"])}
-            ${渲染字段("当前状态", 工单["当前状态"])}
-            ${渲染字段("需要人工审批", 工单["是否需要人工审批"])}
-            ${工单["创建时间"] ? 渲染字段("创建时间", 工单["创建时间"]) : ""}
-          </div>
-          ${渲染来源条(工单["回答来源"])}
-          ${渲染建议块("工单描述", 工单["工单描述"])}
-          ${渲染建议块("处理建议", 工单["处理建议"])}
-        </div>
-      `;
-    }
-
-    function 渲染审计日志(日志列表) {
-      if (!日志列表.length) {
-        return `<div class="空状态">暂无审计日志</div>`;
-      }
-      return `
-        <div class="结果卡片">
-          <div class="结果标题"><strong>审计日志</strong><span class="徽标">共 ${日志列表.length} 条</span></div>
-          ${日志列表.map(日志 => `
-            <div class="日志项">
-              <strong>${转义文本(日志["操作"])}</strong>
-              <div class="字段值">操作人：${转义文本(日志["操作人"])} ｜ 时间：${转义文本(日志["创建时间"])}</div>
-              <div class="日志详情">${转义文本(格式化详情(日志["详情"]))}</div>
-            </div>
-          `).join("")}
-        </div>
-      `;
-    }
-
-    function 渲染分页(总条数) {
-      const 分页区 = document.getElementById("分页区");
-      if (总条数 <= 每页条数) {
-        分页区.style.display = "none";
-        return;
-      }
-      分页区.style.display = "flex";
-      const 总页数 = Math.ceil(总条数 / 每页条数);
-      分页区.innerHTML = `
-        <button onclick="切换页(${当前页码 - 1})" ${当前页码 === 0 ? "disabled" : ""}>上一页</button>
-        <span>第 ${当前页码 + 1} / ${总页数} 页（共 ${总条数} 条）</span>
-        <button onclick="切换页(${当前页码 + 1})" ${当前页码 >= 总页数 - 1 ? "disabled" : ""}>下一页</button>
-      `;
-    }
-
-    async function 切换页(页码) {
-      if (页码 < 0) return;
-      当前页码 = 页码;
-      await 查看全部工单();
-    }
-
-    function 渲染结果(内容) {
-      if (Array.isArray(内容)) {
-        if (内容.length === 0) return `<div class="空状态">暂无数据</div>`;
-        if (内容[0]["操作"]) return 渲染审计日志(内容);
-        return 内容.map(渲染工单卡片).join("");
-      }
-      // 分页接口返回 {工单列表: [...], 总数: N, ...}
-      if (内容["工单列表"]) {
-        const 列表HTML = 内容["工单列表"].length === 0
-          ? `<div class="空状态">暂无数据</div>`
-          : 内容["工单列表"].map(渲染工单卡片).join("");
-        渲染分页(内容["总数"]);
-        return 列表HTML;
-      }
-      if (内容["工单"]) {
-        document.getElementById("分页区").style.display = "none";
-        return `
-          <div class="空状态">${转义文本(内容["提示"] || "操作完成")}</div>
-          ${渲染工单卡片(内容["工单"])}
-        `;
-      }
-      if (内容["工单编号"]) {
-        document.getElementById("分页区").style.display = "none";
-        return 渲染工单卡片(内容);
-      }
-      if (内容["detail"]) {
-        document.getElementById("分页区").style.display = "none";
-        return `<div class="空状态">操作失败：${转义文本(内容["detail"])}</div>`;
-      }
-      document.getElementById("分页区").style.display = "none";
-      return `<div class="空状态">${转义文本(格式化详情(内容))}</div>`;
-    }
-
-    function 显示结果(内容) {
-      document.getElementById("结果").innerHTML = 渲染结果(内容);
-    }
-
-    async function 提交工单() {
-      const 响应 = await fetch("/工单", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          "工单标题": document.getElementById("工单标题").value,
-          "工单描述": document.getElementById("工单描述").value,
-          "提交人": document.getElementById("提交人").value
-        })
-      });
-      const 数据 = await 响应.json();
-      if (数据["工单编号"]) {
-        document.getElementById("审批工单编号").value = 数据["工单编号"];
-      }
-      显示结果(数据);
-    }
-
-    async function 查看全部工单() {
-      当前页码 = 0;
-      const 响应 = await fetch(`/工单?skip=${当前页码 * 每页条数}&limit=${每页条数}`);
-      显示结果(await 响应.json());
-    }
-
-    async function 提交审批() {
-      const 工单编号 = document.getElementById("审批工单编号").value;
-      const 响应 = await fetch(`/工单/${工单编号}/审批`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          "是否通过": document.getElementById("是否通过").value === "true",
-          "审批人": document.getElementById("审批人").value,
-          "审批意见": document.getElementById("审批意见").value
-        })
-      });
-      显示结果(await 响应.json());
-    }
-
-    async function 查看审计日志() {
-      const 工单编号 = document.getElementById("审批工单编号").value;
-      const 响应 = await fetch(`/工单/${工单编号}/审计日志`);
-      显示结果(await 响应.json());
-    }
-  </script>
-</body>
-</html>
+<header><div><div class="eyebrow">Evidence-grounded service desk</div><div class="brand">Atlas Desk</div><div class="sub">让每条建议都能追溯到知识来源，让高风险操作停在人工审批之前。</div></div><div class="status"><span class="dot"></span>演示环境运行中</div></header>
+<main>
+  <section><h2>提交模拟工单</h2><p class="hint">请勿填写真实账号、客户数据或公司机密。</p>
+    <label for="title">问题标题</label><input id="title" value="办公室打印机无法打印">
+    <label for="description">问题描述</label><textarea id="description">打印机一直显示缺纸，但纸盒里有纸，重新放纸后仍然无法打印。</textarea>
+    <label for="requester">提交人</label><input id="requester" value="演示访客">
+    <div id="turnstile"></div><div class="actions"><button id="submit" onclick="submitTicket()">智能分析并创建工单</button><button class="secondary" onclick="loadSaved()">查看我上次的工单</button></div>
+  </section>
+  <section><h2>处理链路</h2><p class="hint">检索和生成是两层独立的质量关卡。</p><div class="flow">
+    <div class="step"><strong>01 · 身份与边界</strong><small>租户过滤、访问凭证、输入校验</small></div>
+    <div class="step"><strong>02 · 分诊与检索</strong><small>风险识别、查询改写、BM25 + 向量召回</small></div>
+    <div class="step"><strong>03 · 证据治理</strong><small>融合排序、相关度判断、引用校验</small></div>
+    <div class="step"><strong>04 · 人工接管</strong><small>高风险或证据不足自动转人工</small></div>
+  </div></section>
+  <section id="result"><div class="empty">提交工单后，这里会展示判断、建议和真实引用来源。</div></section>
+</main>
+<footer>公开作品演示 · 数据为模拟内容 · 系统不会自动执行权限、生产或数据变更</footer>
+<script>
+const esc=v=>String(v??"").replace(/[&<>'"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;","'":"&#39;",'"':"&quot;"}[c]));
+function render(t){const sources=(t.citations||[]).map(c=>`<div class="source"><b>${esc(c.title)} · v${esc(c.version)}</b><div>${esc(c.excerpt)}</div><small>段落 ID ${esc(c.chunk_id)}</small></div>`).join("");document.querySelector('#result').innerHTML=`<div class="topline"><div><h2>${esc(t.title)}</h2><div class="hint">${esc(t.ticket_id)}</div></div><span class="badge ${t.needs_human_approval?'risk':''}">${esc(t.status)}</span></div><div class="grid"><div class="metric"><small>分类</small>${esc(t.category)}</div><div class="metric"><small>优先级</small>${esc(t.priority)}</div><div class="metric"><small>风险</small>${esc(t.risk_level)}</div><div class="metric"><small>证据置信度</small>${Math.round((t.confidence||0)*100)}%</div></div><h3>处理建议</h3><div class="answer">${esc(t.answer)}</div><h3>引用来源</h3><div class="sources">${sources||'<div class="hint">证据不足，已转交人工。</div>'}</div>${t.access_token?'<div class="secret">访问凭证已保存在当前浏览器。它相当于这张工单的查看密码，请勿分享。</div>':''}`}
+async function submitTicket(){const b=document.querySelector('#submit');b.disabled=true;try{const r=await fetch('/api/v1/tickets',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({工单标题:title.value,工单描述:description.value,提交人:requester.value,人机验证令牌:window.turnstileToken||''})});const d=await r.json();if(!r.ok)throw Error(d.detail||'提交失败');localStorage.setItem('atlas-ticket',JSON.stringify({id:d.ticket_id,token:d.access_token}));render(d)}catch(e){document.querySelector('#result').innerHTML=`<div class="empty error">${esc(e.message)}</div>`}finally{b.disabled=false}}
+async function loadSaved(){try{const saved=JSON.parse(localStorage.getItem('atlas-ticket')||'null');if(!saved)throw Error('当前浏览器还没有保存工单凭证');const r=await fetch(`/api/v1/tickets/${encodeURIComponent(saved.id)}`,{headers:{'X-Ticket-Token':saved.token}});const d=await r.json();if(!r.ok)throw Error(d.detail||'读取失败');render(d)}catch(e){document.querySelector('#result').innerHTML=`<div class="empty error">${esc(e.message)}</div>`}}
+fetch('/api/v1/public-config').then(r=>r.json()).then(c=>{if(c.turnstile_site_key){const s=document.createElement('script');s.src='https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit';s.onload=()=>turnstile.render('#turnstile',{sitekey:c.turnstile_site_key,callback:t=>window.turnstileToken=t});document.head.appendChild(s)}});
+</script>
+</body></html>
