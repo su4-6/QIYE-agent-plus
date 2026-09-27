@@ -10,6 +10,28 @@ $ErrorActionPreference = "Stop"
 $projectRoot = Split-Path -Parent $PSScriptRoot
 Set-Location -LiteralPath $projectRoot
 
+function Test-LocalPortAvailable([int]$CandidatePort) {
+    $listener = [Net.Sockets.TcpListener]::new([Net.IPAddress]::Loopback, $CandidatePort)
+    try {
+        $listener.Start()
+        return $true
+    }
+    catch {
+        return $false
+    }
+    finally {
+        $listener.Stop()
+    }
+}
+
+$requestedPort = $Port
+while (-not (Test-LocalPortAvailable $Port)) {
+    $Port++
+}
+if ($Port -ne $requestedPort) {
+    Write-Host "Port $requestedPort is busy. Using port $Port instead." -ForegroundColor Yellow
+}
+
 if (-not (Get-Command conda -ErrorAction SilentlyContinue)) {
     throw "Conda was not found. Open Anaconda Prompt and run this script again."
 }
