@@ -49,3 +49,5 @@ class HealthResponse(BaseModel):
     database: str
     retrieval: str
     llm_enabled: bool
+    llm_provider: str
+    llm_model: str

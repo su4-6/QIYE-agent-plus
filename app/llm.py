@@ -11,7 +11,15 @@ logger = logging.getLogger(__name__)
 
 
 def is_llm_enabled() -> bool:
-    return bool(settings.llm_api_key.strip())
+    return settings.active_llm_provider != "disabled"
+
+
+def llm_status() -> dict[str, str | bool]:
+    return {
+        "enabled": is_llm_enabled(),
+        "provider": settings.active_llm_provider,
+        "model": settings.active_llm_model if is_llm_enabled() else "",
+    }
 
 
 def generate_grounded_answer(*, title: str, description: str, category: str,
@@ -32,12 +40,12 @@ def generate_grounded_answer(*, title: str, description: str, category: str,
 
 资料：
 {evidence}"""
-    client_args = {"api_key": settings.llm_api_key, "timeout": 15.0}
-    if settings.llm_base_url:
-        client_args["base_url"] = settings.llm_base_url
+    client_args = {"api_key": settings.active_llm_api_key, "timeout": 30.0}
+    if settings.active_llm_base_url:
+        client_args["base_url"] = settings.active_llm_base_url
     try:
         response = OpenAI(**client_args).chat.completions.create(
-            model=settings.llm_model,
+            model=settings.active_llm_model,
             messages=[{"role": "system", "content": "只输出合法 JSON。"},
                       {"role": "user", "content": prompt}],
             response_format={"type": "json_object"},

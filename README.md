@@ -10,6 +10,7 @@
 - 版本化知识库，管理员可导入 TXT、Markdown 和文本 PDF。
 - 访客工单访问凭证、管理员签名会话、CSRF 校验、租户过滤、限流和 Turnstile。
 - 高风险及低置信度人工接管，审批状态使用条件更新防止重复处理。
+- 支持从 `MIMO_API_KEY` 自动接入 MiMo；模型失败或引用校验失败时转人工。
 - 工单、状态变化和审计日志同事务保存。
 - Docker Compose 部署和 30 条固定工单检索评测。
 
@@ -43,6 +44,15 @@ powershell -ExecutionPolicy Bypass -File .\scripts\run-local-conda.ps1
 根据提示设置一个仅用于本机的管理员密码，然后打开
 `http://127.0.0.1:8000`。脚本使用独立的 `data/local-verify.db`，关闭窗口或按
 `Ctrl+C` 即可停止，不会连接线上 K3s，也不会读取项目现有 `.env` 中的模型密钥。
+
+需要使用 Windows 环境变量中的 `MIMO_API_KEY` 做真实生成时，增加开关：
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\scripts\run-local-conda.ps1 -UseMimo
+```
+
+管理员首页会显示当前生成模型；也可运行 `conda run -n ticket-agent python
+scripts/check-llm.py` 做不含真实业务数据的模型与引用冒烟检查。
 
 ### Python 虚拟环境
 

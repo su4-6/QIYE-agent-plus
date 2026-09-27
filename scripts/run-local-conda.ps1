@@ -1,6 +1,7 @@
 param(
     [string]$EnvironmentName = "ticket-agent",
-    [int]$Port = 8000
+    [int]$Port = 8000,
+    [switch]$UseMimo
 )
 
 $ErrorActionPreference = "Stop"
@@ -16,8 +17,14 @@ if (-not (Get-Command conda -ErrorAction SilentlyContinue)) {
 $env:PYTHON_DOTENV_DISABLED = "1"
 $env:APP_ENV = "dev"
 $env:EMBEDDING_PROVIDER = "disabled"
-# A whitespace value overrides any key in .env, while the app treats it as disabled.
-$env:LLM_API_KEY = " "
+if ($UseMimo) {
+    $env:LLM_PROVIDER = "mimo"
+}
+else {
+    $env:LLM_PROVIDER = "disabled"
+    # A whitespace value overrides any key in .env, while the app treats it as disabled.
+    $env:LLM_API_KEY = " "
+}
 $env:DATABASE_URL = "data/local-verify.db"
 $env:SESSION_SECRET = "local-verification-secret-32-bytes-minimum"
 
@@ -55,6 +62,7 @@ Write-Host ""
 Write-Host "Atlas Desk is starting..." -ForegroundColor Cyan
 Write-Host "Public page: http://127.0.0.1:$Port"
 Write-Host "Admin page:  http://127.0.0.1:$Port/admin"
+Write-Host "LLM mode:    $(if ($UseMimo) { 'MiMo' } else { 'offline' })"
 Write-Host "Press Ctrl+C to stop."
 Write-Host ""
 

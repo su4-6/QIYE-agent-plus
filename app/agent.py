@@ -1,11 +1,11 @@
 from __future__ import annotations
 
-from typing import NotRequired, Required, TypedDict
+from typing import Literal, NotRequired, Required, TypedDict
 
 from langgraph.graph import END, StateGraph
 
 from app.knowledge import retrieve
-from app.llm import generate_grounded_answer
+from app.llm import generate_grounded_answer, is_llm_enabled
 from app.tools import classify_category, create_it_ticket, evaluate_priority, evaluate_risk_level
 
 
@@ -53,25 +53,37 @@ def decide(state: TicketState) -> dict:
             "needs_human_approval": needs_human, "citations": citations}
 
 
+def route_after_evidence(state: TicketState) -> Literal["human", "generate"]:
+    return "human" if state["needs_human_approval"] else "generate"
+
+
+def human_handoff(state: TicketState) -> dict:
+    hits = state["retrieval"]["hits"]
+    if not hits:
+        text = "未检索到足够的企业知识，系统已转交人工处理。请补充影响范围、错误信息和发生时间。"
+    else:
+        suggestions = "\n".join(f"{i}. {hit['content']}" for i, hit in enumerate(hits[:3], 1))
+        text = f"该工单需要人工确认，以下仅为审批前排查资料：\n{suggestions}"
+    return {"status": "待人工处理", "answer": text, "answer_source": "人工接管前知识库资料"}
+
+
 def answer(state: TicketState) -> dict:
     hits = state["retrieval"]["hits"]
-    needs_human = state["needs_human_approval"]
     generated, cited = generate_grounded_answer(
         title=state["title"], description=state["description"], category=state["category"],
         risk_level=state["risk_level"], hits=hits, allow_llm=state["allow_llm"],
     )
     if generated:
         citations = [item for item in state["citations"] if item["chunk_id"] in cited]
-        return {"status": "待人工处理" if needs_human else "已给出处理建议",
+        return {"status": "已给出处理建议",
                 "answer": generated, "answer_source": "检索增强生成", "citations": citations}
-    if not hits:
-        text = "未检索到足够的企业知识，系统已转交人工处理。请补充影响范围、错误信息和发生时间。"
-    else:
-        suggestions = "\n".join(f"{i}. {hit['content']}" for i, hit in enumerate(hits[:3], 1))
-        prefix = "该工单需要人工确认，以下仅为审批前排查资料：" if needs_human else "可先依据以下知识库资料排查："
-        text = f"{prefix}\n{suggestions}"
-    return {"status": "待人工处理" if needs_human else "已给出处理建议",
-            "answer": text, "answer_source": "可追溯知识库答复"}
+    suggestions = "\n".join(f"{i}. {hit['content']}" for i, hit in enumerate(hits[:3], 1))
+    if state["allow_llm"] and is_llm_enabled():
+        return {"status": "待人工处理", "needs_human_approval": True,
+                "answer": f"模型生成或引用校验未通过，已转交人工处理。以下为检索资料：\n{suggestions}",
+                "answer_source": "模型校验失败，人工接管"}
+    return {"status": "已给出处理建议", "answer": f"可先依据以下知识库资料排查：\n{suggestions}",
+            "answer_source": "可追溯知识库答复"}
 
 
 def build_graph():
@@ -79,11 +91,14 @@ def build_graph():
     graph.add_node("意图与风险识别", triage)
     graph.add_node("查询改写与混合召回", search)
     graph.add_node("证据与人工转接判断", decide)
+    graph.add_node("人工接管", human_handoff)
     graph.add_node("生成与引用校验", answer)
     graph.set_entry_point("意图与风险识别")
     graph.add_edge("意图与风险识别", "查询改写与混合召回")
     graph.add_edge("查询改写与混合召回", "证据与人工转接判断")
-    graph.add_edge("证据与人工转接判断", "生成与引用校验")
+    graph.add_conditional_edges("证据与人工转接判断", route_after_evidence,
+                                {"human": "人工接管", "generate": "生成与引用校验"})
+    graph.add_edge("人工接管", END)
     graph.add_edge("生成与引用校验", END)
     return graph.compile()
 

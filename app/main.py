@@ -11,7 +11,7 @@ from app.agent import ticket_graph
 from app.config import settings
 from app.database import init_database
 from app.knowledge import extract_text, import_document, seed_demo
-from app.llm import is_llm_enabled
+from app.llm import llm_status
 from app.repository import (approve_ticket, count_tickets, get_ticket, get_ticket_with_secret,
                             list_audit_logs, list_documents, list_tickets, save_ticket)
 from app.schemas import ApprovalRequest, HealthResponse, LoginRequest, TicketRequest, TicketResponse
@@ -73,8 +73,10 @@ def admin_page():
 @app.get("/health", response_model=HealthResponse, include_in_schema=False)
 def health():
     retrieval = "bm25" if settings.embedding_provider == "disabled" else "bm25+vector"
+    model = llm_status()
     return {"status": "ok", "database": "ok", "retrieval": retrieval,
-            "llm_enabled": is_llm_enabled()}
+            "llm_enabled": model["enabled"], "llm_provider": model["provider"],
+            "llm_model": model["model"]}
 
 
 @app.get("/api/v1/public-config")

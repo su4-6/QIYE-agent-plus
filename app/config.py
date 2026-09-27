@@ -14,9 +14,13 @@ class Settings:
     app_name: str = os.getenv("APP_NAME", "企业工单智能处理 Agent 系统")
     app_env: str = os.getenv("APP_ENV", "dev")
     database_url: str = os.getenv("DATABASE_URL", "data/tickets.db")
+    llm_provider: str = os.getenv("LLM_PROVIDER", "auto").strip().lower()
     llm_api_key: str = os.getenv("LLM_API_KEY", "")
     llm_base_url: str = os.getenv("LLM_BASE_URL", "")
     llm_model: str = os.getenv("LLM_MODEL", "gemini-2.5-flash")
+    mimo_api_key: str = os.getenv("MIMO_API_KEY", "")
+    mimo_base_url: str = os.getenv("MIMO_BASE_URL", "https://api.xiaomimimo.com/v1")
+    mimo_model: str = os.getenv("MIMO_MODEL", "mimo-v2.5-pro")
     embedding_provider: str = os.getenv("EMBEDDING_PROVIDER", "local")
     embedding_model: str = os.getenv("EMBEDDING_MODEL", "BAAI/bge-small-zh-v1.5")
     session_secret: str = os.getenv("SESSION_SECRET", "")
@@ -34,6 +38,26 @@ class Settings:
     @property
     def database_path(self) -> Path:
         return Path(self.database_url)
+
+    @property
+    def active_llm_provider(self) -> str:
+        if self.llm_provider == "disabled":
+            return "disabled"
+        if self.llm_provider == "mimo" or (self.llm_provider == "auto" and self.mimo_api_key.strip()):
+            return "mimo" if self.mimo_api_key.strip() else "disabled"
+        return "generic" if self.llm_api_key.strip() else "disabled"
+
+    @property
+    def active_llm_api_key(self) -> str:
+        return self.mimo_api_key if self.active_llm_provider == "mimo" else self.llm_api_key
+
+    @property
+    def active_llm_base_url(self) -> str:
+        return self.mimo_base_url if self.active_llm_provider == "mimo" else self.llm_base_url
+
+    @property
+    def active_llm_model(self) -> str:
+        return self.mimo_model if self.active_llm_provider == "mimo" else self.llm_model
 
 
 settings = Settings()

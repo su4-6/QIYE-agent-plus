@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import unittest
 from pathlib import Path
+from unittest.mock import patch
 
 from fastapi.testclient import TestClient
 
@@ -23,6 +24,7 @@ class TicketSystemTest(unittest.TestCase):
                 target.unlink()
         object.__setattr__(settings, "database_url", str(cls.database))
         object.__setattr__(settings, "embedding_provider", "disabled")
+        object.__setattr__(settings, "llm_provider", "disabled")
         object.__setattr__(settings, "llm_api_key", "")
         object.__setattr__(settings, "app_env", "test")
         object.__setattr__(settings, "session_secret", "s" * 48)
@@ -58,8 +60,10 @@ class TicketSystemTest(unittest.TestCase):
         self.assertTrue(ok.json()["citations"])
 
     def test_high_risk_approval_is_atomic_and_single_use(self):
-        ticket = self.create(high_risk=True)
+        with patch("app.agent.generate_grounded_answer", side_effect=AssertionError("高风险工单不应调用模型")):
+            ticket = self.create(high_risk=True)
         self.assertEqual(ticket["status"], "待人工处理")
+        self.assertEqual(ticket["answer_source"], "人工接管前知识库资料")
         csrf = self.admin()
         headers = {"X-CSRF-Token": csrf}
         body = {"是否通过": True, "审批人": "测试审批员", "审批意见": "只批准人工处理"}
@@ -72,6 +76,19 @@ class TicketSystemTest(unittest.TestCase):
         self.assertEqual(second.status_code, 409)
         logs = self.client.get(f"/api/v1/admin/tickets/{ticket['ticket_id']}/audit-logs")
         self.assertEqual([item["action"] for item in logs.json()], ["工单创建", "人工审批"])
+
+    def test_model_validation_failure_goes_to_human(self):
+        object.__setattr__(settings, "llm_provider", "generic")
+        object.__setattr__(settings, "llm_api_key", "test-only")
+        try:
+            with patch("app.agent.generate_grounded_answer", return_value=(None, [])):
+                ticket = self.create()
+            self.assertEqual(ticket["status"], "待人工处理")
+            self.assertTrue(ticket["needs_human_approval"])
+            self.assertEqual(ticket["answer_source"], "模型校验失败，人工接管")
+        finally:
+            object.__setattr__(settings, "llm_provider", "disabled")
+            object.__setattr__(settings, "llm_api_key", "")
 
     def test_tenant_filter_and_knowledge_upload(self):
         with get_connection() as db:
