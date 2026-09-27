@@ -51,8 +51,11 @@ $env:DATABASE_URL = "data/local-verify.db"
 $env:SESSION_SECRET = "local-verification-secret-32-bytes-minimum"
 
 $plainPassword = $env:ATLAS_LOCAL_ADMIN_PASSWORD
-if (-not $plainPassword) {
-    $securePassword = Read-Host "Set a local admin password" -AsSecureString
+while (-not $plainPassword -or $plainPassword.Length -lt 8) {
+    if ($plainPassword) {
+        Write-Host "The local admin password must contain at least 8 characters." -ForegroundColor Yellow
+    }
+    $securePassword = Read-Host "Set a local admin password (at least 8 characters)" -AsSecureString
     $passwordPointer = [Runtime.InteropServices.Marshal]::SecureStringToBSTR($securePassword)
     try {
         $plainPassword = [Runtime.InteropServices.Marshal]::PtrToStringBSTR($passwordPointer)
@@ -60,10 +63,6 @@ if (-not $plainPassword) {
     finally {
         [Runtime.InteropServices.Marshal]::ZeroFreeBSTR($passwordPointer)
     }
-}
-
-if (-not $plainPassword) {
-    throw "The local admin password cannot be empty."
 }
 
 $env:ATLAS_PASSWORD_FOR_HASH = $plainPassword
