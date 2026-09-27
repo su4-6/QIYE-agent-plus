@@ -72,7 +72,8 @@ def admin_page():
 
 @app.get("/health", response_model=HealthResponse, include_in_schema=False)
 def health():
-    return {"status": "ok", "database": "ok", "retrieval": "bm25+vector",
+    retrieval = "bm25" if settings.embedding_provider == "disabled" else "bm25+vector"
+    return {"status": "ok", "database": "ok", "retrieval": retrieval,
             "llm_enabled": is_llm_enabled()}
 
 

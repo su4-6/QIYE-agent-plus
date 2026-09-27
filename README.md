@@ -32,6 +32,20 @@ FastAPI 接收工单
 
 ## 本地启动
 
+### Conda 一键启动（推荐）
+
+项目已使用名为 `ticket-agent` 的 Conda 环境时，在 PowerShell 中执行：
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\scripts\run-local-conda.ps1
+```
+
+根据提示设置一个仅用于本机的管理员密码，然后打开
+`http://127.0.0.1:8000`。脚本使用独立的 `data/local-verify.db`，关闭窗口或按
+`Ctrl+C` 即可停止，不会连接线上 K3s，也不会读取项目现有 `.env` 中的模型密钥。
+
+### Python 虚拟环境
+
 ```powershell
 python -m venv .venv
 .\.venv\Scripts\Activate.ps1
