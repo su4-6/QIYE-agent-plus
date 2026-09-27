@@ -24,12 +24,11 @@ function Test-LocalPortAvailable([int]$CandidatePort) {
     }
 }
 
-$requestedPort = $Port
-while (-not (Test-LocalPortAvailable $Port)) {
-    $Port++
-}
-if ($Port -ne $requestedPort) {
-    Write-Host "Port $requestedPort is busy. Using port $Port instead." -ForegroundColor Yellow
+if (-not (Test-LocalPortAvailable $Port)) {
+    Write-Host "Port $Port is already in use, so this launch was stopped." -ForegroundColor Red
+    Write-Host "Close the old Atlas Desk window with Ctrl+C, or choose another unused port, for example -Port 8010."
+    Write-Host "The password only belongs to the service address printed by that launch."
+    exit 2
 }
 
 if (-not (Get-Command conda -ErrorAction SilentlyContinue)) {
