@@ -5,6 +5,10 @@ param(
 
 $ErrorActionPreference = "Stop"
 
+# Always run from the repository root, even when launched from another folder.
+$projectRoot = Split-Path -Parent $PSScriptRoot
+Set-Location -LiteralPath $projectRoot
+
 if (-not (Get-Command conda -ErrorAction SilentlyContinue)) {
     throw "Conda was not found. Open Anaconda Prompt and run this script again."
 }
