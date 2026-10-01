@@ -32,6 +32,7 @@ class Settings:
     low_risk_assistance: bool = os.getenv('LOW_RISK_ASSISTANCE', 'false').lower() == 'true'
     auto_approve_low_risk: bool = os.getenv('AUTO_APPROVE_LOW_RISK', 'true').lower() == 'true'
     admin_username: str = os.getenv('ADMIN_USERNAME', 'admin').strip()
+    model_api_allowed_base_urls: str = os.getenv('MODEL_API_ALLOWED_BASE_URLS', '')
     high_risk_keywords: tuple[str, ...] = tuple(
         word.strip() for word in os.getenv(
             "HIGH_RISK_KEYWORDS", "生产,支付,订单,财务,法务,高管,管理员,批量,数据删除,权限提升,海外访问"

@@ -11,6 +11,7 @@ from openai import OpenAI, OpenAIError
 from app.config import settings
 from app.database import get_connection
 from app.answer_validation import sentence_catalog, render_selection
+from app.model_api import resolve_connection, client_arguments
 
 logger = logging.getLogger(__name__)
 last_generation = contextvars.ContextVar("last_generation", default={})
@@ -38,14 +39,21 @@ def validate_citations(cited, hits: list[dict], tenant_id: str | None = None) ->
 
 
 def is_llm_enabled() -> bool:
-    return settings.active_llm_provider != "disabled"
+    try:
+        return resolve_connection().enabled
+    except ValueError:
+        return False
 
 
 def llm_status() -> dict[str, str | bool]:
+    try:
+        connection = resolve_connection()
+    except ValueError:
+        return {'enabled': False, 'provider': 'disabled', 'model': ''}
     return {
-        "enabled": is_llm_enabled(),
-        "provider": settings.active_llm_provider,
-        "model": settings.active_llm_model if is_llm_enabled() else "",
+        "enabled": connection.enabled,
+        "provider": connection.provider,
+        "model": connection.model if connection.enabled else "",
     }
 
 
@@ -53,7 +61,14 @@ def generate_grounded_answer(*, title: str, description: str, category: str,
                              risk_level: str, hits: list[dict], allow_llm: bool,
                              tenant_id: str | None = None, conversation: list[dict] | None = None) -> tuple[str | None, list[int]]:
     last_generation.set({"called": False})
-    if not allow_llm or not is_llm_enabled() or not hits:
+    if not allow_llm or not hits:
+        return None, []
+    try:
+        connection = resolve_connection(tenant_id or 'demo')
+    except ValueError:
+        last_generation.set({'called': False, 'error_type': 'model_configuration_unavailable'})
+        return None, []
+    if not connection.enabled:
         return None, []
     try:
         # Reject invalid tenant/version context before it leaves this service.
@@ -66,7 +81,7 @@ def generate_grounded_answer(*, title: str, description: str, category: str,
     if not catalog:
         return None, []
     if settings.low_risk_assistance:
-        return generate_support_plan(title,description,category,catalog,hits,tenant_id,conversation or [])
+        return generate_support_plan(title,description,category,catalog,hits,tenant_id,conversation or [],connection)
     evidence = json.dumps(catalog, ensure_ascii=False)
     prompt = f"""你是企业 IT 服务台助手。只能根据给定资料回答，不得补充资料外的企业制度或已执行动作。
 输出严格 JSON：{{"selected_sentence_ids":["资料ID:句子序号"],"questions":[]}}。
@@ -86,16 +101,16 @@ questions 只用于澄清当前问题，不能索取密码、验证码、密钥�
 
 资料：
 {evidence}"""
-    client_args = {"api_key": settings.active_llm_api_key, "timeout": 30.0, "max_retries": 0}
-    if settings.active_llm_base_url:
-        client_args["base_url"] = settings.active_llm_base_url
+    client_args = client_arguments(connection)
+    client = None
     try:
         started = time.perf_counter()
         last_generation.set({"called": True, "structured": False, "citations_valid": False})
         output_options = ({"max_completion_tokens": 1000, "extra_body": {"thinking": {"type": "disabled"}}}
-                          if settings.active_llm_provider == "mimo" else {"max_tokens": 1000})
-        response = OpenAI(**client_args).chat.completions.create(
-            model=settings.active_llm_model,
+                          if connection.driver == "mimo" else {"max_tokens": 1000})
+        client = OpenAI(**client_args)
+        response = client.chat.completions.create(
+            model=connection.model,
             messages=[{"role": "system", "content": "只输出合法 JSON。"},
                       {"role": "user", "content": prompt}],
             response_format={"type": "json_object"},
@@ -131,18 +146,21 @@ questions 只用于澄清当前问题，不能索取密码、验证码、密钥�
         last_generation.set({**last_generation.get(), "error_type": type(exc).__name__})
         logger.warning("generation_failed error_type=%s", type(exc).__name__)
         return None, []
+    finally:
+        if client is not None:
+            client.close()
 
 
-def generate_support_plan(title,description,category,catalog,hits,tenant_id,conversation):
+def generate_support_plan(title,description,category,catalog,hits,tenant_id,conversation,connection=None):
     from app.assistance import plan_prompt,validate_plan,review_prompt,render_plan
     from app.security import use_quota
-    args={'api_key':settings.active_llm_api_key,'timeout':30.0,'max_retries':0}
-    if settings.active_llm_base_url:args['base_url']=settings.active_llm_base_url
+    connection=connection or resolve_connection(tenant_id or 'demo')
+    args=client_arguments(connection)
     options=({'max_completion_tokens':4096,'extra_body':{'thinking':{'type':'enabled'}}}
-             if settings.active_llm_provider=='mimo' else {'max_tokens':1200})
+             if connection.driver=='mimo' else {'max_tokens':1200})
     client=OpenAI(**args)
     def call(prompt):
-        result=client.chat.completions.create(model=settings.active_llm_model,
+        result=client.chat.completions.create(model=connection.model,
                     messages=[{'role':'system','content':'严格遵守任务，只输出合法JSON。'}, {'role':'user','content':prompt}],
                     response_format={'type':'json_object'},**options)
         return json.loads(result.choices[0].message.content or '{}')
@@ -177,7 +195,9 @@ def generate_support_plan(title,description,category,catalog,hits,tenant_id,conv
         return (text,cited) if data['decision']=='advise' else (None,[])
     except (OpenAIError,ValueError,TypeError,KeyError) as exc:
         last_generation.set({**last_generation.get(),'error_type':type(exc).__name__,
-                             'answer_validation':{'passed':False,'method':'contextual_support_v1','reason':str(exc)[:100],
+                             'answer_validation':{'passed':False,'method':'contextual_support_v1','reason':type(exc).__name__ if isinstance(exc,OpenAIError) else str(exc)[:100],
                                 'draft':last_generation.get().get('support_plan'), 'review':last_generation.get().get('logic_review')}})
         logger.warning('support_plan_failed error_type=%s',type(exc).__name__)
         return None,[]
+    finally:
+        client.close()

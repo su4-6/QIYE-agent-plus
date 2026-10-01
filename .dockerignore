@@ -4,6 +4,7 @@ __pycache__
 *.pyc
 .pytest_cache
 .env
+work
 data/*.db
 data/*.db-*
 data/backups

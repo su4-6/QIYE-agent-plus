@@ -4,6 +4,7 @@ import logging
 import time
 import uuid
 import hmac
+from pydantic import ValidationError
 from contextlib import asynccontextmanager
 from pathlib import Path
 
@@ -28,6 +29,8 @@ from app.retrieval_health import vector_health, verify_local_vector_runtime
 from app.metrics import retrieval_metrics
 from app.observability import request_id, event, configure_logging
 from app.evidence import policy
+from app.model_api import (ModelApiInput, public_configuration, save_configuration,
+                           restore_default, test_configuration)
 
 logger = logging.getLogger(__name__)
 INDEX_PATH = Path(__file__).parent / "templates" / "index.html"
@@ -326,6 +329,57 @@ def admin_audit(ticket_id: str, request: Request):
 def admin_knowledge(request: Request):
     claims = admin_claims(request)
     return list_documents(claims["tenant_id"])
+
+
+def model_api_payload(payload):
+    try:
+        return ModelApiInput.model_validate(payload)
+    except ValidationError as exc:
+        # Do not include input/ctx: a malformed key must never appear in a 422 response.
+        raise HTTPException(status_code=422, detail=[{'loc': e['loc'], 'msg': e['msg']}
+                                                   for e in exc.errors()]) from None
+
+
+def model_api_operation(operation):
+    try:
+        return operation()
+    except LookupError as exc:
+        raise HTTPException(status_code=409, detail=str(exc)) from None
+    except ValueError as exc:
+        raise HTTPException(status_code=422, detail=str(exc)) from None
+    except OverflowError as exc:
+        raise HTTPException(status_code=429, detail=str(exc)) from None
+
+
+@app.get('/api/v1/admin/model-api')
+def admin_model_api(request: Request):
+    claims = admin_claims(request)
+    return model_api_operation(lambda: public_configuration(claims['tenant_id']))
+
+
+@app.put('/api/v1/admin/model-api')
+def update_model_api(request: Request, payload: dict):
+    claims = admin_claims(request, csrf=True)
+    config = model_api_payload(payload)
+    def save_tested():
+        test_configuration(claims['tenant_id'], config)
+        return save_configuration(claims['tenant_id'], claims['username'], config)
+    return model_api_operation(save_tested)
+
+
+@app.post('/api/v1/admin/model-api/test')
+def check_model_api(request: Request, payload: dict):
+    claims = admin_claims(request, csrf=True)
+    config = model_api_payload(payload)
+    return model_api_operation(lambda: test_configuration(claims['tenant_id'], config))
+
+
+@app.post('/api/v1/admin/model-api/restore')
+def reset_model_api(request: Request, payload: dict):
+    claims = admin_claims(request, csrf=True)
+    if set(payload) != {'expected_version'} or type(payload['expected_version']) is not int or payload['expected_version'] < 0:
+        raise HTTPException(status_code=422, detail='请提供有效的模型配置版本')
+    return model_api_operation(lambda: restore_default(claims['tenant_id'], claims['username'], payload['expected_version']))
 
 
 @app.get("/api/v1/admin/retrieval-metrics")

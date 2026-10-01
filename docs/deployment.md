@@ -28,7 +28,7 @@ docker build -f Dockerfile.bge -t atlas-desk:review-bge .
 kubectl kustomize deploy/overlays/local-bge
 ```
 
-镜像已发布到 `docker.io/suqihang/atlas-desk:20261001-assistance.2`，overlay 固定已验证的 digest。这个 overlay 包含生产路由，只有生产密钥配置齐全并完成公网容量检查后才能应用。当前内网部署的无 Secret 清单保存在 `deploy/releases/20261001/internal.yaml`，不包含 HTTPRoute。
+当前镜像已发布到 `docker.io/suqihang/atlas-desk:20261002-model-api.1`，overlay 固定已验证的 digest。该版本通过 `deploy/Dockerfile.model-api` 复用 business.2 的离线 BGE 模型层；完整构建仍可使用 `Dockerfile.bge`。这个 overlay 包含生产路由，只有生产密钥配置齐全并完成公网容量检查后才能应用。初始内网部署的无 Secret 清单保存在 `deploy/releases/20261001/internal.yaml`，不包含 HTTPRoute。管理台模型 API 使用方法见 [模型配置](model-api.md)。
 已有知识库启动时只做本地向量生成与 SQLite 向量距离自检，不重写知识库，不调用大模型或远程向量服务。
 工程测试覆盖重启自检、失败降级和不对远程模式新增启动调用。
 

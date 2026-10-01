@@ -55,4 +55,4 @@ patches:
 images:
   - name: ghcr.io/su4-6/qiye-agent-plus
     newName: docker.io/suqihang/atlas-desk
-    digest: sha256:59d54a2150b4a2ad40b32a182eb569b0eb68eddb55f04f9ee9ca2b0caf9cfc2b
+    digest: sha256:cc06a3f6e7e02c32422450238bbd6a6d6865e02193b71fab228e7e5fa3f9058a

@@ -10,4 +10,5 @@ fastembed==0.8.1
 jieba==0.42.1
 pypdf==6.1.1
 python-multipart==0.0.20
+cryptography==50.0.2
 google-genai>=1.40,<2

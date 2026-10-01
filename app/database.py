@@ -50,7 +50,7 @@ def init_database() -> None:
         with closing(sqlite3.connect(path)) as source:
             version = source.execute("PRAGMA user_version").fetchone()[0]
             tables = source.execute("SELECT 1 FROM sqlite_master WHERE name='tickets'").fetchone()
-            if tables and version < 7:
+            if tables and version < 8:
                 backup_dir = path.parent / "backups"
                 backup_dir.mkdir(parents=True, exist_ok=True)
                 stamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%S%f")
@@ -148,4 +148,14 @@ def init_database() -> None:
             operator TEXT NOT NULL, created_at TEXT NOT NULL, PRIMARY KEY(tenant_id,version))''')
         from app.approvals import seed_demo_policy
         seed_demo_policy(db)
-        db.execute("PRAGMA user_version=7")
+        db.execute('''CREATE TABLE IF NOT EXISTS model_api_profiles (
+            tenant_id TEXT NOT NULL, provider TEXT NOT NULL, base_url TEXT NOT NULL,
+            model TEXT NOT NULL, key_ciphertext TEXT NOT NULL, updated_at TEXT NOT NULL,
+            PRIMARY KEY(tenant_id,provider))''')
+        db.execute('''CREATE TABLE IF NOT EXISTS model_api_settings (
+            tenant_id TEXT PRIMARY KEY, version INTEGER NOT NULL, active_provider TEXT NOT NULL)''')
+        db.execute('''CREATE TABLE IF NOT EXISTS model_api_audit (
+            id INTEGER PRIMARY KEY AUTOINCREMENT, tenant_id TEXT NOT NULL, version INTEGER NOT NULL,
+            action TEXT NOT NULL, provider TEXT NOT NULL, base_url TEXT NOT NULL, model TEXT NOT NULL,
+            operator TEXT NOT NULL, created_at TEXT NOT NULL)''')
+        db.execute("PRAGMA user_version=8")

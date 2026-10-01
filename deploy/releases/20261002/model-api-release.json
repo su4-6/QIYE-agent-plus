@@ -1,0 +1,19 @@
+{
+  "date": "2026-10-02",
+  "image": "docker.io/suqihang/atlas-desk@sha256:cc06a3f6e7e02c32422450238bbd6a6d6865e02193b71fab228e7e5fa3f9058a",
+  "tag": "docker.io/suqihang/atlas-desk:20261002-model-api.1",
+  "existingTicketCount": 31,
+  "oldTicketIdentitiesPreserved": true,
+  "otherWorkloadsAndPvcPreserved": true,
+  "unitTests": 89,
+  "linuxImageModelConfigTests": 14,
+  "browserChecks": 18,
+  "publicReadonlyChecks": 9,
+  "offlineStartup": true,
+  "vectorCoverage": "70/70",
+  "initialModelProvider": "mimo",
+  "initialModelSource": "environment",
+  "modelApiVersion": 0,
+  "isolatedLiveMimoPassed": true,
+  "otherProvidersLiveTested": false
+}
