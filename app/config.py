@@ -11,7 +11,7 @@ load_dotenv()
 
 @dataclass(frozen=True)
 class Settings:
-    app_name: str = os.getenv("APP_NAME", "企业工单智能处理 Agent 系统")
+    app_name: str = os.getenv("APP_NAME", "Atlas Desk · 智能工单处理 Agent（个人项目）")
     app_env: str = os.getenv("APP_ENV", "dev")
     database_url: str = os.getenv("DATABASE_URL", "data/tickets.db")
     llm_provider: str = os.getenv("LLM_PROVIDER", "auto").strip().lower()

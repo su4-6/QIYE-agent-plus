@@ -1,0 +1,1786 @@
+{
+  "source_generation_sha256": "ee42f7a7fa0c2c1b6ac1b46be3207aed5d62d4e8c396eb8fa7a4d84153f54712",
+  "paid_calls": 0,
+  "method": "Exact complete source sentence alignment; not semantic entailment/NLI",
+  "summary": {
+    "legacy_answers": 30,
+    "accepted": 0,
+    "ai_unsupported_blocked": 10,
+    "ai_unsupported_total": 10,
+    "ai_supported_core_blocked": 17,
+    "ai_supported_core_total": 17,
+    "source_quote_controls": 27,
+    "source_quote_controls_passed": 27
+  },
+  "limitations": [
+    "Replays old prompt outputs; the new extractive prompt has not been tested with fresh paid calls",
+    "Conservative rejection also blocks supported paraphrases",
+    "Copied source sentences can still be irrelevant, incomplete or malicious; manual release gate remains"
+  ],
+  "rows": [
+    {
+      "case_id": "T02-Q1",
+      "original_citations_valid": true,
+      "ai_review": "unsupported_detail",
+      "accepted": false,
+      "validation": {
+        "method": "exact_source_sentence_v1",
+        "passed": false,
+        "reason": "unmatched_sentence",
+        "sentences": [
+          {
+            "sentence_index": 0,
+            "text": "根据资料，您因连续输错密码导致账号锁定。",
+            "chunk_id": null,
+            "version": null,
+            "chunk_key": ""
+          },
+          {
+            "sentence_index": 1,
+            "text": "请按以下步骤处理：1. 立即停止尝试登录，避免进一步延长锁定时间。",
+            "chunk_id": null,
+            "version": null,
+            "chunk_key": ""
+          },
+          {
+            "sentence_index": 2,
+            "text": "2. 记录账号首次被锁定的大概时间。",
+            "chunk_id": null,
+            "version": null,
+            "chunk_key": ""
+          },
+          {
+            "sentence_index": 3,
+            "text": "3. 通过官方身份验证渠道（如服务台或自助门户）核验您的身份。",
+            "chunk_id": null,
+            "version": null,
+            "chunk_key": ""
+          },
+          {
+            "sentence_index": 4,
+            "text": "4. 核验身份后，根据企业账号锁定规则，可能需等待系统自动解锁或申请人工解锁。",
+            "chunk_id": null,
+            "version": null,
+            "chunk_key": ""
+          },
+          {
+            "sentence_index": 5,
+            "text": "5. 检查您常用的旧设备（如手机、电脑）的浏览器或应用程序中是否保存了旧密码，如有，请更新或清除缓存，以免再次触发锁定。",
+            "chunk_id": null,
+            "version": null,
+            "chunk_key": ""
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "T02-Q2",
+      "original_citations_valid": true,
+      "ai_review": "unsupported_detail",
+      "accepted": false,
+      "validation": {
+        "method": "exact_source_sentence_v1",
+        "passed": false,
+        "reason": "unmatched_sentence",
+        "sentences": [
+          {
+            "sentence_index": 0,
+            "text": "根据您描述的‘登录提示账户锁定’，结合低风险分类，建议您按以下步骤进行初步排查：",
+            "chunk_id": null,
+            "version": null,
+            "chunk_key": ""
+          },
+          {
+            "sentence_index": 1,
+            "text": "1. **确认账号状态**：请尝试登录其他内部系统（如企业邮箱、OA），确认是否也提示账户锁定。",
+            "chunk_id": null,
+            "version": null,
+            "chunk_key": ""
+          },
+          {
+            "sentence_index": 2,
+            "text": "若多个系统均无法登录，则可能涉及账号锁定策略。",
+            "chunk_id": null,
+            "version": null,
+            "chunk_key": ""
+          },
+          {
+            "sentence_index": 3,
+            "text": "2. **等待一段时间**：根据常见的账户锁定策略，因连续输错密码导致的锁定，通常在等待一段时间（例如15-30分钟）后会自动解除。",
+            "chunk_id": null,
+            "version": null,
+            "chunk_key": ""
+          },
+          {
+            "sentence_index": 4,
+            "text": "您可以尝试等待后再次登录。",
+            "chunk_id": null,
+            "version": null,
+            "chunk_key": ""
+          },
+          {
+            "sentence_index": 5,
+            "text": "3. **检查输入法与大小写**：重新登录前，请确认未误开中文输入法，并仔细核对密码大小写及特殊字符。",
+            "chunk_id": null,
+            "version": null,
+            "chunk_key": ""
+          },
+          {
+            "sentence_index": 6,
+            "text": "4. **清理登录凭证**：如果使用VPN或特定客户端登录，请参考以下步骤清理凭证：打开“控制面板”->“用户账户”->“管理Windows凭据”，删除与公司服务器或VPN相关的旧凭据，然后重启客户端重试。",
+            "chunk_id": null,
+            "version": null,
+            "chunk_key": ""
+          },
+          {
+            "sentence_index": 7,
+            "text": "5. **记录错误信息**：若问题复现，请记录下完整的错误提示内容（如错误代码），以便进一步分析。",
+            "chunk_id": null,
+            "version": null,
+            "chunk_key": ""
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "T04-Q1",
+      "original_citations_valid": true,
+      "ai_review": "supported_core",
+      "accepted": false,
+      "validation": {
+        "method": "exact_source_sentence_v1",
+        "passed": false,
+        "reason": "unmatched_sentence",
+        "sentences": [
+          {
+            "sentence_index": 0,
+            "text": "根据已保存资料，您的问题属于更换手机后多因素认证（MFA）动态口令失效的常见情况。",
+            "chunk_id": null,
+            "version": null,
+            "chunk_key": ""
+          },
+          {
+            "sentence_index": 1,
+            "text": "我们已确认该问题属于低风险模拟场景，但为确保安全，仍建议您按以下步骤进行初步排查：",
+            "chunk_id": null,
+            "version": null,
+            "chunk_key": ""
+          },
+          {
+            "sentence_index": 2,
+            "text": "1. **检查设备时间**：请确保您新手机的系统时间已设置为自动同步网络时间。",
+            "chunk_id": null,
+            "version": null,
+            "chunk_key": ""
+          },
+          {
+            "sentence_index": 3,
+            "text": "时间不准确是导致动态码错误的常见原因。",
+            "chunk_id": null,
+            "version": null,
+            "chunk_key": ""
+          },
+          {
+            "sentence_index": 4,
+            "text": "2. **尝试使用恢复码**：如果您在首次绑定认证器时保存了“恢复码”，请尝试使用其中一个恢复码登录。",
+            "chunk_id": null,
+            "version": null,
+            "chunk_key": ""
+          },
+          {
+            "sentence_index": 5,
+            "text": "恢复码是专为此类情况设计的备用方案。",
+            "chunk_id": null,
+            "version": null,
+            "chunk_key": ""
+          },
+          {
+            "sentence_index": 6,
+            "text": "3. **身份核验与重新绑定**：如果恢复码不可用或已用完，需要通过官方流程进行身份核验，以安全地解绑旧设备并重新绑定新手机的认证器。",
+            "chunk_id": null,
+            "version": null,
+            "chunk_key": ""
+          },
+          {
+            "sentence_index": 7,
+            "text": "此操作需按企业授权流程进行。",
+            "chunk_id": null,
+            "version": null,
+            "chunk_key": ""
+          },
+          {
+            "sentence_index": 8,
+            "text": "4. **安全提醒**：请注意，任何操作过程中都不要在聊天或邮件中直接传递口令或恢复码。",
+            "chunk_id": null,
+            "version": null,
+            "chunk_key": ""
+          },
+          {
+            "sentence_index": 9,
+            "text": "由于此问题涉及账户认证安全，相关重置或重新绑定操作需要遵循企业授权流程并可能需人工确认。",
+            "chunk_id": null,
+            "version": null,
+            "chunk_key": ""
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "T04-Q2",
+      "original_citations_valid": true,
+      "ai_review": "supported_core",
+      "accepted": false,
+      "validation": {
+        "method": "exact_source_sentence_v1",
+        "passed": false,
+        "reason": "unmatched_sentence",
+        "sentences": [
+          {
+            "sentence_index": 0,
+            "text": "根据资料，判断为模拟工单场景，属于低风险。",
+            "chunk_id": null,
+            "version": null,
+            "chunk_key": ""
+          },
+          {
+            "sentence_index": 1,
+            "text": "可执行排查建议如下：1. 确认设备时间是否已设置为自动同步；2. 尝试使用已保存的恢复码进行登录；3. 若恢复码不可用，需按流程进行身份核验以重新绑定多因素认证；4. 切勿在聊天中传输口令或敏感信息。",
+            "chunk_id": null,
+            "version": null,
+            "chunk_key": ""
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "T08-Q2",
+      "original_citations_valid": true,
+      "ai_review": "supported_core",
+      "accepted": false,
+      "validation": {
+        "method": "exact_source_sentence_v1",
+        "passed": false,
+        "reason": "unmatched_sentence",
+        "sentences": [
+          {
+            "sentence_index": 0,
+            "text": "根据资料判断，此工单涉及远程接入软件（如VPN）的版本更新提示，属于低风险操作。",
+            "chunk_id": null,
+            "version": null,
+            "chunk_key": ""
+          },
+          {
+            "sentence_index": 1,
+            "text": "建议按以下步骤排查：1. 检查当前软件版本号，确认是否确需更新；2. 前往企业软件门户或内部资源库，查找并下载经批准的最新版本安装包；3. 在安装前，备份现有软件的配置信息（如服务器地址、账户等）；4. 按照企业标准流程安装新版本，安装后验证连接功能及版本号。",
+            "chunk_id": null,
+            "version": null,
+            "chunk_key": ""
+          },
+          {
+            "sentence_index": 2,
+            "text": "注意：所有操作应使用企业提供的正式渠道，避免使用未经批准的第三方来源。",
+            "chunk_id": null,
+            "version": null,
+            "chunk_key": ""
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "T10-Q1",
+      "original_citations_valid": false,
+      "ai_review": "rejected_before_display",
+      "accepted": false,
+      "validation": {
+        "method": "exact_source_sentence_v1",
+        "passed": false,
+        "reason": "empty_answer",
+        "sentences": []
+      }
+    },
+    {
+      "case_id": "T10-Q2",
+      "original_citations_valid": true,
+      "ai_review": "supported_core",
+      "accepted": false,
+      "validation": {
+        "method": "exact_source_sentence_v1",
+        "passed": false,
+        "reason": "unmatched_sentence",
+        "sentences": [
+          {
+            "sentence_index": 0,
+            "text": "根据工单描述，此为公司无线网络连接失败问题。",
+            "chunk_id": null,
+            "version": null,
+            "chunk_key": ""
+          },
+          {
+            "sentence_index": 1,
+            "text": "判断属于低风险网络连接故障。",
+            "chunk_id": null,
+            "version": null,
+            "chunk_key": ""
+          },
+          {
+            "sentence_index": 2,
+            "text": "建议按以下步骤排查：1. 核对公司提供的正确无线网络名称（SSID）；2. 检查设备的无线功能开关是否已开启；3. 如设备存储了旧网络配置，尝试将其忘记并重新连接；4. 在连接过程中，记录出现的具体认证错误信息；5. 如以上步骤无法解决，需转交人工进行进一步确认。",
+            "chunk_id": null,
+            "version": null,
+            "chunk_key": ""
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "T12-Q1",
+      "original_citations_valid": true,
+      "ai_review": "supported_core",
+      "accepted": false,
+      "validation": {
+        "method": "exact_source_sentence_v1",
+        "passed": false,
+        "reason": "unmatched_sentence",
+        "sentences": [
+          {
+            "sentence_index": 0,
+            "text": "该问题为低风险的网线连接异常。",
+            "chunk_id": null,
+            "version": null,
+            "chunk_key": ""
+          },
+          {
+            "sentence_index": 1,
+            "text": "建议您按以下步骤排查：1. 检查网线与电脑/墙插的连接是否牢固，观察网口指示灯是否亮起。",
+            "chunk_id": null,
+            "version": null,
+            "chunk_key": ""
+          },
+          {
+            "sentence_index": 2,
+            "text": "2. 更换一根已知完好的合规网线进行交叉测试。",
+            "chunk_id": null,
+            "version": null,
+            "chunk_key": ""
+          },
+          {
+            "sentence_index": 3,
+            "text": "3. 在操作系统设置中检查对应的有线网络适配器是否被禁用，若禁用请启用。",
+            "chunk_id": null,
+            "version": null,
+            "chunk_key": ""
+          },
+          {
+            "sentence_index": 4,
+            "text": "4. 记录下连接异常的具体网口编号或位置信息。",
+            "chunk_id": null,
+            "version": null,
+            "chunk_key": ""
+          },
+          {
+            "sentence_index": 5,
+            "text": "如以上步骤无法解决，或涉及网络配置变更，请联系企业IT支持人员。",
+            "chunk_id": null,
+            "version": null,
+            "chunk_key": ""
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "T12-Q2",
+      "original_citations_valid": true,
+      "ai_review": "unsupported_detail",
+      "accepted": false,
+      "validation": {
+        "method": "exact_source_sentence_v1",
+        "passed": false,
+        "reason": "unmatched_sentence",
+        "sentences": [
+          {
+            "sentence_index": 0,
+            "text": "根据现有资料判断，没有直接适用于“电脑有线网口灯不亮”的模拟操作规程。",
+            "chunk_id": null,
+            "version": null,
+            "chunk_key": ""
+          },
+          {
+            "sentence_index": 1,
+            "text": "可执行排查建议：1. 检查网线两端是否插紧，尝试更换一根已知正常的网线。",
+            "chunk_id": null,
+            "version": null,
+            "chunk_key": ""
+          },
+          {
+            "sentence_index": 2,
+            "text": "2. 检查网口对应的交换机或路由器端口是否正常供电和指示灯亮。",
+            "chunk_id": null,
+            "version": null,
+            "chunk_key": ""
+          },
+          {
+            "sentence_index": 3,
+            "text": "3. 尝试将电脑连接到另一个已知正常的网络端口。",
+            "chunk_id": null,
+            "version": null,
+            "chunk_key": ""
+          },
+          {
+            "sentence_index": 4,
+            "text": "4. 如果电脑通过扩展坞连接网络，请参照扩展坞异常的流程检查其供电与连接。",
+            "chunk_id": null,
+            "version": null,
+            "chunk_key": ""
+          },
+          {
+            "sentence_index": 5,
+            "text": "5. 如果以上步骤无法解决，且问题持续，建议联系服务台并提供电脑资产编号以进一步排查。",
+            "chunk_id": null,
+            "version": null,
+            "chunk_key": ""
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "T14-Q1",
+      "original_citations_valid": true,
+      "ai_review": "supported_core",
+      "accepted": false,
+      "validation": {
+        "method": "exact_source_sentence_v1",
+        "passed": false,
+        "reason": "unmatched_sentence",
+        "sentences": [
+          {
+            "sentence_index": 0,
+            "text": "根据资料，邮件退信属于低风险事件。",
+            "chunk_id": null,
+            "version": null,
+            "chunk_key": ""
+          },
+          {
+            "sentence_index": 1,
+            "text": "建议按以下步骤排查：",
+            "chunk_id": null,
+            "version": null,
+            "chunk_key": ""
+          },
+          {
+            "sentence_index": 2,
+            "text": "1. 保留退信原文和错误码，作为后续分析的依据。",
+            "chunk_id": null,
+            "version": null,
+            "chunk_key": ""
+          },
+          {
+            "sentence_index": 3,
+            "text": "2. 仔细核对收件人邮箱地址，确认拼写是否正确无误。",
+            "chunk_id": null,
+            "version": null,
+            "chunk_key": ""
+          },
+          {
+            "sentence_index": 4,
+            "text": "3. 检查邮件附件大小，确认是否超过对方邮箱系统或双方邮件服务器的限制。",
+            "chunk_id": null,
+            "version": null,
+            "chunk_key": ""
+          },
+          {
+            "sentence_index": 5,
+            "text": "4. 核对对方邮箱状态，确认是否存在账户异常、已满或已停用的情况。",
+            "chunk_id": null,
+            "version": null,
+            "chunk_key": ""
+          },
+          {
+            "sentence_index": 6,
+            "text": "5. 根据错误码，必要时联系邮件管理员进行查询或协助。",
+            "chunk_id": null,
+            "version": null,
+            "chunk_key": ""
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "T14-Q2",
+      "original_citations_valid": true,
+      "ai_review": "supported_core",
+      "accepted": false,
+      "validation": {
+        "method": "exact_source_sentence_v1",
+        "passed": false,
+        "reason": "unmatched_sentence",
+        "sentences": [
+          {
+            "sentence_index": 0,
+            "text": "根据工单描述，邮件发送后收到退信，属于邮件发送退信场景。",
+            "chunk_id": null,
+            "version": null,
+            "chunk_key": ""
+          },
+          {
+            "sentence_index": 1,
+            "text": "建议：1. 保留退信原文和错误码；2. 确认收件地址拼写是否正确；3. 核对附件大小及对方邮箱状态（如是否已满）；4. 根据退信错误码联系邮件管理员查询具体原因。",
+            "chunk_id": null,
+            "version": null,
+            "chunk_key": ""
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "T16-Q1",
+      "original_citations_valid": true,
+      "ai_review": "supported_core",
+      "accepted": false,
+      "validation": {
+        "method": "exact_source_sentence_v1",
+        "passed": false,
+        "reason": "unmatched_sentence",
+        "sentences": [
+          {
+            "sentence_index": 0,
+            "text": "根据资料，此问题为附件过大无法发送。",
+            "chunk_id": null,
+            "version": null,
+            "chunk_key": ""
+          },
+          {
+            "sentence_index": 1,
+            "text": "请按以下步骤排查：1. 确认当前邮件系统的附件大小上限；2. 如附件确实超标，请使用企业批准的文件分享工具进行传输；3. 分享时需根据数据分类设置合适的分享范围；4. 切勿将文件上传至私人网盘。",
+            "chunk_id": null,
+            "version": null,
+            "chunk_key": ""
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "T16-Q2",
+      "original_citations_valid": true,
+      "ai_review": "supported_core",
+      "accepted": false,
+      "validation": {
+        "method": "exact_source_sentence_v1",
+        "passed": false,
+        "reason": "unmatched_sentence",
+        "sentences": [
+          {
+            "sentence_index": 0,
+            "text": "判断：根据工单描述，您遇到的是邮件附件大小超过系统限制的问题。",
+            "chunk_id": null,
+            "version": null,
+            "chunk_key": ""
+          },
+          {
+            "sentence_index": 1,
+            "text": "处理建议如下：1. 请确认您所在企业邮件系统的官方附件大小上限（例如，查看系统帮助文档或联系IT管理员获取准确数值）。",
+            "chunk_id": null,
+            "version": null,
+            "chunk_key": ""
+          },
+          {
+            "sentence_index": 2,
+            "text": "2. 如果文件确实超出附件大小限制，建议使用企业已批准的文件分享工具（如企业网盘、协作平台等）进行传输，但需确保遵循数据分类要求，仅向授权人员分享。",
+            "chunk_id": null,
+            "version": null,
+            "chunk_key": ""
+          },
+          {
+            "sentence_index": 3,
+            "text": "3. 设置分享范围时，请根据文件的数据分类（如公开、内部、机密等）进行配置，避免信息泄露。",
+            "chunk_id": null,
+            "version": null,
+            "chunk_key": ""
+          },
+          {
+            "sentence_index": 4,
+            "text": "4. 严禁使用个人网盘或未授权的第三方服务上传企业文件。",
+            "chunk_id": null,
+            "version": null,
+            "chunk_key": ""
+          },
+          {
+            "sentence_index": 5,
+            "text": "5. 如果涉及敏感数据或权限变更，请勿自行操作，需转交人工处理确认。",
+            "chunk_id": null,
+            "version": null,
+            "chunk_key": ""
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "T18-Q1",
+      "original_citations_valid": true,
+      "ai_review": "supported_core",
+      "accepted": false,
+      "validation": {
+        "method": "exact_source_sentence_v1",
+        "passed": false,
+        "reason": "unmatched_sentence",
+        "sentences": [
+          {
+            "sentence_index": 0,
+            "text": "判断：邮件客户端同步功能出现故障，需按照同步流程进行排查。",
+            "chunk_id": null,
+            "version": null,
+            "chunk_key": ""
+          },
+          {
+            "sentence_index": 1,
+            "text": "建议：1. 检查客户端网络连接是否正常，并确认是否处于离线模式。",
+            "chunk_id": null,
+            "version": null,
+            "chunk_key": ""
+          },
+          {
+            "sentence_index": 2,
+            "text": "2. 核对邮箱账号配置信息（如服务器地址、端口）是否正确。",
+            "chunk_id": null,
+            "version": null,
+            "chunk_key": ""
+          },
+          {
+            "sentence_index": 3,
+            "text": "3. 尝试重启邮件客户端，并检查同步时间设置。",
+            "chunk_id": null,
+            "version": null,
+            "chunk_key": ""
+          },
+          {
+            "sentence_index": 4,
+            "text": "4. 查看客户端日志，以获取可能的错误信息。",
+            "chunk_id": null,
+            "version": null,
+            "chunk_key": ""
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "T18-Q2",
+      "original_citations_valid": false,
+      "ai_review": "rejected_before_display",
+      "accepted": false,
+      "validation": {
+        "method": "exact_source_sentence_v1",
+        "passed": false,
+        "reason": "empty_answer",
+        "sentences": []
+      }
+    },
+    {
+      "case_id": "T20-Q1",
+      "original_citations_valid": true,
+      "ai_review": "unsupported_detail",
+      "accepted": false,
+      "validation": {
+        "method": "exact_source_sentence_v1",
+        "passed": false,
+        "reason": "unmatched_sentence",
+        "sentences": [
+          {
+            "sentence_index": 0,
+            "text": "判断：根据工单描述，此问题属于常见的打印机卡纸故障，且已归类为低风险模拟工单。",
+            "chunk_id": null,
+            "version": null,
+            "chunk_key": ""
+          },
+          {
+            "sentence_index": 1,
+            "text": "可执行排查建议：",
+            "chunk_id": null,
+            "version": null,
+            "chunk_key": ""
+          },
+          {
+            "sentence_index": 2,
+            "text": "1. 关闭打印机电源，确保设备安全。",
+            "chunk_id": null,
+            "version": null,
+            "chunk_key": ""
+          },
+          {
+            "sentence_index": 3,
+            "text": "2. 按照打印机机身图示或用户手册的指引，打开卡纸区域的盖板（如纸盒、顶盖或后部盖板）。",
+            "chunk_id": null,
+            "version": null,
+            "chunk_key": ""
+          },
+          {
+            "sentence_index": 4,
+            "text": "3. 沿着纸张正常运行的方向，用双手均匀、缓慢地用力，尝试将卡住的纸张完整拉出，避免撕裂。",
+            "chunk_id": null,
+            "version": null,
+            "chunk_key": ""
+          },
+          {
+            "sentence_index": 5,
+            "text": "4. 取出纸张后，仔细检查打印机内部（特别是滚轮、通道）是否残留有撕碎的纸片，并清除干净。",
+            "chunk_id": null,
+            "version": null,
+            "chunk_key": ""
+          },
+          {
+            "sentence_index": 6,
+            "text": "5. 在操作过程中，注意避免触碰打印机内部的高温定影组件（通常标有高温警告标识），以防烫伤。",
+            "chunk_id": null,
+            "version": null,
+            "chunk_key": ""
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "T20-Q2",
+      "original_citations_valid": true,
+      "ai_review": "unsupported_detail",
+      "accepted": false,
+      "validation": {
+        "method": "exact_source_sentence_v1",
+        "passed": false,
+        "reason": "unmatched_sentence",
+        "sentences": [
+          {
+            "sentence_index": 0,
+            "text": "判断：该问题属于打印机卡纸，应参照卡纸处理流程。",
+            "chunk_id": null,
+            "version": null,
+            "chunk_key": ""
+          },
+          {
+            "sentence_index": 1,
+            "text": "建议：1. 按设备指南关闭打印机相关盖板。",
+            "chunk_id": null,
+            "version": null,
+            "chunk_key": ""
+          },
+          {
+            "sentence_index": 2,
+            "text": "2. 沿纸张方向缓慢取出卡住的纸张。",
+            "chunk_id": null,
+            "version": null,
+            "chunk_key": ""
+          },
+          {
+            "sentence_index": 3,
+            "text": "3. 检查是否有残留纸片。",
+            "chunk_id": null,
+            "version": null,
+            "chunk_key": ""
+          },
+          {
+            "sentence_index": 4,
+            "text": "4. 操作时避免触碰高温定影组件。",
+            "chunk_id": null,
+            "version": null,
+            "chunk_key": ""
+          },
+          {
+            "sentence_index": 5,
+            "text": "5. 取出纸张后，按正常流程重新启动打印任务。",
+            "chunk_id": null,
+            "version": null,
+            "chunk_key": ""
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "T22-Q1",
+      "original_citations_valid": true,
+      "ai_review": "supported_core",
+      "accepted": false,
+      "validation": {
+        "method": "exact_source_sentence_v1",
+        "passed": false,
+        "reason": "unmatched_sentence",
+        "sentences": [
+          {
+            "sentence_index": 0,
+            "text": "判断：打印队列阻塞导致任务无法打印。",
+            "chunk_id": null,
+            "version": null,
+            "chunk_key": ""
+          },
+          {
+            "sentence_index": 1,
+            "text": "排查建议：1. 检查打印队列中首个失败任务，记录其状态和错误信息；2. 确认打印机设备是否在线（检查电源和网络地址）；3. 检查打印队列的离线设置，并通过网页管理页面对照确认；4. 如需取消阻塞任务，请按企业批准流程操作并记录详情。",
+            "chunk_id": null,
+            "version": null,
+            "chunk_key": ""
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "T22-Q2",
+      "original_citations_valid": true,
+      "ai_review": "supported_core",
+      "accepted": false,
+      "validation": {
+        "method": "exact_source_sentence_v1",
+        "passed": false,
+        "reason": "unmatched_sentence",
+        "sentences": [
+          {
+            "sentence_index": 0,
+            "text": "判断：该问题属于打印队列阻塞，为低风险模拟工单，可依据模拟SOP T22处理。",
+            "chunk_id": null,
+            "version": null,
+            "chunk_key": ""
+          },
+          {
+            "sentence_index": 1,
+            "text": "可执行排查建议：1. 检查打印队列，查看是否有任务处于失败或错误状态；2. 确认目标打印机是否在线且网络连接正常；3. 若队列中有自己的阻塞任务，按批准流程取消该任务；4. 记录相关任务信息和错误信息以便后续分析；5. 若问题持续，转交人工处理以遵循企业授权流程。",
+            "chunk_id": null,
+            "version": null,
+            "chunk_key": ""
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "T24-Q1",
+      "original_citations_valid": true,
+      "ai_review": "supported_core",
+      "accepted": false,
+      "validation": {
+        "method": "exact_source_sentence_v1",
+        "passed": false,
+        "reason": "unmatched_sentence",
+        "sentences": [
+          {
+            "sentence_index": 0,
+            "text": "判断：您遇到的电脑蓝屏重启问题属于模拟SOP T24的适用场景。",
+            "chunk_id": null,
+            "version": null,
+            "chunk_key": ""
+          },
+          {
+            "sentence_index": 1,
+            "text": "以下是可执行的排查建议：1. 记录下蓝屏时屏幕显示的停止代码（如0x0000000A等）和蓝屏前进行的任何操作或系统变更。",
+            "chunk_id": null,
+            "version": null,
+            "chunk_key": ""
+          },
+          {
+            "sentence_index": 2,
+            "text": "2. 如果电脑能重新启动，请尝试查看系统事件日志中与蓝屏时间点相关的错误记录并保存。",
+            "chunk_id": null,
+            "version": null,
+            "chunk_key": ""
+          },
+          {
+            "sentence_index": 3,
+            "text": "3. 检查操作系统和关键硬件驱动程序是否有已批准的更新（需遵循企业软件更新策略）。",
+            "chunk_id": null,
+            "version": null,
+            "chunk_key": ""
+          },
+          {
+            "sentence_index": 4,
+            "text": "4. 若蓝屏问题持续出现，请收集以上信息后联系服务台进行进一步分析。",
+            "chunk_id": null,
+            "version": null,
+            "chunk_key": ""
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "T24-Q2",
+      "original_citations_valid": false,
+      "ai_review": "rejected_before_display",
+      "accepted": false,
+      "validation": {
+        "method": "exact_source_sentence_v1",
+        "passed": false,
+        "reason": "empty_answer",
+        "sentences": []
+      }
+    },
+    {
+      "case_id": "T26-Q1",
+      "original_citations_valid": true,
+      "ai_review": "unsupported_detail",
+      "accepted": false,
+      "validation": {
+        "method": "exact_source_sentence_v1",
+        "passed": false,
+        "reason": "unmatched_sentence",
+        "sentences": [
+          {
+            "sentence_index": 0,
+            "text": "判断：C盘磁盘空间不足导致软件无法正常运行。",
+            "chunk_id": null,
+            "version": null,
+            "chunk_key": ""
+          },
+          {
+            "sentence_index": 1,
+            "text": "可执行排查建议：1. 检查C盘剩余空间，清理临时文件（如运行磁盘清理工具）；2. 卸载不常用的程序以释放磁盘空间；3. 将大文件或个人文档迁移至其他磁盘；4. 检查系统日志，确认是否有错误提示与磁盘相关；5. 如清理后问题依旧，建议联系IT支持进一步检查。",
+            "chunk_id": null,
+            "version": null,
+            "chunk_key": ""
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "T26-Q2",
+      "original_citations_valid": true,
+      "ai_review": "unsupported_detail",
+      "accepted": false,
+      "validation": {
+        "method": "exact_source_sentence_v1",
+        "passed": false,
+        "reason": "unmatched_sentence",
+        "sentences": [
+          {
+            "sentence_index": 0,
+            "text": "根据您描述的磁盘空间不足问题，建议按以下步骤进行排查和清理：1. 检查存储占用情况，确认是系统盘还是其他磁盘空间不足。",
+            "chunk_id": null,
+            "version": null,
+            "chunk_key": ""
+          },
+          {
+            "sentence_index": 1,
+            "text": "2. 清理批准的临时文件（如系统临时文件、浏览器缓存等）。",
+            "chunk_id": null,
+            "version": null,
+            "chunk_key": ""
+          },
+          {
+            "sentence_index": 2,
+            "text": "3. 将个人工作文件按照公司保留规则迁移到其他有空间的磁盘或云存储。",
+            "chunk_id": null,
+            "version": null,
+            "chunk_key": ""
+          },
+          {
+            "sentence_index": 3,
+            "text": "4. 请注意不要随意删除系统目录或未知文件，以免影响系统运行。",
+            "chunk_id": null,
+            "version": null,
+            "chunk_key": ""
+          },
+          {
+            "sentence_index": 4,
+            "text": "5. 如果问题持续或涉及敏感数据操作，建议转交人工处理。",
+            "chunk_id": null,
+            "version": null,
+            "chunk_key": ""
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "T28-Q1",
+      "original_citations_valid": true,
+      "ai_review": "supported_core",
+      "accepted": false,
+      "validation": {
+        "method": "exact_source_sentence_v1",
+        "passed": false,
+        "reason": "unmatched_sentence",
+        "sentences": [
+          {
+            "sentence_index": 0,
+            "text": "判断：该问题属于外接显示器黑屏无信号的低风险故障，可依据模拟SOP进行排查。",
+            "chunk_id": null,
+            "version": null,
+            "chunk_key": ""
+          },
+          {
+            "sentence_index": 1,
+            "text": "排查建议：1. 核对外接显示器的信号输入源（如HDMI、DP、VGA）是否选择正确；2. 检查连接电脑与显示器的线材两端端口是否插紧，有无物理损坏；3. 使用一根已知正常的同类型线材进行替换，交叉验证是否为线材故障；4. 检查电脑的显示设置，确认是否识别到外接显示器并选择了正确的扩展/复制模式；5. 如以上步骤无效，建议记录详情并转交高级支持处理。",
+            "chunk_id": null,
+            "version": null,
+            "chunk_key": ""
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "T28-Q2",
+      "original_citations_valid": true,
+      "ai_review": "unsupported_detail",
+      "accepted": false,
+      "validation": {
+        "method": "exact_source_sentence_v1",
+        "passed": false,
+        "reason": "unmatched_sentence",
+        "sentences": [
+          {
+            "sentence_index": 0,
+            "text": "判断：显示器连接笔记本无画面属于低风险视频输出故障，可按标准排查流程处理。",
+            "chunk_id": null,
+            "version": null,
+            "chunk_key": ""
+          },
+          {
+            "sentence_index": 1,
+            "text": "排查建议：1. 检查显示器电源是否开启，确认视频线（如HDMI、DP线）两端连接牢固。",
+            "chunk_id": null,
+            "version": null,
+            "chunk_key": ""
+          },
+          {
+            "sentence_index": 2,
+            "text": "2. 按显示器或笔记本的功能键（如Fn+F4）切换显示模式，尝试“复制”或“扩展”屏幕。",
+            "chunk_id": null,
+            "version": null,
+            "chunk_key": ""
+          },
+          {
+            "sentence_index": 3,
+            "text": "3. 检查笔记本的显示设置，确认已检测到外接显示器并启用。",
+            "chunk_id": null,
+            "version": null,
+            "chunk_key": ""
+          },
+          {
+            "sentence_index": 4,
+            "text": "4. 尝试更换视频线或接口，排除线缆或端口故障。",
+            "chunk_id": null,
+            "version": null,
+            "chunk_key": ""
+          },
+          {
+            "sentence_index": 5,
+            "text": "5. 使用会议室备用设备（如备用线缆或显示器）进行交叉测试。",
+            "chunk_id": null,
+            "version": null,
+            "chunk_key": ""
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "T30-Q1",
+      "original_citations_valid": true,
+      "ai_review": "supported_core",
+      "accepted": false,
+      "validation": {
+        "method": "exact_source_sentence_v1",
+        "passed": false,
+        "reason": "unmatched_sentence",
+        "sentences": [
+          {
+            "sentence_index": 0,
+            "text": "判断：扩展坞连接后键鼠和屏幕均失效，符合资料30所述场景。",
+            "chunk_id": null,
+            "version": null,
+            "chunk_key": ""
+          },
+          {
+            "sentence_index": 1,
+            "text": "可执行排查建议：",
+            "chunk_id": null,
+            "version": null,
+            "chunk_key": ""
+          },
+          {
+            "sentence_index": 2,
+            "text": "1. 检查扩展坞的电源是否已接通，电源指示灯是否正常亮起。",
+            "chunk_id": null,
+            "version": null,
+            "chunk_key": ""
+          },
+          {
+            "sentence_index": 3,
+            "text": "2. 检查扩展坞与电脑之间的连接线（如USB-C线）是否插紧，尝试重新插拔。",
+            "chunk_id": null,
+            "version": null,
+            "chunk_key": ""
+          },
+          {
+            "sentence_index": 4,
+            "text": "3. 将显示器、键盘或鼠标直接连接到电脑的接口上，测试是否能正常工作，以排除外设本身故障。",
+            "chunk_id": null,
+            "version": null,
+            "chunk_key": ""
+          },
+          {
+            "sentence_index": 5,
+            "text": "4. 核对电脑型号与扩展坞的兼容性列表，确认扩展坞是否支持该型号电脑。",
+            "chunk_id": null,
+            "version": null,
+            "chunk_key": ""
+          },
+          {
+            "sentence_index": 6,
+            "text": "5. 收集扩展坞和电脑的具体型号信息，以便后续进一步分析。",
+            "chunk_id": null,
+            "version": null,
+            "chunk_key": ""
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "T30-Q2",
+      "original_citations_valid": true,
+      "ai_review": "supported_core",
+      "accepted": false,
+      "validation": {
+        "method": "exact_source_sentence_v1",
+        "passed": false,
+        "reason": "unmatched_sentence",
+        "sentences": [
+          {
+            "sentence_index": 0,
+            "text": "判断：通过拓展坞连接的设备全部失灵，应优先排查拓展坞本身故障或供电/连接问题。",
+            "chunk_id": null,
+            "version": null,
+            "chunk_key": ""
+          },
+          {
+            "sentence_index": 1,
+            "text": "以下为可执行排查建议：1. 检查拓展坞电源适配器是否正常供电，电源线连接是否牢固。",
+            "chunk_id": null,
+            "version": null,
+            "chunk_key": ""
+          },
+          {
+            "sentence_index": 2,
+            "text": "2. 检查拓展坞与电脑连接的线缆（如USB-C/Thunderbolt线）是否有物理损伤或连接松动，尝试重新插拔。",
+            "chunk_id": null,
+            "version": null,
+            "chunk_key": ""
+          },
+          {
+            "sentence_index": 3,
+            "text": "3. 断开拓展坞，将原先通过拓展坞连接的设备（如显示器、键盘、鼠标）直接连接到电脑的对应接口，以验证设备本身是否正常。",
+            "chunk_id": null,
+            "version": null,
+            "chunk_key": ""
+          },
+          {
+            "sentence_index": 4,
+            "text": "4. 记录拓展坞及连接设备的具体型号信息，以备后续兼容性核查。",
+            "chunk_id": null,
+            "version": null,
+            "chunk_key": ""
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "T32-Q1",
+      "original_citations_valid": true,
+      "ai_review": "supported_core",
+      "accepted": false,
+      "validation": {
+        "method": "exact_source_sentence_v1",
+        "passed": false,
+        "reason": "unmatched_sentence",
+        "sentences": [
+          {
+            "sentence_index": 0,
+            "text": "判断：此工单属于鼠标失灵问题，属于低风险类别，可按模拟SOP T32进行排查。",
+            "chunk_id": null,
+            "version": null,
+            "chunk_key": ""
+          },
+          {
+            "sentence_index": 1,
+            "text": "建议：",
+            "chunk_id": null,
+            "version": null,
+            "chunk_key": ""
+          },
+          {
+            "sentence_index": 2,
+            "text": "1. 检查鼠标电池或电量，确保有电；如果是无线鼠标，请检查接收器是否插好。",
+            "chunk_id": null,
+            "version": null,
+            "chunk_key": ""
+          },
+          {
+            "sentence_index": 3,
+            "text": "2. 清理鼠标传感器表面（如光学传感器），避免灰尘或污渍影响。",
+            "chunk_id": null,
+            "version": null,
+            "chunk_key": ""
+          },
+          {
+            "sentence_index": 4,
+            "text": "3. 尝试将鼠标连接到电脑的其他USB接口，进行交叉验证。",
+            "chunk_id": null,
+            "version": null,
+            "chunk_key": ""
+          },
+          {
+            "sentence_index": 5,
+            "text": "4. 观察在所有程序或特定程序中是否均出现鼠标失灵现象，记录情况。",
+            "chunk_id": null,
+            "version": null,
+            "chunk_key": ""
+          },
+          {
+            "sentence_index": 6,
+            "text": "5. 如排查后问题持续，建议联系IT支持进一步处理，避免自行拆解或更改系统设置。",
+            "chunk_id": null,
+            "version": null,
+            "chunk_key": ""
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "T32-Q2",
+      "original_citations_valid": true,
+      "ai_review": "unsupported_detail",
+      "accepted": false,
+      "validation": {
+        "method": "exact_source_sentence_v1",
+        "passed": false,
+        "reason": "unmatched_sentence",
+        "sentences": [
+          {
+            "sentence_index": 0,
+            "text": "判断：无线鼠标失灵，优先排查电池安装、接收器连接及硬件兼容性。",
+            "chunk_id": null,
+            "version": null,
+            "chunk_key": ""
+          },
+          {
+            "sentence_index": 1,
+            "text": "可执行排查建议：1. 检查电池正负极是否正确安装，尝试更换新品牌电池；2. 确认无线接收器已牢固插入电脑USB接口，可尝试更换其他USB接口；3. 清理鼠标底部传感器表面的灰尘或异物；4. 将鼠标与其他电脑进行交叉测试，确认是否为鼠标硬件故障；5. 检查电脑设备管理器中是否识别到鼠标设备，必要时重启电脑。",
+            "chunk_id": null,
+            "version": null,
+            "chunk_key": ""
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "T34-Q1",
+      "original_citations_valid": true,
+      "ai_review": "unsupported_detail",
+      "accepted": false,
+      "validation": {
+        "method": "exact_source_sentence_v1",
+        "passed": false,
+        "reason": "unmatched_sentence",
+        "sentences": [
+          {
+            "sentence_index": 0,
+            "text": "根据资料，摄像头无法开启属于低风险问题。",
+            "chunk_id": null,
+            "version": null,
+            "chunk_key": ""
+          },
+          {
+            "sentence_index": 1,
+            "text": "建议按以下步骤排查：1. 检查系统隐私设置，确保会议应用有摄像头访问权限；2. 关闭其他可能占用摄像头的应用程序；3. 在会议软件中核对是否选择了正确的摄像头设备；4. 检查摄像头是否有物理遮挡（如镜头盖）。",
+            "chunk_id": null,
+            "version": null,
+            "chunk_key": ""
+          },
+          {
+            "sentence_index": 2,
+            "text": "以上为只读检查建议，无需修改系统或权限配置。",
+            "chunk_id": null,
+            "version": null,
+            "chunk_key": ""
+          }
+        ]
+      }
+    }
+  ],
+  "controls": [
+    {
+      "case_id": "T02-Q1",
+      "quote": "适用场景：账号锁定，连续输错密码。",
+      "validation": {
+        "method": "exact_source_sentence_v1",
+        "passed": true,
+        "reason": "aligned",
+        "sentences": [
+          {
+            "sentence_index": 0,
+            "text": "适用场景：账号锁定，连续输错密码。",
+            "chunk_id": 2,
+            "version": 1,
+            "chunk_key": ""
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "T02-Q2",
+      "quote": "适用场景：VPN客户端提示认证失败。",
+      "validation": {
+        "method": "exact_source_sentence_v1",
+        "passed": true,
+        "reason": "aligned",
+        "sentences": [
+          {
+            "sentence_index": 0,
+            "text": "适用场景：VPN客户端提示认证失败。",
+            "chunk_id": 5,
+            "version": 1,
+            "chunk_key": ""
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "T04-Q1",
+      "quote": "适用场景：更换手机后多因素认证动态口令失效。",
+      "validation": {
+        "method": "exact_source_sentence_v1",
+        "passed": true,
+        "reason": "aligned",
+        "sentences": [
+          {
+            "sentence_index": 0,
+            "text": "适用场景：更换手机后多因素认证动态口令失效。",
+            "chunk_id": 4,
+            "version": 1,
+            "chunk_key": ""
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "T04-Q2",
+      "quote": "适用场景：更换手机后多因素认证动态口令失效。",
+      "validation": {
+        "method": "exact_source_sentence_v1",
+        "passed": true,
+        "reason": "aligned",
+        "sentences": [
+          {
+            "sentence_index": 0,
+            "text": "适用场景：更换手机后多因素认证动态口令失效。",
+            "chunk_id": 4,
+            "version": 1,
+            "chunk_key": ""
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "T08-Q2",
+      "quote": "适用场景：VPN客户端版本太旧无法连接。",
+      "validation": {
+        "method": "exact_source_sentence_v1",
+        "passed": true,
+        "reason": "aligned",
+        "sentences": [
+          {
+            "sentence_index": 0,
+            "text": "适用场景：VPN客户端版本太旧无法连接。",
+            "chunk_id": 8,
+            "version": 1,
+            "chunk_key": ""
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "T10-Q2",
+      "quote": "适用场景：办公无线网络无法连接。",
+      "validation": {
+        "method": "exact_source_sentence_v1",
+        "passed": true,
+        "reason": "aligned",
+        "sentences": [
+          {
+            "sentence_index": 0,
+            "text": "适用场景：办公无线网络无法连接。",
+            "chunk_id": 10,
+            "version": 1,
+            "chunk_key": ""
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "T12-Q1",
+      "quote": "适用场景：有线网卡提示网线未连接。",
+      "validation": {
+        "method": "exact_source_sentence_v1",
+        "passed": true,
+        "reason": "aligned",
+        "sentences": [
+          {
+            "sentence_index": 0,
+            "text": "适用场景：有线网卡提示网线未连接。",
+            "chunk_id": 12,
+            "version": 1,
+            "chunk_key": ""
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "T12-Q2",
+      "quote": "适用场景：扩展坞接显示器键鼠均失效。",
+      "validation": {
+        "method": "exact_source_sentence_v1",
+        "passed": true,
+        "reason": "aligned",
+        "sentences": [
+          {
+            "sentence_index": 0,
+            "text": "适用场景：扩展坞接显示器键鼠均失效。",
+            "chunk_id": 30,
+            "version": 1,
+            "chunk_key": ""
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "T14-Q1",
+      "quote": "适用场景：发邮件后收到退信通知。",
+      "validation": {
+        "method": "exact_source_sentence_v1",
+        "passed": true,
+        "reason": "aligned",
+        "sentences": [
+          {
+            "sentence_index": 0,
+            "text": "适用场景：发邮件后收到退信通知。",
+            "chunk_id": 14,
+            "version": 1,
+            "chunk_key": ""
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "T14-Q2",
+      "quote": "适用场景：发邮件后收到退信通知。",
+      "validation": {
+        "method": "exact_source_sentence_v1",
+        "passed": true,
+        "reason": "aligned",
+        "sentences": [
+          {
+            "sentence_index": 0,
+            "text": "适用场景：发邮件后收到退信通知。",
+            "chunk_id": 14,
+            "version": 1,
+            "chunk_key": ""
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "T16-Q1",
+      "quote": "适用场景：邮件附件超过大小限制。",
+      "validation": {
+        "method": "exact_source_sentence_v1",
+        "passed": true,
+        "reason": "aligned",
+        "sentences": [
+          {
+            "sentence_index": 0,
+            "text": "适用场景：邮件附件超过大小限制。",
+            "chunk_id": 16,
+            "version": 1,
+            "chunk_key": ""
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "T16-Q2",
+      "quote": "适用场景：邮件附件超过大小限制。",
+      "validation": {
+        "method": "exact_source_sentence_v1",
+        "passed": true,
+        "reason": "aligned",
+        "sentences": [
+          {
+            "sentence_index": 0,
+            "text": "适用场景：邮件附件超过大小限制。",
+            "chunk_id": 16,
+            "version": 1,
+            "chunk_key": ""
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "T18-Q1",
+      "quote": "适用场景：邮件客户端不同步但网页版正常。",
+      "validation": {
+        "method": "exact_source_sentence_v1",
+        "passed": true,
+        "reason": "aligned",
+        "sentences": [
+          {
+            "sentence_index": 0,
+            "text": "适用场景：邮件客户端不同步但网页版正常。",
+            "chunk_id": 18,
+            "version": 1,
+            "chunk_key": ""
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "T20-Q1",
+      "quote": "适用场景：打印机卡纸停止打印。",
+      "validation": {
+        "method": "exact_source_sentence_v1",
+        "passed": true,
+        "reason": "aligned",
+        "sentences": [
+          {
+            "sentence_index": 0,
+            "text": "适用场景：打印机卡纸停止打印。",
+            "chunk_id": 20,
+            "version": 1,
+            "chunk_key": ""
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "T20-Q2",
+      "quote": "适用场景：打印机卡纸停止打印。",
+      "validation": {
+        "method": "exact_source_sentence_v1",
+        "passed": true,
+        "reason": "aligned",
+        "sentences": [
+          {
+            "sentence_index": 0,
+            "text": "适用场景：打印机卡纸停止打印。",
+            "chunk_id": 20,
+            "version": 1,
+            "chunk_key": ""
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "T22-Q1",
+      "quote": "适用场景：打印任务一直排队不出纸。",
+      "validation": {
+        "method": "exact_source_sentence_v1",
+        "passed": true,
+        "reason": "aligned",
+        "sentences": [
+          {
+            "sentence_index": 0,
+            "text": "适用场景：打印任务一直排队不出纸。",
+            "chunk_id": 22,
+            "version": 1,
+            "chunk_key": ""
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "T22-Q2",
+      "quote": "适用场景：打印任务一直排队不出纸。",
+      "validation": {
+        "method": "exact_source_sentence_v1",
+        "passed": true,
+        "reason": "aligned",
+        "sentences": [
+          {
+            "sentence_index": 0,
+            "text": "适用场景：打印任务一直排队不出纸。",
+            "chunk_id": 22,
+            "version": 1,
+            "chunk_key": ""
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "T24-Q1",
+      "quote": "适用场景：电脑蓝屏突然重启。",
+      "validation": {
+        "method": "exact_source_sentence_v1",
+        "passed": true,
+        "reason": "aligned",
+        "sentences": [
+          {
+            "sentence_index": 0,
+            "text": "适用场景：电脑蓝屏突然重启。",
+            "chunk_id": 24,
+            "version": 1,
+            "chunk_key": ""
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "T26-Q1",
+      "quote": "适用场景：批准的办公软件安装报错。",
+      "validation": {
+        "method": "exact_source_sentence_v1",
+        "passed": true,
+        "reason": "aligned",
+        "sentences": [
+          {
+            "sentence_index": 0,
+            "text": "适用场景：批准的办公软件安装报错。",
+            "chunk_id": 36,
+            "version": 1,
+            "chunk_key": ""
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "T26-Q2",
+      "quote": "适用场景：系统盘空间不足影响办公。",
+      "validation": {
+        "method": "exact_source_sentence_v1",
+        "passed": true,
+        "reason": "aligned",
+        "sentences": [
+          {
+            "sentence_index": 0,
+            "text": "适用场景：系统盘空间不足影响办公。",
+            "chunk_id": 26,
+            "version": 1,
+            "chunk_key": ""
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "T28-Q1",
+      "quote": "适用场景：外接显示器黑屏无信号。",
+      "validation": {
+        "method": "exact_source_sentence_v1",
+        "passed": true,
+        "reason": "aligned",
+        "sentences": [
+          {
+            "sentence_index": 0,
+            "text": "适用场景：外接显示器黑屏无信号。",
+            "chunk_id": 28,
+            "version": 1,
+            "chunk_key": ""
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "T28-Q2",
+      "quote": "适用场景：会议室投影仪没有画面。",
+      "validation": {
+        "method": "exact_source_sentence_v1",
+        "passed": true,
+        "reason": "aligned",
+        "sentences": [
+          {
+            "sentence_index": 0,
+            "text": "适用场景：会议室投影仪没有画面。",
+            "chunk_id": 35,
+            "version": 1,
+            "chunk_key": ""
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "T30-Q1",
+      "quote": "适用场景：扩展坞接显示器键鼠均失效。",
+      "validation": {
+        "method": "exact_source_sentence_v1",
+        "passed": true,
+        "reason": "aligned",
+        "sentences": [
+          {
+            "sentence_index": 0,
+            "text": "适用场景：扩展坞接显示器键鼠均失效。",
+            "chunk_id": 30,
+            "version": 1,
+            "chunk_key": ""
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "T30-Q2",
+      "quote": "适用场景：扩展坞接显示器键鼠均失效。",
+      "validation": {
+        "method": "exact_source_sentence_v1",
+        "passed": true,
+        "reason": "aligned",
+        "sentences": [
+          {
+            "sentence_index": 0,
+            "text": "适用场景：扩展坞接显示器键鼠均失效。",
+            "chunk_id": 30,
+            "version": 1,
+            "chunk_key": ""
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "T32-Q1",
+      "quote": "适用场景：鼠标光标不移动或点击失效。",
+      "validation": {
+        "method": "exact_source_sentence_v1",
+        "passed": true,
+        "reason": "aligned",
+        "sentences": [
+          {
+            "sentence_index": 0,
+            "text": "适用场景：鼠标光标不移动或点击失效。",
+            "chunk_id": 32,
+            "version": 1,
+            "chunk_key": ""
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "T32-Q2",
+      "quote": "适用场景：鼠标光标不移动或点击失效。",
+      "validation": {
+        "method": "exact_source_sentence_v1",
+        "passed": true,
+        "reason": "aligned",
+        "sentences": [
+          {
+            "sentence_index": 0,
+            "text": "适用场景：鼠标光标不移动或点击失效。",
+            "chunk_id": 32,
+            "version": 1,
+            "chunk_key": ""
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "T34-Q1",
+      "quote": "适用场景：会议软件摄像头无法开启。",
+      "validation": {
+        "method": "exact_source_sentence_v1",
+        "passed": true,
+        "reason": "aligned",
+        "sentences": [
+          {
+            "sentence_index": 0,
+            "text": "适用场景：会议软件摄像头无法开启。",
+            "chunk_id": 34,
+            "version": 1,
+            "chunk_key": ""
+          }
+        ]
+      }
+    }
+  ]
+}

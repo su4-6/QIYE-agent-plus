@@ -1,0 +1,22 @@
+Building prefix dict from the default dictionary ...
+Loading model from cache C:\Users\hp\AppData\Local\Temp\jieba.cache
+Loading model cost 0.415 seconds.
+Prefix dict has been built successfully.
+{
+  "output": "evaluation\\results\\20261001-review",
+  "default_mode": "vector",
+  "thresholds": {
+    "bm25": 0.4,
+    "vector": 0.510423,
+    "hybrid": 0.510423
+  },
+  "test_hit_at_3": {
+    "legacy_keyword": 0.4,
+    "bm25": 0.85,
+    "vector": 0.9333333333333333,
+    "hybrid_rrf": 0.8833333333333333,
+    "hybrid": 0.8666666666666667,
+    "hybrid_no_rewrite": 0.8666666666666667,
+    "hybrid_no_title": 0.8833333333333333
+  }
+}

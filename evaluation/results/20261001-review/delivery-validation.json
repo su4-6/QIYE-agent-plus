@@ -1,0 +1,68 @@
+{
+  "utc": "2026-10-01T04:47:36.716011+00:00",
+  "engineering_tests": {
+    "passed": 41,
+    "elapsed_seconds": 9.601
+  },
+  "model_calls": 0,
+  "completion_tokens": 0,
+  "current_source_sha256_normalized_lf": {
+    "app/__init__.py": "83434065d9190b6a029c949ffd1e666685a496a9584b41268797374b9572c66d",
+    "app/agent.py": "e6b6f4678682711353805c8e2abbfdfa7265ba5f92ce7f62244fbbc1f86bd8c6",
+    "app/answer_validation.py": "81627b7f3808e378ef566f5e1956c261e90b6de40376f9ae291d0e2552f38618",
+    "app/config.py": "0af6d5e5f170ff8b0dc861abceca546d4b5c553dc9e4ecdc39cf7973d5c583d9",
+    "app/constants.py": "ed8efbc07bafc3aea2dddddb45c97fc8cc65ef445a47785ee00bcaefc1a3e118",
+    "app/database.py": "b20777c8cf8612c9017d9af2c613a2b6e3d034d2a832293085dd98f1d97de7d7",
+    "app/embeddings.py": "30f23db4cd36893464e84610edee8b2f4ca21fd893cf8b6020f60ff4c6c02c6d",
+    "app/evidence.py": "9fe6cd6312db4369dc972cdfcbac034a751ae964b3a02aa396fdfaf4a3262337",
+    "app/knowledge.py": "0b810e2c6cd6603d6dc8c366a1811739ba8021263c9e742002833d24b2e1cd49",
+    "app/llm.py": "d3105286bef6172246be067aa1781b53941e4e9a4fff7fc83a74bff5d8870cf8",
+    "app/main.py": "63b4e2323bf3a22c6dc90d145ea75059186c77259a2b267cd61312a81db337c7",
+    "app/metrics.py": "c7d9a3a72d647e8ddd74100763fef7aed5cc2a9f08078da1a61e35dbccf359d3",
+    "app/observability.py": "e8aa8229e31fffdbe3926c2073c35cbc61a633c2491333283833fb1d8d7e0dec",
+    "app/repository.py": "162d26987a82853d70dc708809206f94ba8f6df04ba7599335a27d664b200ed9",
+    "app/resources.py": "cdddb2fb08c2abc5f6add67ca19b7f85b00c6394e2a6877a87e82759f134b792",
+    "app/retrieval_health.py": "0de5f8b7263aa5e53602934c1788e34048e92cd9e75c4c022f8f5f6455e037d2",
+    "app/schemas.py": "dc266dfc0be951cd2ea4406461522f5a9b5af2a473869871d4537e55dad7b4ae",
+    "app/security.py": "2fbd2ec19ebd1ed5cb7ed88a103984538bbc0a873575b86d413cd4a63e41ab17",
+    "app/tools.py": "468d3424dbd40b335595287565c78a5055553192caa5f77259b5c0112384686d",
+    "evaluation/legacy.py": "0a45c0b00cf9db724ddbabaa2856fc3deb538effe2574752bbec1f6a2506e40f",
+    "evaluation/performance.py": "d1a7ae5a3ffcb4464752c155d0c8f28403de1b38da1d8316299897f887fee422",
+    "evaluation/replay_answers.py": "47697bd7384061598a76b22655e4514ea120b5b37b581f247940dee7e43bbbaf",
+    "evaluation/reproduce_lexical.py": "f7d5298b62a0c4461760bf8875a483df0b4e8a432246ed93ba87c25c16403455",
+    "evaluation/run.py": "2474e0899389e9ec7f793ac25bf76878eecd7aa65d72ed53ad804500d2df0de4",
+    "scripts/check-llm.py": "aff73120ae030f4438df528e2c0e705f2d8610d107f50afe6dc0990c397508c7",
+    "scripts/finalize-evidence.py": "b0c13142aa0dffc3706dbc0e46f7249c66cdff046c2363dff4cf2d54d585237c",
+    "scripts/import-demo.py": "4de27dfe0cd9eb9519ca78857dec8903130771f52c18e0b3d2a1fd26004f632f",
+    "tests/test_app.py": "1fb0ec8679dcbcea5fddf509bb9d04c2a8bfddcec803e9ba58775ef8416061a8",
+    "tests/test_engineering.py": "29390968b99f69bc8e176dfd54886f8a45380175d8cdc3df15d0a997ac998617"
+  },
+  "changed_since_retrieval_performance_snapshot": [
+    "app/main.py",
+    "scripts/finalize-evidence.py"
+  ],
+  "additional_sources_since_snapshot": [
+    "tests/test_app.py",
+    "tests/test_engineering.py"
+  ],
+  "chronology": [
+    "No paid calls in this follow-up; new prompt verified offline only.",
+    "Original 30-call results remain in the separate 20261001 snapshot.",
+    "answer-replay.json uses only those saved results and exact-source quote controls."
+  ],
+  "validation_limits": {
+    "docker_image_built": false,
+    "server_deployed": false,
+    "initial_performance_failure": "No HTTP failure in this completed run",
+    "browser": "Naming changes checked statically; no new browser run"
+  },
+  "commands": [
+    "conda run -n ticket-agent python -m unittest discover -s tests -v",
+    "conda run -n ticket-agent python -m evaluation.run --publish-policy --performance --output evaluation/results/20261001-review",
+    "conda run -n ticket-agent python scripts/finalize-evidence.py --output evaluation/results/20261001-review"
+  ],
+  "input_sha256": {
+    "data/simulated_sops.json": "b93fef32e250925d4e7220f473f7eb0ee97674a9be10af5265ba6010253a1e66",
+    "evaluation/benchmark-cases.json": "7e02c2df75c52daabfa20a3205f8304357261a25f3c54c4206ed6c678a4e97c0"
+  }
+}

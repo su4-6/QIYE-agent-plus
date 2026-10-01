@@ -98,6 +98,15 @@ def summarize(rows):
     return results
 
 
+def insufficient_summary(rows, threshold):
+    negatives = [r for r in rows if r["split"] == "test" and r["kind"] == "insufficient"]
+    evidence_rejected = sum(not r["hit"] or r["evidence_score"] < threshold for r in negatives)
+    routed = sum(r["risk_human"] or not r["hit"] or r["evidence_score"] < threshold for r in negatives)
+    return {"cases": len(negatives), "evidence_rejected": evidence_rejected,
+            "experimental_human_handoff": routed,
+            "note": "Before release gate; final application handoff is reported separately"}
+
+
 def evaluate(output: Path, *, publish_policy=False, live=False, performance=False, reuse_generation=False):
     cases=json.loads(DATA.read_text(encoding="utf-8"))["cases"]
     assert len(cases)==180 and all(sum(c["split"]==s for c in cases)==90 for s in ("calibration","test"))
@@ -144,12 +153,16 @@ def evaluate(output: Path, *, publish_policy=False, live=False, performance=Fals
                         "risk_human":risk in {"中风险","高风险"},"latency_ms":elapsed_ms})
                 raw[name]=rows
                 variants[name]=summarize(rows)
-            calibrations={m:calibrate(raw[m]) for m in ("bm25","hybrid")}
+            calibrations={m:calibrate(raw[m]) for m in ("bm25","vector","hybrid")}
             thresholds={m:r["threshold"] for m,r in calibrations.items()}
-            default="hybrid" if variants["hybrid"]["test"]["hit_at_3"]>=variants["bm25"]["test"]["hit_at_3"] else "bm25"
+            # Select mode on calibration data only, before looking at release gates.
+            default=max(("bm25","vector","hybrid"), key=lambda m:(
+                variants[m]["calibration"]["hit_at_3"], variants[m]["calibration"]["mrr_at_5"],
+                -variants[m]["calibration"]["latency_ms"]["p95"]))
             policy_data={"version":1,"default_mode":default,"thresholds":thresholds,"calibration":calibrations,
                 "cases_sha256":hashlib.sha256(DATA.read_bytes()).hexdigest(),"corpus_sha256":hashlib.sha256(CORPUS.read_bytes()).hexdigest(),
-                "selection_rule":"maximize coverage at precision>=.95 and accepted>=20; higher threshold breaks ties"}
+                "selection_rule":"maximize coverage at precision>=.95 and accepted>=20; higher threshold breaks ties",
+                "mode_selection_rule":"calibration Hit@3, then MRR@5, then lower P95; held-out test used only as release gate"}
             release_gate={}
             for mode in thresholds:
                 decision=routing(raw[mode],thresholds[mode])["confusion_matrix"]
@@ -172,6 +185,32 @@ def evaluate(output: Path, *, publish_policy=False, live=False, performance=Fals
                 "limitations":["Local simulated corpus and AI-assisted labels; not production performance","Citation validity is not semantic faithfulness","Latency excludes initial model warmup"]}
             summary["environment"]["packages"]={name:importlib.metadata.version(name) for name in ("fastembed","sqlite-vec","jieba","langgraph","fastapi","openai","numpy","onnxruntime")}
             summary["environment"]["source_sha256_normalized_lf"]={str(p.relative_to(ROOT)):hashlib.sha256(p.read_text(encoding="utf-8").replace("\r\n","\n").encode()).hexdigest() for folder in ("app","evaluation","scripts") for p in (ROOT/folder).glob("*.py")}
+            summary["insufficient_test"] = {m: insufficient_summary(raw[m], thresholds[m]) for m in thresholds}
+            challenge_path = ROOT / "evaluation/out-of-scope-cases.json"
+            challenge = json.loads(challenge_path.read_text(encoding="utf-8"))
+            challenge_raw = {}
+            for mode in thresholds:
+                challenge_raw[mode] = []
+                for index, query in enumerate(challenge["queries"], 1):
+                    result = retrieve(query, "demo", mode=mode)
+                    priority = evaluate_priority(query, query)
+                    risk = evaluate_risk_level(query, query, priority)
+                    risk_human = risk in {"中风险", "高风险"}
+                    rejected = not result["hits"] or result["evidence_score"] < thresholds[mode]
+                    challenge_raw[mode].append({"id": f"OOS-{index:02}", "query": query,
+                        "evidence_score": result["evidence_score"], "threshold": thresholds[mode],
+                        "topics": [h["title"].split()[1] for h in result["hits"]],
+                        "evidence_rejected": rejected, "risk_human": risk_human,
+                        "experimental_handoff": rejected or risk_human,
+                        "application_handoff": rejected or risk_human or not release_gate[mode]["passed"]})
+            write(output / "scope-challenge-raw.json", challenge_raw)
+            summary["scope_challenge"] = {"sha256": hashlib.sha256(challenge_path.read_bytes()).hexdigest(),
+                "label_source": challenge["label_source"], "used_for_calibration": False,
+                "modes": {m: {"cases": len(rows),
+                    "evidence_rejected": sum(r["evidence_rejected"] for r in rows),
+                    "experimental_handoff": sum(r["experimental_handoff"] for r in rows),
+                    "application_handoff": sum(r["application_handoff"] for r in rows)}
+                    for m, rows in challenge_raw.items()}}
             write(output/"retrieval-raw.json",raw)
             write(output/"summary.json",summary)
             if live or reuse_generation:
@@ -219,7 +258,7 @@ def live_generation(rows,mode,threshold,output,*,resume_only=False):
             continue  # interrupted/ambiguous requests consume a slot, never retry
         ledger["attempt_ids"].append(row["id"])
         write(ledger_path,ledger)
-        result=retrieve(row["query"],"demo",mode=mode,rerank=mode!="bm25")
+        result=retrieve(row["query"],"demo",mode=mode,rerank=mode=="hybrid")
         start=time.perf_counter()
         answer,citations=generate_grounded_answer(title=row["query"],description=row["query"],category="模拟工单",risk_level="低风险",hits=result["hits"][:4],allow_llm=True,tenant_id="demo")
         detail=last_generation.get()

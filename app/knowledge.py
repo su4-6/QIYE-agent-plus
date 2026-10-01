@@ -173,6 +173,19 @@ def reindex(tenant_id: str = "demo") -> int:
     return len(updates)
 
 
+def bm25_hits(terms: list[str], tenant_id: str) -> list[dict]:
+    if not terms:
+        return []
+    expression = " OR ".join('"' + t.replace('"', '') + '"' for t in terms)
+    with get_connection() as db:
+        return [dict(r) for r in db.execute("""SELECT c.id,c.document_id,c.tenant_id,c.title,c.content,c.heading_path,c.chunk_key,
+            d.version,bm25(chunks_fts) AS distance FROM chunks_fts
+            JOIN knowledge_chunks c ON c.id=chunks_fts.rowid
+            JOIN knowledge_documents d ON d.id=c.document_id
+            WHERE chunks_fts MATCH ? AND c.tenant_id=? AND c.active=1 AND d.active=1
+            ORDER BY distance LIMIT 15""", (expression, tenant_id))]
+
+
 def retrieve(query: str, tenant_id: str, limit: int = 5, *, mode: str | None = None,
              rewrite: bool = True, title_signal: bool = True, rerank: bool | None = None) -> dict:
     started = time.perf_counter()
@@ -183,16 +196,7 @@ def retrieve(query: str, tenant_id: str, limit: int = 5, *, mode: str | None = N
         rerank = mode == "hybrid"
     rewritten = rewrite_query(query) if rewrite else query
     terms = list(dict.fromkeys(tokens(rewritten)))[:12]
-    lexical: list[dict] = []
-    with get_connection() as db:
-        if terms and mode != "vector":
-            expression = " OR ".join('"' + t.replace('"', '') + '"' for t in terms)
-            lexical = [dict(r) for r in db.execute("""SELECT c.id,c.document_id,c.tenant_id,c.title,c.content,c.heading_path,c.chunk_key,
-                d.version,bm25(chunks_fts) AS distance FROM chunks_fts
-                JOIN knowledge_chunks c ON c.id=chunks_fts.rowid
-                JOIN knowledge_documents d ON d.id=c.document_id
-                WHERE chunks_fts MATCH ? AND c.tenant_id=? AND c.active=1 AND d.active=1
-                ORDER BY distance LIMIT 15""", (expression, tenant_id))]
+    lexical = bm25_hits(terms, tenant_id) if mode != "vector" else []
     semantic: list[dict] = []
     health = vector_health(tenant_id) if mode != "bm25" else {"state": "not_used", "reason": "bm25_mode"}
     vector_state, vector_reason = health["state"], health.get("reason", "")
@@ -216,6 +220,12 @@ def retrieve(query: str, tenant_id: str, limit: int = 5, *, mode: str | None = N
             vector_state, vector_reason = "runtime_failed", type(exc).__name__
             record_vector(tenant_id, vector_state, vector_reason)
             logging.getLogger(__name__).warning("vector_degraded request_id=%s type=%s", request_id.get(), type(exc).__name__)
+    vector_fallback = mode == "vector" and (not semantic or vector_state in {
+        "runtime_failed", "index_not_ready", "model_mismatch", "disabled"})
+    if vector_fallback:
+        lexical = bm25_hits(terms, tenant_id)
+        semantic = []
+        rerank = False
     ranked: dict[int, dict] = {}
     for source, hits in (("bm25", lexical), ("vector", semantic)):
         for rank, hit in enumerate(hits, 1):
@@ -225,7 +235,7 @@ def retrieve(query: str, tenant_id: str, limit: int = 5, *, mode: str | None = N
             if source == "vector":
                 item["similarity"] = 1 - hit["distance"]
     query_terms = set(terms)
-    evidence_mode = "bm25" if mode == "hybrid" and not semantic else "hybrid" if mode == "vector" else mode
+    evidence_mode = "bm25" if vector_fallback or (mode == "hybrid" and not semantic) else mode
     if mode == "hybrid" and not semantic:
         rerank = False
     for item in ranked.values():
@@ -250,7 +260,7 @@ def retrieve(query: str, tenant_id: str, limit: int = 5, *, mode: str | None = N
     elapsed = round((time.perf_counter() - started) * 1000, 3)
     event("retrieval", mode=mode, hits=len(hits), vector_state=vector_state, latency_ms=elapsed)
     return {"query": rewritten, "hits": hits, "sufficient": sufficient,
-            "schema_version": 3, "mode": mode, "evidence_mode": evidence_mode,
+            "schema_version": 3, "mode": mode, "evidence_mode": evidence_mode, "vector_fallback": vector_fallback,
             "evidence_score": score, "threshold": threshold(evidence_mode),
             "calibrated_sufficient": calibrated_sufficient, "automation_enabled": enabled,
             "vector_state": vector_state, "vector_reason": vector_reason, "latency_ms": elapsed,

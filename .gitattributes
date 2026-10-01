@@ -2,3 +2,5 @@
 data/simulated_sops.json -text
 evaluation/*.json -text
 evaluation/results/** -text
+# Preserve native kubectl table padding in captured stdout.
+evaluation/results/**/server-resources.txt whitespace=-blank-at-eol,cr-at-eol

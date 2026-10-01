@@ -26,26 +26,33 @@ def finalize(output):
     if not output.is_relative_to(ROOT / "evaluation" / "results"):
         raise ValueError("Output must be under evaluation/results")
     summary = read(output / "summary.json")
-    ledger = read(output / "generation-ledger.json")
-    generations = read(output / "generation-raw.json")
-    review = read(output / "semantic-review.json")
-    attempts = ledger["attempt_ids"]
-    if len(attempts) > 30 or len(attempts) != len(set(attempts)):
-        raise ValueError("Invalid model-call budget ledger")
-    if {row["case_id"] for row in generations} != set(attempts):
-        raise ValueError("Generation records do not match call ledger")
-    tokens = sum(row.get("usage", {}).get("completion_tokens", 0) for row in generations)
-    if tokens > 30000 or tokens != summary["generation"]["completion_tokens"]:
-        raise ValueError("Invalid output-token budget")
-    if review["generation_raw_sha256"] != digest(output / "generation-raw.json"):
-        raise ValueError("Semantic review belongs to different model outputs")
+    has_generation = (output / "generation-ledger.json").exists()
+    ledger, attempts, tokens = {}, [], 0
+    if has_generation:
+        ledger = read(output / "generation-ledger.json")
+        generations = read(output / "generation-raw.json")
+        review = read(output / "semantic-review.json")
+        attempts = ledger["attempt_ids"]
+        if len(attempts) > 30 or len(attempts) != len(set(attempts)):
+            raise ValueError("Invalid model-call budget ledger")
+        if {row["case_id"] for row in generations} != set(attempts):
+            raise ValueError("Generation records do not match call ledger")
+        tokens = sum(row.get("usage", {}).get("completion_tokens", 0) for row in generations)
+        if tokens > 30000 or tokens != summary.get("generation", {}).get("completion_tokens", tokens):
+            raise ValueError("Invalid output-token budget")
+        if review["generation_raw_sha256"] != digest(output / "generation-raw.json"):
+            raise ValueError("Semantic review belongs to different model outputs")
     inputs = {
         "data/simulated_sops.json": "corpus_sha256",
         "evaluation/benchmark-cases.json": "cases_sha256",
     }
     for filename, key in inputs.items():
-        if digest(ROOT / filename) != ledger[key] or digest(ROOT / filename) != summary["policy"][key]:
+        if (has_generation and digest(ROOT / filename) != ledger[key]) or digest(ROOT / filename) != summary["policy"][key]:
             raise ValueError("Dataset no longer matches measurement")
+    if "scope_challenge" in summary:
+        challenge = ROOT / "evaluation/out-of-scope-cases.json"
+        if digest(challenge) != summary["scope_challenge"]["sha256"]:
+            raise ValueError("Scope challenge input hash mismatch")
     tests = (output / "engineering-tests.txt").read_text(encoding="utf-8-sig")
     matched = re.search(r"Ran (\d+) tests in ([0-9.]+)s\s+OK", tests)
     if not matched:
@@ -81,16 +88,20 @@ def finalize(output):
             "summary.json records the completed retrieval/performance rerun, reusing saved generation outputs.",
             "The original live-call source snapshot was not separately frozen; do not claim it matches final sources.",
             "Final offline unittest output includes the later fixes; no extra paid calls were made.",
+        ] if has_generation else [
+            "No paid calls in this follow-up; new prompt verified offline only.",
+            "Original 30-call results remain in the separate 20261001 snapshot.",
+            "answer-replay.json uses only those saved results and exact-source quote controls.",
         ],
         "validation_limits": {
             "docker_image_built": False, "server_deployed": False,
-            "initial_performance_failure": "HTTP ReadError WinError 10053; exact cause not established; incomplete run excluded",
-            "browser": "Admin login and empty metrics/day-window verified; final added copy checked statically only",
+            "initial_performance_failure": "HTTP ReadError WinError 10053; incomplete run excluded" if has_generation else "No HTTP failure in this completed run",
+            "browser": "Admin login and empty metrics/day-window verified; final added copy checked statically only" if has_generation else "Naming changes checked statically; no new browser run",
         },
         "commands": [
             "conda run -n ticket-agent python -m unittest discover -s tests -v",
-            "conda run -n ticket-agent python -m evaluation.run --reuse-generation --performance --output evaluation/results/20261001",
-            "conda run -n ticket-agent python scripts/finalize-evidence.py",
+            f"conda run -n ticket-agent python -m evaluation.run {'--reuse-generation ' if has_generation else '--publish-policy '}--performance --output {output.relative_to(ROOT).as_posix()}",
+            f"conda run -n ticket-agent python scripts/finalize-evidence.py --output {output.relative_to(ROOT).as_posix()}",
         ],
         "input_sha256": {filename: digest(ROOT / filename) for filename in inputs},
     })

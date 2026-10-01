@@ -1,0 +1,506 @@
+{
+  "environment": {
+    "python": "3.13.13 | packaged by Anaconda, Inc. | (main, Apr 14 2026, 06:12:50) [MSC v.1942 64 bit (AMD64)]",
+    "platform": "Windows-11-10.0.26300-SP0",
+    "processor": "Intel64 Family 6 Model 183 Stepping 1, GenuineIntel",
+    "logical_cpus": 32,
+    "commit": "274d0b1b7c0efbbbede7aaa1b2c93464ce2a4ba3",
+    "working_tree": "M .env.example\n M README.md\n M app/agent.py\n M app/config.py\n M app/knowledge.py\n M app/llm.py\n M app/templates/index.html\n M docs/resume-evidence.md\n M evaluation/policy.json\n M evaluation/run.py\n M tests/test_engineering.py\n?? app/answer_validation.py\n?? evaluation/out-of-scope-cases.json\n?? evaluation/replay_answers.py\n?? evaluation/results/20261001-review/\n?? evaluation/review-run.tmp.txt\n?? evaluation/review-tests.tmp.txt",
+    "model": "BAAI/bge-small-zh-v1.5",
+    "model_threads": 2,
+    "utc": "2026-10-01T04:37:20Z",
+    "packages": {
+      "fastembed": "0.8.1",
+      "sqlite-vec": "0.1.9",
+      "jieba": "0.42.1",
+      "langgraph": "0.2.60",
+      "fastapi": "0.115.6",
+      "openai": "1.90.0",
+      "numpy": "2.5.3",
+      "onnxruntime": "1.30.0"
+    },
+    "source_sha256_normalized_lf": {
+      "app\\agent.py": "e6b6f4678682711353805c8e2abbfdfa7265ba5f92ce7f62244fbbc1f86bd8c6",
+      "app\\answer_validation.py": "81627b7f3808e378ef566f5e1956c261e90b6de40376f9ae291d0e2552f38618",
+      "app\\config.py": "0af6d5e5f170ff8b0dc861abceca546d4b5c553dc9e4ecdc39cf7973d5c583d9",
+      "app\\constants.py": "ed8efbc07bafc3aea2dddddb45c97fc8cc65ef445a47785ee00bcaefc1a3e118",
+      "app\\database.py": "b20777c8cf8612c9017d9af2c613a2b6e3d034d2a832293085dd98f1d97de7d7",
+      "app\\embeddings.py": "30f23db4cd36893464e84610edee8b2f4ca21fd893cf8b6020f60ff4c6c02c6d",
+      "app\\evidence.py": "9fe6cd6312db4369dc972cdfcbac034a751ae964b3a02aa396fdfaf4a3262337",
+      "app\\knowledge.py": "0b810e2c6cd6603d6dc8c366a1811739ba8021263c9e742002833d24b2e1cd49",
+      "app\\llm.py": "d3105286bef6172246be067aa1781b53941e4e9a4fff7fc83a74bff5d8870cf8",
+      "app\\main.py": "6e597861dcf5d4fdaeb7eb181f3e14b6d453cd2a85ec8b380d04a3613de47e9d",
+      "app\\metrics.py": "c7d9a3a72d647e8ddd74100763fef7aed5cc2a9f08078da1a61e35dbccf359d3",
+      "app\\observability.py": "e8aa8229e31fffdbe3926c2073c35cbc61a633c2491333283833fb1d8d7e0dec",
+      "app\\repository.py": "162d26987a82853d70dc708809206f94ba8f6df04ba7599335a27d664b200ed9",
+      "app\\resources.py": "cdddb2fb08c2abc5f6add67ca19b7f85b00c6394e2a6877a87e82759f134b792",
+      "app\\retrieval_health.py": "0de5f8b7263aa5e53602934c1788e34048e92cd9e75c4c022f8f5f6455e037d2",
+      "app\\schemas.py": "dc266dfc0be951cd2ea4406461522f5a9b5af2a473869871d4537e55dad7b4ae",
+      "app\\security.py": "2fbd2ec19ebd1ed5cb7ed88a103984538bbc0a873575b86d413cd4a63e41ab17",
+      "app\\tools.py": "468d3424dbd40b335595287565c78a5055553192caa5f77259b5c0112384686d",
+      "app\\__init__.py": "83434065d9190b6a029c949ffd1e666685a496a9584b41268797374b9572c66d",
+      "evaluation\\legacy.py": "0a45c0b00cf9db724ddbabaa2856fc3deb538effe2574752bbec1f6a2506e40f",
+      "evaluation\\performance.py": "d1a7ae5a3ffcb4464752c155d0c8f28403de1b38da1d8316299897f887fee422",
+      "evaluation\\replay_answers.py": "47697bd7384061598a76b22655e4514ea120b5b37b581f247940dee7e43bbbaf",
+      "evaluation\\reproduce_lexical.py": "f7d5298b62a0c4461760bf8875a483df0b4e8a432246ed93ba87c25c16403455",
+      "evaluation\\run.py": "2474e0899389e9ec7f793ac25bf76878eecd7aa65d72ed53ad804500d2df0de4",
+      "scripts\\check-llm.py": "aff73120ae030f4438df528e2c0e705f2d8610d107f50afe6dc0990c397508c7",
+      "scripts\\finalize-evidence.py": "53dbdf4536653a2bccd466a7d468f4aa2f9eb815e992352aa457d9f656c247f6",
+      "scripts\\import-demo.py": "4de27dfe0cd9eb9519ca78857dec8903130771f52c18e0b3d2a1fd26004f632f"
+    }
+  },
+  "dataset": {
+    "topics": 60,
+    "chunks": 60,
+    "cases": 180,
+    "split": "90 calibration / 90 test",
+    "label_source": "AI-assisted synthetic"
+  },
+  "indexing_seconds": 3.039190999999846,
+  "vector_health": {
+    "state": "ready",
+    "reason": "",
+    "coverage": 60,
+    "total": 60,
+    "coverage_ratio": 1.0,
+    "model": "BAAI/bge-small-zh-v1.5",
+    "extension_available": true,
+    "runtime_checked": true
+  },
+  "variants": {
+    "legacy_keyword": {
+      "calibration": {
+        "answerable_cases": 60,
+        "hit_at_1": 0.31666666666666665,
+        "hit_at_3": 0.4666666666666667,
+        "hit_at_5": 0.5,
+        "mrr_at_5": 0.38333333333333336,
+        "recall_at_3": 0.4666666666666667,
+        "zero_retrieval_count": 0,
+        "all_cases": 90,
+        "zero_retrieval_rate": 0.0,
+        "vector_degraded_count": 0,
+        "latency_ms": {
+          "p50": 0.597,
+          "p95": 0.67,
+          "p99": 1.065
+        }
+      },
+      "test": {
+        "answerable_cases": 60,
+        "hit_at_1": 0.18333333333333332,
+        "hit_at_3": 0.4,
+        "hit_at_5": 0.4666666666666667,
+        "mrr_at_5": 0.2972222222222222,
+        "recall_at_3": 0.4,
+        "zero_retrieval_count": 0,
+        "all_cases": 90,
+        "zero_retrieval_rate": 0.0,
+        "vector_degraded_count": 0,
+        "latency_ms": {
+          "p50": 0.593,
+          "p95": 0.64,
+          "p99": 0.689
+        }
+      }
+    },
+    "bm25": {
+      "calibration": {
+        "answerable_cases": 60,
+        "hit_at_1": 0.8833333333333333,
+        "hit_at_3": 0.9666666666666667,
+        "hit_at_5": 0.9666666666666667,
+        "mrr_at_5": 0.9222222222222223,
+        "recall_at_3": 0.9666666666666667,
+        "zero_retrieval_count": 10,
+        "all_cases": 90,
+        "zero_retrieval_rate": 0.1111111111111111,
+        "vector_degraded_count": 0,
+        "latency_ms": {
+          "p50": 19.332,
+          "p95": 34.668,
+          "p99": 43.468
+        }
+      },
+      "test": {
+        "answerable_cases": 60,
+        "hit_at_1": 0.7333333333333333,
+        "hit_at_3": 0.85,
+        "hit_at_5": 0.8666666666666667,
+        "mrr_at_5": 0.7847222222222222,
+        "recall_at_3": 0.85,
+        "zero_retrieval_count": 12,
+        "all_cases": 90,
+        "zero_retrieval_rate": 0.13333333333333333,
+        "vector_degraded_count": 0,
+        "latency_ms": {
+          "p50": 20.011,
+          "p95": 35.739,
+          "p99": 43.783
+        }
+      }
+    },
+    "vector": {
+      "calibration": {
+        "answerable_cases": 60,
+        "hit_at_1": 0.95,
+        "hit_at_3": 0.9666666666666667,
+        "hit_at_5": 0.9666666666666667,
+        "mrr_at_5": 0.9583333333333334,
+        "recall_at_3": 0.9666666666666667,
+        "zero_retrieval_count": 0,
+        "all_cases": 90,
+        "zero_retrieval_rate": 0.0,
+        "vector_degraded_count": 0,
+        "latency_ms": {
+          "p50": 25.91,
+          "p95": 28.573,
+          "p99": 30.796
+        }
+      },
+      "test": {
+        "answerable_cases": 60,
+        "hit_at_1": 0.9,
+        "hit_at_3": 0.9333333333333333,
+        "hit_at_5": 0.9333333333333333,
+        "mrr_at_5": 0.9166666666666666,
+        "recall_at_3": 0.9333333333333333,
+        "zero_retrieval_count": 0,
+        "all_cases": 90,
+        "zero_retrieval_rate": 0.0,
+        "vector_degraded_count": 0,
+        "latency_ms": {
+          "p50": 26.069,
+          "p95": 29.338,
+          "p99": 31.022
+        }
+      }
+    },
+    "hybrid_rrf": {
+      "calibration": {
+        "answerable_cases": 60,
+        "hit_at_1": 0.9666666666666667,
+        "hit_at_3": 0.9666666666666667,
+        "hit_at_5": 0.9666666666666667,
+        "mrr_at_5": 0.9666666666666667,
+        "recall_at_3": 0.9666666666666667,
+        "zero_retrieval_count": 0,
+        "all_cases": 90,
+        "zero_retrieval_rate": 0.0,
+        "vector_degraded_count": 0,
+        "latency_ms": {
+          "p50": 42.711,
+          "p95": 59.805,
+          "p99": 71.026
+        }
+      },
+      "test": {
+        "answerable_cases": 60,
+        "hit_at_1": 0.8333333333333334,
+        "hit_at_3": 0.8833333333333333,
+        "hit_at_5": 0.9166666666666666,
+        "mrr_at_5": 0.8666666666666667,
+        "recall_at_3": 0.8833333333333333,
+        "zero_retrieval_count": 0,
+        "all_cases": 90,
+        "zero_retrieval_rate": 0.0,
+        "vector_degraded_count": 0,
+        "latency_ms": {
+          "p50": 42.259,
+          "p95": 58.509,
+          "p99": 67.084
+        }
+      }
+    },
+    "hybrid": {
+      "calibration": {
+        "answerable_cases": 60,
+        "hit_at_1": 0.95,
+        "hit_at_3": 0.9666666666666667,
+        "hit_at_5": 0.9666666666666667,
+        "mrr_at_5": 0.9583333333333334,
+        "recall_at_3": 0.9666666666666667,
+        "zero_retrieval_count": 0,
+        "all_cases": 90,
+        "zero_retrieval_rate": 0.0,
+        "vector_degraded_count": 0,
+        "latency_ms": {
+          "p50": 42.838,
+          "p95": 62.46,
+          "p99": 66.497
+        }
+      },
+      "test": {
+        "answerable_cases": 60,
+        "hit_at_1": 0.7833333333333333,
+        "hit_at_3": 0.8666666666666667,
+        "hit_at_5": 0.9166666666666666,
+        "mrr_at_5": 0.8358333333333333,
+        "recall_at_3": 0.8666666666666667,
+        "zero_retrieval_count": 0,
+        "all_cases": 90,
+        "zero_retrieval_rate": 0.0,
+        "vector_degraded_count": 0,
+        "latency_ms": {
+          "p50": 42.614,
+          "p95": 60.62,
+          "p99": 67.488
+        }
+      }
+    },
+    "hybrid_no_rewrite": {
+      "calibration": {
+        "answerable_cases": 60,
+        "hit_at_1": 0.9666666666666667,
+        "hit_at_3": 0.9833333333333333,
+        "hit_at_5": 0.9833333333333333,
+        "mrr_at_5": 0.975,
+        "recall_at_3": 0.9833333333333333,
+        "zero_retrieval_count": 0,
+        "all_cases": 90,
+        "zero_retrieval_rate": 0.0,
+        "vector_degraded_count": 0,
+        "latency_ms": {
+          "p50": 43.875,
+          "p95": 59.608,
+          "p99": 66.405
+        }
+      },
+      "test": {
+        "answerable_cases": 60,
+        "hit_at_1": 0.7833333333333333,
+        "hit_at_3": 0.8666666666666667,
+        "hit_at_5": 0.9166666666666666,
+        "mrr_at_5": 0.8358333333333333,
+        "recall_at_3": 0.8666666666666667,
+        "zero_retrieval_count": 0,
+        "all_cases": 90,
+        "zero_retrieval_rate": 0.0,
+        "vector_degraded_count": 0,
+        "latency_ms": {
+          "p50": 42.314,
+          "p95": 56.126,
+          "p99": 65.699
+        }
+      }
+    },
+    "hybrid_no_title": {
+      "calibration": {
+        "answerable_cases": 60,
+        "hit_at_1": 0.9666666666666667,
+        "hit_at_3": 0.9666666666666667,
+        "hit_at_5": 0.9666666666666667,
+        "mrr_at_5": 0.9666666666666667,
+        "recall_at_3": 0.9666666666666667,
+        "zero_retrieval_count": 0,
+        "all_cases": 90,
+        "zero_retrieval_rate": 0.0,
+        "vector_degraded_count": 0,
+        "latency_ms": {
+          "p50": 44.83,
+          "p95": 61.327,
+          "p99": 74.47
+        }
+      },
+      "test": {
+        "answerable_cases": 60,
+        "hit_at_1": 0.8166666666666667,
+        "hit_at_3": 0.8833333333333333,
+        "hit_at_5": 0.9166666666666666,
+        "mrr_at_5": 0.8575,
+        "recall_at_3": 0.8833333333333333,
+        "zero_retrieval_count": 0,
+        "all_cases": 90,
+        "zero_retrieval_rate": 0.0,
+        "vector_degraded_count": 0,
+        "latency_ms": {
+          "p50": 43.817,
+          "p95": 63.361,
+          "p99": 67.852
+        }
+      }
+    }
+  },
+  "policy": {
+    "version": 1,
+    "default_mode": "vector",
+    "thresholds": {
+      "bm25": 0.4,
+      "vector": 0.510423,
+      "hybrid": 0.510423
+    },
+    "calibration": {
+      "bm25": {
+        "threshold": 0.4,
+        "accepted": 46,
+        "precision": 0.9565217391304348,
+        "reason": "calibrated",
+        "eligible": 75
+      },
+      "vector": {
+        "threshold": 0.510423,
+        "accepted": 60,
+        "precision": 0.95,
+        "reason": "calibrated",
+        "eligible": 75
+      },
+      "hybrid": {
+        "threshold": 0.510423,
+        "accepted": 60,
+        "precision": 0.95,
+        "reason": "calibrated",
+        "eligible": 75
+      }
+    },
+    "cases_sha256": "7e02c2df75c52daabfa20a3205f8304357261a25f3c54c4206ed6c678a4e97c0",
+    "corpus_sha256": "b93fef32e250925d4e7220f473f7eb0ee97674a9be10af5265ba6010253a1e66",
+    "selection_rule": "maximize coverage at precision>=.95 and accepted>=20; higher threshold breaks ties",
+    "mode_selection_rule": "calibration Hit@3, then MRR@5, then lower P95; held-out test used only as release gate",
+    "release_gate": {
+      "bm25": {
+        "accepted": 37,
+        "precision": 0.8648648648648649,
+        "passed": false,
+        "reason": "held_out_precision_below_95pct"
+      },
+      "vector": {
+        "accepted": 55,
+        "precision": 0.8909090909090909,
+        "passed": false,
+        "reason": "held_out_precision_below_95pct"
+      },
+      "hybrid": {
+        "accepted": 54,
+        "precision": 0.7962962962962963,
+        "passed": false,
+        "reason": "held_out_precision_below_95pct"
+      }
+    }
+  },
+  "routing": {
+    "bm25": {
+      "confusion_matrix": {
+        "tp": 41,
+        "fp": 12,
+        "tn": 32,
+        "fn": 5
+      },
+      "human_precision": 0.7735849056603774,
+      "human_recall": 0.8913043478260869,
+      "auto_coverage": 0.4111111111111111
+    },
+    "vector": {
+      "confusion_matrix": {
+        "tp": 30,
+        "fp": 5,
+        "tn": 49,
+        "fn": 6
+      },
+      "human_precision": 0.8571428571428571,
+      "human_recall": 0.8333333333333334,
+      "auto_coverage": 0.6111111111111112
+    },
+    "hybrid": {
+      "confusion_matrix": {
+        "tp": 32,
+        "fp": 4,
+        "tn": 43,
+        "fn": 11
+      },
+      "human_precision": 0.8888888888888888,
+      "human_recall": 0.7441860465116279,
+      "auto_coverage": 0.6
+    }
+  },
+  "limitations": [
+    "Local simulated corpus and AI-assisted labels; not production performance",
+    "Citation validity is not semantic faithfulness",
+    "Latency excludes initial model warmup"
+  ],
+  "insufficient_test": {
+    "bm25": {
+      "cases": 15,
+      "evidence_rejected": 15,
+      "experimental_human_handoff": 15,
+      "note": "Before release gate; final application handoff is reported separately"
+    },
+    "vector": {
+      "cases": 15,
+      "evidence_rejected": 15,
+      "experimental_human_handoff": 15,
+      "note": "Before release gate; final application handoff is reported separately"
+    },
+    "hybrid": {
+      "cases": 15,
+      "evidence_rejected": 15,
+      "experimental_human_handoff": 15,
+      "note": "Before release gate; final application handoff is reported separately"
+    }
+  },
+  "scope_challenge": {
+    "sha256": "d15592ad37bcf0bc8f9472983fec49b2cb9a05a8d17ad767b5cc3c3f99e32b04",
+    "label_source": "AI-assisted scope comparison against the frozen 60 IT SOP topics; no human inter-rater validation",
+    "used_for_calibration": false,
+    "modes": {
+      "bm25": {
+        "cases": 30,
+        "evidence_rejected": 27,
+        "experimental_handoff": 28,
+        "application_handoff": 30
+      },
+      "vector": {
+        "cases": 30,
+        "evidence_rejected": 24,
+        "experimental_handoff": 25,
+        "application_handoff": 30
+      },
+      "hybrid": {
+        "cases": 30,
+        "evidence_rejected": 25,
+        "experimental_handoff": 26,
+        "application_handoff": 30
+      }
+    }
+  },
+  "performance": {
+    "mode": "real local HTTP, LLM disabled; POST + authenticated GET workflow",
+    "concurrency": {
+      "1": {
+        "requests": 100,
+        "successes": 100,
+        "elapsed_seconds": 9.06509399999959,
+        "throughput_workflows_per_second": 11.031325212954716,
+        "latency_ms": {
+          "p50": 88.375,
+          "p95": 96.913,
+          "p99": 155.412
+        }
+      },
+      "5": {
+        "requests": 100,
+        "successes": 100,
+        "elapsed_seconds": 3.861572099998739,
+        "throughput_workflows_per_second": 25.89618875691397,
+        "latency_ms": {
+          "p50": 181.275,
+          "p95": 266.038,
+          "p99": 391.688
+        }
+      },
+      "10": {
+        "requests": 100,
+        "successes": 100,
+        "elapsed_seconds": 3.4734685000003083,
+        "throughput_workflows_per_second": 28.789666582550304,
+        "latency_ms": {
+          "p50": 322.999,
+          "p95": 485.65,
+          "p99": 648.032
+        }
+      }
+    },
+    "baseline_rss_mib": 295.54296875,
+    "sampled_peak_rss_mib": 310.87890625,
+    "memory_scope": "whole benchmark process including BGE model and evaluation data; 20ms sampling"
+  }
+}

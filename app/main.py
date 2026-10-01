@@ -22,6 +22,7 @@ from app.security import (admin_claims, check_access_token, check_password, crea
 from app.retrieval_health import vector_health
 from app.metrics import retrieval_metrics
 from app.observability import request_id, event, configure_logging
+from app.evidence import policy
 
 logger = logging.getLogger(__name__)
 INDEX_PATH = Path(__file__).parent / "templates" / "index.html"
@@ -98,7 +99,8 @@ def health():
             "llm_enabled": model["enabled"], "llm_provider": model["provider"], "llm_model": model["model"]})
     vector = vector_health()
     ready = vector["state"] == "ready"
-    retrieval = "bm25+vector" if ready else "bm25"
+    mode = policy().get("default_mode", "bm25")
+    retrieval = ("bm25+vector" if mode == "hybrid" else mode) if ready else "bm25"
     return {"status": "ok" if ready or vector["state"] == "disabled" else "degraded",
             "database": "ok", "retrieval": retrieval, "vector": vector,
             "llm_enabled": model["enabled"], "llm_provider": model["provider"],

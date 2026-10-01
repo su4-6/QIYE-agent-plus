@@ -1,0 +1,1369 @@
+{
+  "bm25": [
+    {
+      "id": "OOS-01",
+      "query": "公司今年年会在哪个酒店举办？",
+      "evidence_score": 0.166667,
+      "threshold": 0.4,
+      "topics": [
+        "T15"
+      ],
+      "evidence_rejected": true,
+      "risk_human": false,
+      "experimental_handoff": true,
+      "application_handoff": true
+    },
+    {
+      "id": "OOS-02",
+      "query": "我们部门团建每个人有多少预算？",
+      "evidence_score": 0.0,
+      "threshold": 0.4,
+      "topics": [],
+      "evidence_rejected": true,
+      "risk_human": false,
+      "experimental_handoff": true,
+      "application_handoff": true
+    },
+    {
+      "id": "OOS-03",
+      "query": "去上海出差住酒店每天能报销多少钱？",
+      "evidence_score": 0.0,
+      "threshold": 0.4,
+      "topics": [],
+      "evidence_rejected": true,
+      "risk_human": false,
+      "experimental_handoff": true,
+      "application_handoff": true
+    },
+    {
+      "id": "OOS-04",
+      "query": "周末加班调休多久会过期？",
+      "evidence_score": 0.2,
+      "threshold": 0.4,
+      "topics": [
+        "T05",
+        "T41"
+      ],
+      "evidence_rejected": true,
+      "risk_human": false,
+      "experimental_handoff": true,
+      "application_handoff": true
+    },
+    {
+      "id": "OOS-05",
+      "query": "今年绩效奖金按什么公式计算？",
+      "evidence_score": 0.0,
+      "threshold": 0.4,
+      "topics": [],
+      "evidence_rejected": true,
+      "risk_human": false,
+      "experimental_handoff": true,
+      "application_handoff": true
+    },
+    {
+      "id": "OOS-06",
+      "query": "新入职员工试用期能申请几天年假？",
+      "evidence_score": 0.4,
+      "threshold": 0.4,
+      "topics": [
+        "T48"
+      ],
+      "evidence_rejected": false,
+      "risk_human": false,
+      "experimental_handoff": false,
+      "application_handoff": true
+    },
+    {
+      "id": "OOS-07",
+      "query": "公司午餐补贴每个月什么时候发？",
+      "evidence_score": 0.166667,
+      "threshold": 0.4,
+      "topics": [
+        "T15"
+      ],
+      "evidence_rejected": true,
+      "risk_human": false,
+      "experimental_handoff": true,
+      "application_handoff": true
+    },
+    {
+      "id": "OOS-08",
+      "query": "我的公积金缴费比例是多少？",
+      "evidence_score": 0.0,
+      "threshold": 0.4,
+      "topics": [],
+      "evidence_rejected": true,
+      "risk_human": false,
+      "experimental_handoff": true,
+      "application_handoff": true
+    },
+    {
+      "id": "OOS-09",
+      "query": "病假需要哪家医院的证明？",
+      "evidence_score": 0.2,
+      "threshold": 0.4,
+      "topics": [
+        "T15",
+        "T43"
+      ],
+      "evidence_rejected": true,
+      "risk_human": false,
+      "experimental_handoff": true,
+      "application_handoff": true
+    },
+    {
+      "id": "OOS-10",
+      "query": "离职后股票期权还能保留吗？",
+      "evidence_score": 0.5,
+      "threshold": 0.4,
+      "topics": [
+        "T49"
+      ],
+      "evidence_rejected": false,
+      "risk_human": false,
+      "experimental_handoff": false,
+      "application_handoff": true
+    },
+    {
+      "id": "OOS-11",
+      "query": "办公楼停车月卡怎么续费？",
+      "evidence_score": 0.0,
+      "threshold": 0.4,
+      "topics": [],
+      "evidence_rejected": true,
+      "risk_human": false,
+      "experimental_handoff": true,
+      "application_handoff": true
+    },
+    {
+      "id": "OOS-12",
+      "query": "下周公司班车几点从地铁站发车？",
+      "evidence_score": 0.166667,
+      "threshold": 0.4,
+      "topics": [
+        "T15"
+      ],
+      "evidence_rejected": true,
+      "risk_human": false,
+      "experimental_handoff": true,
+      "application_handoff": true
+    },
+    {
+      "id": "OOS-13",
+      "query": "访客进公司需要提前给前台哪些信息？",
+      "evidence_score": 0.285714,
+      "threshold": 0.4,
+      "topics": [
+        "T15"
+      ],
+      "evidence_rejected": true,
+      "risk_human": false,
+      "experimental_handoff": true,
+      "application_handoff": true
+    },
+    {
+      "id": "OOS-14",
+      "query": "会议室咖啡机胶囊应该向谁领取？",
+      "evidence_score": 0.2,
+      "threshold": 0.4,
+      "topics": [
+        "T35"
+      ],
+      "evidence_rejected": true,
+      "risk_human": false,
+      "experimental_handoff": true,
+      "application_handoff": true
+    },
+    {
+      "id": "OOS-15",
+      "query": "公司快递收件地址和联系电话是什么？",
+      "evidence_score": 0.333333,
+      "threshold": 0.4,
+      "topics": [
+        "T14",
+        "T13"
+      ],
+      "evidence_rejected": true,
+      "risk_human": false,
+      "experimental_handoff": true,
+      "application_handoff": true
+    },
+    {
+      "id": "OOS-16",
+      "query": "财务报销系统提示发票抬头错误，正确抬头是什么？",
+      "evidence_score": 0.333333,
+      "threshold": 0.4,
+      "topics": [
+        "T38",
+        "T51",
+        "T37"
+      ],
+      "evidence_rejected": true,
+      "risk_human": true,
+      "experimental_handoff": true,
+      "application_handoff": true
+    },
+    {
+      "id": "OOS-17",
+      "query": "客户合同的违约金比例应该写多少？",
+      "evidence_score": 0.166667,
+      "threshold": 0.4,
+      "topics": [
+        "T13"
+      ],
+      "evidence_rejected": true,
+      "risk_human": false,
+      "experimental_handoff": true,
+      "application_handoff": true
+    },
+    {
+      "id": "OOS-18",
+      "query": "采购供应商付款账期一般约定几天？",
+      "evidence_score": 0.0,
+      "threshold": 0.4,
+      "topics": [],
+      "evidence_rejected": true,
+      "risk_human": false,
+      "experimental_handoff": true,
+      "application_handoff": true
+    },
+    {
+      "id": "OOS-19",
+      "query": "公司账户的开户银行是哪家？",
+      "evidence_score": 0.25,
+      "threshold": 0.4,
+      "topics": [
+        "T15"
+      ],
+      "evidence_rejected": true,
+      "risk_human": false,
+      "experimental_handoff": true,
+      "application_handoff": true
+    },
+    {
+      "id": "OOS-20",
+      "query": "今年销售佣金结算截止日期是哪天？",
+      "evidence_score": 0.0,
+      "threshold": 0.4,
+      "topics": [],
+      "evidence_rejected": true,
+      "risk_human": false,
+      "experimental_handoff": true,
+      "application_handoff": true
+    },
+    {
+      "id": "OOS-21",
+      "query": "公司员工购车优惠适用于哪些车型？",
+      "evidence_score": 0.166667,
+      "threshold": 0.4,
+      "topics": [
+        "T29",
+        "T30",
+        "T31",
+        "T35",
+        "T28"
+      ],
+      "evidence_rejected": true,
+      "risk_human": false,
+      "experimental_handoff": true,
+      "application_handoff": true
+    },
+    {
+      "id": "OOS-22",
+      "query": "下季度产品发布时间已经确定了吗？",
+      "evidence_score": 0.166667,
+      "threshold": 0.4,
+      "topics": [
+        "T55",
+        "T11",
+        "T40",
+        "T18",
+        "T49"
+      ],
+      "evidence_rejected": true,
+      "risk_human": false,
+      "experimental_handoff": true,
+      "application_handoff": true
+    },
+    {
+      "id": "OOS-23",
+      "query": "客户要求改合同价格，谁有最终签字权？",
+      "evidence_score": 0.166667,
+      "threshold": 0.4,
+      "topics": [
+        "T15",
+        "T13"
+      ],
+      "evidence_rejected": true,
+      "risk_human": false,
+      "experimental_handoff": true,
+      "application_handoff": true
+    },
+    {
+      "id": "OOS-24",
+      "query": "专利申请费用应该记入哪个成本中心？",
+      "evidence_score": 0.0,
+      "threshold": 0.4,
+      "topics": [],
+      "evidence_rejected": true,
+      "risk_human": false,
+      "experimental_handoff": true,
+      "application_handoff": true
+    },
+    {
+      "id": "OOS-25",
+      "query": "办公楼消防演习定在哪天？",
+      "evidence_score": 0.0,
+      "threshold": 0.4,
+      "topics": [],
+      "evidence_rejected": true,
+      "risk_human": false,
+      "experimental_handoff": true,
+      "application_handoff": true
+    },
+    {
+      "id": "OOS-26",
+      "query": "账号已经恢复，我的考勤迟到记录可以撤销吗？",
+      "evidence_score": 0.25,
+      "threshold": 0.4,
+      "topics": [
+        "T02",
+        "T48",
+        "T05",
+        "T45"
+      ],
+      "evidence_rejected": true,
+      "risk_human": false,
+      "experimental_handoff": true,
+      "application_handoff": true
+    },
+    {
+      "id": "OOS-27",
+      "query": "VPN可以用了，但在国外出差的餐费上限是多少？",
+      "evidence_score": 0.2,
+      "threshold": 0.4,
+      "topics": [
+        "T06",
+        "T07"
+      ],
+      "evidence_rejected": true,
+      "risk_human": true,
+      "experimental_handoff": true,
+      "application_handoff": true
+    },
+    {
+      "id": "OOS-28",
+      "query": "打印机没问题了，报销凭证必须打印几份？",
+      "evidence_score": 0.285714,
+      "threshold": 0.4,
+      "topics": [
+        "T21",
+        "T20"
+      ],
+      "evidence_rejected": true,
+      "risk_human": false,
+      "experimental_handoff": true,
+      "application_handoff": true
+    },
+    {
+      "id": "OOS-29",
+      "query": "邮箱能收邮件了，公司婚假应该给谁发申请？",
+      "evidence_score": 0.571429,
+      "threshold": 0.4,
+      "topics": [
+        "T15",
+        "T18",
+        "T14"
+      ],
+      "evidence_rejected": false,
+      "risk_human": true,
+      "experimental_handoff": true,
+      "application_handoff": true
+    },
+    {
+      "id": "OOS-30",
+      "query": "电脑设备已归还，离职补偿金会在几号到账？",
+      "evidence_score": 0.2,
+      "threshold": 0.4,
+      "topics": [
+        "T49"
+      ],
+      "evidence_rejected": true,
+      "risk_human": false,
+      "experimental_handoff": true,
+      "application_handoff": true
+    }
+  ],
+  "vector": [
+    {
+      "id": "OOS-01",
+      "query": "公司今年年会在哪个酒店举办？",
+      "evidence_score": 0.437667,
+      "threshold": 0.510423,
+      "topics": [
+        "T17",
+        "T33",
+        "T35",
+        "T34",
+        "T47"
+      ],
+      "evidence_rejected": true,
+      "risk_human": false,
+      "experimental_handoff": true,
+      "application_handoff": true
+    },
+    {
+      "id": "OOS-02",
+      "query": "我们部门团建每个人有多少预算？",
+      "evidence_score": 0.366541,
+      "threshold": 0.510423,
+      "topics": [
+        "T53",
+        "T48",
+        "T16",
+        "T47",
+        "T15"
+      ],
+      "evidence_rejected": true,
+      "risk_human": false,
+      "experimental_handoff": true,
+      "application_handoff": true
+    },
+    {
+      "id": "OOS-03",
+      "query": "去上海出差住酒店每天能报销多少钱？",
+      "evidence_score": 0.368035,
+      "threshold": 0.510423,
+      "topics": [
+        "T55",
+        "T56",
+        "T47",
+        "T51",
+        "T54"
+      ],
+      "evidence_rejected": true,
+      "risk_human": false,
+      "experimental_handoff": true,
+      "application_handoff": true
+    },
+    {
+      "id": "OOS-04",
+      "query": "周末加班调休多久会过期？",
+      "evidence_score": 0.484449,
+      "threshold": 0.510423,
+      "topics": [
+        "T55",
+        "T39",
+        "T52",
+        "T54",
+        "T11"
+      ],
+      "evidence_rejected": true,
+      "risk_human": false,
+      "experimental_handoff": true,
+      "application_handoff": true
+    },
+    {
+      "id": "OOS-05",
+      "query": "今年绩效奖金按什么公式计算？",
+      "evidence_score": 0.433581,
+      "threshold": 0.510423,
+      "topics": [
+        "T55",
+        "T53",
+        "T56",
+        "T49",
+        "T39"
+      ],
+      "evidence_rejected": true,
+      "risk_human": false,
+      "experimental_handoff": true,
+      "application_handoff": true
+    },
+    {
+      "id": "OOS-06",
+      "query": "新入职员工试用期能申请几天年假？",
+      "evidence_score": 0.559261,
+      "threshold": 0.510423,
+      "topics": [
+        "T48"
+      ],
+      "evidence_rejected": false,
+      "risk_human": false,
+      "experimental_handoff": false,
+      "application_handoff": true
+    },
+    {
+      "id": "OOS-07",
+      "query": "公司午餐补贴每个月什么时候发？",
+      "evidence_score": 0.357864,
+      "threshold": 0.510423,
+      "topics": [
+        "T55",
+        "T39",
+        "T17",
+        "T48",
+        "T54"
+      ],
+      "evidence_rejected": true,
+      "risk_human": false,
+      "experimental_handoff": true,
+      "application_handoff": true
+    },
+    {
+      "id": "OOS-08",
+      "query": "我的公积金缴费比例是多少？",
+      "evidence_score": 0.331051,
+      "threshold": 0.510423,
+      "topics": [
+        "T56",
+        "T53",
+        "T54",
+        "T48",
+        "T55"
+      ],
+      "evidence_rejected": true,
+      "risk_human": false,
+      "experimental_handoff": true,
+      "application_handoff": true
+    },
+    {
+      "id": "OOS-09",
+      "query": "病假需要哪家医院的证明？",
+      "evidence_score": 0.436618,
+      "threshold": 0.510423,
+      "topics": [
+        "T41",
+        "T57",
+        "T47",
+        "T59",
+        "T39"
+      ],
+      "evidence_rejected": true,
+      "risk_human": false,
+      "experimental_handoff": true,
+      "application_handoff": true
+    },
+    {
+      "id": "OOS-10",
+      "query": "离职后股票期权还能保留吗？",
+      "evidence_score": 0.5,
+      "threshold": 0.510423,
+      "topics": [
+        "T49"
+      ],
+      "evidence_rejected": true,
+      "risk_human": false,
+      "experimental_handoff": true,
+      "application_handoff": true
+    },
+    {
+      "id": "OOS-11",
+      "query": "办公楼停车月卡怎么续费？",
+      "evidence_score": 0.417869,
+      "threshold": 0.510423,
+      "topics": [
+        "T11",
+        "T51",
+        "T20",
+        "T01",
+        "T07"
+      ],
+      "evidence_rejected": true,
+      "risk_human": false,
+      "experimental_handoff": true,
+      "application_handoff": true
+    },
+    {
+      "id": "OOS-12",
+      "query": "下周公司班车几点从地铁站发车？",
+      "evidence_score": 0.351738,
+      "threshold": 0.510423,
+      "topics": [
+        "T55",
+        "T06",
+        "T53",
+        "T52",
+        "T39"
+      ],
+      "evidence_rejected": true,
+      "risk_human": false,
+      "experimental_handoff": true,
+      "application_handoff": true
+    },
+    {
+      "id": "OOS-13",
+      "query": "访客进公司需要提前给前台哪些信息？",
+      "evidence_score": 0.52366,
+      "threshold": 0.510423,
+      "topics": [
+        "T52",
+        "T48",
+        "T55",
+        "T17",
+        "T60"
+      ],
+      "evidence_rejected": false,
+      "risk_human": false,
+      "experimental_handoff": false,
+      "application_handoff": true
+    },
+    {
+      "id": "OOS-14",
+      "query": "会议室咖啡机胶囊应该向谁领取？",
+      "evidence_score": 0.447288,
+      "threshold": 0.510423,
+      "topics": [
+        "T33",
+        "T17",
+        "T34",
+        "T35",
+        "T60"
+      ],
+      "evidence_rejected": true,
+      "risk_human": false,
+      "experimental_handoff": true,
+      "application_handoff": true
+    },
+    {
+      "id": "OOS-15",
+      "query": "公司快递收件地址和联系电话是什么？",
+      "evidence_score": 0.515287,
+      "threshold": 0.510423,
+      "topics": [
+        "T14",
+        "T13"
+      ],
+      "evidence_rejected": false,
+      "risk_human": false,
+      "experimental_handoff": false,
+      "application_handoff": true
+    },
+    {
+      "id": "OOS-16",
+      "query": "财务报销系统提示发票抬头错误，正确抬头是什么？",
+      "evidence_score": 0.459766,
+      "threshold": 0.510423,
+      "topics": [
+        "T51"
+      ],
+      "evidence_rejected": true,
+      "risk_human": true,
+      "experimental_handoff": true,
+      "application_handoff": true
+    },
+    {
+      "id": "OOS-17",
+      "query": "客户合同的违约金比例应该写多少？",
+      "evidence_score": 0.411573,
+      "threshold": 0.510423,
+      "topics": [
+        "T16",
+        "T53",
+        "T52",
+        "T56",
+        "T51"
+      ],
+      "evidence_rejected": true,
+      "risk_human": false,
+      "experimental_handoff": true,
+      "application_handoff": true
+    },
+    {
+      "id": "OOS-18",
+      "query": "采购供应商付款账期一般约定几天？",
+      "evidence_score": 0.474831,
+      "threshold": 0.510423,
+      "topics": [
+        "T52",
+        "T54",
+        "T55",
+        "T39",
+        "T49"
+      ],
+      "evidence_rejected": true,
+      "risk_human": false,
+      "experimental_handoff": true,
+      "application_handoff": true
+    },
+    {
+      "id": "OOS-19",
+      "query": "公司账户的开户银行是哪家？",
+      "evidence_score": 0.487329,
+      "threshold": 0.510423,
+      "topics": [
+        "T48",
+        "T01",
+        "T50",
+        "T39",
+        "T49"
+      ],
+      "evidence_rejected": true,
+      "risk_human": false,
+      "experimental_handoff": true,
+      "application_handoff": true
+    },
+    {
+      "id": "OOS-20",
+      "query": "今年销售佣金结算截止日期是哪天？",
+      "evidence_score": 0.414771,
+      "threshold": 0.510423,
+      "topics": [
+        "T55",
+        "T48",
+        "T17",
+        "T49",
+        "T54"
+      ],
+      "evidence_rejected": true,
+      "risk_human": false,
+      "experimental_handoff": true,
+      "application_handoff": true
+    },
+    {
+      "id": "OOS-21",
+      "query": "公司员工购车优惠适用于哪些车型？",
+      "evidence_score": 0.380315,
+      "threshold": 0.510423,
+      "topics": [
+        "T48",
+        "T39",
+        "T53",
+        "T49",
+        "T55"
+      ],
+      "evidence_rejected": true,
+      "risk_human": false,
+      "experimental_handoff": true,
+      "application_handoff": true
+    },
+    {
+      "id": "OOS-22",
+      "query": "下季度产品发布时间已经确定了吗？",
+      "evidence_score": 0.482479,
+      "threshold": 0.510423,
+      "topics": [
+        "T55",
+        "T52",
+        "T39",
+        "T47",
+        "T17"
+      ],
+      "evidence_rejected": true,
+      "risk_human": false,
+      "experimental_handoff": true,
+      "application_handoff": true
+    },
+    {
+      "id": "OOS-23",
+      "query": "客户要求改合同价格，谁有最终签字权？",
+      "evidence_score": 0.404785,
+      "threshold": 0.510423,
+      "topics": [
+        "T54",
+        "T14",
+        "T08",
+        "T50",
+        "T05"
+      ],
+      "evidence_rejected": true,
+      "risk_human": false,
+      "experimental_handoff": true,
+      "application_handoff": true
+    },
+    {
+      "id": "OOS-24",
+      "query": "专利申请费用应该记入哪个成本中心？",
+      "evidence_score": 0.483321,
+      "threshold": 0.510423,
+      "topics": [
+        "T47",
+        "T50",
+        "T01",
+        "T60",
+        "T45"
+      ],
+      "evidence_rejected": true,
+      "risk_human": false,
+      "experimental_handoff": true,
+      "application_handoff": true
+    },
+    {
+      "id": "OOS-25",
+      "query": "办公楼消防演习定在哪天？",
+      "evidence_score": 0.433058,
+      "threshold": 0.510423,
+      "topics": [
+        "T35",
+        "T11",
+        "T33",
+        "T34",
+        "T59"
+      ],
+      "evidence_rejected": true,
+      "risk_human": false,
+      "experimental_handoff": true,
+      "application_handoff": true
+    },
+    {
+      "id": "OOS-26",
+      "query": "账号已经恢复，我的考勤迟到记录可以撤销吗？",
+      "evidence_score": 0.497069,
+      "threshold": 0.510423,
+      "topics": [
+        "T02",
+        "T48",
+        "T05"
+      ],
+      "evidence_rejected": true,
+      "risk_human": false,
+      "experimental_handoff": true,
+      "application_handoff": true
+    },
+    {
+      "id": "OOS-27",
+      "query": "VPN可以用了，但在国外出差的餐费上限是多少？",
+      "evidence_score": 0.489093,
+      "threshold": 0.510423,
+      "topics": [
+        "T06"
+      ],
+      "evidence_rejected": true,
+      "risk_human": true,
+      "experimental_handoff": true,
+      "application_handoff": true
+    },
+    {
+      "id": "OOS-28",
+      "query": "打印机没问题了，报销凭证必须打印几份？",
+      "evidence_score": 0.594069,
+      "threshold": 0.510423,
+      "topics": [
+        "T20",
+        "T21"
+      ],
+      "evidence_rejected": false,
+      "risk_human": false,
+      "experimental_handoff": false,
+      "application_handoff": true
+    },
+    {
+      "id": "OOS-29",
+      "query": "邮箱能收邮件了，公司婚假应该给谁发申请？",
+      "evidence_score": 0.538105,
+      "threshold": 0.510423,
+      "topics": [
+        "T14",
+        "T15",
+        "T18"
+      ],
+      "evidence_rejected": false,
+      "risk_human": true,
+      "experimental_handoff": true,
+      "application_handoff": true
+    },
+    {
+      "id": "OOS-30",
+      "query": "电脑设备已归还，离职补偿金会在几号到账？",
+      "evidence_score": 0.589727,
+      "threshold": 0.510423,
+      "topics": [
+        "T49",
+        "T39",
+        "T54",
+        "T48",
+        "T55"
+      ],
+      "evidence_rejected": false,
+      "risk_human": false,
+      "experimental_handoff": false,
+      "application_handoff": true
+    }
+  ],
+  "hybrid": [
+    {
+      "id": "OOS-01",
+      "query": "公司今年年会在哪个酒店举办？",
+      "evidence_score": 0.166667,
+      "threshold": 0.510423,
+      "topics": [
+        "T15",
+        "T17",
+        "T33",
+        "T35",
+        "T34"
+      ],
+      "evidence_rejected": true,
+      "risk_human": false,
+      "experimental_handoff": true,
+      "application_handoff": true
+    },
+    {
+      "id": "OOS-02",
+      "query": "我们部门团建每个人有多少预算？",
+      "evidence_score": 0.366541,
+      "threshold": 0.510423,
+      "topics": [
+        "T53",
+        "T48",
+        "T16",
+        "T47",
+        "T15"
+      ],
+      "evidence_rejected": true,
+      "risk_human": false,
+      "experimental_handoff": true,
+      "application_handoff": true
+    },
+    {
+      "id": "OOS-03",
+      "query": "去上海出差住酒店每天能报销多少钱？",
+      "evidence_score": 0.368035,
+      "threshold": 0.510423,
+      "topics": [
+        "T55",
+        "T56",
+        "T47",
+        "T51",
+        "T54"
+      ],
+      "evidence_rejected": true,
+      "risk_human": false,
+      "experimental_handoff": true,
+      "application_handoff": true
+    },
+    {
+      "id": "OOS-04",
+      "query": "周末加班调休多久会过期？",
+      "evidence_score": 0.383466,
+      "threshold": 0.510423,
+      "topics": [
+        "T41",
+        "T05",
+        "T55",
+        "T39",
+        "T52"
+      ],
+      "evidence_rejected": true,
+      "risk_human": false,
+      "experimental_handoff": true,
+      "application_handoff": true
+    },
+    {
+      "id": "OOS-05",
+      "query": "今年绩效奖金按什么公式计算？",
+      "evidence_score": 0.433581,
+      "threshold": 0.510423,
+      "topics": [
+        "T55",
+        "T53",
+        "T56",
+        "T49",
+        "T39"
+      ],
+      "evidence_rejected": true,
+      "risk_human": false,
+      "experimental_handoff": true,
+      "application_handoff": true
+    },
+    {
+      "id": "OOS-06",
+      "query": "新入职员工试用期能申请几天年假？",
+      "evidence_score": 0.559261,
+      "threshold": 0.510423,
+      "topics": [
+        "T48"
+      ],
+      "evidence_rejected": false,
+      "risk_human": false,
+      "experimental_handoff": false,
+      "application_handoff": true
+    },
+    {
+      "id": "OOS-07",
+      "query": "公司午餐补贴每个月什么时候发？",
+      "evidence_score": 0.305545,
+      "threshold": 0.510423,
+      "topics": [
+        "T15",
+        "T55",
+        "T39",
+        "T17",
+        "T48"
+      ],
+      "evidence_rejected": true,
+      "risk_human": false,
+      "experimental_handoff": true,
+      "application_handoff": true
+    },
+    {
+      "id": "OOS-08",
+      "query": "我的公积金缴费比例是多少？",
+      "evidence_score": 0.331051,
+      "threshold": 0.510423,
+      "topics": [
+        "T56",
+        "T53",
+        "T54",
+        "T48",
+        "T55"
+      ],
+      "evidence_rejected": true,
+      "risk_human": false,
+      "experimental_handoff": true,
+      "application_handoff": true
+    },
+    {
+      "id": "OOS-09",
+      "query": "病假需要哪家医院的证明？",
+      "evidence_score": 0.2,
+      "threshold": 0.510423,
+      "topics": [
+        "T15",
+        "T43",
+        "T41",
+        "T57",
+        "T47"
+      ],
+      "evidence_rejected": true,
+      "risk_human": false,
+      "experimental_handoff": true,
+      "application_handoff": true
+    },
+    {
+      "id": "OOS-10",
+      "query": "离职后股票期权还能保留吗？",
+      "evidence_score": 0.5,
+      "threshold": 0.510423,
+      "topics": [
+        "T49"
+      ],
+      "evidence_rejected": true,
+      "risk_human": false,
+      "experimental_handoff": true,
+      "application_handoff": true
+    },
+    {
+      "id": "OOS-11",
+      "query": "办公楼停车月卡怎么续费？",
+      "evidence_score": 0.417869,
+      "threshold": 0.510423,
+      "topics": [
+        "T11",
+        "T51",
+        "T20",
+        "T01",
+        "T07"
+      ],
+      "evidence_rejected": true,
+      "risk_human": false,
+      "experimental_handoff": true,
+      "application_handoff": true
+    },
+    {
+      "id": "OOS-12",
+      "query": "下周公司班车几点从地铁站发车？",
+      "evidence_score": 0.166667,
+      "threshold": 0.510423,
+      "topics": [
+        "T15",
+        "T55",
+        "T06",
+        "T53",
+        "T52"
+      ],
+      "evidence_rejected": true,
+      "risk_human": false,
+      "experimental_handoff": true,
+      "application_handoff": true
+    },
+    {
+      "id": "OOS-13",
+      "query": "访客进公司需要提前给前台哪些信息？",
+      "evidence_score": 0.285714,
+      "threshold": 0.510423,
+      "topics": [
+        "T15"
+      ],
+      "evidence_rejected": true,
+      "risk_human": false,
+      "experimental_handoff": true,
+      "application_handoff": true
+    },
+    {
+      "id": "OOS-14",
+      "query": "会议室咖啡机胶囊应该向谁领取？",
+      "evidence_score": 0.411073,
+      "threshold": 0.510423,
+      "topics": [
+        "T35",
+        "T33",
+        "T17",
+        "T34",
+        "T60"
+      ],
+      "evidence_rejected": true,
+      "risk_human": false,
+      "experimental_handoff": true,
+      "application_handoff": true
+    },
+    {
+      "id": "OOS-15",
+      "query": "公司快递收件地址和联系电话是什么？",
+      "evidence_score": 0.515287,
+      "threshold": 0.510423,
+      "topics": [
+        "T14",
+        "T13"
+      ],
+      "evidence_rejected": false,
+      "risk_human": false,
+      "experimental_handoff": false,
+      "application_handoff": true
+    },
+    {
+      "id": "OOS-16",
+      "query": "财务报销系统提示发票抬头错误，正确抬头是什么？",
+      "evidence_score": 0.459766,
+      "threshold": 0.510423,
+      "topics": [
+        "T51",
+        "T38",
+        "T37"
+      ],
+      "evidence_rejected": true,
+      "risk_human": true,
+      "experimental_handoff": true,
+      "application_handoff": true
+    },
+    {
+      "id": "OOS-17",
+      "query": "客户合同的违约金比例应该写多少？",
+      "evidence_score": 0.166667,
+      "threshold": 0.510423,
+      "topics": [
+        "T13",
+        "T16",
+        "T53",
+        "T52",
+        "T56"
+      ],
+      "evidence_rejected": true,
+      "risk_human": false,
+      "experimental_handoff": true,
+      "application_handoff": true
+    },
+    {
+      "id": "OOS-18",
+      "query": "采购供应商付款账期一般约定几天？",
+      "evidence_score": 0.474831,
+      "threshold": 0.510423,
+      "topics": [
+        "T52",
+        "T54",
+        "T55",
+        "T39",
+        "T49"
+      ],
+      "evidence_rejected": true,
+      "risk_human": false,
+      "experimental_handoff": true,
+      "application_handoff": true
+    },
+    {
+      "id": "OOS-19",
+      "query": "公司账户的开户银行是哪家？",
+      "evidence_score": 0.411507,
+      "threshold": 0.510423,
+      "topics": [
+        "T15",
+        "T48",
+        "T01",
+        "T50",
+        "T39"
+      ],
+      "evidence_rejected": true,
+      "risk_human": false,
+      "experimental_handoff": true,
+      "application_handoff": true
+    },
+    {
+      "id": "OOS-20",
+      "query": "今年销售佣金结算截止日期是哪天？",
+      "evidence_score": 0.414771,
+      "threshold": 0.510423,
+      "topics": [
+        "T55",
+        "T48",
+        "T17",
+        "T49",
+        "T54"
+      ],
+      "evidence_rejected": true,
+      "risk_human": false,
+      "experimental_handoff": true,
+      "application_handoff": true
+    },
+    {
+      "id": "OOS-21",
+      "query": "公司员工购车优惠适用于哪些车型？",
+      "evidence_score": 0.312532,
+      "threshold": 0.510423,
+      "topics": [
+        "T29",
+        "T26",
+        "T11",
+        "T48",
+        "T30"
+      ],
+      "evidence_rejected": true,
+      "risk_human": false,
+      "experimental_handoff": true,
+      "application_handoff": true
+    },
+    {
+      "id": "OOS-22",
+      "query": "下季度产品发布时间已经确定了吗？",
+      "evidence_score": 0.482479,
+      "threshold": 0.510423,
+      "topics": [
+        "T55",
+        "T52",
+        "T18",
+        "T11",
+        "T07"
+      ],
+      "evidence_rejected": true,
+      "risk_human": false,
+      "experimental_handoff": true,
+      "application_handoff": true
+    },
+    {
+      "id": "OOS-23",
+      "query": "客户要求改合同价格，谁有最终签字权？",
+      "evidence_score": 0.166667,
+      "threshold": 0.510423,
+      "topics": [
+        "T15",
+        "T13",
+        "T54",
+        "T14",
+        "T08"
+      ],
+      "evidence_rejected": true,
+      "risk_human": false,
+      "experimental_handoff": true,
+      "application_handoff": true
+    },
+    {
+      "id": "OOS-24",
+      "query": "专利申请费用应该记入哪个成本中心？",
+      "evidence_score": 0.483321,
+      "threshold": 0.510423,
+      "topics": [
+        "T47",
+        "T50",
+        "T01",
+        "T60",
+        "T45"
+      ],
+      "evidence_rejected": true,
+      "risk_human": false,
+      "experimental_handoff": true,
+      "application_handoff": true
+    },
+    {
+      "id": "OOS-25",
+      "query": "办公楼消防演习定在哪天？",
+      "evidence_score": 0.433058,
+      "threshold": 0.510423,
+      "topics": [
+        "T35",
+        "T11",
+        "T33",
+        "T34",
+        "T59"
+      ],
+      "evidence_rejected": true,
+      "risk_human": false,
+      "experimental_handoff": true,
+      "application_handoff": true
+    },
+    {
+      "id": "OOS-26",
+      "query": "账号已经恢复，我的考勤迟到记录可以撤销吗？",
+      "evidence_score": 0.497069,
+      "threshold": 0.510423,
+      "topics": [
+        "T02",
+        "T48",
+        "T05",
+        "T45"
+      ],
+      "evidence_rejected": true,
+      "risk_human": false,
+      "experimental_handoff": true,
+      "application_handoff": true
+    },
+    {
+      "id": "OOS-27",
+      "query": "VPN可以用了，但在国外出差的餐费上限是多少？",
+      "evidence_score": 0.489093,
+      "threshold": 0.510423,
+      "topics": [
+        "T06",
+        "T07"
+      ],
+      "evidence_rejected": true,
+      "risk_human": true,
+      "experimental_handoff": true,
+      "application_handoff": true
+    },
+    {
+      "id": "OOS-28",
+      "query": "打印机没问题了，报销凭证必须打印几份？",
+      "evidence_score": 0.594069,
+      "threshold": 0.510423,
+      "topics": [
+        "T20",
+        "T21"
+      ],
+      "evidence_rejected": false,
+      "risk_human": false,
+      "experimental_handoff": false,
+      "application_handoff": true
+    },
+    {
+      "id": "OOS-29",
+      "query": "邮箱能收邮件了，公司婚假应该给谁发申请？",
+      "evidence_score": 0.571429,
+      "threshold": 0.510423,
+      "topics": [
+        "T15",
+        "T14",
+        "T18"
+      ],
+      "evidence_rejected": false,
+      "risk_human": true,
+      "experimental_handoff": true,
+      "application_handoff": true
+    },
+    {
+      "id": "OOS-30",
+      "query": "电脑设备已归还，离职补偿金会在几号到账？",
+      "evidence_score": 0.589727,
+      "threshold": 0.510423,
+      "topics": [
+        "T49",
+        "T39",
+        "T54",
+        "T48",
+        "T55"
+      ],
+      "evidence_rejected": false,
+      "risk_human": false,
+      "experimental_handoff": false,
+      "application_handoff": true
+    }
+  ]
+}

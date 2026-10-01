@@ -5,7 +5,7 @@ from typing import Literal, NotRequired, Required, TypedDict
 from langgraph.graph import END, StateGraph
 
 from app.knowledge import retrieve
-from app.llm import generate_grounded_answer, is_llm_enabled
+from app.llm import generate_grounded_answer, is_llm_enabled, last_generation
 from app.tools import classify_category, create_it_ticket, evaluate_priority, evaluate_risk_level
 from app.observability import request_id
 from app.config import settings
@@ -91,16 +91,21 @@ def answer(state: TicketState) -> dict:
         risk_level=state["risk_level"], hits=hits[:4], allow_llm=allowed,
         tenant_id=state["tenant_id"],
     )
+    validation = last_generation.get().get("answer_validation")
+    retrieval = {**state["retrieval"]}
+    if validation:
+        retrieval["answer_validation"] = validation
     if generated:
         citations = [item for item in state["citations"] if item["chunk_id"] in cited]
         return {"status": "已给出处理建议",
-                "answer": generated, "answer_source": "检索增强生成", "citations": citations}
+                "answer": generated, "answer_source": "逐句引用对齐的检索答复", "citations": citations,
+                "retrieval": retrieval}
     suggestions = "\n".join(f"{i}. {hit['content']}" for i, hit in enumerate(hits[:3], 1))
     if state["allow_llm"] and is_llm_enabled():
         return {"status": "待人工处理", "needs_human_approval": True,
-                "handoff_reason": "generation_or_citation_failed",
+                "handoff_reason": "sentence_alignment_failed" if validation and not validation["passed"] else "generation_or_citation_failed",
                 "answer": f"模型生成或引用校验未通过，已转交人工处理。以下为检索资料：\n{suggestions}",
-                "answer_source": "模型校验失败，人工接管"}
+                "answer_source": "模型校验失败，人工接管", "retrieval": retrieval}
     return {"status": "已给出处理建议", "answer": f"可先依据以下知识库资料排查：\n{suggestions}",
             "answer_source": "可追溯知识库答复"}
 

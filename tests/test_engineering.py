@@ -14,6 +14,7 @@ from fastapi.testclient import TestClient
 from app.config import settings
 from app.database import get_connection, init_database
 from app.evidence import evidence_score
+from app.answer_validation import align_answer
 from app.knowledge import chunk_sections, import_document, retrieve
 from app.llm import generate_grounded_answer, validate_citations
 from app.main import app
@@ -177,12 +178,78 @@ class EngineeringTest(unittest.TestCase):
         spec.loader.exec_module(smoke)
         object.__setattr__(settings,"llm_provider","mimo")
         object.__setattr__(settings,"mimo_api_key","test-only")
-        response=SimpleNamespace(choices=[SimpleNamespace(message=SimpleNamespace(content='{"answer":"确认账号状态并核对时间","citation_ids":[1]}'),finish_reason="stop")],usage=None)
+        response=SimpleNamespace(choices=[SimpleNamespace(message=SimpleNamespace(content='{"answer":"VPN登录失败时先确认账号未锁定，再核对系统时间；仍失败时收集错误码并联系服务台。","citation_ids":[1]}'),finish_reason="stop")],usage=None)
         with patch("app.llm.OpenAI") as factory:
             factory.return_value.chat.completions.create.return_value=response
             smoke.main()
         self.assertEqual(settings.database_url,str(self.directory/"test.db"))
         self.assertEqual(factory.return_value.chat.completions.create.call_count,1)
+
+    def test_sentence_alignment_requires_a_complete_source_sentence(self):
+        hits=self.document()
+        citation=hits[0]["id"]
+        result=align_answer("打印机显示缺纸时检查纸盒尺寸。",[citation],hits)
+        self.assertTrue(result["passed"])
+        self.assertEqual(result["sentences"][0]["chunk_id"],citation)
+        self.assertEqual(result["sentences"][0]["version"],hits[0]["version"])
+
+    def test_new_numeric_policy_and_operation_are_rejected(self):
+        hits=self.document()
+        for text in ("等待15–30分钟自动解锁。","重启打印服务器。",
+                     "打印机显示缺纸时检查纸盒尺寸。然后卸载驱动。"):
+            self.assertFalse(align_answer(text,[hits[0]["id"]],hits)["passed"])
+
+    def test_alignment_cannot_strip_a_negation_or_use_uncited_source(self):
+        hits=[{"id":1,"version":1,"content":"禁止删除数据库记录。"},
+              {"id":2,"version":1,"content":"核对系统时间。"}]
+        self.assertFalse(align_answer("删除数据库记录。",[1],hits)["passed"])
+        self.assertFalse(align_answer("核对系统时间。",[1],hits)["passed"])
+        self.assertFalse(align_answer("",[1],hits)["passed"])
+
+    def test_alignment_failure_is_persistable_human_handoff(self):
+        from app.agent import answer
+        hits=self.document()
+        object.__setattr__(settings,"llm_provider","mimo")
+        object.__setattr__(settings,"mimo_api_key","test-only")
+        content=json.dumps({"answer":"等待15–30分钟自动解锁。","citation_ids":[hits[0]["id"]]})
+        response=SimpleNamespace(choices=[SimpleNamespace(message=SimpleNamespace(content=content),finish_reason="stop")],usage=None)
+        with patch("app.llm.OpenAI") as factory:
+            factory.return_value.chat.completions.create.return_value=response
+            result=answer({"title":"打印机缺纸","description":"打印机故障","category":"设备",
+                "risk_level":"低风险","tenant_id":"demo","allow_llm":True,
+                "retrieval":{"hits":hits},"citations":[{"chunk_id":hits[0]["id"]}]})
+        self.assertEqual(result["handoff_reason"],"sentence_alignment_failed")
+        self.assertEqual(result["status"],"待人工处理")
+        self.assertFalse(result["retrieval"]["answer_validation"]["passed"])
+
+    def test_vector_failure_falls_back_to_calibrated_bm25(self):
+        self.document()
+        object.__setattr__(settings,"embedding_provider","local")
+        vector=struct.pack("512f",*([1.0]*512))
+        with get_connection() as db:
+            db.execute("UPDATE knowledge_chunks SET embedding=?,embedding_model=?",(vector,settings.embedding_model))
+        with patch("app.knowledge.embed",side_effect=RuntimeError("simulated failure")):
+            result=retrieve("打印机缺纸","demo",mode="vector")
+        self.assertTrue(result["hits"])
+        self.assertTrue(result["vector_fallback"])
+        self.assertEqual(result["vector_state"],"runtime_failed")
+        self.assertEqual(result["evidence_mode"],"bm25")
+
+    def test_vector_uses_its_own_threshold_and_no_business_rerank(self):
+        self.document()
+        object.__setattr__(settings,"embedding_provider","local")
+        vector=struct.pack("512f",*([1.0]*512))
+        with get_connection() as db:
+            db.execute("UPDATE knowledge_chunks SET embedding=?,embedding_model=?",(vector,settings.embedding_model))
+        with patch("app.knowledge.embed",return_value=vector), patch("app.knowledge.threshold",return_value=.5) as threshold:
+            result=retrieve("打印机缺纸","demo",mode="vector")
+        self.assertEqual({call.args for call in threshold.call_args_list},{("vector",)})
+        self.assertEqual(result["evidence_mode"],"vector")
+        self.assertFalse(result["vector_fallback"])
+        self.assertAlmostEqual(result["hits"][0]["score"],1/61)
+        from app.main import health
+        with patch("app.main.policy",return_value={"default_mode":"vector"}):
+            self.assertEqual(health()["retrieval"],"vector")
 
     def test_timeout_has_no_retry_or_secret_log(self):
         from openai import APITimeoutError
