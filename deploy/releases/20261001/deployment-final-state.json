@@ -1,0 +1,183 @@
+{
+  "atlasPods": [
+    {
+      "name": "atlas-desk-7c6d59567b-nxn58",
+      "phase": "Running",
+      "containers": [
+        {
+          "image": "docker.io/library/atlas-desk:release-20261001",
+          "imageID": "docker.io/suqihang/atlas-desk@sha256:8dd94bfd4f6d8c4505efe4b84356007d9038719b064237add41a2cc63a2c501f",
+          "ready": true,
+          "restarts": 0
+        }
+      ]
+    }
+  ],
+  "minipayDeployments": [
+    {
+      "name": "admin-bff",
+      "replicas": 1,
+      "ready": 1,
+      "images": [
+        "suqihang/admin-bff@sha256:e15112104013197ff828c1f6fb2d931bab61405bc887fb8b319f8ac2a990a4a1"
+      ]
+    },
+    {
+      "name": "admin-web",
+      "replicas": 1,
+      "ready": 1,
+      "images": [
+        "docker.io/suqihang/admin-web@sha256:602c602f0fbc28484a1b822b8e05e3307afc1ca671c95f3b6f025c5dec9719bc"
+      ]
+    },
+    {
+      "name": "agent-service",
+      "replicas": 0,
+      "ready": 0,
+      "images": [
+        "suqihang/agent-service@sha256:804544caa0e87be2c1e91fba4201d50007d81a227e2b9190ae7e815149adf051"
+      ]
+    },
+    {
+      "name": "commerce-service",
+      "replicas": 0,
+      "ready": 0,
+      "images": [
+        "suqihang/commerce-service@sha256:c0626559a8d9a16531d11fe3aeb31676837d8d167635f35ec912c778fa41f432"
+      ]
+    },
+    {
+      "name": "consumer-bff",
+      "replicas": 1,
+      "ready": 1,
+      "images": [
+        "suqihang/consumer-bff:0.1.0-k3s.18"
+      ]
+    },
+    {
+      "name": "consumer-web",
+      "replicas": 1,
+      "ready": 1,
+      "images": [
+        "suqihang/consumer-web:0.1.0-k3s.18"
+      ]
+    },
+    {
+      "name": "identity-service",
+      "replicas": 1,
+      "ready": 1,
+      "images": [
+        "docker.io/suqihang/identity-service:0.1.0-k3s.19"
+      ]
+    },
+    {
+      "name": "landing-pay",
+      "replicas": 2,
+      "ready": 2,
+      "images": [
+        "suqihang/maintenance-page:0.1.1"
+      ]
+    },
+    {
+      "name": "landing-personal",
+      "replicas": 2,
+      "ready": 2,
+      "images": [
+        "suqihang/maintenance-page:0.1.1"
+      ]
+    },
+    {
+      "name": "maintenance-page",
+      "replicas": 1,
+      "ready": 1,
+      "images": [
+        "suqihang/maintenance-page:0.1.1"
+      ]
+    },
+    {
+      "name": "management-bff",
+      "replicas": 1,
+      "ready": 1,
+      "images": [
+        "docker.io/suqihang/management-bff:0.1.0-k3s.20"
+      ]
+    },
+    {
+      "name": "merchant-web",
+      "replicas": 1,
+      "ready": 1,
+      "images": [
+        "docker.io/suqihang/merchant-web:0.1.0-k3s.20"
+      ]
+    },
+    {
+      "name": "miling-service",
+      "replicas": 1,
+      "ready": 1,
+      "images": [
+        "suqihang/miling-service@sha256:c02f73c7766bd07db64a9d441163442b78c5e82c5004ae6fab9d23ed2c6700ef"
+      ]
+    },
+    {
+      "name": "minipay-gateway-nginx",
+      "replicas": 1,
+      "ready": 1,
+      "images": [
+        "ghcr.io/nginx/nginx-gateway-fabric/nginx:2.7.0"
+      ]
+    },
+    {
+      "name": "ops-web",
+      "replicas": 1,
+      "ready": 1,
+      "images": [
+        "docker.io/suqihang/ops-web@sha256:4356c2f6b99ae0965bdf6b16e772c2896949f0e74782da44f1cde471cd409068"
+      ]
+    },
+    {
+      "name": "payment-service",
+      "replicas": 1,
+      "ready": 1,
+      "images": [
+        "docker.io/suqihang/payment-service:0.1.0-k3s.16"
+      ]
+    },
+    {
+      "name": "wallet-service",
+      "replicas": 1,
+      "ready": 1,
+      "images": [
+        "suqihang/wallet-service@sha256:43be47fd01e9b75903a361af88521096f49e5f7c6d046823d288b4fef2b3e105"
+      ]
+    },
+    {
+      "name": "yshop-admin-web",
+      "replicas": 0,
+      "ready": 0,
+      "images": [
+        "suqihang/yshop-admin-web@sha256:0f7ab55f7a1d112c4926efa53df30a86b8f6caf7da56373b1b8a80852c9667c9"
+      ]
+    },
+    {
+      "name": "yshop-food-h5",
+      "replicas": 0,
+      "ready": 0,
+      "images": [
+        "suqihang/yshop-food-h5@sha256:131bd717d42f6eb657bff18363ae48a1b53508a33c9042dc82adbce62bf11f35"
+      ]
+    },
+    {
+      "name": "yshop-server",
+      "replicas": 0,
+      "ready": 0,
+      "images": [
+        "suqihang/yshop-server@sha256:68257d4f86b66fb56acf2aa0a3c73353a7ea79ade1a207e46de37f9db83455a5"
+      ]
+    }
+  ],
+  "memory": "               total        used        free      shared  buff/cache   available\nMem:            3723        3220         157           5         587         502\nSwap:           1987         912        1075\n",
+  "atlasMetrics": "atlas-desk-7c6d59567b-nxn58   3m    302Mi   \n",
+  "controlPlaneReady": true,
+  "publicRouteExists": true,
+  "originalMiniPayImagesUnchanged": true
+}

@@ -36,7 +36,7 @@ kubectl kustomize deploy/overlays/local-bge
 工作集约 343 MiB；cgroup 峰值达到 384 MiB，包含可回收缓存，不能只用工作集数值当作上线预算。
 此验证关闭 LLM、使用独立临时数据卷，既不是线上负载证明，也不代表真实模型答复质量。
 
-服务器已经完成授权的 MiniPay JVM / 静态服务瘦身；Atlas 在独立命名空间运行，已配置 MiMo，BGE / sqlite-vec 自检通过。内网管理员登录、知识读取、高风险工单转人工和工单令牌访问均通过。Atlas 部署前后原有 25 个工作负载规格、镜像及原 PVC UID 保持一致。尚未添加公网路由，因为 Turnstile 配置仍未完成。完整状态见 [部署记录](deployment-status-20261001.md)。
+服务器已经完成授权的 MiniPay JVM / 静态服务瘦身；Atlas 在独立命名空间运行，已配置 MiMo，BGE / sqlite-vec 自检通过。内网管理员登录、知识读取、高风险工单转人工和工单令牌访问均通过。Atlas 部署前后原有 25 个工作负载规格、镜像及原 PVC UID 保持一致。已通过 Cloudflare 插件配置生产 Turnstile 并添加 Atlas 公网路由；公网 API 与模拟审批验收通过，用户已确认正常浏览器真实人机验证与工单创建成功。完整状态见 [部署记录](deployment-status-20261001.md)。
 
 ## Docker Compose 部署与验证
 

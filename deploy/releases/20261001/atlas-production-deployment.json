@@ -1,0 +1,27 @@
+{
+  "publicRouteApplied": true,
+  "beforeAvailableMiB": 484,
+  "passed": true,
+  "productionConfigReady": true,
+  "missingChallengeDenied": true,
+  "health": {
+    "status": "ok",
+    "database": "ok",
+    "retrieval": "vector",
+    "llm_enabled": true,
+    "llm_provider": "mimo",
+    "llm_model": "mimo-v2.5-pro",
+    "vector": {
+      "state": "ready",
+      "reason": "",
+      "coverage": 66,
+      "total": 66,
+      "coverage_ratio": 1.0,
+      "model": "BAAI/bge-small-zh-v1.5",
+      "extension_available": true,
+      "runtime_checked": true
+    }
+  },
+  "existingWorkloadSpecsImagesAndPvcUnchanged": true,
+  "afterAvailableMiB": 609
+}

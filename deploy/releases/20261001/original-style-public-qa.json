@@ -1,0 +1,313 @@
+{
+  "results": [
+    {
+      "name": "home geometry 390",
+      "ok": true,
+      "detail": {
+        "overflow": false,
+        "headerWidth": 390,
+        "headerTop": 0,
+        "navBottom": 88.828125,
+        "headerBottom": 98.828125
+      }
+    },
+    {
+      "name": "hero all projects 390",
+      "ok": true
+    },
+    {
+      "name": "hero H5 removed 390",
+      "ok": true
+    },
+    {
+      "name": "anchor about 390",
+      "ok": true,
+      "detail": {
+        "top": 177.59375,
+        "bottom": 235.1875,
+        "headerBottom": 98.828125,
+        "height": 960,
+        "hash": "#about"
+      }
+    },
+    {
+      "name": "anchor stack 390",
+      "ok": true,
+      "detail": {
+        "top": 176.953125,
+        "bottom": 205.75,
+        "headerBottom": 98.828125,
+        "height": 960,
+        "hash": "#stack"
+      }
+    },
+    {
+      "name": "anchor projects 390",
+      "ok": true,
+      "detail": {
+        "top": 177.359375,
+        "bottom": 206.15625,
+        "headerBottom": 98.828125,
+        "height": 960,
+        "hash": "#projects"
+      }
+    },
+    {
+      "name": "anchor contact 390",
+      "ok": true,
+      "detail": {
+        "top": 177.171875,
+        "bottom": 205.96875,
+        "headerBottom": 98.828125,
+        "height": 960,
+        "hash": "#contact"
+      }
+    },
+    {
+      "name": "direct contact 390",
+      "ok": true
+    },
+    {
+      "name": "logo top 390",
+      "ok": true
+    },
+    {
+      "name": "Atlas navigation 390",
+      "ok": true
+    },
+    {
+      "name": "Atlas public entry 390",
+      "ok": true
+    },
+    {
+      "name": "Atlas geometry 390",
+      "ok": true,
+      "detail": {
+        "overflow": false,
+        "headerBottom": 98.828125,
+        "navBottom": 88.828125
+      }
+    },
+    {
+      "name": "Atlas flow anchor 390",
+      "ok": true
+    },
+    {
+      "name": "return projects 390",
+      "ok": true
+    },
+    {
+      "name": "home geometry 1440",
+      "ok": true,
+      "detail": {
+        "overflow": false,
+        "headerWidth": 1440,
+        "headerTop": 0,
+        "navBottom": 53.8125,
+        "headerBottom": 65
+      }
+    },
+    {
+      "name": "hero all projects 1440",
+      "ok": true
+    },
+    {
+      "name": "hero H5 removed 1440",
+      "ok": true
+    },
+    {
+      "name": "anchor about 1440",
+      "ok": true,
+      "detail": {
+        "top": 141.984375,
+        "bottom": 222.609375,
+        "headerBottom": 65,
+        "height": 960,
+        "hash": "#about"
+      }
+    },
+    {
+      "name": "anchor stack 1440",
+      "ok": true,
+      "detail": {
+        "top": 141.9375,
+        "bottom": 182.25,
+        "headerBottom": 65,
+        "height": 960,
+        "hash": "#stack"
+      }
+    },
+    {
+      "name": "anchor projects 1440",
+      "ok": true,
+      "detail": {
+        "top": 141.96875,
+        "bottom": 182.28125,
+        "headerBottom": 65,
+        "height": 960,
+        "hash": "#projects"
+      }
+    },
+    {
+      "name": "anchor contact 1440",
+      "ok": true,
+      "detail": {
+        "top": 141.921875,
+        "bottom": 182.234375,
+        "headerBottom": 65,
+        "height": 960,
+        "hash": "#contact"
+      }
+    },
+    {
+      "name": "direct contact 1440",
+      "ok": true
+    },
+    {
+      "name": "logo top 1440",
+      "ok": true
+    },
+    {
+      "name": "Atlas navigation 1440",
+      "ok": true
+    },
+    {
+      "name": "Atlas public entry 1440",
+      "ok": true
+    },
+    {
+      "name": "Atlas entry opens live ticket system",
+      "ok": true
+    },
+    {
+      "name": "Atlas geometry 1440",
+      "ok": true,
+      "detail": {
+        "overflow": false,
+        "headerBottom": 65,
+        "navBottom": 53.8125
+      }
+    },
+    {
+      "name": "Atlas flow anchor 1440",
+      "ok": true
+    },
+    {
+      "name": "return projects 1440",
+      "ok": true
+    },
+    {
+      "name": "home geometry 2443",
+      "ok": true,
+      "detail": {
+        "overflow": false,
+        "headerWidth": 2443,
+        "headerTop": 0,
+        "navBottom": 53.8125,
+        "headerBottom": 65
+      }
+    },
+    {
+      "name": "hero all projects 2443",
+      "ok": true
+    },
+    {
+      "name": "hero H5 removed 2443",
+      "ok": true
+    },
+    {
+      "name": "anchor about 2443",
+      "ok": true,
+      "detail": {
+        "top": 141.8125,
+        "bottom": 222.4375,
+        "headerBottom": 65,
+        "height": 960,
+        "hash": "#about"
+      }
+    },
+    {
+      "name": "anchor stack 2443",
+      "ok": true,
+      "detail": {
+        "top": 141.28125,
+        "bottom": 181.59375,
+        "headerBottom": 65,
+        "height": 960,
+        "hash": "#stack"
+      }
+    },
+    {
+      "name": "anchor projects 2443",
+      "ok": true,
+      "detail": {
+        "top": 141.3125,
+        "bottom": 181.625,
+        "headerBottom": 65,
+        "height": 960,
+        "hash": "#projects"
+      }
+    },
+    {
+      "name": "anchor contact 2443",
+      "ok": true,
+      "detail": {
+        "top": 141.265625,
+        "bottom": 181.578125,
+        "headerBottom": 65,
+        "height": 960,
+        "hash": "#contact"
+      }
+    },
+    {
+      "name": "direct contact 2443",
+      "ok": true
+    },
+    {
+      "name": "logo top 2443",
+      "ok": true
+    },
+    {
+      "name": "Atlas navigation 2443",
+      "ok": true
+    },
+    {
+      "name": "Atlas public entry 2443",
+      "ok": true
+    },
+    {
+      "name": "Atlas geometry 2443",
+      "ok": true,
+      "detail": {
+        "overflow": false,
+        "headerBottom": 65,
+        "navBottom": 53.8125
+      }
+    },
+    {
+      "name": "Atlas flow anchor 2443",
+      "ok": true
+    },
+    {
+      "name": "return projects 2443",
+      "ok": true
+    },
+    {
+      "name": "MiniPay role targets",
+      "ok": true,
+      "detail": [
+        "https://app.su46proj.site/",
+        "https://ops.su46proj.site/",
+        "https://merchant.su46proj.site/",
+        "https://admin.su46proj.site/"
+      ]
+    },
+    {
+      "name": "no runtime errors",
+      "ok": true,
+      "detail": []
+    }
+  ],
+  "errors": [],
+  "passed": true
+}

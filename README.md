@@ -16,9 +16,9 @@
 
 ## 当前部署与主页
 
-2026-10-01：Atlas 已在服务器独立 K3s 命名空间完成内网部署，使用 MiMo 与本地 BGE，健康检查和内网工作流验收通过。公开工单入口尚待 Turnstile 配置与公网验收，不能视为公网 AI 服务已上线。已发布的[个人主页](https://su46proj.site/)和[Atlas 项目介绍](https://su46proj.site/atlas-desk/index.html)源码保存在 `portfolio/`。
+2026-10-01：[Atlas 公网演示](https://ticket.su46proj.site/)已开放，在服务器独立 K3s 命名空间运行，使用 MiMo、本地 BGE 和生产 Turnstile。公网健康、管理员会话、访问边界与模拟审批检查通过；用户已在正常浏览器确认通过 Turnstile 并成功创建工单；自动化检查未绕过人机验证。已发布的[个人主页](https://su46proj.site/)和[Atlas 项目介绍](https://su46proj.site/atlas-desk/index.html)源码保存在 `portfolio/`。
 
-当前镜像、容量验证、内网清单和原 MiniPay 保留边界见 [部署记录](docs/deployment-status-20261001.md)。主页和项目介绍中的 GitHub 入口指向本仓库主分支。
+当前镜像、容量验证、生产清单和原 MiniPay 保留边界见 [部署记录](docs/deployment-status-20261001.md)。主页和项目介绍中的 GitHub 入口指向本仓库主分支。
 
 ## 处理流程
 

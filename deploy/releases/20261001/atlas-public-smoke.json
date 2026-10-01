@@ -1,0 +1,63 @@
+{
+  "passed": true,
+  "checks": [
+    {
+      "check": "public HTTPS health and vector ready",
+      "passed": true
+    },
+    {
+      "check": "production widget configured",
+      "passed": true
+    },
+    {
+      "check": "missing challenge rejected",
+      "passed": true
+    },
+    {
+      "check": "anonymous admin rejected",
+      "passed": true
+    },
+    {
+      "check": "public administrator login",
+      "passed": true
+    },
+    {
+      "check": "secure HttpOnly Strict session cookie",
+      "passed": true
+    },
+    {
+      "check": "authenticated ticket list",
+      "passed": true
+    },
+    {
+      "check": "authenticated knowledge read",
+      "passed": true
+    },
+    {
+      "check": "approval without CSRF rejected",
+      "passed": true
+    },
+    {
+      "check": "synthetic approval with CSRF",
+      "passed": true
+    },
+    {
+      "check": "audit log read",
+      "passed": true
+    },
+    {
+      "check": "anonymous ticket read rejected",
+      "passed": true
+    },
+    {
+      "check": "admin logout",
+      "passed": true
+    }
+  ],
+  "publicEndpointTested": true,
+  "syntheticOnly": true,
+  "paidModelGenerationInvoked": false,
+  "realTurnstileSubmissionVerified": true,
+  "realTurnstileVerificationSource": "User confirmed successful ticket creation in normal browser on 2026-10-01",
+  "automatedBrowserChallengeCompleted": false
+}

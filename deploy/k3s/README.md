@@ -32,7 +32,7 @@ sudo k3s kubectl -n atlas-desk create secret generic atlas-desk-secrets \
 
 ## 应用与验收
 
-下列基础生产清单包含公网路由，不用于当前缺少 Turnstile 配置的内网环境。当前实际部署状态见 [部署记录](../../docs/deployment-status-20261001.md)。生产配置齐全后，优先渲染 `../overlays/local-bge` 并核对固定镜像摘要及资源限制，再执行发布。
+下列基础生产清单包含公网路由。当前生产实例已配置 Turnstile，实际无 Secret 清单位于 `../releases/20261001/production.yaml`；重新部署前需要核对私有 Secret 与节点容量。当前实际部署状态见 [部署记录](../../docs/deployment-status-20261001.md)。生产配置齐全后，优先渲染 `../overlays/local-bge` 并核对固定镜像摘要及资源限制，再执行发布。
 
 ```bash
 sudo k3s kubectl apply -k deploy/k3s
