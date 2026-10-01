@@ -1,0 +1,83 @@
+{
+  "passed": true,
+  "results": [
+    {
+      "name": "employee account login 390",
+      "passed": true
+    },
+    {
+      "name": "employee challenge in auth form 390",
+      "passed": true
+    },
+    {
+      "name": "employee no overflow 390",
+      "passed": true
+    },
+    {
+      "name": "no employee technical pipeline 390",
+      "passed": true
+    },
+    {
+      "name": "admin named login 390",
+      "passed": true
+    },
+    {
+      "name": "admin protected workspace 390",
+      "passed": true
+    },
+    {
+      "name": "admin challenge in auth form 390",
+      "passed": true
+    },
+    {
+      "name": "admin no overflow 390",
+      "passed": true
+    },
+    {
+      "name": "shared favicon 390",
+      "passed": true
+    },
+    {
+      "name": "employee account login 1440",
+      "passed": true
+    },
+    {
+      "name": "employee challenge in auth form 1440",
+      "passed": true
+    },
+    {
+      "name": "employee no overflow 1440",
+      "passed": true
+    },
+    {
+      "name": "no employee technical pipeline 1440",
+      "passed": true
+    },
+    {
+      "name": "admin named login 1440",
+      "passed": true
+    },
+    {
+      "name": "admin protected workspace 1440",
+      "passed": true
+    },
+    {
+      "name": "admin challenge in auth form 1440",
+      "passed": true
+    },
+    {
+      "name": "admin no overflow 1440",
+      "passed": true
+    },
+    {
+      "name": "shared favicon 1440",
+      "passed": true
+    },
+    {
+      "name": "no runtime JS errors",
+      "passed": true
+    }
+  ],
+  "errors": [],
+  "normalTurnstileChallengeNotCompleted": true
+}

@@ -1,0 +1,10 @@
+{
+  "passed": true,
+  "testCount": 61,
+  "command": "conda run -n ticket-agent python -m unittest discover -s tests -v",
+  "localBrowserChecks": 25,
+  "publicAuthLayoutChecks": 19,
+  "publicPortfolioChecks": 45,
+  "productionStatefulSmokeNotRun": true,
+  "reason": "Automatic approval declined writing production test data and invoking LLM; used read-only checks instead."
+}

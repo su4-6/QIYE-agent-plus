@@ -4,7 +4,10 @@
 
 ## 已实现能力
 
-- FastAPI API 与响应式中文演示页面。
+- FastAPI API、员工服务台与 IT 管理工作台。
+- 员工账号与工单归属，服务端按当前账号查询；同名员工不会共享工单。
+- 保留原 Agent / RAG / MiMo 节点与技术栈；低风险只读辅助支持模型追问、有引用建议与同工单跟进，正式评测门槛仍未通过。
+- 员工补充、确认解决、申请人工与重开；管理员接单、回复、要求补充与标记处理完成，状态版本控制防止重复流转。
 - LangGraph 编排“分诊 → 查询改写 → 检索 → 证据判断 → 句子ID选择与服务端答复组装”。
 - 默认使用 `sqlite-vec` BGE 中文向量召回，故障或关闭向量时降级至 SQLite FTS5 BM25；RRF 混合与业务重排保留为对照配置。
 - 版本化知识库，管理员可导入 TXT、Markdown 和文本 PDF。
@@ -12,11 +15,13 @@
 - 高风险、证据不足及评测发布保护触发时人工接管，审批状态使用条件更新防止重复处理。
 - 支持从 `MIMO_API_KEY` 自动接入 MiMo；模型失败或引用校验失败时转人工。
 - 工单、状态变化和审计日志同事务保存。
-- Docker/K3s 部署配置、48 项工程测试、60 段模拟语料和 180 条固定评测查询。
+- Docker/K3s 部署配置、61 项工程测试、60 段模拟语料和 180 条固定评测查询。
 
 ## 当前部署与主页
 
 2026-10-01：[Atlas 公网演示](https://ticket.su46proj.site/)已开放，在服务器独立 K3s 命名空间运行，使用 MiMo、本地 BGE 和生产 Turnstile。公网健康、管理员会话、访问边界与模拟审批检查通过；用户已在正常浏览器确认通过 Turnstile 并成功创建工单；自动化检查未绕过人机验证。已发布的[个人主页](https://su46proj.site/)和[Atlas 项目介绍](https://su46proj.site/atlas-desk/index.html)源码保存在 `portfolio/`。
+
+[员工与 IT 工作流说明](docs/employee-workflow.md)包含状态、自动回复范围与操作边界。
 
 当前镜像、容量验证、生产清单和原 MiniPay 保留边界见 [部署记录](docs/deployment-status-20261001.md)。主页和项目介绍中的 GitHub 入口指向本仓库主分支。
 
@@ -89,8 +94,8 @@ python -m app.knowledge reindex
 | 方法 | 路径 | 权限 |
 | --- | --- | --- |
 | `POST` | `/api/v1/tickets` | 公开，生产环境要求 Turnstile |
-| `GET` | `/api/v1/tickets/{id}` | 工单访问凭证 |
-| `POST` | `/api/v1/admin/login` | 管理员密码 |
+| `GET` | `/api/v1/tickets/{id}` | 所属员工会话；旧访客凭据兼容 |
+| `POST` | `/api/v1/admin/login` | 管理员账号、密码与生产 Turnstile |
 | `GET` | `/api/v1/admin/tickets` | 管理员会话 |
 | `POST` | `/api/v1/admin/tickets/{id}/approval` | 管理员会话 + CSRF |
 | `GET` | `/api/v1/admin/tickets/{id}/audit-logs` | 管理员会话 |
@@ -112,7 +117,7 @@ powershell -ExecutionPolicy Bypass -File .\scripts\evaluate-conda.ps1 -LiveMimo 
 
 历史180问按主题分组，校准与测试各90问；其中60条可回答测试查询的Hit@3为旧关键词40%、BM25 85%、纯向量93.33%、混合86.67%。这些方法使用同一语料与查询，分开报告，不能与新60题成绩混用。历史15条证据不足负例与30条额外挑战见[b8dcbf3复测快照](docs/review-followup-20261001.md)。
 
-当前48项工程测试通过，包含已有向量索引在进程重启后的运行自检。先前版本关闭LLM的300次HTTP工作流全部成功，该历史成绩不与本次容量验证混用。最新60题预留集与追加10次MiMo协议验证见[新报告](docs/new-heldout-20261001.md)，人工审核保护继续开启。
+当前61项工程测试通过，包含已有向量索引在进程重启后的运行自检。先前版本关闭LLM的300次HTTP工作流全部成功，该历史成绩不与本次容量验证混用。最新60题预留集与追加10次MiMo协议验证见[新报告](docs/new-heldout-20261001.md)，人工审核保护继续开启。
 
 评测数据库临时隔离，不改现有工单库。模型原始结果可用 `--reuse-generation` 复用，绝不发送LLM请求。历史六段／30问实验保留在[旧评测记录](docs/evaluation-results.md)，不能与新语料混用提升数字。
 
@@ -131,3 +136,9 @@ powershell -ExecutionPolicy Bypass -File .\scripts\evaluate-conda.ps1 -LiveMimo 
 新句子ID协议获得追加10次MiMo授权，结构化10/10、组装原文9/10，输出177 tokens；严格来源主题匹配6/10，不能写成答案正确率90%。详细数字和限制见[新评测报告](docs/new-heldout-20261001.md)。
 
 已有新预留实验可离线复核：`conda run -n ticket-agent python -m evaluation.reproduce_heldout --output evaluation/results/heldout-reproduction`。它重新计算训练权重与冻结决策，不重新调阈值，也不调用MiMo。
+
+## 员工自助与 IT 协作
+
+员工登录后仅查看自己的工单。个人演示开放低风险、只读AI辅助：MiMo从原检索链选择有引用的步骤，信息不足时提出具体问题；补充在同一工单继续处理。员工确认解决，或带着上下文转IT。管理端使用账号、密码、人机验证，默认人工队列。原技术栈和图节点保留，固定答复分支已移除。
+
+`LOW_RISK_ASSISTANCE`默认关闭，生产演示显式开启。原95%检索发布目标尚未通过，辅助功能不代表自动维修或正式质量放行。完整状态、认证范围与验证限制见[员工工作流](docs/employee-workflow.md)。

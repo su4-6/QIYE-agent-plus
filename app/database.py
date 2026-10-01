@@ -50,7 +50,7 @@ def init_database() -> None:
         with closing(sqlite3.connect(path)) as source:
             version = source.execute("PRAGMA user_version").fetchone()[0]
             tables = source.execute("SELECT 1 FROM sqlite_master WHERE name='tickets'").fetchone()
-            if tables and version < 3:
+            if tables and version < 6:
                 backup_dir = path.parent / "backups"
                 backup_dir.mkdir(parents=True, exist_ok=True)
                 stamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%S%f")
@@ -74,6 +74,11 @@ def init_database() -> None:
             ("evidence_score", "REAL"),
             ("handoff_reason", "TEXT NOT NULL DEFAULT ''"),
             ("request_id", "TEXT NOT NULL DEFAULT ''"),
+            ("public_answer", "TEXT NOT NULL DEFAULT ''"),
+            ("assigned_to", "TEXT NOT NULL DEFAULT ''"),
+            ("workflow_version", "INTEGER NOT NULL DEFAULT 0"),
+            ("approval_passed", "INTEGER NOT NULL DEFAULT 0"),
+            ("employee_id", "TEXT NOT NULL DEFAULT ''"),
         ):
             _add_column(db, "tickets", name, definition)
         db.execute("""CREATE TABLE IF NOT EXISTS audit_logs (
@@ -111,4 +116,29 @@ def init_database() -> None:
         db.execute("DELETE FROM rate_limits WHERE expires_at <= CAST(strftime('%s','now') AS INTEGER)")
         db.execute("CREATE INDEX IF NOT EXISTS idx_tickets_tenant_created ON tickets(tenant_id,created_at)")
         db.execute("CREATE INDEX IF NOT EXISTS idx_chunks_tenant_active ON knowledge_chunks(tenant_id,active)")
-        db.execute("PRAGMA user_version=3")
+        db.execute("""CREATE TABLE IF NOT EXISTS ticket_messages (
+            id INTEGER PRIMARY KEY AUTOINCREMENT, ticket_id TEXT NOT NULL,
+            tenant_id TEXT NOT NULL, actor TEXT NOT NULL, body TEXT NOT NULL,
+            created_at TEXT NOT NULL, FOREIGN KEY(ticket_id) REFERENCES tickets(ticket_id))""")
+        db.execute("CREATE INDEX IF NOT EXISTS idx_messages_ticket ON ticket_messages(tenant_id,ticket_id,id)")
+        _add_column(db, 'ticket_messages', 'operator', "TEXT NOT NULL DEFAULT ''")
+        db.execute("UPDATE tickets SET approval_passed=1 WHERE answer_source='人工审批' AND status='审批通过，待人工执行'")
+        db.execute("""CREATE TABLE IF NOT EXISTS employee_accounts (
+            id TEXT PRIMARY KEY, tenant_id TEXT NOT NULL, username TEXT NOT NULL,
+            display_name TEXT NOT NULL, password_hash TEXT NOT NULL, created_at TEXT NOT NULL,
+            UNIQUE(tenant_id,username))""")
+        db.execute("CREATE INDEX IF NOT EXISTS idx_tickets_employee ON tickets(tenant_id,employee_id,created_at)")
+        # Retire the withdrawn fixed-text branch without changing the recorded reply.
+        rows = db.execute("SELECT ticket_id,tenant_id FROM tickets WHERE answer_source='限定范围的标准排查' AND status='已给出处理建议'").fetchall()
+        for row in rows:
+            db.execute("""UPDATE tickets SET status='待人工处理',needs_human_approval=1,
+                public_answer='工单已交给 IT 服务台。此前显示的是预设提示，未由 AI 生成；请补充报错及发生时间，等待 IT 的具体回复。',
+                workflow_version=workflow_version+1,updated_at=? WHERE ticket_id=?""",
+                (datetime.now(timezone.utc).isoformat(timespec='seconds'),row['ticket_id']))
+            db.execute("INSERT INTO audit_logs(ticket_id,tenant_id,action,operator,detail,created_at) VALUES(?,?,?,?,?,?)",
+                (row['ticket_id'],row['tenant_id'],'撤回固定回复路径','system','{"reason":"restore_original_agent_flow"}',datetime.now(timezone.utc).isoformat(timespec='seconds')))
+        db.execute("""UPDATE tickets SET status='待人工处理',handoff_reason='generation_or_citation_failed',
+            needs_human_approval=1,workflow_version=workflow_version+1,
+            public_answer='AI 跟进被中断，已保留你的补充并交给 IT 服务台继续处理。'
+            WHERE status='AI处理中'""")
+        db.execute("PRAGMA user_version=6")

@@ -29,6 +29,8 @@ class Settings:
     turnstile_site_key: str = os.getenv("TURNSTILE_SITE_KEY", "")
     max_llm_daily: int = int(os.getenv("MAX_LLM_DAILY", "100"))
     max_public_hourly: int = int(os.getenv("MAX_PUBLIC_HOURLY", "10"))
+    low_risk_assistance: bool = os.getenv('LOW_RISK_ASSISTANCE', 'false').lower() == 'true'
+    admin_username: str = os.getenv('ADMIN_USERNAME', 'admin').strip()
     high_risk_keywords: tuple[str, ...] = tuple(
         word.strip() for word in os.getenv(
             "HIGH_RISK_KEYWORDS", "生产,支付,订单,财务,法务,高管,管理员,批量,数据删除,权限提升,海外访问"

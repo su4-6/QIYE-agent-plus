@@ -1,0 +1,36 @@
+{
+  "results": [
+    {
+      "phase": "initial",
+      "status": "已给出处理建议",
+      "source": "逐句引用对齐的检索答复",
+      "reply": "可以先尝试以下排查建议。完成后，请确认是否恢复；仍有问题可继续补充或联系 IT。\n电脑出现蓝屏或停止错误时，先确认自动重启后是否能进入桌面，记录停止代码和发生频率，不能仅凭“蓝屏”确定故障原因。\n如果电脑已经重启并恢复正常使用，先保存工作并观察是否再次出现，不要把一次蓝屏直接认定为设备损坏。\n如果故障发生前刚接入新的外接设备，可以在关机后移除该外接设备，再观察启动情况；不要拆开机箱。\n如能正常进入桌面，可以查看系统盘剩余空间是否充足；不要为腾空间删除不认识的系统文件。\n反复出现相同停止代码或无法进入桌面时，应联系 IT，并提供停止代码、出现时间与近期变化。",
+      "citationCount": 1
+    },
+    {
+      "phase": "followup",
+      "status": "已给出处理建议",
+      "source": "逐句引用对齐的检索答复",
+      "reply": "可以先尝试以下排查建议。完成后，请确认是否恢复；仍有问题可继续补充或联系 IT。\n如果电脑已经重启并恢复正常使用，先保存工作并观察是否再次出现，不要把一次蓝屏直接认定为设备损坏。\n电脑出现蓝屏或停止错误时，先确认自动重启后是否能进入桌面，记录停止代码和发生频率，不能仅凭“蓝屏”确定故障原因。\n如能正常进入桌面，可以查看系统盘剩余空间是否充足；不要为腾空间删除不认识的系统文件。\n反复出现相同停止代码或无法进入桌面时，应联系 IT，并提供停止代码、出现时间与近期变化。",
+      "citationCount": 1
+    },
+    {
+      "phase": "sensitive",
+      "status": "待人工处理",
+      "source": "人工接管前知识库资料",
+      "handoff": "high_risk"
+    },
+    {
+      "phase": "unsupported",
+      "status": "待人工处理",
+      "source": "人工接管前知识库资料"
+    }
+  ],
+  "localLinuxContainer": true,
+  "actualMimoCalls": true,
+  "paidModelCallBudget": 12,
+  "syntheticOnly": true,
+  "originalRetrievalReleaseReportUnchanged": true,
+  "readOnlyAssistanceEnabled": true,
+  "passed": true
+}

@@ -28,7 +28,7 @@ docker build -f Dockerfile.bge -t atlas-desk:review-bge .
 kubectl kustomize deploy/overlays/local-bge
 ```
 
-镜像已发布到 `docker.io/suqihang/atlas-desk:20261001-bge.1`，overlay 固定已验证的 digest。这个 overlay 包含生产路由，只有生产密钥配置齐全并完成公网容量检查后才能应用。当前内网部署的无 Secret 清单保存在 `deploy/releases/20261001/internal.yaml`，不包含 HTTPRoute。
+镜像已发布到 `docker.io/suqihang/atlas-desk:20261001-assistance.2`，overlay 固定已验证的 digest。这个 overlay 包含生产路由，只有生产密钥配置齐全并完成公网容量检查后才能应用。当前内网部署的无 Secret 清单保存在 `deploy/releases/20261001/internal.yaml`，不包含 HTTPRoute。
 已有知识库启动时只做本地向量生成与 SQLite 向量距离自检，不重写知识库，不调用大模型或远程向量服务。
 工程测试覆盖重启自检、失败降级和不对远程模式新增启动调用。
 
@@ -53,3 +53,7 @@ Nginx 为 `ticket.su46proj.site` 配置独立虚拟主机并反向代理到 `127
 ## 备份
 
 升级迁移前，应用使用 SQLite 在线备份接口生成一致快照，保存到数据库所在目录的 backups 子目录。日常备份也应使用在线备份接口并至少保留最近7份，避免仅复制处于WAL模式的主数据库文件。恢复演练检查工单、知识文档、向量模型标识和审计日志。切换向量模型后运行 `python -m app.knowledge reindex`，不同模型产生的向量不能混用。
+
+员工/IT 工作流版本及原镜像、旧工单保留验证见 [部署状态](deployment-status-20261001.md) 与 [工作流说明](employee-workflow.md)。
+
+最新版本启用 `LOW_RISK_ASSISTANCE=true` 的个人只读辅助；`ADMIN_USERNAME=admin`，密码哈希与会话/Turnstile/MiMo密钥沿用原Secret。仅更新Atlas，迁移前备份SQLite，不清理原镜像、PVC或MiniPay工作负载。评测策略与历史报告保持原值，工程和真实模型验收单独记录。

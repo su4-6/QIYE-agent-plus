@@ -1,0 +1,109 @@
+{
+  "passed": true,
+  "results": [
+    {
+      "name": "employee homepage hides internal pipeline",
+      "passed": true
+    },
+    {
+      "name": "shared favicon route",
+      "passed": true
+    },
+    {
+      "name": "short description guidance",
+      "passed": true
+    },
+    {
+      "name": "original Agent gate retained",
+      "passed": true
+    },
+    {
+      "name": "does not falsely label reply as AI",
+      "passed": true
+    },
+    {
+      "name": "employee view hides internal metadata",
+      "passed": true
+    },
+    {
+      "name": "admin login no overflow 390",
+      "passed": true
+    },
+    {
+      "name": "admin default manual queue",
+      "passed": true
+    },
+    {
+      "name": "admin signed session survives reload",
+      "passed": true
+    },
+    {
+      "name": "employee supplement resumes processing",
+      "passed": true
+    },
+    {
+      "name": "employee receives admin reply",
+      "passed": true
+    },
+    {
+      "name": "employee confirms closure",
+      "passed": true
+    },
+    {
+      "name": "employee can reopen",
+      "passed": true
+    },
+    {
+      "name": "knowledge management retained",
+      "passed": true
+    },
+    {
+      "name": "metrics moved to admin system tab",
+      "passed": true
+    },
+    {
+      "name": "audit retained",
+      "passed": true
+    },
+    {
+      "name": "employee no overflow 390",
+      "passed": true
+    },
+    {
+      "name": "admin no overflow 390",
+      "passed": true
+    },
+    {
+      "name": "employee no overflow 768",
+      "passed": true
+    },
+    {
+      "name": "admin no overflow 768",
+      "passed": true
+    },
+    {
+      "name": "employee no overflow 1440",
+      "passed": true
+    },
+    {
+      "name": "admin no overflow 1440",
+      "passed": true
+    },
+    {
+      "name": "own ticket comes from account list",
+      "passed": true
+    },
+    {
+      "name": "same-name other employee cannot see ticket",
+      "passed": true
+    },
+    {
+      "name": "no runtime JS errors",
+      "passed": true
+    }
+  ],
+  "errors": [],
+  "realLocalWorkflowApi": true,
+  "offlineHealthFixture": true,
+  "productionTurnstileBypassed": false
+}

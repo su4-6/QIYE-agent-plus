@@ -9,7 +9,7 @@ COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple
 
 COPY app ./app
-COPY data/knowledge_base.txt data/simulated_sops.json ./resources/
+COPY data/knowledge_base.txt data/simulated_sops.json data/employee_self_help.md ./resources/
 COPY evaluation/policy.json ./evaluation/policy.json
 COPY scripts/import-demo.py ./scripts/import-demo.py
 # 确保 app/templates 目录存在（空目录 COPY 不会报错）

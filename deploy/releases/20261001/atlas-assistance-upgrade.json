@@ -1,0 +1,30 @@
+{
+  "beforeAvailableMiB": 498,
+  "publicRoutePreserved": true,
+  "oldImagePreserved": true,
+  "databaseBackupCreated": true,
+  "passed": true,
+  "image": "docker.io/suqihang/atlas-desk@sha256:59d54a2150b4a2ad40b32a182eb569b0eb68eddb55f04f9ee9ca2b0caf9cfc2b",
+  "health": {
+    "status": "ok",
+    "database": "ok",
+    "retrieval": "vector",
+    "llm_enabled": true,
+    "llm_provider": "mimo",
+    "llm_model": "mimo-v2.5-pro",
+    "vector": {
+      "state": "ready",
+      "reason": "",
+      "coverage": 68,
+      "total": 68,
+      "coverage_ratio": 1.0,
+      "model": "BAAI/bge-small-zh-v1.5",
+      "extension_available": true,
+      "runtime_checked": true
+    }
+  },
+  "existingWorkloadsImagesAndPvcUnchanged": true,
+  "oldTicketIdentitiesAndAccessHashesUnchanged": true,
+  "existingTicketCount": 24,
+  "afterAvailableMiB": 609
+}

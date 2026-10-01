@@ -56,8 +56,8 @@
       "name": "anchor contact 390",
       "ok": true,
       "detail": {
-        "top": 177.171875,
-        "bottom": 205.96875,
+        "top": 177.125,
+        "bottom": 205.921875,
         "headerBottom": 98.828125,
         "height": 960,
         "hash": "#contact"
@@ -152,8 +152,8 @@
       "name": "anchor contact 1440",
       "ok": true,
       "detail": {
-        "top": 141.921875,
-        "bottom": 182.234375,
+        "top": 141.84375,
+        "bottom": 182.15625,
         "headerBottom": 65,
         "height": 960,
         "hash": "#contact"
@@ -252,8 +252,8 @@
       "name": "anchor contact 2443",
       "ok": true,
       "detail": {
-        "top": 141.265625,
-        "bottom": 181.578125,
+        "top": 141.1875,
+        "bottom": 181.5,
         "headerBottom": 65,
         "height": 960,
         "hash": "#contact"

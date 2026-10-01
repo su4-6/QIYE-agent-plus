@@ -33,7 +33,7 @@ def check_password(password: str) -> bool:
 def create_session(tenant_id: str = "demo") -> tuple[str, str]:
     csrf = secrets.token_urlsafe(24)
     body = base64.urlsafe_b64encode(json.dumps({
-        "tenant_id": tenant_id, "role": "admin", "exp": int(time.time()) + 8 * 3600,
+        "tenant_id": tenant_id, "role": "admin", "username": settings.admin_username, "exp": int(time.time()) + 8 * 3600,
         "csrf": csrf,
     }, separators=(",", ":")).encode()).decode()
     signature = hmac.new(settings.session_secret.encode(), body.encode(), hashlib.sha256).hexdigest()

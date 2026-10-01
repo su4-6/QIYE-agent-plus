@@ -23,6 +23,13 @@ def import_simulated(tenant="demo", *, vectors=True):
             continue
         content = f"# {topic['id']} {topic['title']}\n\n适用场景：{topic['symptoms']}。处理流程：{topic['steps']}。边界：本资料为模拟操作规程；实际操作需遵循所在企业授权，生产、敏感数据及权限变更转人工确认。"
         count += import_document(tenant, title, "md", content, with_embedding=vectors)["chunks"]
+    supplement=resource_path('employee_self_help.md')
+    if supplement.exists():
+        with get_connection() as db:
+            existing=db.execute('SELECT 1 FROM knowledge_documents WHERE tenant_id=? AND title=? AND active=1',
+                                (tenant,'员工自助支持 T24 电脑蓝屏')).fetchone()
+        if not existing:
+            count+=import_document(tenant,'员工自助支持 T24 电脑蓝屏','md',supplement.read_text(encoding='utf-8'),with_embedding=vectors)['chunks']
     return count
 
 

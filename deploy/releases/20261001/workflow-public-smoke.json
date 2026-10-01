@@ -1,0 +1,155 @@
+{
+  "passed": true,
+  "checks": [
+    {
+      "check": "synthetic advice fixture exercises state transitions only",
+      "passed": true
+    },
+    {
+      "check": "employee-safe response",
+      "passed": true
+    },
+    {
+      "check": "employee action requires ticket token",
+      "passed": true
+    },
+    {
+      "check": "administrator login",
+      "passed": true
+    },
+    {
+      "check": "employee escalate",
+      "passed": true
+    },
+    {
+      "check": "administrator start HTTP 200 ",
+      "passed": true
+    },
+    {
+      "check": "administrator request_info HTTP 200 ",
+      "passed": true
+    },
+    {
+      "check": "employee supplement resumes processing",
+      "passed": true
+    },
+    {
+      "check": "administrator reply HTTP 200 ",
+      "passed": true
+    },
+    {
+      "check": "administrator resolve HTTP 200 ",
+      "passed": true
+    },
+    {
+      "check": "IT completion awaits employee confirmation",
+      "passed": true
+    },
+    {
+      "check": "employee resolve",
+      "passed": true
+    },
+    {
+      "check": "duplicate transition rejected",
+      "passed": true
+    },
+    {
+      "check": "employee reopen",
+      "passed": true
+    },
+    {
+      "check": "administrator start HTTP 200 ",
+      "passed": true
+    },
+    {
+      "check": "administrator resolve HTTP 200 ",
+      "passed": true
+    },
+    {
+      "check": "employee resolve",
+      "passed": true
+    },
+    {
+      "check": "workflow audit retained",
+      "passed": true
+    },
+    {
+      "check": "production Turnstile retained",
+      "passed": true
+    },
+    {
+      "check": "public employee registration",
+      "passed": true
+    },
+    {
+      "check": "separate same-name employee registration",
+      "passed": true
+    },
+    {
+      "check": "my tickets filtered by current account",
+      "passed": true
+    },
+    {
+      "check": "same display name cannot see another account tickets",
+      "passed": true
+    },
+    {
+      "check": "other account cannot read even with ticket token",
+      "passed": true
+    },
+    {
+      "check": "owner can read with signed session",
+      "passed": true
+    },
+    {
+      "check": "employee session writes require CSRF",
+      "passed": true
+    },
+    {
+      "check": "employee session cannot enter admin API",
+      "passed": true
+    },
+    {
+      "check": "account fixture closed after verification",
+      "passed": true
+    },
+    {
+      "check": "employee logout",
+      "passed": true
+    },
+    {
+      "check": "logged out account list denied",
+      "passed": true
+    },
+    {
+      "check": "employee login restores own records",
+      "passed": true
+    },
+    {
+      "check": "account records persist after login",
+      "passed": true
+    },
+    {
+      "check": "shared favicon /",
+      "passed": true
+    },
+    {
+      "check": "shared favicon /admin",
+      "passed": true
+    },
+    {
+      "check": "public SVG favicon served",
+      "passed": true
+    },
+    {
+      "check": "administrator logout",
+      "passed": true
+    }
+  ],
+  "publicHTTPSWorkflowVerified": true,
+  "syntheticTicketSeededInternally": true,
+  "fixtureFinalState": "\u5df2\u89e3\u51b3",
+  "productionVisitorCreationNotBypassed": true,
+  "paidModelCalls": 0,
+  "employeeCreationRequiresNormalTurnstile": true
+}

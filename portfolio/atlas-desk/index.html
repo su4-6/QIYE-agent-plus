@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Atlas Desk · 智能工单处理 Agent | 苏启航</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2064%2064%22%3E%0A%20%20%3Crect%20width%3D%2264%22%20height%3D%2264%22%20rx%3D%2216%22%20fill%3D%22%23146c5e%22/%3E%0A%20%20%3Cpath%20d%3D%22M20%2013h19l8%208v29H20a4%204%200%200%201-4-4V17a4%204%200%200%201%204-4Z%22%20fill%3D%22%23fffdfa%22/%3E%0A%20%20%3Cpath%20d%3D%22M38%2013v9h9%22%20fill%3D%22%23b8d7ce%22/%3E%0A%20%20%3Cpath%20d%3D%22M24%2029h15M24%2036h11%22%20fill%3D%22none%22%20stroke%3D%22%23146c5e%22%20stroke-width%3D%224%22%20stroke-linecap%3D%22round%22/%3E%0A%20%20%3Ccircle%20cx%3D%2244%22%20cy%3D%2247%22%20r%3D%2210%22%20fill%3D%22%23dd7047%22/%3E%0A%20%20%3Cpath%20d%3D%22m39.5%2047%203%203%206-6%22%20fill%3D%22none%22%20stroke%3D%22%23fffdfa%22%20stroke-width%3D%223.2%22%20stroke-linecap%3D%22round%22%20stroke-linejoin%3D%22round%22/%3E%0A%3C/svg%3E%0A">
 <meta name="description" content="Atlas Desk 个人项目：工单风险分诊、知识检索、原文引用校验与人工接管。">
 <meta name="theme-color" content="#faf9f7">
 <style>
@@ -365,30 +366,30 @@ html{scroll-padding-top:76px}
   <section class="hero col" id="overview">
     <p class="status-pill"><i aria-hidden="true"></i>个人项目 · 模拟 IT 服务台</p>
     <h1>Atlas Desk<br>智能工单处理 Agent</h1>
-    <p class="lede">把一张工单变成有依据的处理建议：先判断问题与风险，再检索可用知识，核对每条引用。证据不足时，交给人工继续处理。</p>
+    <p class="lede">员工描述问题，AI 先检索知识、给出排查建议或追问缺失信息。能自助解决的由员工确认；需要协助的带着沟通记录转交 IT，继续处理与跟进。</p>
     <div class="acts"><a class="btn solid" href="https://ticket.su46proj.site/" target="_blank" rel="noopener">打开工单系统<span class="arrow" aria-hidden="true">↗</span></a><a class="btn" href="#flow">查看处理流程 ↓</a><a class="btn" href="https://github.com/su4-6/QIYE-agent-plus" target="_blank" rel="noopener">查看源代码 ↗</a><a class="btn" href="/#projects">返回项目列表</a></div>
-    <p class="note-line" id="release-status">公开演示已开放，使用模拟 IT 工单与知识库。提交需完成人机验证；高风险或证据不足的问题交由人工处理，不会自动执行权限、生产或数据变更。</p>
+    <p class="note-line" id="release-status">公开演示包含员工服务台和 IT 管理台，使用模拟知识库。已开放低风险、只读的 AI 辅助排查，建议由员工尝试并确认；敏感申请与无法可靠答复的问题转人工。</p>
   </section>
   <section class="col" id="flow">
     <div class="sec-head"><p class="eyebrow"><span class="num">01</span><span class="rule" aria-hidden="true"></span><span class="lbl">处理流程 / Workflow</span></p><h2>从描述问题，到可核对的答复</h2><p class="sub">LangGraph 串起分诊、检索、证据判断和答复分支。每一步都有明确的职责与失败出口。</p></div>
     <ol class="steps">
       <li><div><b>识别问题与风险</b><p>根据标题与描述判断工单类别、优先级和风险。涉及生产、支付、权限等敏感问题时，保留人工处理边界。</p></div></li>
       <li><div><b>检索知识，保留来源</b><p>使用 SQLite FTS5 与 BGE 向量检索能力，按评测策略选择召回方式。结果保留文档版本、分块编号与原文摘录。</p></div></li>
-      <li><div><b>检查证据是否足够</b><p>综合证据与评测门槛决定后续流程；中高风险或证据不足的工单进入人工接管分支。</p></div></li>
-      <li><div><b>选择原文，校验引用</b><p>模型负责选择候选原文句子，服务端校验来源并组装答复；生成失败、引用无效或模型额度不足时，转交人工。</p></div></li>
-      <li><div><b>保存结果，继续跟进</b><p>保存工单状态与引用，支持凭访问令牌查看和跟进。管理员可处理工单、管理知识版本并查看运行记录。</p></div></li>
+      <li><div><b>选择合适的处理路径</b><p>风险分诊与证据判断保留在原 Agent 链路中。限定范围内的低风险问题可以进入只读辅助模式；信息不足先追问，敏感或不支持的问题直接转 IT。</p></div></li>
+      <li><div><b>AI 排查与继续追问</b><p>MiMo 判断需要补充什么信息，或从检索资料中选择相关原文句子；服务端校验引用后展示建议。员工补充会重新经过同一处理链，保持原工单与沟通上下文。</p></div></li>
+      <li><div><b>保存结果，继续跟进</b><p>员工确认解决后关闭工单；仍未解决可以联系 IT。管理台默认查看人工队列，先呈现问题、接管原因与已有补充，减少重复问询；员工可以查看回复、确认或重新打开。</p></div></li>
     </ol>
   </section>
   <section class="col" id="features">
     <div class="sec-head"><p class="eyebrow"><span class="num">02</span><span class="rule" aria-hidden="true"></span><span class="lbl">功能与边界 / Capabilities</span></p><h2>建议可追溯，处理有边界</h2></div>
     <div class="groups">
-      <article class="gpanel"><div class="gtop"><h3>工单与跟进</h3></div><p class="note-line">提交问题、查看分诊结果、来源引用与处理状态，支持工单跟进和当前浏览器的历史记录。</p><div class="chips"><span class="chip">访问令牌</span><span class="chip">状态记录</span></div></article>
+      <article class="gpanel"><div class="gtop"><h3>员工与跟进</h3></div><p class="note-line">员工通过账号登录，只查看自己的工单。AI 建议与追问、IT 回复和处理状态按时间展示；补充、确认、转人工和重开都在原工单中完成。旧浏览器凭据单独保留。</p><div class="chips"><span class="chip">员工账号隔离</span><span class="chip">状态记录</span></div></article>
       <article class="gpanel"><div class="gtop"><h3>知识与版本</h3></div><p class="note-line">维护知识文档、分块和版本；检索保留来源信息，避免把无依据的回答当成处理结论。</p><div class="chips"><span class="chip">FTS5</span><span class="chip">BGE</span><span class="chip">sqlite-vec</span></div></article>
-      <article class="gpanel"><div class="gtop"><h3>人工接管</h3></div><p class="note-line">风险较高、证据不足或引用校验未通过时，工单交由人工审核。系统提供排查资料，不执行真实 IT 操作。</p><div class="chips"><span class="chip">风险分诊</span><span class="chip">引用校验</span></div></article>
-      <article class="gpanel"><div class="gtop"><h3>管理与运行</h3></div><p class="note-line">管理员登录后管理工单与知识库。生产配置包含会话、防伪令牌、人机验证、请求配额与健康检查。</p><div class="chips"><span class="chip">FastAPI</span><span class="chip">LangGraph</span><span class="chip">K3s</span></div></article>
+      <article class="gpanel"><div class="gtop"><h3>人工接管</h3></div><p class="note-line">管理员接单、回复、要求补充和标记处理完成；敏感申请执行前审批。员工确认后关闭，问题复发可以重开。</p><div class="chips"><span class="chip">风险分诊</span><span class="chip">引用校验</span></div></article>
+      <article class="gpanel"><div class="gtop"><h3>管理与运行</h3></div><p class="note-line">管理员使用账号、密码与人机验证登录。人工队列、知识库和系统指标分开；处理人来自服务端身份，内部评分与检索资料收起，员工页面聚焦回复与进度。</p><div class="chips"><span class="chip">FastAPI</span><span class="chip">LangGraph</span><span class="chip">K3s</span></div></article>
     </div>
   </section>
-  <section class="col"><div class="band2"><div class="t"><h3>从代码理解这个项目</h3><p>这是个人开发的模拟 IT 服务台项目，知识库和工单示例用于技术演示。实现、评测与运行边界以仓库中的代码和记录为准。</p></div><a class="btn" href="https://github.com/su4-6/QIYE-agent-plus" target="_blank" rel="noopener">打开 GitHub ↗</a></div></section>
+  <section class="col"><div class="band2"><div class="t"><h3>从代码理解这个项目</h3><p>这是个人开发的模拟 IT 服务台项目。95% 是检索决策的评测目标，现有正式发布评测尚未通过；本次只读辅助演示与该评测分开记录，不代表自动修复或生产自动执行。实现与验证以仓库记录为准。</p></div><a class="btn" href="https://github.com/su4-6/QIYE-agent-plus" target="_blank" rel="noopener">打开 GitHub ↗</a></div></section>
 </main>
 <footer class="site-foot">
   <div class="top">

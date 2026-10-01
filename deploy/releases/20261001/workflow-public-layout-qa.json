@@ -1,0 +1,67 @@
+{
+  "passed": true,
+  "results": [
+    {
+      "name": "employee portal 390",
+      "passed": true
+    },
+    {
+      "name": "no employee technical workflow 390",
+      "passed": true
+    },
+    {
+      "name": "no overflow 390",
+      "passed": true
+    },
+    {
+      "name": "verification within submit actions 390",
+      "passed": true
+    },
+    {
+      "name": "description help 390",
+      "passed": true
+    },
+    {
+      "name": "account own history visible 390",
+      "passed": true
+    },
+    {
+      "name": "employee portal 1440",
+      "passed": true
+    },
+    {
+      "name": "no employee technical workflow 1440",
+      "passed": true
+    },
+    {
+      "name": "no overflow 1440",
+      "passed": true
+    },
+    {
+      "name": "verification within submit actions 1440",
+      "passed": true
+    },
+    {
+      "name": "description help 1440",
+      "passed": true
+    },
+    {
+      "name": "account own history visible 1440",
+      "passed": true
+    },
+    {
+      "name": "shared employee favicon",
+      "passed": true
+    },
+    {
+      "name": "admin requires login",
+      "passed": true
+    },
+    {
+      "name": "shared admin favicon",
+      "passed": true
+    }
+  ],
+  "realPublicPage": true,
+  "challengeTokenNotPrinted": true
+}

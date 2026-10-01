@@ -1,0 +1,301 @@
+{
+  "platform": "linux/amd64",
+  "image": "docker.io/suqihang/atlas-desk:20261001-workflow.2",
+  "memoryLimitMiB": 384,
+  "cpuLimit": 1,
+  "llmCalls": 0,
+  "syntheticOnly": true,
+  "concurrency": 4,
+  "requestCount": 40,
+  "volume": "codex-atlas-capacity-8d5c1ea1-data",
+  "container": "codex-atlas-capacity-8d5c1ea1",
+  "imageId": "sha256:e7b8bf99f00e2059bca6281ea6c145e37947d9d981c25c7b8790bde674109b0d",
+  "startupSeconds": 13.16,
+  "initialHealth": {
+    "status": "ok",
+    "database": "ok",
+    "retrieval": "vector",
+    "llm_enabled": false,
+    "llm_provider": "disabled",
+    "llm_model": "",
+    "vector": {
+      "state": "ready",
+      "reason": "",
+      "coverage": 66,
+      "total": 66,
+      "coverage_ratio": 1.0,
+      "model": "BAAI/bge-small-zh-v1.5",
+      "extension_available": true,
+      "runtime_checked": true
+    }
+  },
+  "results": [
+    {
+      "httpStatus": 201,
+      "milliseconds": 671.08,
+      "status": "待人工处理",
+      "needsHumanApproval": true
+    },
+    {
+      "httpStatus": 201,
+      "milliseconds": 674.76,
+      "status": "待人工处理",
+      "needsHumanApproval": true
+    },
+    {
+      "httpStatus": 201,
+      "milliseconds": 685.0,
+      "status": "待人工处理",
+      "needsHumanApproval": true
+    },
+    {
+      "httpStatus": 201,
+      "milliseconds": 754.67,
+      "status": "待人工处理",
+      "needsHumanApproval": true
+    },
+    {
+      "httpStatus": 201,
+      "milliseconds": 296.85,
+      "status": "待人工处理",
+      "needsHumanApproval": true
+    },
+    {
+      "httpStatus": 201,
+      "milliseconds": 107.03,
+      "status": "待人工处理",
+      "needsHumanApproval": true
+    },
+    {
+      "httpStatus": 201,
+      "milliseconds": 26.02,
+      "status": "待人工处理",
+      "needsHumanApproval": true
+    },
+    {
+      "httpStatus": 201,
+      "milliseconds": 139.92,
+      "status": "待人工处理",
+      "needsHumanApproval": true
+    },
+    {
+      "httpStatus": 201,
+      "milliseconds": 206.78,
+      "status": "待人工处理",
+      "needsHumanApproval": true
+    },
+    {
+      "httpStatus": 201,
+      "milliseconds": 192.96,
+      "status": "待人工处理",
+      "needsHumanApproval": true
+    },
+    {
+      "httpStatus": 201,
+      "milliseconds": 132.59,
+      "status": "待人工处理",
+      "needsHumanApproval": true
+    },
+    {
+      "httpStatus": 201,
+      "milliseconds": 123.99,
+      "status": "待人工处理",
+      "needsHumanApproval": true
+    },
+    {
+      "httpStatus": 201,
+      "milliseconds": 128.08,
+      "status": "待人工处理",
+      "needsHumanApproval": true
+    },
+    {
+      "httpStatus": 201,
+      "milliseconds": 283.06,
+      "status": "待人工处理",
+      "needsHumanApproval": true
+    },
+    {
+      "httpStatus": 201,
+      "milliseconds": 285.16,
+      "status": "待人工处理",
+      "needsHumanApproval": true
+    },
+    {
+      "httpStatus": 201,
+      "milliseconds": 196.39,
+      "status": "待人工处理",
+      "needsHumanApproval": true
+    },
+    {
+      "httpStatus": 201,
+      "milliseconds": 258.94,
+      "status": "待人工处理",
+      "needsHumanApproval": true
+    },
+    {
+      "httpStatus": 201,
+      "milliseconds": 196.62,
+      "status": "待人工处理",
+      "needsHumanApproval": true
+    },
+    {
+      "httpStatus": 201,
+      "milliseconds": 103.1,
+      "status": "待人工处理",
+      "needsHumanApproval": true
+    },
+    {
+      "httpStatus": 201,
+      "milliseconds": 293.09,
+      "status": "待人工处理",
+      "needsHumanApproval": true
+    },
+    {
+      "httpStatus": 201,
+      "milliseconds": 109.14,
+      "status": "待人工处理",
+      "needsHumanApproval": true
+    },
+    {
+      "httpStatus": 201,
+      "milliseconds": 179.01,
+      "status": "待人工处理",
+      "needsHumanApproval": true
+    },
+    {
+      "httpStatus": 201,
+      "milliseconds": 37.99,
+      "status": "待人工处理",
+      "needsHumanApproval": true
+    },
+    {
+      "httpStatus": 201,
+      "milliseconds": 133.62,
+      "status": "待人工处理",
+      "needsHumanApproval": true
+    },
+    {
+      "httpStatus": 201,
+      "milliseconds": 88.78,
+      "status": "待人工处理",
+      "needsHumanApproval": true
+    },
+    {
+      "httpStatus": 201,
+      "milliseconds": 101.97,
+      "status": "待人工处理",
+      "needsHumanApproval": true
+    },
+    {
+      "httpStatus": 201,
+      "milliseconds": 178.2,
+      "status": "待人工处理",
+      "needsHumanApproval": true
+    },
+    {
+      "httpStatus": 201,
+      "milliseconds": 226.52,
+      "status": "待人工处理",
+      "needsHumanApproval": true
+    },
+    {
+      "httpStatus": 201,
+      "milliseconds": 163.5,
+      "status": "待人工处理",
+      "needsHumanApproval": true
+    },
+    {
+      "httpStatus": 201,
+      "milliseconds": 114.49,
+      "status": "待人工处理",
+      "needsHumanApproval": true
+    },
+    {
+      "httpStatus": 201,
+      "milliseconds": 126.19,
+      "status": "待人工处理",
+      "needsHumanApproval": true
+    },
+    {
+      "httpStatus": 201,
+      "milliseconds": 202.61,
+      "status": "待人工处理",
+      "needsHumanApproval": true
+    },
+    {
+      "httpStatus": 201,
+      "milliseconds": 186.81,
+      "status": "待人工处理",
+      "needsHumanApproval": true
+    },
+    {
+      "httpStatus": 201,
+      "milliseconds": 163.6,
+      "status": "待人工处理",
+      "needsHumanApproval": true
+    },
+    {
+      "httpStatus": 201,
+      "milliseconds": 170.84,
+      "status": "待人工处理",
+      "needsHumanApproval": true
+    },
+    {
+      "httpStatus": 201,
+      "milliseconds": 114.56,
+      "status": "待人工处理",
+      "needsHumanApproval": true
+    },
+    {
+      "httpStatus": 201,
+      "milliseconds": 120.46,
+      "status": "待人工处理",
+      "needsHumanApproval": true
+    },
+    {
+      "httpStatus": 201,
+      "milliseconds": 104.3,
+      "status": "待人工处理",
+      "needsHumanApproval": true
+    },
+    {
+      "httpStatus": 201,
+      "milliseconds": 124.76,
+      "status": "待人工处理",
+      "needsHumanApproval": true
+    },
+    {
+      "httpStatus": 201,
+      "milliseconds": 119.4,
+      "status": "待人工处理",
+      "needsHumanApproval": true
+    }
+  ],
+  "http201": 40,
+  "p95Milliseconds": 674.76,
+  "cgroupPeakBytes": 402653184,
+  "cgroupPeakMiB": 384.0,
+  "swapBytes": 0,
+  "memoryStats": "338.1MiB / 384MiB",
+  "processMemory": "VmHWM:\t  339004 kB\nVmRSS:\t  339004 kB",
+  "finalHealth": {
+    "status": "ok",
+    "database": "ok",
+    "retrieval": "vector",
+    "llm_enabled": false,
+    "llm_provider": "disabled",
+    "llm_model": "",
+    "vector": {
+      "state": "ready",
+      "reason": "",
+      "coverage": 66,
+      "total": 66,
+      "coverage_ratio": 1.0,
+      "model": "BAAI/bge-small-zh-v1.5",
+      "extension_available": true,
+      "runtime_checked": true
+    }
+  },
+  "oomKilled": false,
+  "passed": true
+}

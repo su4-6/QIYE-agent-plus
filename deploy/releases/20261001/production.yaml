@@ -15,6 +15,8 @@ data:
   FASTEMBED_CACHE_PATH: /opt/atlas-models
   HF_HUB_OFFLINE: '1'
   HIGH_RISK_KEYWORDS: 生产,支付,订单,财务,法务,高管,管理员,批量,数据删除,权限提升,海外访问
+  LOW_RISK_ASSISTANCE: 'true'
+  ADMIN_USERNAME: admin
   LLM_PROVIDER: mimo
   MAX_LLM_DAILY: '100'
   MAX_PUBLIC_HOURLY: '10'
@@ -85,7 +87,7 @@ spec:
             name: atlas-desk-config
         - secretRef:
             name: atlas-desk-secrets
-        image: docker.io/suqihang/atlas-desk@sha256:8dd94bfd4f6d8c4505efe4b84356007d9038719b064237add41a2cc63a2c501f
+        image: docker.io/suqihang/atlas-desk@sha256:59d54a2150b4a2ad40b32a182eb569b0eb68eddb55f04f9ee9ca2b0caf9cfc2b
         imagePullPolicy: IfNotPresent
         livenessProbe:
           failureThreshold: 3

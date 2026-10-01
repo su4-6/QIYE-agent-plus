@@ -3,11 +3,12 @@ from __future__ import annotations
 import logging
 import time
 import uuid
+import hmac
 from contextlib import asynccontextmanager
 from pathlib import Path
 
 from fastapi import FastAPI, File, Header, HTTPException, Query, Request, Response, UploadFile
-from fastapi.responses import HTMLResponse, JSONResponse
+from fastapi.responses import HTMLResponse, JSONResponse, FileResponse
 
 from app.agent import ticket_graph
 from app.config import settings
@@ -15,8 +16,12 @@ from app.database import init_database, get_connection
 from app.knowledge import extract_text, import_document, seed_demo
 from app.llm import llm_status
 from app.repository import (approve_ticket, count_tickets, get_ticket, get_ticket_with_secret,
-                            list_audit_logs, list_documents, list_tickets, save_ticket)
-from app.schemas import ApprovalRequest, HealthResponse, LoginRequest, TicketRequest, TicketResponse
+                            list_audit_logs, list_documents, list_tickets, save_ticket, continue_assistance)
+from app.schemas import (ApprovalRequest, HealthResponse, LoginRequest, TicketRequest, TicketResponse,
+                         TicketMessageRequest, EmployeeActionRequest, AdminWorkRequest,
+                         EmployeeLoginRequest, EmployeeRegisterRequest)
+from app.employees import employee_claims, authenticate, COOKIE
+from app.workflow import change_ticket
 from app.security import (admin_claims, check_access_token, check_password, create_session,
                           new_access_token, use_quota, validate_production_config, verify_turnstile)
 from app.retrieval_health import vector_health, verify_local_vector_runtime
@@ -68,9 +73,15 @@ async def security_headers(request: Request, call_next):
     return response
 
 
-def public_ticket(ticket_id: str, token: str) -> dict:
+def public_ticket(ticket_id: str, token: str, request: Request | None = None, *, csrf=False) -> dict:
     row = get_ticket_with_secret(ticket_id, DEMO_TENANT)
-    if not row or not check_access_token(token, row["access_token_hash"]):
+    if not row:
+        raise HTTPException(status_code=404, detail="工单不存在或访问凭证无效")
+    if row['employee_id']:
+        claims = employee_claims(request, csrf=csrf, optional=True) if request else None
+        if not claims or claims['employee_id'] != row['employee_id'] or claims['tenant_id'] != row['tenant_id']:
+            raise HTTPException(status_code=404, detail="工单不存在或访问凭证无效")
+    elif not check_access_token(token, row['access_token_hash']):
         raise HTTPException(status_code=404, detail="工单不存在或访问凭证无效")
     result = get_ticket(ticket_id, DEMO_TENANT)
     assert result is not None
@@ -85,6 +96,46 @@ def home():
 @app.get("/admin", response_class=HTMLResponse, include_in_schema=False)
 def admin_page():
     return HTMLResponse(ADMIN_PATH.read_text(encoding="utf-8"))
+
+
+@app.get('/favicon.svg', include_in_schema=False)
+def favicon():
+    return FileResponse(INDEX_PATH.parent / 'favicon.svg', media_type='image/svg+xml',
+                        headers={'Cache-Control': 'public, max-age=86400'})
+
+
+@app.post('/api/v1/employee/register', status_code=201)
+def employee_register(payload: EmployeeRegisterRequest, request: Request, response: Response):
+    return authenticate(payload, request, response, register=True)
+
+
+@app.post('/api/v1/employee/login')
+def employee_login(payload: EmployeeLoginRequest, request: Request, response: Response):
+    return authenticate(payload, request, response)
+
+
+@app.get('/api/v1/employee/me')
+def employee_me(request: Request):
+    claims = employee_claims(request)
+    return {'username': claims['username'], 'display_name': claims['display_name'], 'csrf_token': claims['csrf']}
+
+
+@app.post('/api/v1/employee/logout')
+def employee_logout(request: Request, response: Response):
+    employee_claims(request, csrf=True)
+    response.delete_cookie(COOKIE)
+    return {'ok': True}
+
+
+@app.get('/api/v1/employee/tickets')
+def my_tickets(request: Request, skip: int = Query(0, ge=0), limit: int = Query(20, ge=1, le=100)):
+    claims = employee_claims(request)
+    with get_connection() as db:
+        args = (claims['tenant_id'], claims['employee_id'])
+        total = db.execute('SELECT COUNT(*) FROM tickets WHERE tenant_id=? AND employee_id=?', args).fetchone()[0]
+        rows = db.execute('SELECT ticket_id,title,status,created_at FROM tickets WHERE tenant_id=? AND employee_id=? ORDER BY created_at DESC,ticket_id DESC LIMIT ? OFFSET ?',
+                          (*args, limit, skip)).fetchall()
+    return {'items': [dict(row) for row in rows], 'total': total}
 
 
 @app.get("/health", response_model=HealthResponse, include_in_schema=False)
@@ -115,7 +166,8 @@ def live():
 
 @app.get("/api/v1/public-config")
 def public_config():
-    return {"turnstile_site_key": settings.turnstile_site_key if settings.app_env == "production" else ""}
+    return {"turnstile_site_key": settings.turnstile_site_key if settings.app_env == "production" else "",
+            "low_risk_assistance": settings.low_risk_assistance}
 
 
 @app.post("/api/v1/tickets", response_model=TicketResponse, status_code=201)
@@ -125,9 +177,14 @@ def create_ticket(payload: TicketRequest, request: Request):
     if not use_quota("ticket-hour", client_ip, settings.max_public_hourly, 3600):
         raise HTTPException(status_code=429, detail="提交过于频繁，请稍后再试")
     state = payload.model_dump(exclude={"turnstile_token"})
+    employee = employee_claims(request, csrf=True, optional=True)
+    if employee:
+        state['requester'] = employee['display_name']
     result = ticket_graph.invoke({**state, "tenant_id": DEMO_TENANT, "allow_llm": True})
     token, token_hash = new_access_token()
     stored = {**result, "tenant_id": DEMO_TENANT, "access_token_hash": token_hash}
+    if employee:
+        stored['employee_id'] = employee['employee_id']
     save_ticket(stored)
     response = get_ticket(result["ticket_id"], DEMO_TENANT)
     assert response is not None
@@ -135,21 +192,79 @@ def create_ticket(payload: TicketRequest, request: Request):
 
 
 @app.get("/api/v1/tickets/{ticket_id}", response_model=TicketResponse)
-def read_ticket(ticket_id: str, x_ticket_token: str = Header(default="")):
-    return public_ticket(ticket_id, x_ticket_token)
+def read_ticket(ticket_id: str, request: Request, x_ticket_token: str = Header(default="")):
+    return public_ticket(ticket_id, x_ticket_token, request)
+
+
+def workflow_result(ticket_id, actor, action, body="", expected_version=None):
+    try:
+        return change_ticket(ticket_id, DEMO_TENANT, actor, action, body, expected_version)
+    except ValueError as exc:
+        raise HTTPException(status_code=422, detail=str(exc))
+    except LookupError as exc:
+        raise HTTPException(status_code=404 if str(exc)=="工单不存在" else 409, detail=str(exc))
+
+
+@app.post("/api/v1/tickets/{ticket_id}/messages", response_model=TicketResponse)
+def employee_message(ticket_id: str, payload: TicketMessageRequest, request: Request, x_ticket_token: str = Header(default="")):
+    public_ticket(ticket_id, x_ticket_token, request, csrf=True)
+    if not use_quota("ticket-message-hour", ticket_id, 30, 3600):
+        raise HTTPException(status_code=429, detail="补充过于频繁，请稍后再试")
+    result=workflow_result(ticket_id,"employee","message",payload.body)
+    if result['status']=='AI处理中':
+        try:return continue_assistance(ticket_id,DEMO_TENANT)
+        except LookupError as exc:raise HTTPException(status_code=409,detail=str(exc))
+    return result
+
+
+@app.post("/api/v1/tickets/{ticket_id}/actions", response_model=TicketResponse)
+def employee_action(ticket_id: str, payload: EmployeeActionRequest, request: Request, x_ticket_token: str = Header(default="")):
+    public_ticket(ticket_id, x_ticket_token, request, csrf=True)
+    result=workflow_result(ticket_id,"employee",payload.action,payload.comment,payload.expected_version)
+    if result['status']=='AI处理中':
+        try:return continue_assistance(ticket_id,DEMO_TENANT)
+        except LookupError as exc:raise HTTPException(status_code=409,detail=str(exc))
+    return result
+
+
+@app.get("/api/v1/admin/tickets/{ticket_id}")
+def admin_ticket_detail(ticket_id: str, request: Request):
+    claims=admin_claims(request)
+    result=get_ticket(ticket_id,claims["tenant_id"])
+    if not result: raise HTTPException(status_code=404,detail="工单不存在")
+    return result
+
+
+@app.post("/api/v1/admin/tickets/{ticket_id}/work")
+def admin_ticket_work(ticket_id: str, payload: AdminWorkRequest, request: Request):
+    claims=admin_claims(request,csrf=True)
+    try:
+        return change_ticket(ticket_id,claims["tenant_id"],"admin",payload.action,payload.body,payload.expected_version,
+                             operator=claims.get('username',settings.admin_username))
+    except ValueError as exc:raise HTTPException(status_code=422,detail=str(exc))
+    except LookupError as exc:raise HTTPException(status_code=404 if str(exc)=="工单不存在" else 409,detail=str(exc))
 
 
 @app.post("/api/v1/admin/login")
 def admin_login(payload: LoginRequest, response: Response, request: Request):
+    verify_turnstile(payload.turnstile_token)
     client_ip = request.client.host if request.client else "unknown"
     if not use_quota("admin-login-hour", client_ip, 10, 3600):
         raise HTTPException(status_code=429, detail="登录尝试过多，请稍后再试")
-    if not check_password(payload.password):
-        raise HTTPException(status_code=401, detail="密码错误")
+    password_ok = check_password(payload.password)
+    if not hmac.compare_digest(payload.username, settings.admin_username) or not password_ok:
+        raise HTTPException(status_code=401, detail="账号或密码不正确")
     session, csrf = create_session(DEMO_TENANT)
     response.set_cookie("ticket_session", session, httponly=True, secure=settings.app_env == "production",
                         samesite="strict", max_age=8 * 3600)
-    return {"csrf_token": csrf, "expires_in": 8 * 3600}
+    return {"csrf_token": csrf, "expires_in": 8 * 3600, "username": settings.admin_username}
+
+
+@app.get('/api/v1/admin/me')
+def administrator_me(request: Request):
+    claims=admin_claims(request)
+    return {'username':claims.get('username',settings.admin_username),'csrf_token':claims['csrf'],
+            'expires_in':max(0,int(claims['exp']-time.time()))}
 
 
 @app.post("/api/v1/admin/logout")
@@ -160,10 +275,11 @@ def admin_logout(request: Request, response: Response):
 
 
 @app.get("/api/v1/admin/tickets")
-def admin_tickets(request: Request, skip: int = Query(0, ge=0), limit: int = Query(50, ge=1, le=200)):
+def admin_tickets(request: Request, skip: int = Query(0, ge=0), limit: int = Query(50, ge=1, le=200),
+                  status: str = Query(default="",max_length=40), keyword: str = Query(default="",max_length=120)):
     claims = admin_claims(request)
     tenant = claims["tenant_id"]
-    return {"items": list_tickets(tenant, skip, limit), "total": count_tickets(tenant)}
+    return {"items": list_tickets(tenant, skip, limit,status,keyword), "total": count_tickets(tenant,status,keyword)}
 
 
 @app.post("/api/v1/admin/tickets/{ticket_id}/approval")
@@ -171,7 +287,7 @@ def admin_approve(ticket_id: str, payload: ApprovalRequest, request: Request):
     claims = admin_claims(request, csrf=True)
     try:
         return approve_ticket(ticket_id, claims["tenant_id"], payload.approved,
-                              payload.operator, payload.comment)
+                              claims.get('username',settings.admin_username), payload.comment)
     except LookupError as exc:
         message = str(exc)
         raise HTTPException(status_code=404 if message == "工单不存在" else 409, detail=message)

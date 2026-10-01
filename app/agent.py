@@ -10,6 +10,7 @@ from app.tools import classify_category, create_it_ticket, evaluate_priority, ev
 from app.observability import request_id
 from app.config import settings
 from app.security import use_quota
+from app.constants import DEFAULT_CATEGORY
 
 
 class TicketState(TypedDict):
@@ -32,6 +33,8 @@ class TicketState(TypedDict):
     status: NotRequired[str]
     answer: NotRequired[str]
     answer_source: NotRequired[str]
+    public_answer: NotRequired[str]
+    retrieval_query: NotRequired[str]
 
 
 def triage(state: TicketState) -> dict:
@@ -42,7 +45,7 @@ def triage(state: TicketState) -> dict:
 
 
 def search(state: TicketState) -> dict:
-    query = f"{state['title']} {state['description']}"
+    query = state.get('retrieval_query') or f"{state['title']} {state['description']}"
     return {"retrieval": retrieve(query, state["tenant_id"], limit=5)}
 
 
@@ -51,13 +54,18 @@ def decide(state: TicketState) -> dict:
     hits = result["hits"]
     high_risk = state["risk_level"] in {"中风险", "高风险"}
     score = result["evidence_score"]
-    needs_human = high_risk or not result["sufficient"]
+    # This opt-in permits read-only assistance in the personal demo, not execution
+    # or automatic closure. The held-out release report remains unchanged.
+    assistance = (settings.low_risk_assistance and not high_risk and bool(hits)
+                  and state['category'] != DEFAULT_CATEGORY
+                  and is_llm_enabled() and state['allow_llm'])
+    needs_human = high_risk or not (result["sufficient"] or assistance)
     citations = [{"chunk_id": h["id"], "document_id": h["document_id"], "title": h["title"],
                   "version": h["version"], "chunk_key": h.get("chunk_key", ""),
                   "heading_path": h.get("heading_path", ""), "excerpt": h["content"][:180]} for h in hits[:4]]
     return {"ticket_id": create_it_ticket(), "confidence": score, "evidence_score": score,
             "request_id": request_id.get(),
-            "handoff_reason": "high_risk" if high_risk else "evaluation_gate" if result.get("calibrated_sufficient") and not result.get("automation_enabled") else "insufficient_evidence" if needs_human else "",
+            "handoff_reason": "high_risk" if high_risk else "evaluation_gate" if needs_human and result.get("calibrated_sufficient") and not result.get("automation_enabled") else "insufficient_evidence" if needs_human else "",
             "needs_human_approval": needs_human, "citations": citations}
 
 
@@ -86,6 +94,8 @@ def answer(state: TicketState) -> dict:
             return {"status": "待人工处理", "needs_human_approval": True,
                     "handoff_reason": "daily_model_quota", "answer": "今日模型额度已用完，已转交人工处理。",
                     "answer_source": "模型额度不足，人工接管"}
+    # With weak evidence the model may only ask questions, not publish steps.
+    last_generation.set({})
     generated, cited = generate_grounded_answer(
         title=state["title"], description=state["description"], category=state["category"],
         risk_level=state["risk_level"], hits=hits[:4], allow_llm=allowed,
@@ -95,10 +105,21 @@ def answer(state: TicketState) -> dict:
     retrieval = {**state["retrieval"]}
     if validation:
         retrieval["answer_validation"] = validation
+    generation = last_generation.get()
+    questions = generation.get('questions', [])
+    if questions and settings.low_risk_assistance:
+        text = '为了给出适合你情况的建议，请补充：\n' + '\n'.join(f'{i}. {q}' for i,q in enumerate(questions,1))
+        retrieval['assistant_questions']=questions
+        return {'status':'等待补充信息（AI）','answer':text,'public_answer':text,
+                'answer_source':'AI澄清问题','needs_human_approval':False,'citations':[], 'retrieval':retrieval}
+    if generated and settings.low_risk_assistance and not state['retrieval'].get('calibrated_sufficient',state['retrieval'].get('sufficient',False)):
+        generated=None
+        retrieval['answer_validation']={'passed':False,'reason':'evidence_too_weak_for_advice'}
     if generated:
         citations = [item for item in state["citations"] if item["chunk_id"] in cited]
         return {"status": "已给出处理建议",
                 "answer": generated, "answer_source": "逐句引用对齐的检索答复", "citations": citations,
+                "public_answer": '可以先尝试以下排查建议。完成后，请确认是否恢复；仍有问题可继续补充或联系 IT。\n'+generated,
                 "retrieval": retrieval}
     suggestions = "\n".join(f"{i}. {hit['content']}" for i, hit in enumerate(hits[:3], 1))
     if state["allow_llm"] and is_llm_enabled():

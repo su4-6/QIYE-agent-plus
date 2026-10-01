@@ -1,0 +1,75 @@
+{
+  "passed": true,
+  "checks": [
+    {
+      "check": "live vector and MiMo configuration",
+      "passed": true
+    },
+    {
+      "check": "public assistance flag and challenge enabled",
+      "passed": true
+    },
+    {
+      "check": "unauthenticated employee denied /api/v1/employee/me",
+      "passed": true
+    },
+    {
+      "check": "unauthenticated employee denied /api/v1/employee/tickets",
+      "passed": true
+    },
+    {
+      "check": "unauthenticated admin denied /api/v1/admin/me",
+      "passed": true
+    },
+    {
+      "check": "unauthenticated admin denied /api/v1/admin/tickets",
+      "passed": true
+    },
+    {
+      "check": "unauthenticated admin denied /api/v1/admin/knowledge",
+      "passed": true
+    },
+    {
+      "check": "known ticket ID alone is insufficient",
+      "passed": true
+    },
+    {
+      "check": "challenge rejected before database or LLM /api/v1/admin/login",
+      "passed": true
+    },
+    {
+      "check": "challenge rejected before database or LLM /api/v1/employee/login",
+      "passed": true
+    },
+    {
+      "check": "challenge rejected before database or LLM /api/v1/employee/register",
+      "passed": true
+    },
+    {
+      "check": "challenge rejected before database or LLM /api/v1/tickets",
+      "passed": true
+    }
+  ],
+  "health": {
+    "status": "ok",
+    "database": "ok",
+    "retrieval": "vector",
+    "llm_enabled": true,
+    "llm_provider": "mimo",
+    "llm_model": "mimo-v2.5-pro",
+    "vector": {
+      "state": "ready",
+      "reason": "",
+      "coverage": 68,
+      "total": 68,
+      "coverage_ratio": 1.0,
+      "model": "BAAI/bge-small-zh-v1.5",
+      "extension_available": true,
+      "runtime_checked": true
+    }
+  },
+  "databaseWrites": 0,
+  "paidModelCalls": 0,
+  "fullProductionAuthenticatedLifecycleNotRun": true,
+  "normalChallengeNotCompleted": true
+}

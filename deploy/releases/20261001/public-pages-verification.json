@@ -3,7 +3,7 @@
     "url": "https://su46proj.site/",
     "status": 200,
     "hashMatches": true,
-    "sha256": "361563d9b24aa22c309af45f50809176ad485b1355c17e1d4cd56d53f4ef43a5"
+    "sha256": "2ba53d103cf16aa1b5b73504d3d49667689c36f3e246971d36e2977f4649289f"
   },
   {
     "url": "https://pay.su46proj.site/",
@@ -15,6 +15,6 @@
     "url": "https://su46proj.site/atlas-desk/index.html",
     "status": 200,
     "hashMatches": true,
-    "sha256": "259abfcff831227b87d01c5a23a1fa50c6d264902cdf9dfe8adb2aa9f6984512"
+    "sha256": "584177ec47b8d0fff7b1148def1b54f6d3a5f6928d620281cda82bad73b164d9"
   }
 ]

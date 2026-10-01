@@ -1,12 +1,12 @@
 {
   "atlasPods": [
     {
-      "name": "atlas-desk-7c6d59567b-nxn58",
+      "name": "atlas-desk-556bc8f98-cj459",
       "phase": "Running",
       "containers": [
         {
-          "image": "docker.io/library/atlas-desk:release-20261001",
-          "imageID": "docker.io/suqihang/atlas-desk@sha256:8dd94bfd4f6d8c4505efe4b84356007d9038719b064237add41a2cc63a2c501f",
+          "image": "docker.io/suqihang/atlas-desk:20261001-assistance.2",
+          "imageID": "docker.io/suqihang/atlas-desk@sha256:59d54a2150b4a2ad40b32a182eb569b0eb68eddb55f04f9ee9ca2b0caf9cfc2b",
           "ready": true,
           "restarts": 0
         }
@@ -175,8 +175,8 @@
       ]
     }
   ],
-  "memory": "               total        used        free      shared  buff/cache   available\nMem:            3723        3220         157           5         587         502\nSwap:           1987         912        1075\n",
-  "atlasMetrics": "atlas-desk-7c6d59567b-nxn58   3m    302Mi   \n",
+  "memory": "               total        used        free      shared  buff/cache   available\nMem:            3723        3195         135          11         641         528\nSwap:           1987         951        1036\n",
+  "atlasMetrics": "atlas-desk-556bc8f98-cj459   5m    217Mi   \n",
   "controlPlaneReady": true,
   "publicRouteExists": true,
   "originalMiniPayImagesUnchanged": true
