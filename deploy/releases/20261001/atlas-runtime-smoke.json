@@ -1,0 +1,38 @@
+{
+  "passed": true,
+  "checks": [
+    {
+      "check": "admin denies anonymous",
+      "passed": true
+    },
+    {
+      "check": "generated administrator login",
+      "passed": true
+    },
+    {
+      "check": "knowledge management read",
+      "passed": true
+    },
+    {
+      "check": "synthetic ticket creation",
+      "passed": true
+    },
+    {
+      "check": "high risk routes to human",
+      "passed": true
+    },
+    {
+      "check": "ticket access requires token",
+      "passed": true,
+      "httpStatus": 404
+    },
+    {
+      "check": "valid token reads ticket",
+      "passed": true
+    }
+  ],
+  "syntheticOnly": true,
+  "publicEndpointTested": false,
+  "paidModelGenerationInvoked": false,
+  "sampleTicketRetained": true
+}

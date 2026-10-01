@@ -1,0 +1,81 @@
+{
+  "image": "docker.io/suqihang/atlas-desk@sha256:8dd94bfd4f6d8c4505efe4b84356007d9038719b064237add41a2cc63a2c501f",
+  "publicRouteApplied": false,
+  "beforeAvailableMiB": 706,
+  "nodeReserveMiB": 320,
+  "containerLimitMiB": 384,
+  "samples": [
+    {
+      "time": 1790844826.8347416,
+      "availableMiB": 723
+    },
+    {
+      "time": 1790844832.8457456,
+      "availableMiB": 723
+    },
+    {
+      "time": 1790844839.4629126,
+      "availableMiB": 735
+    },
+    {
+      "time": 1790844846.043982,
+      "availableMiB": 705
+    },
+    {
+      "time": 1790844851.9586961,
+      "availableMiB": 589
+    },
+    {
+      "time": 1790844857.885383,
+      "availableMiB": 576
+    },
+    {
+      "time": 1790844858.9266047,
+      "availableMiB": 589
+    },
+    {
+      "time": 1790844863.9293327,
+      "availableMiB": 569
+    },
+    {
+      "time": 1790844868.9321039,
+      "availableMiB": 581
+    },
+    {
+      "time": 1790844873.934758,
+      "availableMiB": 598
+    },
+    {
+      "time": 1790844878.9373686,
+      "availableMiB": 591
+    },
+    {
+      "time": 1790844883.9401257,
+      "availableMiB": 526
+    }
+  ],
+  "passed": true,
+  "health": {
+    "status": "ok",
+    "database": "ok",
+    "retrieval": "vector",
+    "llm_enabled": true,
+    "llm_provider": "mimo",
+    "llm_model": "mimo-v2.5-pro",
+    "vector": {
+      "state": "ready",
+      "reason": "",
+      "coverage": 66,
+      "total": 66,
+      "coverage_ratio": 1.0,
+      "model": "BAAI/bge-small-zh-v1.5",
+      "extension_available": true,
+      "runtime_checked": true
+    }
+  },
+  "existingWorkloadCount": 25,
+  "existingWorkloadSpecsAndImagesUnchanged": true,
+  "existingPvcUidsUnchanged": true,
+  "minipayReady": true,
+  "afterAvailableMiB": 580
+}

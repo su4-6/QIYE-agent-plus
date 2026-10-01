@@ -1,0 +1,52 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - ../../k3s
+patches:
+  - target:
+      kind: ConfigMap
+      name: atlas-desk-config
+    patch: |-
+      - op: replace
+        path: /data/EMBEDDING_PROVIDER
+        value: local
+      - op: replace
+        path: /data/EMBEDDING_MODEL
+        value: BAAI/bge-small-zh-v1.5
+      - op: add
+        path: /data/FASTEMBED_CACHE_PATH
+        value: /opt/atlas-models
+      - op: add
+        path: /data/HF_HUB_OFFLINE
+        value: "1"
+  - target:
+      kind: Deployment
+      name: atlas-desk
+    patch: |-
+      - op: replace
+        path: /spec/template/spec/containers/0/resources
+        value:
+          requests: {cpu: 100m, memory: 320Mi}
+          limits: {cpu: "1", memory: 384Mi}
+      - op: add
+        path: /spec/template/spec/containers/0/startupProbe
+        value:
+          httpGet: {path: /health, port: http}
+          periodSeconds: 5
+          timeoutSeconds: 3
+          failureThreshold: 48
+      - op: add
+        path: /spec/template/spec/containers/0/command
+        value: [sh, -c]
+      - op: replace
+        path: /spec/template/spec/containers/0/args
+        value:
+          - >-
+            python -c 'from app.database import init_database; from app.knowledge import seed_demo; init_database(); seed_demo()'
+            && python scripts/import-demo.py
+            && exec uvicorn app.main:app --host 0.0.0.0 --port 8000 --proxy-headers --forwarded-allow-ips='*'
+# Contains production routes: apply only after production secrets and capacity checks.
+images:
+  - name: ghcr.io/su4-6/qiye-agent-plus
+    newName: docker.io/suqihang/atlas-desk
+    digest: sha256:8dd94bfd4f6d8c4505efe4b84356007d9038719b064237add41a2cc63a2c501f

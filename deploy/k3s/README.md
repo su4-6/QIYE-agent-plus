@@ -7,12 +7,12 @@
 
 ## 发布门槛
 
-- 节点 `available` 内存至少 700 MiB，并为现有 MiniPay 留出余量。
+- 节点内存与当前镜像经过容量验证；本次内网 BGE 部署要求启动前至少 704 MiB，并保留至少 320 MiB。公网流量仍需单独验收。
 - 镜像已经发布，并在 `kustomization.yaml` 中固定为不可变版本号或 digest。
 - `ticket.su46proj.site` DNS 指向当前 Cloudflare 入口。
 - 旧模型密钥已撤销，Turnstile 已限制到该子域名。
 
-当前小内存节点使用 Gemini 向量接口，避免在 Pod 内加载约 90 MB 的本地模型。
+基础清单保留 Gemini 配置；当前已部署版本使用构建时预加载的本地 BGE，见 `../releases/20261001/internal.yaml`。不要直接将基础清单覆盖到当前服务。
 Deployment 仅允许一个副本，并采用 `Recreate`，防止两个实例同时写同一个
 SQLite 数据库。
 
@@ -31,6 +31,8 @@ sudo k3s kubectl -n atlas-desk create secret generic atlas-desk-secrets \
 密钥文件和生成后的 Secret YAML 都不能进入 Git。
 
 ## 应用与验收
+
+下列基础生产清单包含公网路由，不用于当前缺少 Turnstile 配置的内网环境。当前实际部署状态见 [部署记录](../../docs/deployment-status-20261001.md)。生产配置齐全后，优先渲染 `../overlays/local-bge` 并核对固定镜像摘要及资源限制，再执行发布。
 
 ```bash
 sudo k3s kubectl apply -k deploy/k3s

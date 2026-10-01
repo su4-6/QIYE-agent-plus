@@ -4,10 +4,36 @@ import threading
 
 from app.config import settings
 from app.database import get_connection
-from app.embeddings import model_id, local_dimension
+from app.embeddings import embed, model_id, local_dimension
 
 _runtime = {}
 _lock = threading.Lock()
+
+
+def verify_local_vector_runtime(tenant: str = "demo") -> None:
+    """Verify a persisted local index in this process without rewriting it or calling an LLM."""
+    if settings.embedding_provider != "local":
+        return
+    health = vector_health(tenant)
+    if health["state"] != "index_ready_unverified":
+        return
+    try:
+        vector = embed("IT 服务台启动检索自检")
+        if vector is None or len(vector) != local_dimension(settings.embedding_model) * 4:
+            raise ValueError("startup_embedding_dimension_mismatch")
+        with get_connection() as db:
+            row = db.execute("""SELECT c.embedding FROM knowledge_chunks c
+                JOIN knowledge_documents d ON d.id=c.document_id
+                WHERE c.tenant_id=? AND c.active=1 AND d.active=1
+                AND c.embedding_model=? AND length(c.embedding)=? LIMIT 1""",
+                (tenant, model_id(), len(vector))).fetchone()
+            if row is None:
+                raise ValueError("startup_index_missing")
+            db.execute("SELECT vec_distance_cosine(?,?)", (vector, row[0])).fetchone()
+        record_vector(tenant, "ready", "")
+    except Exception as exc:
+        record_vector(tenant, "runtime_failed", type(exc).__name__)
+        logging.getLogger(__name__).warning("startup_vector_degraded type=%s", type(exc).__name__)
 
 
 def record_vector(tenant: str, state: str, reason: str = "") -> None:

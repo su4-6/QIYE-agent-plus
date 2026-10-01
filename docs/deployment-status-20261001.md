@@ -1,0 +1,54 @@
+# 个人主页与 Atlas 部署记录
+
+2026-10-01。本次范围以最新确认的要求为准：保留原主页风格，重写个人介绍，增加 Atlas 项目与介绍页；MiniPay H5、商户端、运营端、管理端使用原界面。
+
+## 已发布的页面
+
+- https://su46proj.site/ ：首屏介绍苏启航的学习方向、实践方式和求职目标。「查看项目」滚动到包含 MiniPay、Atlas 的项目列表；移除首屏 H5 按钮。
+- https://su46proj.site/atlas-desk/index.html ：沿用原主页的配色、导航、卡片与排版，介绍工单分诊、检索、引用校验、人工接管与管理能力。
+- https://pay.su46proj.site/ ：恢复改版前的原始介绍。H5 与三个后台入口、原页面内容保持一致。
+
+首页的关于我、技术栈、联系信息与页脚围绕本人重新整理。MiniPay 以团队项目中的后端与部署实践呈现；Atlas 为独立项目。后续项目的位置保留。
+
+验收覆盖 320、390、768、1024、1440、1920、2443、2560px，包含真实点击、标题可见性、直接访问联系锚点、项目往返和原 MiniPay 入口。公网文件与本地验收文件 SHA256 一致。普通、不带查询参数的主页也已核验。公网部分腾讯 CDN 节点曾返回旧内容，最终发布需要刷新缓存并在普通 URL 上再次验收。
+
+## Atlas 的实际状态
+
+Atlas 已在服务器 K3s 的独立 `atlas-desk` 命名空间运行，1 个 Pod，内存上限 384MiB。使用用户指定环境变量中的 MiMo，模型 `mimo-v2.5-pro`；旧 Gemini 密钥没有传入服务器。
+
+镜像为 `docker.io/suqihang/atlas-desk:20261001-bge.1`，部署固定摘要：
+
+```
+sha256:8dd94bfd4f6d8c4505efe4b84356007d9038719b064237add41a2cc63a2c501f
+```
+
+内网健康检查通过：数据库正常，BGE / sqlite-vec 向量检索就绪，66/66 分块可用，MiMo 已配置。管理员登录、知识读取、模拟高风险工单转人工、无访问令牌拒绝读取（404）和有效令牌读取均通过。验收使用模拟工单，不调用付费模型生成。
+
+**尚未开放公网，不应将内网部署理解为公网 AI 演示完成。** `ticket.su46proj.site` 目前没有 Atlas HTTPRoute。应用的生产配置检查要求 Turnstile site key 和 secret；这两项仍未配置。环境中的 Cloudflare 令牌被 API 判定无效，在指定 Harness 配置和相关记录中也未找到有效令牌。
+
+启用公网需要：将有效且具有 `Account:Turnstile:Edit` 权限的 Cloudflare 令牌配置到环境变量，或把 `TURNSTILE_SITE_KEY`、`TURNSTILE_SECRET` 配进项目 `.env`，授权域名 `ticket.su46proj.site`。MiMo 密钥已从环境变量取得，无需再次提供。Turnstile 可以用于采用其他 CDN 的网站，参见 [Cloudflare 文档](https://developers.cloudflare.com/turnstile/)。
+
+管理员密码、会话密钥及模型密钥只留在私密配置和 Kubernetes Secret 中，不进入交付包、截图、公开页面或镜像。
+
+## 原环境与瘦身边界
+
+本次 Atlas 部署前后，原有 25 个 Deployment / StatefulSet / DaemonSet 的规格和镜像保持一致，原有 PVC 的 UID 保持一致。最终另与瘦身前的 MiniPay 基线核对，所有原 MiniPay 镜像均一致，原服务就绪，K3s `/readyz` 正常。没有删除原镜像或数据卷，也没有执行全局镜像清理。
+
+此前已按授权完成的瘦身仍保留：
+
+- 三个 BFF 的 JVM 堆调整为 `-Xms16m -Xmx96m`。
+- identity、wallet、payment、miling 的 JVM 堆调整为 `-Xms24m -Xmx128m`；保留各自附加参数和原容器内存上限。
+- maintenance-page、landing-personal、landing-pay 的资源请求调整为 16Mi、上限 64Mi；原镜像和副本数保留。
+- K3s 服务增加 Go 运行时软内存控制：`GOMEMLIMIT=512MiB`、`GOGC=50`，文件为 `/etc/systemd/system/k3s.service.d/60-codex-memory.conf`。控制面及原服务验证通过。最新用户要求后没有继续修改 K3s 服务配置。
+
+MySQL、Redis、RabbitMQ、Seata、网关、四个业务前端和原持久化数据均保留。最终验收时 Atlas 工作集约 308MiB、节点可用内存约 512MiB，原服务均 Ready；详细状态保存在本地 `deployment-final-state.json`，该读数是一次部署验收快照，不代表长期压力测试结果。
+
+## 回退与后续
+
+若 Atlas 占用异常，只停止新增服务：`kubectl scale deployment/atlas-desk --replicas=0 -n atlas-desk`，保留 PVC。该命令不修改原 MiniPay 服务。公开入口尚未添加。
+
+静态主页的原始 ConfigMap 未覆盖，原页面挂载与内容备份保存在本地私密工作记录中。回退只恢复 landing-personal / landing-pay 的 html 挂载，不换镜像。
+
+JVM 与静态服务原资源回退文件仍在 本地 `server-slimming/rollback/` 交付目录；应只针对上述实际调整的服务使用，先核对现状。K3s 的软内存控制如需回退，先核对上述独有文件内容，再移除该文件并重新加载服务。交付不自动执行回退。
+
+早期全站改版的 H5 / B 端预览和压缩包不属于本次发布范围。以当前审核页、本文与上线记录为准。

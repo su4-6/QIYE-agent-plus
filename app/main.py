@@ -19,7 +19,7 @@ from app.repository import (approve_ticket, count_tickets, get_ticket, get_ticke
 from app.schemas import ApprovalRequest, HealthResponse, LoginRequest, TicketRequest, TicketResponse
 from app.security import (admin_claims, check_access_token, check_password, create_session,
                           new_access_token, use_quota, validate_production_config, verify_turnstile)
-from app.retrieval_health import vector_health
+from app.retrieval_health import vector_health, verify_local_vector_runtime
 from app.metrics import retrieval_metrics
 from app.observability import request_id, event, configure_logging
 from app.evidence import policy
@@ -36,6 +36,7 @@ async def lifespan(_: FastAPI):
     validate_production_config()
     init_database()
     seed_demo()
+    verify_local_vector_runtime()
     yield
 
 

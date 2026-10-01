@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Atlas Desk · 智能工单处理 Agent | 苏启航</title>
+<meta name="description" content="Atlas Desk 个人项目：工单风险分诊、知识检索、原文引用校验与人工接管。">
+<meta name="theme-color" content="#faf9f7">
+<style>
+:root{
+  color-scheme:light;
+  /* surfaces -- warm neutrals, flat tints, no gradients */
+  --paper:#faf9f7;
+  --paper-2:#f4f2ee;
+  --paper-3:#ebe8e1;
+  --card:#ffffff;
+  --ink:#131418;
+  --text:#3e3d38;
+  --muted:#78756c;
+  --rule:#e0ddd5;
+  --rule-2:#cbc7bc;
+  /* single accent, used sparingly */
+  --accent:#b04a29;
+  --accent-2:#8d391d;
+  --accent-wash:#f7ede7;
+  /* type */
+  --sans:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+  --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,"Liberation Mono",monospace;
+  /* rhythm */
+  --col:960px;
+  --wide:1140px;
+  --gut:clamp(20px,5vw,56px);
+  --sec:clamp(58px,8vw,104px);
+  --hair:1px solid var(--rule);
+  --radius:8px;
+  --radius-sm:5px;
+  --shadow-1:0 1px 2px rgba(19,20,24,.05);
+  --shadow-2:0 1px 2px rgba(19,20,24,.05), 0 16px 34px -26px rgba(19,20,24,.5);
+  --ease:160ms cubic-bezier(.32,.72,0,1);
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth}
+body{
+  margin:0;
+  background:var(--paper);
+  color:var(--text);
+  font-family:var(--sans);
+  font-size:clamp(15.5px,1.02vw,17px);
+  line-height:1.78;
+  letter-spacing:.004em;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+  overflow-x:hidden;
+}
+h1,h2,h3,h4{margin:0;color:var(--ink);font-weight:600;letter-spacing:-.02em;line-height:1.24}
+h1{font-size:clamp(2.2rem,5.4vw,3.5rem);letter-spacing:-.035em;line-height:1.08}
+h2{font-size:clamp(1.5rem,3.2vw,2.1rem);letter-spacing:-.028em;line-height:1.2}
+h3{font-size:clamp(1.06rem,1.6vw,1.24rem);letter-spacing:-.015em;line-height:1.35}
+p{margin:0}
+ul,ol,dl,dd{margin:0;padding:0}
+li{list-style:none}
+a{color:var(--accent);text-decoration:none;transition:color var(--ease),border-color var(--ease),background var(--ease),box-shadow var(--ease),transform var(--ease)}
+a:hover{color:var(--accent-2)}
+code,kbd{font-family:var(--mono);font-size:.88em;background:var(--paper-2);border:var(--hair);border-radius:4px;padding:2px 7px;color:var(--ink);white-space:nowrap}
+strong,b{font-weight:600;color:var(--ink)}
+::selection{background:var(--accent);color:#fff}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:2px}
+
+/* ---------- layout ---------- */
+.col{max-width:var(--col);margin:0 auto;padding:0 var(--gut)}
+.wide{max-width:var(--wide);margin:0 auto;padding:0 var(--gut)}
+section{padding:var(--sec) 0}
+.lede{font-size:clamp(1.04rem,1.5vw,1.2rem);line-height:1.8;color:var(--text);max-width:62ch}
+.body{max-width:68ch}
+.muted{color:var(--muted)}
+.mark{display:inline-block;width:8px;height:8px;background:var(--accent);flex:0 0 auto}
+
+/* ---------- numbered section header ---------- */
+.sec-head{padding-top:22px;border-top:1px solid var(--ink);margin-bottom:clamp(30px,4.4vw,48px)}
+.sec-head .eyebrow{display:flex;align-items:center;gap:14px;margin-bottom:18px}
+.sec-head .num{font-family:var(--mono);font-size:.86rem;font-weight:600;letter-spacing:.06em;color:var(--accent)}
+.sec-head .eyebrow .rule{flex:1 1 auto;height:1px;background:var(--rule);min-width:24px}
+.sec-head .eyebrow .lbl{font-family:var(--mono);font-size:.75rem;letter-spacing:.17em;text-transform:uppercase;color:var(--muted)}
+.sec-head h2{max-width:26ch}
+.sec-head .sub{margin-top:14px;max-width:62ch;color:var(--muted);font-size:1rem}
+
+/* ---------- nav ---------- */
+.site-head{position:sticky;top:0;z-index:50;background:var(--paper-2);border-bottom:var(--hair);box-shadow:var(--shadow-1)}
+.site-head .in{max-width:var(--wide);margin:0 auto;padding:0 var(--gut);display:flex;align-items:center;gap:22px;min-height:64px}
+.wordmark{display:inline-flex;align-items:baseline;gap:9px;color:var(--ink);font-weight:600;letter-spacing:-.01em;font-size:.98rem;white-space:nowrap}
+.wordmark:hover{color:var(--accent)}
+.wordmark .sep{width:5px;height:5px;background:var(--accent);display:inline-block;transform:translateY(-2px)}
+.nav{margin-left:auto;display:flex;align-items:center;flex-wrap:wrap;gap:3px}
+.nav a{display:inline-flex;align-items:center;gap:7px;padding:8px 11px;border-radius:var(--radius-sm);font-size:.9rem;color:var(--muted);border:1px solid transparent;transition:color var(--ease),background var(--ease),border-color var(--ease)}
+.nav a .n{font-family:var(--mono);font-size:.7rem;color:var(--rule-2);transition:color var(--ease)}
+.nav a:hover{color:var(--ink);background:var(--paper-3);border-color:var(--rule)}
+.nav a:hover .n{color:var(--accent)}
+.nav a.out{color:var(--ink)}
+.nav a.out::after{content:"\2197";font-size:.74em;margin-left:2px;color:var(--muted)}
+
+/* ---------- hero ---------- */
+.hero{padding:clamp(52px,8vw,104px) 0 clamp(36px,5vw,60px)}
+.status-pill{
+  display:inline-flex;align-items:center;gap:9px;
+  font-family:var(--mono);font-size:.75rem;letter-spacing:.11em;
+  color:var(--accent-2);background:var(--accent-wash);
+  border:1px solid #e8d3c7;border-radius:999px;padding:6px 14px 6px 11px;
+}
+.status-pill i{width:7px;height:7px;border-radius:50%;background:var(--accent);display:inline-block;flex:0 0 auto}
+.hero h1{margin-top:clamp(20px,2.8vw,28px);max-width:22ch}
+.hero .lede{margin-top:clamp(18px,2.4vw,26px)}
+.hero .acts{display:flex;flex-wrap:wrap;gap:12px;margin-top:clamp(26px,3.4vw,36px)}
+
+/* buttons -- solid primary + outlined secondary */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:9px;
+  padding:13px 24px;border-radius:var(--radius-sm);
+  font-size:.96rem;font-weight:500;line-height:1.2;
+  border:1px solid var(--rule-2);background:var(--card);color:var(--ink);
+  box-shadow:var(--shadow-1);cursor:pointer;
+  transition:background var(--ease),border-color var(--ease),color var(--ease),box-shadow var(--ease),transform var(--ease);
+}
+.btn:hover{background:var(--paper-2);border-color:var(--ink);color:var(--ink);box-shadow:var(--shadow-2);transform:translateY(-1px)}
+.btn:active{transform:translateY(0);box-shadow:none}
+.btn .arrow{transition:transform var(--ease)}
+.btn:hover .arrow{transform:translateX(4px)}
+.btn.solid{background:var(--ink);border-color:var(--ink);color:#fff}
+.btn.solid:hover{background:var(--accent);border-color:var(--accent);color:#fff}
+.btn.tiny{padding:9px 16px;font-size:.88rem}
+.btn.block{width:100%}
+
+/* ---------- facts strip ---------- */
+.facts{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(168px,1fr));gap:1px;
+  background:var(--rule);border:var(--hair);border-radius:var(--radius);
+  overflow:hidden;margin-top:clamp(38px,5.2vw,56px);box-shadow:var(--shadow-1);
+}
+.facts .cell{background:var(--card);padding:clamp(20px,2.6vw,28px)}
+.facts .n{display:block;font-size:clamp(1.9rem,4vw,2.6rem);font-weight:600;letter-spacing:-.04em;line-height:1;color:var(--ink)}
+.facts .k{display:block;margin-top:11px;font-size:.92rem;color:var(--text);font-weight:500}
+.facts .d{display:block;margin-top:5px;font-family:var(--mono);font-size:.74rem;letter-spacing:.06em;color:var(--muted)}
+
+/* ---------- editorial two-column (about) ---------- */
+.editorial{display:grid;grid-template-columns:minmax(0,15rem) minmax(0,1fr);gap:clamp(24px,5vw,60px);align-items:start}
+.editorial .aside{
+  position:sticky;top:96px;background:var(--card);border:var(--hair);
+  border-radius:var(--radius);padding:22px;box-shadow:var(--shadow-1);
+}
+.editorial .aside .k{font-family:var(--mono);font-size:.72rem;letter-spacing:.15em;text-transform:uppercase;color:var(--muted)}
+.editorial .aside ul{margin-top:14px;display:grid;gap:11px}
+.editorial .aside li{display:flex;align-items:baseline;gap:10px;font-size:.94rem;color:var(--ink);line-height:1.6}
+.editorial .aside li i{width:5px;height:5px;background:var(--accent);display:inline-block;flex:0 0 auto;transform:translateY(-3px)}
+.editorial .prose p + p{margin-top:1.15em}
+
+/* ---------- grouped tech panels ---------- */
+.groups{display:grid;grid-template-columns:repeat(auto-fit,minmax(258px,1fr));gap:clamp(14px,1.8vw,20px)}
+.gpanel{
+  background:var(--card);border:var(--hair);border-radius:var(--radius);
+  padding:22px;box-shadow:var(--shadow-1);display:flex;flex-direction:column;
+  transition:border-color var(--ease),box-shadow var(--ease);
+}
+.gpanel:hover{border-color:var(--rule-2);box-shadow:var(--shadow-2)}
+.gpanel .gtop{display:flex;align-items:baseline;justify-content:space-between;gap:12px;padding-bottom:14px;border-bottom:var(--hair)}
+.gpanel .gtop h3{font-size:1.02rem}
+.gpanel .gtop .note{font-family:var(--mono);font-size:.72rem;letter-spacing:.08em;color:var(--muted);white-space:nowrap}
+.gpanel .chips{margin-top:16px;display:flex;flex-wrap:wrap;gap:8px}
+
+.chip{
+  display:inline-block;font-family:var(--mono);font-size:.78rem;letter-spacing:.01em;
+  color:var(--text);background:var(--paper-2);border:var(--hair);border-radius:var(--radius-sm);
+  padding:5px 10px;
+  transition:color var(--ease),background var(--ease),border-color var(--ease);
+}
+.chip:hover{color:var(--accent-2);background:var(--accent-wash);border-color:#e8d3c7}
+
+/* ---------- project cards ---------- */
+.plist{display:grid;gap:clamp(16px,2.2vw,24px)}
+.pcard{
+  border:var(--hair);border-radius:var(--radius);background:var(--card);
+  overflow:hidden;box-shadow:var(--shadow-1);
+  transition:border-color var(--ease),box-shadow var(--ease),transform var(--ease);
+}
+.pcard:hover{border-color:var(--rule-2);box-shadow:var(--shadow-2);transform:translateY(-2px)}
+.pcard .band{
+  display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;
+  padding:16px clamp(20px,3vw,34px);
+  background:var(--paper-2);border-bottom:var(--hair);
+  border-left:3px solid var(--accent);
+}
+.pcard .band .nm{font-weight:600;color:var(--ink);font-size:1.02rem;letter-spacing:-.01em}
+.pcard .band .tag{font-family:var(--mono);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-left:12px}
+.pcard .inner{padding:clamp(22px,3.2vw,34px)}
+.pcard h3{font-size:clamp(1.22rem,2.4vw,1.6rem);letter-spacing:-.028em}
+.pcard .tagline{margin-top:9px;color:var(--accent);font-size:.96rem;font-weight:500}
+.pcard .desc{margin-top:16px;color:var(--text);max-width:66ch;font-size:.98rem}
+.pcard .meta{margin-top:20px;display:flex;flex-wrap:wrap;gap:8px}
+.pcard .foot{margin-top:clamp(20px,2.6vw,28px);padding-top:clamp(18px,2.4vw,24px);border-top:var(--hair);display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:14px}
+.status{display:inline-flex;align-items:center;gap:7px;font-family:var(--mono);font-size:.73rem;letter-spacing:.11em;text-transform:uppercase;color:var(--accent);background:var(--accent-wash);border:1px solid #e8d3c7;border-radius:3px;padding:4px 9px;white-space:nowrap}
+.status i{width:6px;height:6px;background:var(--accent);border-radius:50%;display:inline-block}
+
+/* dashed "more coming" card */
+.pcard.ghost{border-style:dashed;border-color:var(--rule-2);background:transparent;box-shadow:none}
+.pcard.ghost:hover{border-color:var(--rule-2);box-shadow:none;transform:none}
+.pcard.ghost .band{background:transparent;border-bottom:1px dashed var(--rule-2);border-left-color:var(--rule-2)}
+.pcard.ghost .band .nm{color:var(--muted)}
+.pcard.ghost h3{color:var(--muted);font-size:clamp(1.04rem,1.8vw,1.24rem)}
+.pcard.ghost .desc{color:var(--muted);font-size:.94rem}
+.pcard.ghost .plus{font-family:var(--mono);font-size:.8rem;letter-spacing:.1em;color:var(--muted)}
+
+/* ---------- contact card ---------- */
+.ccard{background:var(--card);border:var(--hair);border-radius:var(--radius);box-shadow:var(--shadow-2);overflow:hidden}
+.ccard .ctop{padding:clamp(26px,3.6vw,42px);border-bottom:var(--hair)}
+.ccard .ctop p{color:var(--text);max-width:58ch;font-size:1rem}
+.ccard .mailrow{display:flex;flex-wrap:wrap;align-items:center;gap:16px;margin-top:clamp(20px,2.6vw,28px)}
+.ccard .mail{
+  display:inline-flex;align-items:center;gap:12px;
+  font-size:clamp(1.08rem,2.4vw,1.5rem);font-weight:600;letter-spacing:-.02em;
+  color:var(--ink);background:var(--paper-2);border:1px solid var(--rule-2);
+  border-radius:var(--radius-sm);padding:14px 22px;word-break:break-all;
+  transition:background var(--ease),border-color var(--ease),color var(--ease),box-shadow var(--ease),transform var(--ease);
+}
+.ccard .mail:hover{background:var(--accent);border-color:var(--accent);color:#fff;box-shadow:var(--shadow-2);transform:translateY(-1px)}
+.ccard .mail .arrow{transition:transform var(--ease)}
+.ccard .mail:hover .arrow{transform:translateX(4px)}
+.ccard .facts2{display:grid;grid-template-columns:repeat(auto-fit,minmax(216px,1fr));gap:1px;background:var(--rule)}
+.ccard .facts2 .cell{background:var(--card);padding:22px clamp(20px,3vw,28px)}
+.ccard .facts2 .k{font-family:var(--mono);font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.ccard .facts2 .v{margin-top:9px;color:var(--ink);font-size:.94rem;line-height:1.7}
+
+/* ---------- generic grid / cell cards (product page) ---------- */
+.grid{display:grid;gap:1px;background:var(--rule);border:var(--hair);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow-1)}
+.g3{grid-template-columns:repeat(auto-fit,minmax(276px,1fr))}
+.cell-card{background:var(--card);padding:clamp(22px,2.8vw,30px);display:flex;flex-direction:column;transition:background var(--ease)}
+.cell-card:hover{background:#fdf8f4}
+.cell-card .no{font-family:var(--mono);font-size:.74rem;letter-spacing:.14em;color:var(--accent);margin-bottom:16px}
+.cell-card h3{margin-bottom:11px}
+.cell-card p{color:var(--muted);font-size:.94rem;line-height:1.76}
+.cell-card .chips{margin-top:auto;padding-top:20px;display:flex;flex-wrap:wrap;gap:7px}
+
+/* architecture ladder */
+.ladder{border-top:var(--hair)}
+.ladder .rung{display:grid;grid-template-columns:minmax(0,13rem) minmax(0,1fr);gap:clamp(14px,3vw,40px);padding:20px 0;border-bottom:var(--hair)}
+.ladder .rung .lname{color:var(--ink);font-weight:600;font-size:.96rem}
+.ladder .rung .lname span{display:block;font-family:var(--mono);font-weight:400;font-size:.72rem;letter-spacing:.12em;color:var(--muted);margin-top:6px}
+.ladder .rung .ldesc{color:var(--muted);font-size:.94rem;line-height:1.76;max-width:66ch}
+
+/* credentials table */
+.tbl-wrap{border:var(--hair);border-radius:var(--radius);background:var(--card);overflow-x:auto;-webkit-overflow-scrolling:touch;box-shadow:var(--shadow-1)}
+table{border-collapse:collapse;width:100%;min-width:600px}
+th,td{text-align:left;padding:15px 20px;border-bottom:var(--hair);font-size:.93rem;vertical-align:top}
+th{font-family:var(--mono);font-size:.72rem;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);font-weight:500;background:var(--paper-2)}
+tbody tr:last-child td{border-bottom:0}
+tbody tr:hover td{background:#fdf8f4}
+td.sys{color:var(--ink);font-weight:600;white-space:nowrap}
+
+/* steps */
+.steps{counter-reset:st;border-top:var(--hair)}
+.steps li{counter-increment:st;display:grid;grid-template-columns:3.4rem minmax(0,1fr);gap:clamp(10px,2vw,24px);padding:22px 0;border-bottom:var(--hair)}
+.steps li::before{content:counter(st,decimal-leading-zero);font-family:var(--mono);font-size:.82rem;color:var(--accent);padding-top:4px}
+.steps b{display:block;color:var(--ink);font-weight:600;margin-bottom:6px}
+.steps p{color:var(--muted);font-size:.94rem;line-height:1.74;max-width:68ch}
+
+/* module entry cards */
+.entries{display:grid;grid-template-columns:repeat(auto-fit,minmax(272px,1fr));gap:clamp(14px,1.8vw,20px)}
+.ecard{
+  display:flex;flex-direction:column;background:var(--card);border:var(--hair);
+  border-radius:var(--radius);padding:22px;box-shadow:var(--shadow-1);
+  transition:border-color var(--ease),box-shadow var(--ease),transform var(--ease);
+}
+.ecard:hover{border-color:var(--rule-2);box-shadow:var(--shadow-2);transform:translateY(-2px)}
+.ecard .etop{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.ecard .etop .nm{font-weight:600;color:var(--ink);font-size:1.02rem}
+.ecard .etop .arrow{color:var(--accent);transition:transform var(--ease)}
+.ecard:hover .etop .arrow{transform:translateX(4px)}
+.ecard .desc{margin-top:8px;color:var(--text);font-size:.94rem}
+.ecard .host{margin-top:16px;padding-top:14px;border-top:var(--hair);font-family:var(--mono);font-size:.79rem;color:var(--muted);word-break:break-all}
+
+/* notices / bands */
+.notice{display:flex;gap:16px;align-items:flex-start;border:1px solid #e8d3c7;background:var(--accent-wash);border-radius:var(--radius);padding:22px clamp(20px,3vw,28px)}
+.notice .mark{margin-top:9px}
+.notice p{color:#6f4433;font-size:.94rem;line-height:1.76;max-width:74ch}
+.band2{
+  display:flex;flex-wrap:wrap;gap:clamp(20px,4vw,48px);align-items:center;justify-content:space-between;
+  border:var(--hair);background:var(--card);border-radius:var(--radius);
+  padding:clamp(24px,3.4vw,38px);box-shadow:var(--shadow-2);
+}
+.band2 .t{max-width:52ch}
+.band2 .t h3{font-size:clamp(1.14rem,2.2vw,1.42rem)}
+.band2 .t p{color:var(--muted);font-size:.94rem;margin-top:10px}
+.band2 .f{font-family:var(--mono);font-size:.79rem;color:var(--muted);margin-top:14px;word-break:break-all}
+.note-line{margin-top:20px;color:var(--muted);font-size:.9rem;max-width:72ch}
+.callout-home{display:flex;flex-wrap:wrap;gap:16px;justify-content:space-between;align-items:center;border-top:var(--hair);padding-top:26px}
+.callout-home p{color:var(--muted);font-size:.94rem;max-width:60ch}
+
+/* ---------- footer ---------- */
+.site-foot{border-top:1px solid var(--ink);background:var(--paper-2);margin-top:clamp(48px,7vw,90px)}
+.site-foot .top{max-width:var(--wide);margin:0 auto;padding:clamp(36px,5vw,58px) var(--gut) 0;display:flex;flex-wrap:wrap;gap:clamp(24px,4vw,56px);justify-content:space-between}
+.site-foot .bio{max-width:42ch}
+.site-foot .bio p{color:var(--muted);font-size:.9rem;margin-top:12px}
+.site-foot .fnav{display:flex;flex-wrap:wrap;gap:8px 22px;align-content:flex-start;max-width:34rem}
+.site-foot .fnav a{color:var(--text);font-size:.9rem;border-bottom:1px solid transparent;padding-bottom:2px}
+.site-foot .fnav a:hover{color:var(--accent);border-bottom-color:var(--accent)}
+.site-foot .bottom{max-width:var(--wide);margin:clamp(30px,4vw,46px) auto 0;padding:22px var(--gut) 40px;border-top:var(--hair);display:flex;flex-wrap:wrap;gap:12px 26px;align-items:center;justify-content:space-between;color:var(--muted);font-size:.85rem}
+.site-foot .bottom .right{display:flex;flex-wrap:wrap;gap:12px 24px;align-items:center}
+.site-foot .icp{color:var(--text);font-family:var(--mono);font-size:.82rem;border-bottom:1px solid var(--rule-2);padding-bottom:2px}
+.site-foot .icp:hover{color:var(--accent);border-bottom-color:var(--accent)}
+.site-foot .police{display:inline-flex;align-items:center;gap:6px;color:var(--text);font-family:var(--mono);font-size:.82rem;border-bottom:1px solid var(--rule-2);padding-bottom:2px}
+.site-foot .police:hover{color:var(--accent);border-bottom-color:var(--accent)}
+.site-foot .police img{display:block;flex:0 0 auto;height:18px;width:auto}
+.disclaimer{max-width:var(--wide);color:var(--muted);font-size:.86rem;line-height:1.8;margin:18px auto 0;padding:0 var(--gut)}
+.sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+
+/* ---------- responsive ---------- */
+@media (max-width:900px){
+  .editorial{grid-template-columns:1fr}
+  .editorial .aside{position:static}
+}
+@media (max-width:720px){
+  body{font-size:16px;line-height:1.76}
+  .site-head .in{min-height:56px;gap:12px;flex-wrap:wrap;padding-top:9px;padding-bottom:9px}
+  .nav{width:100%;margin-left:0;gap:2px}
+  .nav a{padding:7px 9px;font-size:.86rem}
+  .nav a .n{display:none}
+  .hero{padding:40px 0 28px}
+  .hero h1{max-width:none}
+  .hero .acts .btn{flex:1 1 auto}
+  .facts{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .facts .cell{padding:18px 16px}
+  .editorial .aside{padding:18px}
+  .groups{grid-template-columns:1fr}
+  .pcard .band{padding:14px 18px}
+  .pcard .band .tag{display:none}
+  .pcard .foot{flex-direction:column;align-items:flex-start}
+  .pcard .foot .btn{width:100%}
+  .ccard .mailrow{flex-direction:column;align-items:stretch}
+  .ccard .mail{justify-content:space-between}
+  .ccard .mailrow .btn{width:100%}
+  .entries{grid-template-columns:1fr}
+  .ladder .rung{grid-template-columns:1fr;gap:8px}
+  .steps li{grid-template-columns:2.4rem minmax(0,1fr);gap:12px}
+  .band2{flex-direction:column;align-items:stretch}
+  .band2 .btn{width:100%}
+  .callout-home{flex-direction:column;align-items:stretch}
+  .callout-home .btn{width:100%}
+  .site-foot .bottom{flex-direction:column;align-items:flex-start}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *{transition:none!important;animation:none!important}
+  .pcard:hover,.ecard:hover,.btn:hover,.ccard .mail:hover{transform:none}
+  .btn:hover .arrow,.ecard:hover .etop .arrow,.ccard .mail:hover .arrow{transform:none}
+}
+
+.hero .meta-line{margin-top:clamp(30px,4vw,42px);display:flex;flex-wrap:wrap;gap:8px 26px;font-family:var(--mono);font-size:.78rem;letter-spacing:.05em;color:var(--muted)}
+.hero .meta-line span{display:inline-flex;align-items:center;gap:9px}
+.hero .meta-line i{width:5px;height:5px;background:var(--accent);display:inline-block;flex:0 0 auto}
+
+html{scroll-padding-top:76px}
+@media(max-width:720px){html{scroll-padding-top:112px}}
+
+.hero.col{padding-inline:var(--gut)}
+</style></head><body>
+<header class="site-head"><div class="in">
+  <a class="wordmark" href="/"><span class="sep" aria-hidden="true"></span>su46proj.site</a>
+  <nav class="nav" aria-label="主导航"><a href="#overview">项目介绍</a><a href="#flow">处理流程</a><a href="#features">功能与边界</a><a href="/#projects">返回项目</a></nav>
+</div></header>
+<main id="top">
+  <section class="hero col" id="overview">
+    <p class="status-pill"><i aria-hidden="true"></i>个人项目 · 模拟 IT 服务台</p>
+    <h1>Atlas Desk<br>智能工单处理 Agent</h1>
+    <p class="lede">把一张工单变成有依据的处理建议：先判断问题与风险，再检索可用知识，核对每条引用。证据不足时，交给人工继续处理。</p>
+    <div class="acts"><a class="btn solid" href="#flow">查看处理流程<span class="arrow" aria-hidden="true">↓</span></a><a class="btn" href="https://github.com/su4-6/QIYE-agent-plus" target="_blank" rel="noopener">查看源代码 ↗</a><a class="btn" href="/#projects">返回项目列表</a></div>
+    <p class="note-line" id="release-status">Atlas 已完成服务器内网部署，已配置 MiMo，向量检索健康检查通过。公开演示待启用；完成人机验证配置与公网验收后，这里会提供工单入口。</p>
+  </section>
+  <section class="col" id="flow">
+    <div class="sec-head"><p class="eyebrow"><span class="num">01</span><span class="rule" aria-hidden="true"></span><span class="lbl">处理流程 / Workflow</span></p><h2>从描述问题，到可核对的答复</h2><p class="sub">LangGraph 串起分诊、检索、证据判断和答复分支。每一步都有明确的职责与失败出口。</p></div>
+    <ol class="steps">
+      <li><div><b>识别问题与风险</b><p>根据标题与描述判断工单类别、优先级和风险。涉及生产、支付、权限等敏感问题时，保留人工处理边界。</p></div></li>
+      <li><div><b>检索知识，保留来源</b><p>使用 SQLite FTS5 与 BGE 向量检索能力，按评测策略选择召回方式。结果保留文档版本、分块编号与原文摘录。</p></div></li>
+      <li><div><b>检查证据是否足够</b><p>综合证据与评测门槛决定后续流程；中高风险或证据不足的工单进入人工接管分支。</p></div></li>
+      <li><div><b>选择原文，校验引用</b><p>模型负责选择候选原文句子，服务端校验来源并组装答复；生成失败、引用无效或模型额度不足时，转交人工。</p></div></li>
+      <li><div><b>保存结果，继续跟进</b><p>保存工单状态与引用，支持凭访问令牌查看和跟进。管理员可处理工单、管理知识版本并查看运行记录。</p></div></li>
+    </ol>
+  </section>
+  <section class="col" id="features">
+    <div class="sec-head"><p class="eyebrow"><span class="num">02</span><span class="rule" aria-hidden="true"></span><span class="lbl">功能与边界 / Capabilities</span></p><h2>建议可追溯，处理有边界</h2></div>
+    <div class="groups">
+      <article class="gpanel"><div class="gtop"><h3>工单与跟进</h3></div><p class="note-line">提交问题、查看分诊结果、来源引用与处理状态，支持工单跟进和当前浏览器的历史记录。</p><div class="chips"><span class="chip">访问令牌</span><span class="chip">状态记录</span></div></article>
+      <article class="gpanel"><div class="gtop"><h3>知识与版本</h3></div><p class="note-line">维护知识文档、分块和版本；检索保留来源信息，避免把无依据的回答当成处理结论。</p><div class="chips"><span class="chip">FTS5</span><span class="chip">BGE</span><span class="chip">sqlite-vec</span></div></article>
+      <article class="gpanel"><div class="gtop"><h3>人工接管</h3></div><p class="note-line">风险较高、证据不足或引用校验未通过时，工单交由人工审核。系统提供排查资料，不执行真实 IT 操作。</p><div class="chips"><span class="chip">风险分诊</span><span class="chip">引用校验</span></div></article>
+      <article class="gpanel"><div class="gtop"><h3>管理与运行</h3></div><p class="note-line">管理员登录后管理工单与知识库。生产配置包含会话、防伪令牌、人机验证、请求配额与健康检查。</p><div class="chips"><span class="chip">FastAPI</span><span class="chip">LangGraph</span><span class="chip">K3s</span></div></article>
+    </div>
+  </section>
+  <section class="col"><div class="band2"><div class="t"><h3>从代码理解这个项目</h3><p>这是个人开发的模拟 IT 服务台项目，知识库和工单示例用于技术演示。实现、评测与运行边界以仓库中的代码和记录为准。</p></div><a class="btn" href="https://github.com/su4-6/QIYE-agent-plus" target="_blank" rel="noopener">打开 GitHub ↗</a></div></section>
+</main>
+<footer class="site-foot">
+  <div class="top">
+    <div class="bio">
+      <span class="wordmark"><span class="sep" aria-hidden="true"></span>su46proj.site</span>
+      <p>Atlas Desk · 智能工单处理 Agent。个人项目，以模拟 IT 服务台场景探索知识检索、引用校验与人工接管。</p>
+    </div>
+    <nav class="fnav" aria-label="站点导航">
+      <a href="/#about">01 关于我</a>
+      <a href="/#stack">02 技术栈</a>
+      <a href="/#projects">03 项目</a>
+      <a href="/#contact">04 联系方式</a>
+      <a href="https://pay.su46proj.site/">MiniPay AI 项目页</a>
+      <a href="/atlas-desk/index.html">Atlas Desk 项目页</a>
+    </nav>
+  </div>
+  <div class="bottom">
+    <span>© 2026 su46proj.site · 个人项目与实践</span>
+    <span class="right">
+      <a href="mailto:su_qihang@163.com">su_qihang@163.com</a>
+      <a class="icp" href="https://beian.miit.gov.cn/" target="_blank" rel="noopener">豫ICP备2026043015号</a>
+      <a class="police" href="https://beian.mps.gov.cn/#/query/webSearch?code=41010502008025" target="_blank" rel="noopener"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACQAAAAoCAYAAACWwljjAAAFQklEQVRYw+3Wa1BUdRjH8SOpMeg4WhZGpDIxiaaTeUFgWrxE4AVRQJGlRRAVIV1JkbgMgQLi5AVBQSVLSp0xlEAUKBEEFZCrCstll8UV2AV2YbmoGCrYv31+R95UL5pmmtamZ+bz6rz5nvOc/5zDcX9jGLs/iTxuyvIlWYkRFeTHA2HVRFtzfhthTG5KuH96/vUgNlC4mMgyw1NJit/aAXLKazYje9xtIMZ/OZz50gW+9hcNkvoLEemEPbnrSP47QYwxQ5Ifv54RqzcXwFFvSyjaOhfavN8F7Y5ZcC/HH9JOB4LNa9Zw5YA76OZV8vIGMdZtSp7cDrtOnOavYiQhTAiPwi1AMtIQaqyngsxpBtw2GAGDKfaQmpUAa6xc4Vfp4UtEdzAMycsT9JQ1Tyctl/2eEkuTlYysF/rCUNxMqDEzgTqzSXBnpgnIHCzgjvEEuD52DLBr3rA1MAaWmNtB582wdtIljZ9G9D+IPU6aTxIPBjHCcXvg3CEh9K2fDLWvjIH6D6fwTIyheuwEqLUyhzLOALq8pkN+bgRw3HY4FBsMzxojZxP9DequLjAlQwVrbpIjhyIY4UYGQ/buhdBqPxlk3Gion2IMDQIz3kJe/ZS34I7uHkmD7VSQVgYDNyIAwsNCgfXGXoOBPjP9DKrOCAogA2etGTmTHAMcFwFZye7wS5QlVHGjoEw4A2qPCUBZ6AzNcQ5Q/YYRdO+YB1U3dsDwypLio4FJ3ECryIzWz6Cm3NgTRHN8HiPF6eHAGSbAdh8feFZkB7krzaHE9h2o85sDsiAbkIsXQMN+e2CtGyF0kzdwXCgU5++D/ouLQFV4OEU/g2Q/iNuIPNaKkQflAWBqexxGjhLDVUcL6IwSQN3SGVChe6FJg9dckCx6D1QBliDZLIAxo7eA8eyv4KE0BJqTrHkZvnL9DJKn+Twmt0NsGGHZy2Dn3kQYfsQ53Hh4/r4RNGz8AIpdzKEuaAF0RC2E57MmQgE3ATjuM/CPiANW7AqSfQJQ5vk362eQKmd3JrmXsoSRocpNIMnbB9zbceDIWUPmuHFQNMkISqa9DpUvNK6YDpW2s8DfwBK48WFQnhMCgzUBoLy0BrRVe5P0NWjPLdKUsJiR1tR1wGp8IeZwMgx/SrgRvjxuAziNcwLvyathLOcJHLflhRDYGRYFrNET2rJ5yvPLoas0tOj/oL8UpC4JHyTSU+6MNCS4gvKoAB5WiKG+MAQSg0WwLXQ/ZJ3xhao0FxB5hYCbUwAEfhEF3Td8QP2dAOQnPwFlxgrolUVq9TPoaX+ZB2nLc2Gk6awj1MU78HZZwJMid2Byb550JQwVO0NfxlJgdz14vWKeRAiK6DlQF28PLZdcoLNcBIO92bb6GTQ8Q/13RURT6tlH2gvXMlITLYD6uI+gp2ozdF0VQXumM6ivCqGvahM8kPiDItkeGo8tB025GFQ3xFrSr06zI3/4yde7oN7m0sWk5eKWDqK5JWJQvAHac9ygq3Adr9gTNNc3QG85rzPfHe5/7wDtPwuhp/Zz6CjyhaZzwi6ivfetHdH/oP77+3PJQOsuRnqkQdCa4wWqyx6gyecpL64GTaEX7ycXUJz4GJp1B4O0X/Hg0Xp1tFV+8Ei1k6c5coHofxBrrzQinbKYo0SVJ+wn6iurGHlY5gY911aDJnMFaHXXiDp9GQyvtKfUA9QFTtBZ7gPdit0tpFd9OpwwFmlA9D/o9yNLDpxIKmI8PMnNSNtviCLVpYTITzrXEGWaq4qos0WgOPdpCenIF+eRrurjB4k0PXopYZG6gMg/D/gNBUxhAbSAmKMAAAAASUVORK5CYII=" alt="" width="16" height="18" decoding="async">豫公网安备41010502008025号</a>
+    </span>
+  </div>
+</footer>
+</body>
+</html>
