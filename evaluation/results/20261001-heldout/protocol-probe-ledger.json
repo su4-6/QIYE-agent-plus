@@ -1,0 +1,36 @@
+{
+  "authorization": "User explicitly approved up to 10 additional MiMo calls / 10000 output tokens / no retries",
+  "call_limit": 10,
+  "output_limit": 10000,
+  "per_call_limit": 1000,
+  "model": "mimo-v2.5-pro",
+  "source_sha256_normalized_lf": {
+    "app/answer_validation.py": "9dea7a3d8c4b6881fa7e3e2eb6b494f40348a731fb7a56a1c201cd4b23934d9c",
+    "app/llm.py": "935e57655aaf30e76512dbdb379d6f85dbf25945ef94914e73590255b56ea5e4",
+    "evaluation/probe_selectors.py": "fc6dc1eb9bea947269eff75677964f636d4c1d6e4c35181ce966d885b534c221"
+  },
+  "planned_ids": [
+    "T02-Q2",
+    "T12-Q2",
+    "T26-Q1",
+    "T28-Q2",
+    "T34-Q1",
+    "NEW-01",
+    "NEW-09",
+    "NEW-17",
+    "NEW-25",
+    "NEW-33"
+  ],
+  "attempt_ids": [
+    "T02-Q2",
+    "T12-Q2",
+    "T26-Q1",
+    "T28-Q2",
+    "T34-Q1",
+    "NEW-01",
+    "NEW-09",
+    "NEW-17",
+    "NEW-25",
+    "NEW-33"
+  ]
+}

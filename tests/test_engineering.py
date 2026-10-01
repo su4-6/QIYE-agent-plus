@@ -14,7 +14,7 @@ from fastapi.testclient import TestClient
 from app.config import settings
 from app.database import get_connection, init_database
 from app.evidence import evidence_score
-from app.answer_validation import align_answer
+from app.answer_validation import align_answer, sentence_catalog, render_selection
 from app.knowledge import chunk_sections, import_document, retrieve
 from app.llm import generate_grounded_answer, validate_citations
 from app.main import app
@@ -178,7 +178,7 @@ class EngineeringTest(unittest.TestCase):
         spec.loader.exec_module(smoke)
         object.__setattr__(settings,"llm_provider","mimo")
         object.__setattr__(settings,"mimo_api_key","test-only")
-        response=SimpleNamespace(choices=[SimpleNamespace(message=SimpleNamespace(content='{"answer":"VPN登录失败时先确认账号未锁定，再核对系统时间；仍失败时收集错误码并联系服务台。","citation_ids":[1]}'),finish_reason="stop")],usage=None)
+        response=SimpleNamespace(choices=[SimpleNamespace(message=SimpleNamespace(content='{"selected_sentence_ids":["1:0"]}'),finish_reason="stop")],usage=None)
         with patch("app.llm.OpenAI") as factory:
             factory.return_value.chat.completions.create.return_value=response
             smoke.main()
@@ -211,16 +211,57 @@ class EngineeringTest(unittest.TestCase):
         hits=self.document()
         object.__setattr__(settings,"llm_provider","mimo")
         object.__setattr__(settings,"mimo_api_key","test-only")
-        content=json.dumps({"answer":"等待15–30分钟自动解锁。","citation_ids":[hits[0]["id"]]})
+        content=json.dumps({"selected_sentence_ids":["not-a-retrieved-sentence"]})
         response=SimpleNamespace(choices=[SimpleNamespace(message=SimpleNamespace(content=content),finish_reason="stop")],usage=None)
         with patch("app.llm.OpenAI") as factory:
             factory.return_value.chat.completions.create.return_value=response
             result=answer({"title":"打印机缺纸","description":"打印机故障","category":"设备",
                 "risk_level":"低风险","tenant_id":"demo","allow_llm":True,
                 "retrieval":{"hits":hits},"citations":[{"chunk_id":hits[0]["id"]}]})
-        self.assertEqual(result["handoff_reason"],"sentence_alignment_failed")
+        self.assertEqual(result["handoff_reason"],"source_selection_failed")
         self.assertEqual(result["status"],"待人工处理")
         self.assertFalse(result["retrieval"]["answer_validation"]["passed"])
+
+    def test_selector_renders_source_and_ignores_freeform_invention(self):
+        hits=self.document()
+        catalog=sentence_catalog(hits)
+        selected=next(iter(catalog))
+        object.__setattr__(settings,"llm_provider","mimo")
+        object.__setattr__(settings,"mimo_api_key","test-only")
+        content=json.dumps({"selected_sentence_ids":[selected],"answer":"等待30分钟并关闭全部安全软件。"})
+        response=SimpleNamespace(choices=[SimpleNamespace(message=SimpleNamespace(content=content),finish_reason="stop")],usage=None)
+        with patch("app.llm.OpenAI") as factory:
+            factory.return_value.chat.completions.create.return_value=response
+            answer,cited=generate_grounded_answer(title="打印机缺纸",description="设备故障",category="设备",
+                risk_level="低风险",hits=hits,allow_llm=True,tenant_id="demo")
+        self.assertEqual(answer,catalog[selected]["text"])
+        self.assertEqual(cited,[hits[0]["id"]])
+        self.assertNotIn("30分钟",answer)
+
+    def test_selector_rejects_one_invalid_id_or_nonstring_atomically(self):
+        catalog=sentence_catalog(self.document())
+        valid=next(iter(catalog))
+        for selected in ([valid,"missing"],[valid,True],[],[valid]*9,"not-a-list"):
+            answer,cited,validation=render_selection(selected,catalog)
+            self.assertIsNone(answer)
+            self.assertFalse(cited)
+            self.assertFalse(validation["passed"])
+
+    def test_selector_keeps_negation_and_version_metadata(self):
+        hit={"id":1,"title":"审批规则","version":3,"chunk_key":"stable","content":"禁止删除数据库记录。"}
+        catalog=sentence_catalog([hit])
+        answer,cited,validation=render_selection(["1:0"],catalog)
+        self.assertEqual(answer,"禁止删除数据库记录。")
+        self.assertEqual(validation["sentences"][0]["version"],3)
+        self.assertEqual(validation["sentences"][0]["chunk_key"],"stable")
+
+    def test_shadow_features_do_not_change_retrieval_ranking(self):
+        self.document()
+        basic=retrieve("打印机缺纸","demo",mode="bm25")
+        features=retrieve("打印机缺纸","demo",mode="bm25",collect_features=True)
+        self.assertEqual([h["id"] for h in basic["hits"]],[h["id"] for h in features["hits"]])
+        self.assertEqual(features["features"]["has_vector"],0)
+        self.assertEqual(features["features"]["has_bm25"],1)
 
     def test_vector_failure_falls_back_to_calibrated_bm25(self):
         self.document()

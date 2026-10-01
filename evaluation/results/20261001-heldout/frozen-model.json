@@ -1,0 +1,57 @@
+{
+  "utc": "2026-10-01T05:08:48.987518+00:00",
+  "model": "logistic_8signals_v1",
+  "embedding_model": "BAAI/bge-small-zh-v1.5",
+  "feature_names": [
+    "lexical_coverage",
+    "top_similarity",
+    "vector_margin",
+    "bm25_margin",
+    "top_agreement",
+    "overlap_at_3",
+    "has_bm25",
+    "has_vector"
+  ],
+  "weights": [
+    -0.9627790886043561,
+    0.7523239842094137,
+    0.43192457269042633,
+    0.12501221153037387,
+    0.19370588880844414,
+    1.241134520691101,
+    0.45065074167950875,
+    0.8224148577496391,
+    -0.00281668614186559
+  ],
+  "threshold": 0.6807124909499896,
+  "calibration": {
+    "threshold": 0.6807124909499896,
+    "accepted": 52,
+    "precision": 0.9615384615384616,
+    "reason": "calibrated",
+    "eligible": 75
+  },
+  "baseline_threshold": 0.510423,
+  "training_role": "Original calibration only; original test and later challenge excluded",
+  "calibration_role": "Five folds grouped by topic/negative group; out-of-fold predictions only",
+  "optimizer": {
+    "steps": 3000,
+    "learning_rate": 0.1,
+    "l2": 0.05,
+    "init": "zeros"
+  },
+  "release_rule": "accepted>=20 and precision>=.95; high risk always human; do not retune after new test",
+  "cases_sha256": "7e02c2df75c52daabfa20a3205f8304357261a25f3c54c4206ed6c678a4e97c0",
+  "corpus_sha256": "b93fef32e250925d4e7220f473f7eb0ee97674a9be10af5265ba6010253a1e66",
+  "source_sha256_normalized_lf": {
+    "app/knowledge.py": "29a3e7115c9f978c861f112cc0896870fec9e214cf2be7464fc438a948ff2ef3",
+    "app/retrieval_features.py": "e9f3c13edf887726bb3aecdeb112878f87bd2acb16310f0663b1e9a29be8686d",
+    "evaluation/new_holdout.py": "612c0bffd91966c8a8465f1a8f88d69dc8137f817a3c83e224cda500e25e34ce"
+  },
+  "environment": {
+    "python": "3.13.13 | packaged by Anaconda, Inc. | (main, Apr 14 2026, 06:12:50) [MSC v.1942 64 bit (AMD64)]",
+    "platform": "Windows-11-10.0.26300-SP0",
+    "numpy": "2.5.3",
+    "fastembed": "0.8.1"
+  }
+}

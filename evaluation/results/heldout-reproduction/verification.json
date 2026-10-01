@@ -1,0 +1,16 @@
+{
+  "training_weights_match": true,
+  "frozen_decisions": {
+    "single_score": {
+      "accepted": 46,
+      "correct": 35
+    },
+    "logistic": {
+      "accepted": 31,
+      "correct": 29
+    }
+  },
+  "paid_calls": 0,
+  "thresholds_refit": false,
+  "source_summary_sha256": "aa8fcb59adef4d15cfde750e9cdd032bfdd4c4e5873c2cc126035526b5294b8b"
+}

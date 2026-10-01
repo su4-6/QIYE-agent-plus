@@ -1,0 +1,8 @@
+2026-10-01T05:17:52Z
+               total        used        free      shared  buff/cache   available
+Mem:            3723        3348         172           4         435         374
+Swap:           1987         914        1073
+Filesystem      Size  Used Avail Use% Mounted on
+/dev/vda2        40G   25G   13G  66% /
+NAME             CPU(cores)   CPU(%)   MEMORY(bytes)   MEMORY(%)   
+vm-0-16-ubuntu   286m         7%       3092Mi          83%         

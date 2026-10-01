@@ -1,0 +1,24 @@
+Building prefix dict from the default dictionary ...
+Loading model from cache C:\Users\hp\AppData\Local\Temp\jieba.cache
+Loading model cost 0.434 seconds.
+Prefix dict has been built successfully.
+{
+  "attempts": 10,
+  "completed_records": 10,
+  "retry_count": 0,
+  "completion_tokens": 177,
+  "prompt_tokens": 9542,
+  "structured_success": 10,
+  "source_render_success": 9,
+  "selected_topic_valid": 6,
+  "latency_ms": {
+    "p50": 947.299,
+    "p95": 2299.197,
+    "p99": 2299.197
+  },
+  "limitations": [
+    "Direct generator experiment; application release gate remains closed",
+    "Topic validity is simulated-label checking, not semantic entailment or human review",
+    "New questions were fixed before probe and are not used to retune the frozen retrieval model"
+  ]
+}

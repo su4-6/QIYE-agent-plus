@@ -1,0 +1,2346 @@
+[
+  {
+    "id": "N1",
+    "query": "办公室空调风太冷能调温度吗",
+    "expected_topics": [],
+    "kind": "insufficient",
+    "split": "calibration",
+    "group": "negative-1",
+    "features": {
+      "lexical_coverage": 0.0,
+      "top_similarity": 0.446332,
+      "vector_margin": 0.034964,
+      "bm25_margin": 1.0,
+      "top_agreement": 0.0,
+      "overlap_at_3": 0.333333,
+      "has_bm25": 1.0,
+      "has_vector": 1.0
+    },
+    "evidence_score": 0.5656035871378773,
+    "topics": [
+      "T26",
+      "T11",
+      "T36",
+      "T10",
+      "T51"
+    ],
+    "hit": true,
+    "vector_state": "ready",
+    "top_correct": false,
+    "risk_human": false,
+    "latency_ms": 43.06850000102713,
+    "fold": 3
+  },
+  {
+    "id": "N10",
+    "query": "我应该选哪款基金",
+    "expected_topics": [],
+    "kind": "insufficient",
+    "split": "calibration",
+    "group": "negative-10",
+    "features": {
+      "lexical_coverage": 0.0,
+      "top_similarity": 0.384831,
+      "vector_margin": 0.005659,
+      "bm25_margin": 0.0,
+      "top_agreement": 0.0,
+      "overlap_at_3": 0.0,
+      "has_bm25": 0.0,
+      "has_vector": 1.0
+    },
+    "evidence_score": 0.29433425140447816,
+    "topics": [
+      "T11",
+      "T54",
+      "T37",
+      "T45",
+      "T39"
+    ],
+    "hit": true,
+    "vector_state": "ready",
+    "top_correct": false,
+    "risk_human": false,
+    "latency_ms": 32.9609000000346,
+    "fold": 2
+  },
+  {
+    "id": "N11",
+    "query": "租房合同能提前解除吗",
+    "expected_topics": [],
+    "kind": "insufficient",
+    "split": "calibration",
+    "group": "negative-11",
+    "features": {
+      "lexical_coverage": 0.0,
+      "top_similarity": 0.408725,
+      "vector_margin": 0.007904,
+      "bm25_margin": 0.0,
+      "top_agreement": 0.0,
+      "overlap_at_3": 0.0,
+      "has_bm25": 0.0,
+      "has_vector": 1.0
+    },
+    "evidence_score": 0.3544493249129933,
+    "topics": [
+      "T39",
+      "T17",
+      "T58",
+      "T49",
+      "T09"
+    ],
+    "hit": true,
+    "vector_state": "ready",
+    "top_correct": false,
+    "risk_human": false,
+    "latency_ms": 32.32649999881687,
+    "fold": 4
+  },
+  {
+    "id": "N12",
+    "query": "猫咪不吃饭怎么办",
+    "expected_topics": [],
+    "kind": "insufficient",
+    "split": "calibration",
+    "group": "negative-12",
+    "features": {
+      "lexical_coverage": 0.0,
+      "top_similarity": 0.357653,
+      "vector_margin": 0.016379,
+      "bm25_margin": 0.0,
+      "top_agreement": 0.0,
+      "overlap_at_3": 0.0,
+      "has_bm25": 0.0,
+      "has_vector": 1.0
+    },
+    "evidence_score": 0.27355240557465943,
+    "topics": [
+      "T13",
+      "T32",
+      "T10",
+      "T25",
+      "T38"
+    ],
+    "hit": true,
+    "vector_state": "ready",
+    "top_correct": false,
+    "risk_human": false,
+    "latency_ms": 33.63759999956528,
+    "fold": 3
+  },
+  {
+    "id": "N13",
+    "query": "出差住宿补贴是多少钱",
+    "expected_topics": [],
+    "kind": "insufficient",
+    "split": "calibration",
+    "group": "negative-13",
+    "features": {
+      "lexical_coverage": 0.0,
+      "top_similarity": 0.352876,
+      "vector_margin": 0.012657,
+      "bm25_margin": 0.0,
+      "top_agreement": 0.0,
+      "overlap_at_3": 0.0,
+      "has_bm25": 0.0,
+      "has_vector": 1.0
+    },
+    "evidence_score": 0.33505953187760784,
+    "topics": [
+      "T56",
+      "T58",
+      "T11",
+      "T04",
+      "T55"
+    ],
+    "hit": true,
+    "vector_state": "ready",
+    "top_correct": false,
+    "risk_human": false,
+    "latency_ms": 35.94650000013644,
+    "fold": 1
+  },
+  {
+    "id": "N14",
+    "query": "病假需要哪些医院证明",
+    "expected_topics": [],
+    "kind": "insufficient",
+    "split": "calibration",
+    "group": "negative-14",
+    "features": {
+      "lexical_coverage": 0.0,
+      "top_similarity": 0.460898,
+      "vector_margin": 0.014136,
+      "bm25_margin": 0.008186,
+      "top_agreement": 0.0,
+      "overlap_at_3": 0.0,
+      "has_bm25": 1.0,
+      "has_vector": 1.0
+    },
+    "evidence_score": 0.5596741507274218,
+    "topics": [
+      "T41",
+      "T47",
+      "T57",
+      "T59",
+      "T39"
+    ],
+    "hit": true,
+    "vector_state": "ready",
+    "top_correct": false,
+    "risk_human": false,
+    "latency_ms": 35.961600000518956,
+    "fold": 1
+  },
+  {
+    "id": "N15",
+    "query": "公司停车费如何减免",
+    "expected_topics": [],
+    "kind": "insufficient",
+    "split": "calibration",
+    "group": "negative-15",
+    "features": {
+      "lexical_coverage": 0.0,
+      "top_similarity": 0.437195,
+      "vector_margin": 0.032969,
+      "bm25_margin": 1.0,
+      "top_agreement": 0.0,
+      "overlap_at_3": 0.0,
+      "has_bm25": 1.0,
+      "has_vector": 1.0
+    },
+    "evidence_score": 0.5535919642972287,
+    "topics": [
+      "T51",
+      "T39",
+      "T43",
+      "T26",
+      "T07"
+    ],
+    "hit": true,
+    "vector_state": "ready",
+    "top_correct": false,
+    "risk_human": false,
+    "latency_ms": 38.212299999941024,
+    "fold": 2
+  },
+  {
+    "id": "N2",
+    "query": "下周去旅游机票怎么买",
+    "expected_topics": [],
+    "kind": "insufficient",
+    "split": "calibration",
+    "group": "negative-2",
+    "features": {
+      "lexical_coverage": 0.0,
+      "top_similarity": 0.389525,
+      "vector_margin": 0.031918,
+      "bm25_margin": 0.0,
+      "top_agreement": 0.0,
+      "overlap_at_3": 0.0,
+      "has_bm25": 0.0,
+      "has_vector": 1.0
+    },
+    "evidence_score": 0.2978716763309212,
+    "topics": [
+      "T04",
+      "T53",
+      "T47",
+      "T03",
+      "T39"
+    ],
+    "hit": true,
+    "vector_state": "ready",
+    "top_correct": false,
+    "risk_human": false,
+    "latency_ms": 40.737799999988056,
+    "fold": 0
+  },
+  {
+    "id": "N3",
+    "query": "本月工资计算公式是什么",
+    "expected_topics": [],
+    "kind": "insufficient",
+    "split": "calibration",
+    "group": "negative-3",
+    "features": {
+      "lexical_coverage": 0.0,
+      "top_similarity": 0.416487,
+      "vector_margin": 0.000289,
+      "bm25_margin": 0.0,
+      "top_agreement": 0.0,
+      "overlap_at_3": 0.0,
+      "has_bm25": 0.0,
+      "has_vector": 1.0
+    },
+    "evidence_score": 0.2995406449374326,
+    "topics": [
+      "T56",
+      "T55",
+      "T48",
+      "T47",
+      "T45"
+    ],
+    "hit": true,
+    "vector_state": "ready",
+    "top_correct": false,
+    "risk_human": false,
+    "latency_ms": 42.554800000289106,
+    "fold": 0
+  },
+  {
+    "id": "N4",
+    "query": "午饭餐厅几点开门",
+    "expected_topics": [],
+    "kind": "insufficient",
+    "split": "calibration",
+    "group": "negative-4",
+    "features": {
+      "lexical_coverage": 0.0,
+      "top_similarity": 0.361597,
+      "vector_margin": 0.010795,
+      "bm25_margin": 0.0,
+      "top_agreement": 0.0,
+      "overlap_at_3": 0.0,
+      "has_bm25": 0.0,
+      "has_vector": 1.0
+    },
+    "evidence_score": 0.29456601103738267,
+    "topics": [
+      "T48",
+      "T17",
+      "T51",
+      "T18",
+      "T52"
+    ],
+    "hit": true,
+    "vector_state": "ready",
+    "top_correct": false,
+    "risk_human": false,
+    "latency_ms": 40.05750000033004,
+    "fold": 0
+  },
+  {
+    "id": "N5",
+    "query": "宿舍水龙头一直漏水",
+    "expected_topics": [],
+    "kind": "insufficient",
+    "split": "calibration",
+    "group": "negative-5",
+    "features": {
+      "lexical_coverage": 0.0,
+      "top_similarity": 0.37427,
+      "vector_margin": 0.010272,
+      "bm25_margin": 1.0,
+      "top_agreement": 0.0,
+      "overlap_at_3": 0.0,
+      "has_bm25": 1.0,
+      "has_vector": 1.0
+    },
+    "evidence_score": 0.5884081784884898,
+    "topics": [
+      "T51",
+      "T08",
+      "T57",
+      "T59",
+      "T36"
+    ],
+    "hit": true,
+    "vector_state": "ready",
+    "top_correct": false,
+    "risk_human": false,
+    "latency_ms": 38.61200000028475,
+    "fold": 1
+  },
+  {
+    "id": "N6",
+    "query": "想报名公司足球活动",
+    "expected_topics": [],
+    "kind": "insufficient",
+    "split": "calibration",
+    "group": "negative-6",
+    "features": {
+      "lexical_coverage": 0.0,
+      "top_similarity": 0.432247,
+      "vector_margin": 0.01452,
+      "bm25_margin": 1.0,
+      "top_agreement": 0.0,
+      "overlap_at_3": 0.0,
+      "has_bm25": 1.0,
+      "has_vector": 1.0
+    },
+    "evidence_score": 0.6112940048575513,
+    "topics": [
+      "T39",
+      "T48",
+      "T57",
+      "T47",
+      "T53"
+    ],
+    "hit": true,
+    "vector_state": "ready",
+    "top_correct": false,
+    "risk_human": false,
+    "latency_ms": 39.012699999148026,
+    "fold": 4
+  },
+  {
+    "id": "N7",
+    "query": "帮我写一首生日诗",
+    "expected_topics": [],
+    "kind": "insufficient",
+    "split": "calibration",
+    "group": "negative-7",
+    "features": {
+      "lexical_coverage": 0.0,
+      "top_similarity": 0.34404,
+      "vector_margin": 0.097728,
+      "bm25_margin": 0.0,
+      "top_agreement": 0.0,
+      "overlap_at_3": 0.0,
+      "has_bm25": 0.0,
+      "has_vector": 1.0
+    },
+    "evidence_score": 0.3504597818571826,
+    "topics": [
+      "T17",
+      "T19",
+      "T14",
+      "T20",
+      "T16"
+    ],
+    "hit": true,
+    "vector_state": "ready",
+    "top_correct": false,
+    "risk_human": false,
+    "latency_ms": 35.13750000092841,
+    "fold": 4
+  },
+  {
+    "id": "N8",
+    "query": "推荐附近健身房",
+    "expected_topics": [],
+    "kind": "insufficient",
+    "split": "calibration",
+    "group": "negative-8",
+    "features": {
+      "lexical_coverage": 0.0,
+      "top_similarity": 0.330369,
+      "vector_margin": 0.022252,
+      "bm25_margin": 0.0,
+      "top_agreement": 0.0,
+      "overlap_at_3": 0.0,
+      "has_bm25": 0.0,
+      "has_vector": 1.0
+    },
+    "evidence_score": 0.29005151824866876,
+    "topics": [
+      "T11",
+      "T06",
+      "T35",
+      "T26",
+      "T16"
+    ],
+    "hit": true,
+    "vector_state": "ready",
+    "top_correct": false,
+    "risk_human": false,
+    "latency_ms": 37.15999999985797,
+    "fold": 2
+  },
+  {
+    "id": "N9",
+    "query": "怎么把面包烤得更松软",
+    "expected_topics": [],
+    "kind": "insufficient",
+    "split": "calibration",
+    "group": "negative-9",
+    "features": {
+      "lexical_coverage": 0.0,
+      "top_similarity": 0.334134,
+      "vector_margin": 0.024471,
+      "bm25_margin": 0.0,
+      "top_agreement": 0.0,
+      "overlap_at_3": 0.0,
+      "has_bm25": 0.0,
+      "has_vector": 1.0
+    },
+    "evidence_score": 0.33372367827566035,
+    "topics": [
+      "T11",
+      "T39",
+      "T08",
+      "T30",
+      "T38"
+    ],
+    "hit": true,
+    "vector_state": "ready",
+    "top_correct": false,
+    "risk_human": false,
+    "latency_ms": 35.43379999973695,
+    "fold": 1
+  },
+  {
+    "id": "T01-Q1",
+    "query": "我把公司账号的密码忘了怎么重设",
+    "expected_topics": [
+      "T01"
+    ],
+    "kind": "answerable",
+    "split": "calibration",
+    "group": "T01",
+    "features": {
+      "lexical_coverage": 0.4,
+      "top_similarity": 0.623022,
+      "vector_margin": 0.07868,
+      "bm25_margin": 0.394481,
+      "top_agreement": 0.0,
+      "overlap_at_3": 0.666667,
+      "has_bm25": 1.0,
+      "has_vector": 1.0
+    },
+    "evidence_score": 0.6807124909499896,
+    "topics": [
+      "T02"
+    ],
+    "hit": true,
+    "vector_state": "ready",
+    "top_correct": false,
+    "risk_human": false,
+    "latency_ms": 42.398099998536054,
+    "fold": 0
+  },
+  {
+    "id": "T01-Q2",
+    "query": "记不住登录口令了，自助重置在哪",
+    "expected_topics": [
+      "T01"
+    ],
+    "kind": "answerable",
+    "split": "calibration",
+    "group": "T01",
+    "features": {
+      "lexical_coverage": 0.6,
+      "top_similarity": 0.649049,
+      "vector_margin": 0.064287,
+      "bm25_margin": 0.593824,
+      "top_agreement": 1.0,
+      "overlap_at_3": 1.0,
+      "has_bm25": 1.0,
+      "has_vector": 1.0
+    },
+    "evidence_score": 0.914442957505585,
+    "topics": [
+      "T01"
+    ],
+    "hit": true,
+    "vector_state": "ready",
+    "top_correct": true,
+    "risk_human": false,
+    "latency_ms": 39.94559999955527,
+    "fold": 0
+  },
+  {
+    "id": "T03-Q1",
+    "query": "公司登录的短信验证码一直没来",
+    "expected_topics": [
+      "T03"
+    ],
+    "kind": "answerable",
+    "split": "calibration",
+    "group": "T03",
+    "features": {
+      "lexical_coverage": 0.6,
+      "top_similarity": 0.716507,
+      "vector_margin": 0.190708,
+      "bm25_margin": 0.726296,
+      "top_agreement": 1.0,
+      "overlap_at_3": 0.333333,
+      "has_bm25": 1.0,
+      "has_vector": 1.0
+    },
+    "evidence_score": 0.8882620476470727,
+    "topics": [
+      "T03"
+    ],
+    "hit": true,
+    "vector_state": "ready",
+    "top_correct": true,
+    "risk_human": false,
+    "latency_ms": 41.988900000433205,
+    "fold": 3
+  },
+  {
+    "id": "T03-Q2",
+    "query": "手机号没变但是验证码收不到",
+    "expected_topics": [
+      "T03"
+    ],
+    "kind": "answerable",
+    "split": "calibration",
+    "group": "T03",
+    "features": {
+      "lexical_coverage": 0.75,
+      "top_similarity": 0.737865,
+      "vector_margin": 0.151409,
+      "bm25_margin": 0.700829,
+      "top_agreement": 1.0,
+      "overlap_at_3": 0.333333,
+      "has_bm25": 1.0,
+      "has_vector": 1.0
+    },
+    "evidence_score": 0.8984603046308283,
+    "topics": [
+      "T03"
+    ],
+    "hit": true,
+    "vector_state": "ready",
+    "top_correct": true,
+    "risk_human": false,
+    "latency_ms": 40.94509999958973,
+    "fold": 3
+  },
+  {
+    "id": "T05-Q1",
+    "query": "vpn老提示认证失败，密码是对的",
+    "expected_topics": [
+      "T05"
+    ],
+    "kind": "answerable",
+    "split": "calibration",
+    "group": "T05",
+    "features": {
+      "lexical_coverage": 0.5,
+      "top_similarity": 0.699008,
+      "vector_margin": 0.04607,
+      "bm25_margin": 0.545935,
+      "top_agreement": 1.0,
+      "overlap_at_3": 0.666667,
+      "has_bm25": 1.0,
+      "has_vector": 1.0
+    },
+    "evidence_score": 0.8929144760554497,
+    "topics": [
+      "T05",
+      "T09",
+      "T01",
+      "T07"
+    ],
+    "hit": true,
+    "vector_state": "ready",
+    "top_correct": true,
+    "risk_human": false,
+    "latency_ms": 59.48710000120627,
+    "fold": 0
+  },
+  {
+    "id": "T05-Q2",
+    "query": "远程接入输完动态码还是认证失败",
+    "expected_topics": [
+      "T05"
+    ],
+    "kind": "answerable",
+    "split": "calibration",
+    "group": "T05",
+    "features": {
+      "lexical_coverage": 0.285714,
+      "top_similarity": 0.66578,
+      "vector_margin": 0.053479,
+      "bm25_margin": 0.213489,
+      "top_agreement": 1.0,
+      "overlap_at_3": 0.333333,
+      "has_bm25": 1.0,
+      "has_vector": 1.0
+    },
+    "evidence_score": 0.8465936224246117,
+    "topics": [
+      "T05",
+      "T04"
+    ],
+    "hit": true,
+    "vector_state": "ready",
+    "top_correct": true,
+    "risk_human": false,
+    "latency_ms": 52.18389999936335,
+    "fold": 0
+  },
+  {
+    "id": "T07-Q1",
+    "query": "vpn连好几分钟就掉线",
+    "expected_topics": [
+      "T07"
+    ],
+    "kind": "answerable",
+    "split": "calibration",
+    "group": "T07",
+    "features": {
+      "lexical_coverage": 0.5,
+      "top_similarity": 0.689918,
+      "vector_margin": 0.054837,
+      "bm25_margin": 0.372197,
+      "top_agreement": 1.0,
+      "overlap_at_3": 0.333333,
+      "has_bm25": 1.0,
+      "has_vector": 1.0
+    },
+    "evidence_score": 0.8895969317622621,
+    "topics": [
+      "T07",
+      "T06"
+    ],
+    "hit": true,
+    "vector_state": "ready",
+    "top_correct": true,
+    "risk_human": false,
+    "latency_ms": 49.266500000157976,
+    "fold": 4
+  },
+  {
+    "id": "T07-Q2",
+    "query": "远程办公VPN连接总自己断开",
+    "expected_topics": [
+      "T07"
+    ],
+    "kind": "answerable",
+    "split": "calibration",
+    "group": "T07",
+    "features": {
+      "lexical_coverage": 0.222222,
+      "top_similarity": 0.654679,
+      "vector_margin": 0.050321,
+      "bm25_margin": 0.15348,
+      "top_agreement": 0.0,
+      "overlap_at_3": 0.333333,
+      "has_bm25": 1.0,
+      "has_vector": 1.0
+    },
+    "evidence_score": 0.6662616087016203,
+    "topics": [
+      "T10",
+      "T07",
+      "T06",
+      "T08",
+      "T11"
+    ],
+    "hit": true,
+    "vector_state": "ready",
+    "top_correct": false,
+    "risk_human": true,
+    "latency_ms": 62.77989999944111,
+    "fold": 4
+  },
+  {
+    "id": "T09-Q1",
+    "query": "内网IP能打开但域名打不开",
+    "expected_topics": [
+      "T09"
+    ],
+    "kind": "answerable",
+    "split": "calibration",
+    "group": "T09",
+    "features": {
+      "lexical_coverage": 0.6,
+      "top_similarity": 0.75028,
+      "vector_margin": 0.145468,
+      "bm25_margin": 0.726702,
+      "top_agreement": 1.0,
+      "overlap_at_3": 0.333333,
+      "has_bm25": 1.0,
+      "has_vector": 1.0
+    },
+    "evidence_score": 0.9060414473941428,
+    "topics": [
+      "T09"
+    ],
+    "hit": true,
+    "vector_state": "ready",
+    "top_correct": true,
+    "risk_human": false,
+    "latency_ms": 43.75429999890912,
+    "fold": 4
+  },
+  {
+    "id": "T09-Q2",
+    "query": "公司的网址解析失败是DNS问题吗",
+    "expected_topics": [
+      "T09"
+    ],
+    "kind": "answerable",
+    "split": "calibration",
+    "group": "T09",
+    "features": {
+      "lexical_coverage": 0.5,
+      "top_similarity": 0.778,
+      "vector_margin": 0.092489,
+      "bm25_margin": 0.759604,
+      "top_agreement": 1.0,
+      "overlap_at_3": 0.666667,
+      "has_bm25": 1.0,
+      "has_vector": 1.0
+    },
+    "evidence_score": 0.9123121521719998,
+    "topics": [
+      "T09"
+    ],
+    "hit": true,
+    "vector_state": "ready",
+    "top_correct": true,
+    "risk_human": false,
+    "latency_ms": 48.05730000043695,
+    "fold": 4
+  },
+  {
+    "id": "T11-Q1",
+    "query": "办公室无线信号只有一格很卡",
+    "expected_topics": [
+      "T11"
+    ],
+    "kind": "answerable",
+    "split": "calibration",
+    "group": "T11",
+    "features": {
+      "lexical_coverage": 0.4,
+      "top_similarity": 0.655595,
+      "vector_margin": 0.057383,
+      "bm25_margin": 0.277985,
+      "top_agreement": 1.0,
+      "overlap_at_3": 0.666667,
+      "has_bm25": 1.0,
+      "has_vector": 1.0
+    },
+    "evidence_score": 0.8758862574013798,
+    "topics": [
+      "T11",
+      "T07"
+    ],
+    "hit": true,
+    "vector_state": "ready",
+    "top_correct": true,
+    "risk_human": false,
+    "latency_ms": 44.65549999986251,
+    "fold": 3
+  },
+  {
+    "id": "T11-Q2",
+    "query": "靠窗工位WiFi丢包严重",
+    "expected_topics": [
+      "T11"
+    ],
+    "kind": "answerable",
+    "split": "calibration",
+    "group": "T11",
+    "features": {
+      "lexical_coverage": 0.4,
+      "top_similarity": 0.517765,
+      "vector_margin": 0.002983,
+      "bm25_margin": 0.506903,
+      "top_agreement": 0.0,
+      "overlap_at_3": 0.333333,
+      "has_bm25": 1.0,
+      "has_vector": 1.0
+    },
+    "evidence_score": 0.6180812903423487,
+    "topics": [
+      "T11"
+    ],
+    "hit": true,
+    "vector_state": "ready",
+    "top_correct": true,
+    "risk_human": false,
+    "latency_ms": 44.36789999999746,
+    "fold": 3
+  },
+  {
+    "id": "T13-Q1",
+    "query": "客户说发了邮件但我一直收不到",
+    "expected_topics": [
+      "T13"
+    ],
+    "kind": "answerable",
+    "split": "calibration",
+    "group": "T13",
+    "features": {
+      "lexical_coverage": 0.6,
+      "top_similarity": 0.698299,
+      "vector_margin": 0.100308,
+      "bm25_margin": 0.636348,
+      "top_agreement": 1.0,
+      "overlap_at_3": 0.333333,
+      "has_bm25": 1.0,
+      "has_vector": 1.0
+    },
+    "evidence_score": 0.8891010892502385,
+    "topics": [
+      "T13"
+    ],
+    "hit": true,
+    "vector_state": "ready",
+    "top_correct": true,
+    "risk_human": false,
+    "latency_ms": 44.68319999978121,
+    "fold": 2
+  },
+  {
+    "id": "T13-Q2",
+    "query": "外部邮件不见了垃圾箱也没有",
+    "expected_topics": [
+      "T13"
+    ],
+    "kind": "answerable",
+    "split": "calibration",
+    "group": "T13",
+    "features": {
+      "lexical_coverage": 0.4,
+      "top_similarity": 0.670176,
+      "vector_margin": 0.046631,
+      "bm25_margin": 0.567016,
+      "top_agreement": 1.0,
+      "overlap_at_3": 0.333333,
+      "has_bm25": 1.0,
+      "has_vector": 1.0
+    },
+    "evidence_score": 0.868881873125079,
+    "topics": [
+      "T13"
+    ],
+    "hit": true,
+    "vector_state": "ready",
+    "top_correct": true,
+    "risk_human": false,
+    "latency_ms": 29.978300000948366,
+    "fold": 2
+  },
+  {
+    "id": "T15-Q1",
+    "query": "邮箱提示空间满了收不了新邮件",
+    "expected_topics": [
+      "T15"
+    ],
+    "kind": "answerable",
+    "split": "calibration",
+    "group": "T15",
+    "features": {
+      "lexical_coverage": 0.2,
+      "top_similarity": 0.68738,
+      "vector_margin": 0.007758,
+      "bm25_margin": 0.053545,
+      "top_agreement": 1.0,
+      "overlap_at_3": 0.333333,
+      "has_bm25": 1.0,
+      "has_vector": 1.0
+    },
+    "evidence_score": 0.8717120201001687,
+    "topics": [
+      "T15",
+      "T13",
+      "T16",
+      "T18",
+      "T14"
+    ],
+    "hit": true,
+    "vector_state": "ready",
+    "top_correct": true,
+    "risk_human": true,
+    "latency_ms": 40.92399999899499,
+    "fold": 1
+  },
+  {
+    "id": "T15-Q2",
+    "query": "企业邮箱容量超限要怎么处理",
+    "expected_topics": [
+      "T15"
+    ],
+    "kind": "answerable",
+    "split": "calibration",
+    "group": "T15",
+    "features": {
+      "lexical_coverage": 0.6,
+      "top_similarity": 0.782729,
+      "vector_margin": 0.099811,
+      "bm25_margin": 1.0,
+      "top_agreement": 1.0,
+      "overlap_at_3": 0.333333,
+      "has_bm25": 1.0,
+      "has_vector": 1.0
+    },
+    "evidence_score": 0.9164726886845924,
+    "topics": [
+      "T15"
+    ],
+    "hit": true,
+    "vector_state": "ready",
+    "top_correct": true,
+    "risk_human": true,
+    "latency_ms": 53.02250000022468,
+    "fold": 1
+  },
+  {
+    "id": "T17-Q1",
+    "query": "别人邀我开会但日历里没有",
+    "expected_topics": [
+      "T17"
+    ],
+    "kind": "answerable",
+    "split": "calibration",
+    "group": "T17",
+    "features": {
+      "lexical_coverage": 0.25,
+      "top_similarity": 0.666084,
+      "vector_margin": 0.240429,
+      "bm25_margin": 0.477569,
+      "top_agreement": 1.0,
+      "overlap_at_3": 0.666667,
+      "has_bm25": 1.0,
+      "has_vector": 1.0
+    },
+    "evidence_score": 0.8881984153231531,
+    "topics": [
+      "T17",
+      "T35",
+      "T44",
+      "T09",
+      "T58"
+    ],
+    "hit": true,
+    "vector_state": "ready",
+    "top_correct": true,
+    "risk_human": false,
+    "latency_ms": 41.202399999747286,
+    "fold": 4
+  },
+  {
+    "id": "T17-Q2",
+    "query": "会议邀请收到了可是日程没显示",
+    "expected_topics": [
+      "T17"
+    ],
+    "kind": "answerable",
+    "split": "calibration",
+    "group": "T17",
+    "features": {
+      "lexical_coverage": 0.333333,
+      "top_similarity": 0.667866,
+      "vector_margin": 0.153673,
+      "bm25_margin": 0.526572,
+      "top_agreement": 1.0,
+      "overlap_at_3": 0.333333,
+      "has_bm25": 1.0,
+      "has_vector": 1.0
+    },
+    "evidence_score": 0.8803949603803299,
+    "topics": [
+      "T17"
+    ],
+    "hit": true,
+    "vector_state": "ready",
+    "top_correct": true,
+    "risk_human": false,
+    "latency_ms": 38.558000000193715,
+    "fold": 4
+  },
+  {
+    "id": "T19-Q1",
+    "query": "打印机有纸但一直报缺纸",
+    "expected_topics": [
+      "T19"
+    ],
+    "kind": "answerable",
+    "split": "calibration",
+    "group": "T19",
+    "features": {
+      "lexical_coverage": 0.5,
+      "top_similarity": 0.756212,
+      "vector_margin": 0.14607,
+      "bm25_margin": 0.472177,
+      "top_agreement": 1.0,
+      "overlap_at_3": 0.666667,
+      "has_bm25": 1.0,
+      "has_vector": 1.0
+    },
+    "evidence_score": 0.8931633626358298,
+    "topics": [
+      "T19"
+    ],
+    "hit": true,
+    "vector_state": "ready",
+    "top_correct": true,
+    "risk_human": false,
+    "latency_ms": 38.92919999998412,
+    "fold": 3
+  },
+  {
+    "id": "T19-Q2",
+    "query": "纸盒放满了机器却说没纸",
+    "expected_topics": [
+      "T19"
+    ],
+    "kind": "answerable",
+    "split": "calibration",
+    "group": "T19",
+    "features": {
+      "lexical_coverage": 0.2,
+      "top_similarity": 0.633227,
+      "vector_margin": 0.112312,
+      "bm25_margin": 1.0,
+      "top_agreement": 1.0,
+      "overlap_at_3": 0.333333,
+      "has_bm25": 1.0,
+      "has_vector": 1.0
+    },
+    "evidence_score": 0.8570304167249101,
+    "topics": [
+      "T19",
+      "T20",
+      "T15",
+      "T22",
+      "T13"
+    ],
+    "hit": true,
+    "vector_state": "ready",
+    "top_correct": true,
+    "risk_human": false,
+    "latency_ms": 33.2064000012906,
+    "fold": 3
+  },
+  {
+    "id": "T21-Q1",
+    "query": "打印机明明开着却显示脱机",
+    "expected_topics": [
+      "T21"
+    ],
+    "kind": "answerable",
+    "split": "calibration",
+    "group": "T21",
+    "features": {
+      "lexical_coverage": 0.6,
+      "top_similarity": 0.701866,
+      "vector_margin": 0.066724,
+      "bm25_margin": 0.466808,
+      "top_agreement": 1.0,
+      "overlap_at_3": 0.666667,
+      "has_bm25": 1.0,
+      "has_vector": 1.0
+    },
+    "evidence_score": 0.918900075594789,
+    "topics": [
+      "T21",
+      "T19"
+    ],
+    "hit": true,
+    "vector_state": "ready",
+    "top_correct": true,
+    "risk_human": false,
+    "latency_ms": 35.20779999962542,
+    "fold": 1
+  },
+  {
+    "id": "T21-Q2",
+    "query": "共享打印机总是离线状态",
+    "expected_topics": [
+      "T21"
+    ],
+    "kind": "answerable",
+    "split": "calibration",
+    "group": "T21",
+    "features": {
+      "lexical_coverage": 0.4,
+      "top_similarity": 0.617194,
+      "vector_margin": 0.012499,
+      "bm25_margin": 0.308358,
+      "top_agreement": 1.0,
+      "overlap_at_3": 0.333333,
+      "has_bm25": 1.0,
+      "has_vector": 1.0
+    },
+    "evidence_score": 0.8882528936361407,
+    "topics": [
+      "T21"
+    ],
+    "hit": true,
+    "vector_state": "ready",
+    "top_correct": true,
+    "risk_human": false,
+    "latency_ms": 44.44090000106371,
+    "fold": 1
+  },
+  {
+    "id": "T23-Q1",
+    "query": "打印机驱动装不上一直报错",
+    "expected_topics": [
+      "T23"
+    ],
+    "kind": "answerable",
+    "split": "calibration",
+    "group": "T23",
+    "features": {
+      "lexical_coverage": 0.4,
+      "top_similarity": 0.696728,
+      "vector_margin": 0.027907,
+      "bm25_margin": 0.257683,
+      "top_agreement": 1.0,
+      "overlap_at_3": 0.333333,
+      "has_bm25": 1.0,
+      "has_vector": 1.0
+    },
+    "evidence_score": 0.8602042259887571,
+    "topics": [
+      "T23"
+    ],
+    "hit": true,
+    "vector_state": "ready",
+    "top_correct": true,
+    "risk_human": false,
+    "latency_ms": 41.74029999921913,
+    "fold": 0
+  },
+  {
+    "id": "T23-Q2",
+    "query": "新电脑找不到合适的打印驱动",
+    "expected_topics": [
+      "T23"
+    ],
+    "kind": "answerable",
+    "split": "calibration",
+    "group": "T23",
+    "features": {
+      "lexical_coverage": 0.25,
+      "top_similarity": 0.702277,
+      "vector_margin": 0.102945,
+      "bm25_margin": 0.309531,
+      "top_agreement": 1.0,
+      "overlap_at_3": 0.333333,
+      "has_bm25": 1.0,
+      "has_vector": 1.0
+    },
+    "evidence_score": 0.8475690965906332,
+    "topics": [
+      "T23",
+      "T19",
+      "T22",
+      "T25",
+      "T21"
+    ],
+    "hit": true,
+    "vector_state": "ready",
+    "top_correct": true,
+    "risk_human": false,
+    "latency_ms": 39.74740000012389,
+    "fold": 0
+  },
+  {
+    "id": "T25-Q1",
+    "query": "电脑按开机按钮完全没反应",
+    "expected_topics": [
+      "T25"
+    ],
+    "kind": "answerable",
+    "split": "calibration",
+    "group": "T25",
+    "features": {
+      "lexical_coverage": 0.6,
+      "top_similarity": 0.746921,
+      "vector_margin": 0.148696,
+      "bm25_margin": 0.673048,
+      "top_agreement": 1.0,
+      "overlap_at_3": 0.333333,
+      "has_bm25": 1.0,
+      "has_vector": 1.0
+    },
+    "evidence_score": 0.8926678980232196,
+    "topics": [
+      "T25"
+    ],
+    "hit": true,
+    "vector_state": "ready",
+    "top_correct": true,
+    "risk_human": false,
+    "latency_ms": 40.461900000082096,
+    "fold": 2
+  },
+  {
+    "id": "T25-Q2",
+    "query": "笔记本插着电源也启动不了",
+    "expected_topics": [
+      "T25"
+    ],
+    "kind": "answerable",
+    "split": "calibration",
+    "group": "T25",
+    "features": {
+      "lexical_coverage": 0.25,
+      "top_similarity": 0.701628,
+      "vector_margin": 0.155314,
+      "bm25_margin": 0.193674,
+      "top_agreement": 0.0,
+      "overlap_at_3": 0.333333,
+      "has_bm25": 1.0,
+      "has_vector": 1.0
+    },
+    "evidence_score": 0.6052327813766368,
+    "topics": [
+      "T25",
+      "T10",
+      "T30",
+      "T08",
+      "T27"
+    ],
+    "hit": true,
+    "vector_state": "ready",
+    "top_correct": true,
+    "risk_human": false,
+    "latency_ms": 38.69990000021062,
+    "fold": 2
+  },
+  {
+    "id": "T27-Q1",
+    "query": "电脑最近特别慢内存很满",
+    "expected_topics": [
+      "T27"
+    ],
+    "kind": "answerable",
+    "split": "calibration",
+    "group": "T27",
+    "features": {
+      "lexical_coverage": 0.4,
+      "top_similarity": 0.693141,
+      "vector_margin": 0.117436,
+      "bm25_margin": 0.018683,
+      "top_agreement": 0.0,
+      "overlap_at_3": 0.333333,
+      "has_bm25": 1.0,
+      "has_vector": 1.0
+    },
+    "evidence_score": 0.6373657936682267,
+    "topics": [
+      "T27",
+      "T24"
+    ],
+    "hit": true,
+    "vector_state": "ready",
+    "top_correct": true,
+    "risk_human": false,
+    "latency_ms": 40.210699999079225,
+    "fold": 0
+  },
+  {
+    "id": "T27-Q2",
+    "query": "打开几个办公程序就卡顿",
+    "expected_topics": [
+      "T27"
+    ],
+    "kind": "answerable",
+    "split": "calibration",
+    "group": "T27",
+    "features": {
+      "lexical_coverage": 0.4,
+      "top_similarity": 0.607696,
+      "vector_margin": 0.040241,
+      "bm25_margin": 0.526904,
+      "top_agreement": 1.0,
+      "overlap_at_3": 0.666667,
+      "has_bm25": 1.0,
+      "has_vector": 1.0
+    },
+    "evidence_score": 0.8802285021246194,
+    "topics": [
+      "T27"
+    ],
+    "hit": true,
+    "vector_state": "ready",
+    "top_correct": true,
+    "risk_human": false,
+    "latency_ms": 40.082100000290666,
+    "fold": 0
+  },
+  {
+    "id": "T29-Q1",
+    "query": "外接屏幕一直闪烁很晃眼",
+    "expected_topics": [
+      "T29"
+    ],
+    "kind": "answerable",
+    "split": "calibration",
+    "group": "T29",
+    "features": {
+      "lexical_coverage": 0.4,
+      "top_similarity": 0.641649,
+      "vector_margin": 0.081912,
+      "bm25_margin": 0.664524,
+      "top_agreement": 1.0,
+      "overlap_at_3": 0.333333,
+      "has_bm25": 1.0,
+      "has_vector": 1.0
+    },
+    "evidence_score": 0.8711550057103137,
+    "topics": [
+      "T29"
+    ],
+    "hit": true,
+    "vector_state": "ready",
+    "top_correct": true,
+    "risk_human": false,
+    "latency_ms": 43.029100001149345,
+    "fold": 2
+  },
+  {
+    "id": "T29-Q2",
+    "query": "显示器花屏换接口能好吗",
+    "expected_topics": [
+      "T29"
+    ],
+    "kind": "answerable",
+    "split": "calibration",
+    "group": "T29",
+    "features": {
+      "lexical_coverage": 0.333333,
+      "top_similarity": 0.609762,
+      "vector_margin": 0.029821,
+      "bm25_margin": 0.098923,
+      "top_agreement": 0.0,
+      "overlap_at_3": 0.666667,
+      "has_bm25": 1.0,
+      "has_vector": 1.0
+    },
+    "evidence_score": 0.6306265816072788,
+    "topics": [
+      "T29",
+      "T28",
+      "T30",
+      "T08",
+      "T04"
+    ],
+    "hit": true,
+    "vector_state": "ready",
+    "top_correct": true,
+    "risk_human": false,
+    "latency_ms": 38.429700000051525,
+    "fold": 2
+  },
+  {
+    "id": "T31-Q1",
+    "query": "键盘有几个键怎么按都没反应",
+    "expected_topics": [
+      "T31"
+    ],
+    "kind": "answerable",
+    "split": "calibration",
+    "group": "T31",
+    "features": {
+      "lexical_coverage": 0.5,
+      "top_similarity": 0.740391,
+      "vector_margin": 0.122008,
+      "bm25_margin": 0.677558,
+      "top_agreement": 1.0,
+      "overlap_at_3": 0.666667,
+      "has_bm25": 1.0,
+      "has_vector": 1.0
+    },
+    "evidence_score": 0.9174195583896173,
+    "topics": [
+      "T31"
+    ],
+    "hit": true,
+    "vector_state": "ready",
+    "top_correct": true,
+    "risk_human": false,
+    "latency_ms": 42.43299999870942,
+    "fold": 1
+  },
+  {
+    "id": "T31-Q2",
+    "query": "办公键盘突然打不了字",
+    "expected_topics": [
+      "T31"
+    ],
+    "kind": "answerable",
+    "split": "calibration",
+    "group": "T31",
+    "features": {
+      "lexical_coverage": 0.333333,
+      "top_similarity": 0.59282,
+      "vector_margin": 0.017105,
+      "bm25_margin": 0.188437,
+      "top_agreement": 1.0,
+      "overlap_at_3": 0.666667,
+      "has_bm25": 1.0,
+      "has_vector": 1.0
+    },
+    "evidence_score": 0.8952497094751393,
+    "topics": [
+      "T10"
+    ],
+    "hit": true,
+    "vector_state": "ready",
+    "top_correct": false,
+    "risk_human": false,
+    "latency_ms": 49.462899998616194,
+    "fold": 1
+  },
+  {
+    "id": "T33-Q1",
+    "query": "视频会议别人听不到我说话",
+    "expected_topics": [
+      "T33"
+    ],
+    "kind": "answerable",
+    "split": "calibration",
+    "group": "T33",
+    "features": {
+      "lexical_coverage": 0.5,
+      "top_similarity": 0.691168,
+      "vector_margin": 0.180723,
+      "bm25_margin": 1.0,
+      "top_agreement": 1.0,
+      "overlap_at_3": 0.333333,
+      "has_bm25": 1.0,
+      "has_vector": 1.0
+    },
+    "evidence_score": 0.882281257726768,
+    "topics": [
+      "T33"
+    ],
+    "hit": true,
+    "vector_state": "ready",
+    "top_correct": true,
+    "risk_human": false,
+    "latency_ms": 41.011600000274484,
+    "fold": 0
+  },
+  {
+    "id": "T33-Q2",
+    "query": "开会麦克风没声音录音也很小",
+    "expected_topics": [
+      "T33"
+    ],
+    "kind": "answerable",
+    "split": "calibration",
+    "group": "T33",
+    "features": {
+      "lexical_coverage": 0.6,
+      "top_similarity": 0.688628,
+      "vector_margin": 0.208994,
+      "bm25_margin": 1.0,
+      "top_agreement": 1.0,
+      "overlap_at_3": 0.333333,
+      "has_bm25": 1.0,
+      "has_vector": 1.0
+    },
+    "evidence_score": 0.8906970488667468,
+    "topics": [
+      "T33"
+    ],
+    "hit": true,
+    "vector_state": "ready",
+    "top_correct": true,
+    "risk_human": false,
+    "latency_ms": 44.88300000048184,
+    "fold": 0
+  },
+  {
+    "id": "T35-Q1",
+    "query": "会议室投影仪连电脑没画面",
+    "expected_topics": [
+      "T35"
+    ],
+    "kind": "answerable",
+    "split": "calibration",
+    "group": "T35",
+    "features": {
+      "lexical_coverage": 0.75,
+      "top_similarity": 0.781151,
+      "vector_margin": 0.202322,
+      "bm25_margin": 0.730423,
+      "top_agreement": 1.0,
+      "overlap_at_3": 0.666667,
+      "has_bm25": 1.0,
+      "has_vector": 1.0
+    },
+    "evidence_score": 0.916416667182869,
+    "topics": [
+      "T35"
+    ],
+    "hit": true,
+    "vector_state": "ready",
+    "top_correct": true,
+    "risk_human": false,
+    "latency_ms": 42.74780000014289,
+    "fold": 2
+  },
+  {
+    "id": "T35-Q2",
+    "query": "投影机提示没有输入信号",
+    "expected_topics": [
+      "T35"
+    ],
+    "kind": "answerable",
+    "split": "calibration",
+    "group": "T35",
+    "features": {
+      "lexical_coverage": 0.4,
+      "top_similarity": 0.60294,
+      "vector_margin": 0.053544,
+      "bm25_margin": 0.070246,
+      "top_agreement": 1.0,
+      "overlap_at_3": 0.333333,
+      "has_bm25": 1.0,
+      "has_vector": 1.0
+    },
+    "evidence_score": 0.8485023608364348,
+    "topics": [
+      "T35",
+      "T28"
+    ],
+    "hit": true,
+    "vector_state": "ready",
+    "top_correct": true,
+    "risk_human": false,
+    "latency_ms": 45.7235000012588,
+    "fold": 2
+  },
+  {
+    "id": "T37-Q1",
+    "query": "软件启动说缺少运行库",
+    "expected_topics": [
+      "T37"
+    ],
+    "kind": "answerable",
+    "split": "calibration",
+    "group": "T37",
+    "features": {
+      "lexical_coverage": 1.0,
+      "top_similarity": 0.763692,
+      "vector_margin": 0.133075,
+      "bm25_margin": 0.77384,
+      "top_agreement": 1.0,
+      "overlap_at_3": 0.333333,
+      "has_bm25": 1.0,
+      "has_vector": 1.0
+    },
+    "evidence_score": 0.9180022276250129,
+    "topics": [
+      "T37"
+    ],
+    "hit": true,
+    "vector_state": "ready",
+    "top_correct": true,
+    "risk_human": false,
+    "latency_ms": 45.12160000012955,
+    "fold": 0
+  },
+  {
+    "id": "T37-Q2",
+    "query": "打开工具提示DLL不存在",
+    "expected_topics": [
+      "T37"
+    ],
+    "kind": "answerable",
+    "split": "calibration",
+    "group": "T37",
+    "features": {
+      "lexical_coverage": 0.4,
+      "top_similarity": 0.616208,
+      "vector_margin": 0.001778,
+      "bm25_margin": 0.521223,
+      "top_agreement": 0.0,
+      "overlap_at_3": 0.0,
+      "has_bm25": 1.0,
+      "has_vector": 1.0
+    },
+    "evidence_score": 0.5978418335796122,
+    "topics": [
+      "T37"
+    ],
+    "hit": true,
+    "vector_state": "ready",
+    "top_correct": true,
+    "risk_human": false,
+    "latency_ms": 43.462300000101095,
+    "fold": 0
+  },
+  {
+    "id": "T39-Q1",
+    "query": "办公软件提示许可证过期",
+    "expected_topics": [
+      "T39"
+    ],
+    "kind": "answerable",
+    "split": "calibration",
+    "group": "T39",
+    "features": {
+      "lexical_coverage": 0.6,
+      "top_similarity": 0.745158,
+      "vector_margin": 0.100037,
+      "bm25_margin": 0.491538,
+      "top_agreement": 1.0,
+      "overlap_at_3": 0.666667,
+      "has_bm25": 1.0,
+      "has_vector": 1.0
+    },
+    "evidence_score": 0.8991443641133526,
+    "topics": [
+      "T39",
+      "T41",
+      "T36",
+      "T05"
+    ],
+    "hit": true,
+    "vector_state": "ready",
+    "top_correct": true,
+    "risk_human": false,
+    "latency_ms": 47.76540000057139,
+    "fold": 3
+  },
+  {
+    "id": "T39-Q2",
+    "query": "正版工具突然让我重新激活",
+    "expected_topics": [
+      "T39"
+    ],
+    "kind": "answerable",
+    "split": "calibration",
+    "group": "T39",
+    "features": {
+      "lexical_coverage": 0.4,
+      "top_similarity": 0.510423,
+      "vector_margin": 0.016058,
+      "bm25_margin": 0.422365,
+      "top_agreement": 0.0,
+      "overlap_at_3": 0.0,
+      "has_bm25": 1.0,
+      "has_vector": 1.0
+    },
+    "evidence_score": 0.5748874927581915,
+    "topics": [
+      "T39"
+    ],
+    "hit": true,
+    "vector_state": "ready",
+    "top_correct": true,
+    "risk_human": false,
+    "latency_ms": 43.01599999962491,
+    "fold": 3
+  },
+  {
+    "id": "T41-Q1",
+    "query": "访问公司网页显示证书不可信",
+    "expected_topics": [
+      "T41"
+    ],
+    "kind": "answerable",
+    "split": "calibration",
+    "group": "T41",
+    "features": {
+      "lexical_coverage": 0.333333,
+      "top_similarity": 0.712981,
+      "vector_margin": 0.083323,
+      "bm25_margin": 0.368327,
+      "top_agreement": 1.0,
+      "overlap_at_3": 0.333333,
+      "has_bm25": 1.0,
+      "has_vector": 1.0
+    },
+    "evidence_score": 0.8572841953728529,
+    "topics": [
+      "T41"
+    ],
+    "hit": true,
+    "vector_state": "ready",
+    "top_correct": true,
+    "risk_human": false,
+    "latency_ms": 44.73430000143708,
+    "fold": 0
+  },
+  {
+    "id": "T41-Q2",
+    "query": "浏览器说网站证书过期",
+    "expected_topics": [
+      "T41"
+    ],
+    "kind": "answerable",
+    "split": "calibration",
+    "group": "T41",
+    "features": {
+      "lexical_coverage": 0.75,
+      "top_similarity": 0.762979,
+      "vector_margin": 0.194049,
+      "bm25_margin": 0.628058,
+      "top_agreement": 1.0,
+      "overlap_at_3": 0.333333,
+      "has_bm25": 1.0,
+      "has_vector": 1.0
+    },
+    "evidence_score": 0.9004769774890894,
+    "topics": [
+      "T41"
+    ],
+    "hit": true,
+    "vector_state": "ready",
+    "top_correct": true,
+    "risk_human": false,
+    "latency_ms": 30.18540000084613,
+    "fold": 0
+  },
+  {
+    "id": "T43-Q1",
+    "query": "工作文档误删了回收站能恢复吗",
+    "expected_topics": [
+      "T43"
+    ],
+    "kind": "answerable",
+    "split": "calibration",
+    "group": "T43",
+    "features": {
+      "lexical_coverage": 0.6,
+      "top_similarity": 0.733701,
+      "vector_margin": 0.191033,
+      "bm25_margin": 0.720465,
+      "top_agreement": 1.0,
+      "overlap_at_3": 0.333333,
+      "has_bm25": 1.0,
+      "has_vector": 1.0
+    },
+    "evidence_score": 0.912388231233222,
+    "topics": [
+      "T43"
+    ],
+    "hit": true,
+    "vector_state": "ready",
+    "top_correct": true,
+    "risk_human": false,
+    "latency_ms": 26.835500000743195,
+    "fold": 1
+  },
+  {
+    "id": "T43-Q2",
+    "query": "昨天删掉的文件想找回来",
+    "expected_topics": [
+      "T43"
+    ],
+    "kind": "answerable",
+    "split": "calibration",
+    "group": "T43",
+    "features": {
+      "lexical_coverage": 0.25,
+      "top_similarity": 0.627318,
+      "vector_margin": 0.115556,
+      "bm25_margin": 0.072765,
+      "top_agreement": 0.0,
+      "overlap_at_3": 0.333333,
+      "has_bm25": 1.0,
+      "has_vector": 1.0
+    },
+    "evidence_score": 0.6575288281640437,
+    "topics": [
+      "T43",
+      "T13",
+      "T37",
+      "T42",
+      "T14"
+    ],
+    "hit": true,
+    "vector_state": "ready",
+    "top_correct": true,
+    "risk_human": false,
+    "latency_ms": 39.74720000041998,
+    "fold": 1
+  },
+  {
+    "id": "T45-Q1",
+    "query": "想申请某个代码仓库的只读访问",
+    "expected_topics": [
+      "T45"
+    ],
+    "kind": "answerable",
+    "split": "calibration",
+    "group": "T45",
+    "features": {
+      "lexical_coverage": 0.666667,
+      "top_similarity": 0.813645,
+      "vector_margin": 0.076157,
+      "bm25_margin": 0.575734,
+      "top_agreement": 1.0,
+      "overlap_at_3": 0.666667,
+      "has_bm25": 1.0,
+      "has_vector": 1.0
+    },
+    "evidence_score": 0.9266373257681209,
+    "topics": [
+      "T45",
+      "T46",
+      "T44",
+      "T47"
+    ],
+    "hit": true,
+    "vector_state": "ready",
+    "top_correct": true,
+    "risk_human": false,
+    "latency_ms": 39.60150000057183,
+    "fold": 1
+  },
+  {
+    "id": "T45-Q2",
+    "query": "看项目代码需要什么申请材料",
+    "expected_topics": [
+      "T45"
+    ],
+    "kind": "answerable",
+    "split": "calibration",
+    "group": "T45",
+    "features": {
+      "lexical_coverage": 0.2,
+      "top_similarity": 0.59871,
+      "vector_margin": 0.044355,
+      "bm25_margin": 0.343719,
+      "top_agreement": 1.0,
+      "overlap_at_3": 0.333333,
+      "has_bm25": 1.0,
+      "has_vector": 1.0
+    },
+    "evidence_score": 0.8732573789751973,
+    "topics": [
+      "T45",
+      "T47",
+      "T46",
+      "T60",
+      "T52"
+    ],
+    "hit": true,
+    "vector_state": "ready",
+    "top_correct": true,
+    "risk_human": false,
+    "latency_ms": 43.215399999098736,
+    "fold": 1
+  },
+  {
+    "id": "T47-Q1",
+    "query": "我想看部门报表需要开访问",
+    "expected_topics": [
+      "T47"
+    ],
+    "kind": "answerable",
+    "split": "calibration",
+    "group": "T47",
+    "features": {
+      "lexical_coverage": 0.5,
+      "top_similarity": 0.580527,
+      "vector_margin": 0.071609,
+      "bm25_margin": 0.395378,
+      "top_agreement": 1.0,
+      "overlap_at_3": 0.666667,
+      "has_bm25": 1.0,
+      "has_vector": 1.0
+    },
+    "evidence_score": 0.8859570309244461,
+    "topics": [
+      "T47"
+    ],
+    "hit": true,
+    "vector_state": "ready",
+    "top_correct": true,
+    "risk_human": false,
+    "latency_ms": 36.31120000136434,
+    "fold": 0
+  },
+  {
+    "id": "T47-Q2",
+    "query": "报表平台提示没有查看权限",
+    "expected_topics": [
+      "T47"
+    ],
+    "kind": "answerable",
+    "split": "calibration",
+    "group": "T47",
+    "features": {
+      "lexical_coverage": 0.5,
+      "top_similarity": 0.622714,
+      "vector_margin": 0.043617,
+      "bm25_margin": 0.478293,
+      "top_agreement": 1.0,
+      "overlap_at_3": 0.333333,
+      "has_bm25": 1.0,
+      "has_vector": 1.0
+    },
+    "evidence_score": 0.8693097476521339,
+    "topics": [
+      "T47",
+      "T38",
+      "T41",
+      "T55",
+      "T37"
+    ],
+    "hit": true,
+    "vector_state": "ready",
+    "top_correct": true,
+    "risk_human": true,
+    "latency_ms": 55.45690000144532,
+    "fold": 0
+  },
+  {
+    "id": "T49-Q1",
+    "query": "同事离职以后账号仍然能用",
+    "expected_topics": [
+      "T49"
+    ],
+    "kind": "answerable",
+    "split": "calibration",
+    "group": "T49",
+    "features": {
+      "lexical_coverage": 0.4,
+      "top_similarity": 0.613913,
+      "vector_margin": 0.092129,
+      "bm25_margin": 0.588669,
+      "top_agreement": 1.0,
+      "overlap_at_3": 0.333333,
+      "has_bm25": 1.0,
+      "has_vector": 1.0
+    },
+    "evidence_score": 0.8630381131892197,
+    "topics": [
+      "T49"
+    ],
+    "hit": true,
+    "vector_state": "ready",
+    "top_correct": true,
+    "risk_human": false,
+    "latency_ms": 37.18269999990298,
+    "fold": 3
+  },
+  {
+    "id": "T49-Q2",
+    "query": "离职人员系统权限还没回收",
+    "expected_topics": [
+      "T49"
+    ],
+    "kind": "answerable",
+    "split": "calibration",
+    "group": "T49",
+    "features": {
+      "lexical_coverage": 0.6,
+      "top_similarity": 0.688666,
+      "vector_margin": 0.09602,
+      "bm25_margin": 0.693243,
+      "top_agreement": 1.0,
+      "overlap_at_3": 0.333333,
+      "has_bm25": 1.0,
+      "has_vector": 1.0
+    },
+    "evidence_score": 0.8849779846358264,
+    "topics": [
+      "T49",
+      "T37"
+    ],
+    "hit": true,
+    "vector_state": "ready",
+    "top_correct": true,
+    "risk_human": true,
+    "latency_ms": 55.472800000643474,
+    "fold": 3
+  },
+  {
+    "id": "T51-Q1",
+    "query": "业务页面一直显示502",
+    "expected_topics": [
+      "T51"
+    ],
+    "kind": "answerable",
+    "split": "calibration",
+    "group": "T51",
+    "features": {
+      "lexical_coverage": 0.6,
+      "top_similarity": 0.748005,
+      "vector_margin": 0.216039,
+      "bm25_margin": 0.496615,
+      "top_agreement": 1.0,
+      "overlap_at_3": 0.333333,
+      "has_bm25": 1.0,
+      "has_vector": 1.0
+    },
+    "evidence_score": 0.8854608527609015,
+    "topics": [
+      "T51"
+    ],
+    "hit": true,
+    "vector_state": "ready",
+    "top_correct": true,
+    "risk_human": false,
+    "latency_ms": 45.351700000537676,
+    "fold": 3
+  },
+  {
+    "id": "T51-Q2",
+    "query": "系统打开就是网关错误怎么查",
+    "expected_topics": [
+      "T51"
+    ],
+    "kind": "answerable",
+    "split": "calibration",
+    "group": "T51",
+    "features": {
+      "lexical_coverage": 0.5,
+      "top_similarity": 0.689769,
+      "vector_margin": 0.05718,
+      "bm25_margin": 0.422099,
+      "top_agreement": 1.0,
+      "overlap_at_3": 0.333333,
+      "has_bm25": 1.0,
+      "has_vector": 1.0
+    },
+    "evidence_score": 0.8709437580012667,
+    "topics": [
+      "T51"
+    ],
+    "hit": true,
+    "vector_state": "ready",
+    "top_correct": true,
+    "risk_human": false,
+    "latency_ms": 38.499899999806075,
+    "fold": 3
+  },
+  {
+    "id": "T53-Q1",
+    "query": "订单堆着一直没有往下处理",
+    "expected_topics": [
+      "T53"
+    ],
+    "kind": "answerable",
+    "split": "calibration",
+    "group": "T53",
+    "features": {
+      "lexical_coverage": 0.5,
+      "top_similarity": 0.555378,
+      "vector_margin": 0.009698,
+      "bm25_margin": 0.415974,
+      "top_agreement": 1.0,
+      "overlap_at_3": 0.333333,
+      "has_bm25": 1.0,
+      "has_vector": 1.0
+    },
+    "evidence_score": 0.8666839364081894,
+    "topics": [
+      "T53",
+      "T22"
+    ],
+    "hit": true,
+    "vector_state": "ready",
+    "top_correct": true,
+    "risk_human": true,
+    "latency_ms": 48.0952999987494,
+    "fold": 2
+  },
+  {
+    "id": "T53-Q2",
+    "query": "订单状态停住了是不是队列堵了",
+    "expected_topics": [
+      "T53"
+    ],
+    "kind": "answerable",
+    "split": "calibration",
+    "group": "T53",
+    "features": {
+      "lexical_coverage": 0.6,
+      "top_similarity": 0.634394,
+      "vector_margin": 0.031606,
+      "bm25_margin": 0.651821,
+      "top_agreement": 1.0,
+      "overlap_at_3": 0.666667,
+      "has_bm25": 1.0,
+      "has_vector": 1.0
+    },
+    "evidence_score": 0.898039325683838,
+    "topics": [
+      "T53"
+    ],
+    "hit": true,
+    "vector_state": "ready",
+    "top_correct": true,
+    "risk_human": true,
+    "latency_ms": 43.79929999959131,
+    "fold": 2
+  },
+  {
+    "id": "T55-Q1",
+    "query": "报表昨天的数据今天还没更新",
+    "expected_topics": [
+      "T55"
+    ],
+    "kind": "answerable",
+    "split": "calibration",
+    "group": "T55",
+    "features": {
+      "lexical_coverage": 0.6,
+      "top_similarity": 0.59626,
+      "vector_margin": 0.101713,
+      "bm25_margin": 0.255014,
+      "top_agreement": 1.0,
+      "overlap_at_3": 0.333333,
+      "has_bm25": 1.0,
+      "has_vector": 1.0
+    },
+    "evidence_score": 0.8746191254424124,
+    "topics": [
+      "T55",
+      "T56",
+      "T47"
+    ],
+    "hit": true,
+    "vector_state": "ready",
+    "top_correct": true,
+    "risk_human": false,
+    "latency_ms": 43.326900000465685,
+    "fold": 0
+  },
+  {
+    "id": "T55-Q2",
+    "query": "报表统计延迟了几个小时",
+    "expected_topics": [
+      "T55"
+    ],
+    "kind": "answerable",
+    "split": "calibration",
+    "group": "T55",
+    "features": {
+      "lexical_coverage": 0.6,
+      "top_similarity": 0.723895,
+      "vector_margin": 0.175235,
+      "bm25_margin": 0.657378,
+      "top_agreement": 1.0,
+      "overlap_at_3": 0.666667,
+      "has_bm25": 1.0,
+      "has_vector": 1.0
+    },
+    "evidence_score": 0.9043077632708888,
+    "topics": [
+      "T55"
+    ],
+    "hit": true,
+    "vector_state": "ready",
+    "top_correct": true,
+    "risk_human": false,
+    "latency_ms": 43.662800000674906,
+    "fold": 0
+  },
+  {
+    "id": "T57-Q1",
+    "query": "收到冒充同事让我输入密码的邮件",
+    "expected_topics": [
+      "T57"
+    ],
+    "kind": "answerable",
+    "split": "calibration",
+    "group": "T57",
+    "features": {
+      "lexical_coverage": 0.666667,
+      "top_similarity": 0.617435,
+      "vector_margin": 0.07801,
+      "bm25_margin": 0.544511,
+      "top_agreement": 1.0,
+      "overlap_at_3": 1.0,
+      "has_bm25": 1.0,
+      "has_vector": 1.0
+    },
+    "evidence_score": 0.9125915922860458,
+    "topics": [
+      "T57",
+      "T14"
+    ],
+    "hit": true,
+    "vector_state": "ready",
+    "top_correct": true,
+    "risk_human": false,
+    "latency_ms": 49.03740000008838,
+    "fold": 3
+  },
+  {
+    "id": "T57-Q2",
+    "query": "邮件链接很可疑要怎么上报",
+    "expected_topics": [
+      "T57"
+    ],
+    "kind": "answerable",
+    "split": "calibration",
+    "group": "T57",
+    "features": {
+      "lexical_coverage": 0.8,
+      "top_similarity": 0.644515,
+      "vector_margin": 0.024261,
+      "bm25_margin": 0.68547,
+      "top_agreement": 1.0,
+      "overlap_at_3": 0.666667,
+      "has_bm25": 1.0,
+      "has_vector": 1.0
+    },
+    "evidence_score": 0.9099950537814041,
+    "topics": [
+      "T57"
+    ],
+    "hit": true,
+    "vector_state": "ready",
+    "top_correct": true,
+    "risk_human": false,
+    "latency_ms": 45.013299999482115,
+    "fold": 3
+  },
+  {
+    "id": "T59-Q1",
+    "query": "电脑一直弹恶意软件告警",
+    "expected_topics": [
+      "T59"
+    ],
+    "kind": "answerable",
+    "split": "calibration",
+    "group": "T59",
+    "features": {
+      "lexical_coverage": 0.5,
+      "top_similarity": 0.717684,
+      "vector_margin": 0.140268,
+      "bm25_margin": 0.339613,
+      "top_agreement": 1.0,
+      "overlap_at_3": 0.333333,
+      "has_bm25": 1.0,
+      "has_vector": 1.0
+    },
+    "evidence_score": 0.873712923500734,
+    "topics": [
+      "T59"
+    ],
+    "hit": true,
+    "vector_state": "ready",
+    "top_correct": true,
+    "risk_human": false,
+    "latency_ms": 41.635699999460485,
+    "fold": 2
+  },
+  {
+    "id": "T59-Q2",
+    "query": "杀毒工具发现可疑程序要怎么办",
+    "expected_topics": [
+      "T59"
+    ],
+    "kind": "answerable",
+    "split": "calibration",
+    "group": "T59",
+    "features": {
+      "lexical_coverage": 0.166667,
+      "top_similarity": 0.670734,
+      "vector_margin": 0.11589,
+      "bm25_margin": 0.270316,
+      "top_agreement": 1.0,
+      "overlap_at_3": 0.333333,
+      "has_bm25": 1.0,
+      "has_vector": 1.0
+    },
+    "evidence_score": 0.8372408940712291,
+    "topics": [
+      "T59",
+      "T36",
+      "T09",
+      "T25",
+      "T57"
+    ],
+    "hit": true,
+    "vector_state": "ready",
+    "top_correct": true,
+    "risk_human": false,
+    "latency_ms": 47.59809999995923,
+    "fold": 2
+  }
+]

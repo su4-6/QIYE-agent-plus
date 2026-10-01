@@ -1,0 +1,62 @@
+{
+  "reviewer": "Codex AI query/source review; no human inter-rater validation",
+  "probe_raw_sha256": "fc352fb191e35dc86120590f49a1a97287848ffe16a40184d81ca6659373b7fd",
+  "summary": {
+    "supported_core": 6,
+    "overbroad_source": 2,
+    "wrong_scenario": 1,
+    "abstained": 1
+  },
+  "rows": [
+    {
+      "case_id": "T02-Q2",
+      "verdict": "abstained",
+      "note": "问题询问等待是否恢复，资料未给出可保证的恢复时长；返回空列表，未新增企业时间规则。"
+    },
+    {
+      "case_id": "T12-Q2",
+      "verdict": "supported_core",
+      "note": "网口灯不亮与有线故障资料相符，步骤来自该资料。"
+    },
+    {
+      "case_id": "T26-Q1",
+      "verdict": "overbroad_source",
+      "note": "磁盘清理步骤匹配，另外选择安装失败资料；无法打开软件不等于安装失败。"
+    },
+    {
+      "case_id": "T28-Q2",
+      "verdict": "wrong_scenario",
+      "note": "问题是外接显示器，所选为投影仪资料，来源原句也不保证场景匹配。"
+    },
+    {
+      "case_id": "T34-Q1",
+      "verdict": "supported_core",
+      "note": "摄像头许可、占用和物理遮挡均来自对应资料；问题未限制只读操作。"
+    },
+    {
+      "case_id": "NEW-01",
+      "verdict": "overbroad_source",
+      "note": "账号锁定步骤匹配，另引入未明确发生的办公WiFi故障处理。"
+    },
+    {
+      "case_id": "NEW-09",
+      "verdict": "supported_core",
+      "note": "无线认证错误与证书、配置检查资料匹配。"
+    },
+    {
+      "case_id": "NEW-17",
+      "verdict": "supported_core",
+      "note": "网页版正常而客户端未同步，选择同步排查资料相符。"
+    },
+    {
+      "case_id": "NEW-25",
+      "verdict": "supported_core",
+      "note": "批准清理与文件保留规则都来自磁盘不足资料。"
+    },
+    {
+      "case_id": "NEW-33",
+      "verdict": "supported_core",
+      "note": "镜头占用及隐私许可与摄像头资料对应。"
+    }
+  ]
+}

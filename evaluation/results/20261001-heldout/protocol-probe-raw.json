@@ -1,0 +1,1075 @@
+[
+  {
+    "case_id": "T02-Q2",
+    "query": "登录提示账户锁定，等一会儿能恢复吗",
+    "expected_topics": [
+      "T02"
+    ],
+    "answer": null,
+    "citation_ids": [],
+    "selected_topics": [],
+    "source_topic_valid": false,
+    "evidence": [
+      {
+        "id": 5,
+        "document_id": 5,
+        "tenant_id": "demo",
+        "title": "模拟SOP T05 VPN认证失败",
+        "content": "T05 VPN认证失败\n适用场景：VPN客户端提示认证失败。处理流程：确认账号状态与MFA；核对VPN服务地址；清理过期凭证后重新登录；记录认证错误码。边界：本资料为模拟操作规程；实际操作需遵循所在企业授权，生产、敏感数据及权限变更转人工确认。",
+        "heading_path": "T05 VPN认证失败",
+        "chunk_key": "4b8d7d1d3a4d9396c600c70a",
+        "version": 1,
+        "score": 0.015625,
+        "channels": [
+          "vector"
+        ],
+        "similarity": 0.5634607970714569,
+        "matched_terms": 2
+      }
+    ],
+    "called": true,
+    "latency_ms": 2051.2670000007347,
+    "structured": true,
+    "citations_valid": false,
+    "usage": {
+      "completion_tokens": 8,
+      "prompt_tokens": 455,
+      "total_tokens": 463,
+      "completion_tokens_details": {
+        "accepted_prediction_tokens": null,
+        "audio_tokens": null,
+        "reasoning_tokens": 0,
+        "rejected_prediction_tokens": null
+      },
+      "prompt_tokens_details": {
+        "audio_tokens": null,
+        "cached_tokens": 0
+      }
+    },
+    "finish_reason": "stop",
+    "raw_output": "{\"selected_sentence_ids\": []}",
+    "answer_validation": {
+      "method": "source_selection_v2",
+      "passed": false,
+      "reason": "invalid_selector",
+      "sentences": []
+    }
+  },
+  {
+    "case_id": "T12-Q2",
+    "query": "电脑有线网口灯不亮怎么查",
+    "expected_topics": [
+      "T12"
+    ],
+    "answer": "适用场景：有线网卡提示网线未连接。\n处理流程：检查网线卡扣和插口指示灯；更换合规网线做交叉验证；确认网卡已启用；记录网口编号。",
+    "citation_ids": [
+      12
+    ],
+    "selected_topics": [
+      "T12"
+    ],
+    "source_topic_valid": true,
+    "evidence": [
+      {
+        "id": 12,
+        "document_id": 12,
+        "tenant_id": "demo",
+        "title": "模拟SOP T12 网线连接异常",
+        "content": "T12 网线连接异常\n适用场景：有线网卡提示网线未连接。处理流程：检查网线卡扣和插口指示灯；更换合规网线做交叉验证；确认网卡已启用；记录网口编号。边界：本资料为模拟操作规程；实际操作需遵循所在企业授权，生产、敏感数据及权限变更转人工确认。",
+        "heading_path": "T12 网线连接异常",
+        "chunk_key": "68e253fda5fc934473e3eafd",
+        "version": 1,
+        "score": 0.01639344262295082,
+        "channels": [
+          "vector"
+        ],
+        "similarity": 0.6811022162437439,
+        "matched_terms": 0
+      },
+      {
+        "id": 25,
+        "document_id": 25,
+        "tenant_id": "demo",
+        "title": "模拟SOP T25 电脑无法开机",
+        "content": "T25 电脑无法开机\n适用场景：电脑按电源键没有反应。处理流程：检查电源线与适配器；确认插座可用；观察指示灯；按设备官方指南检查并提交资产编号。边界：本资料为模拟操作规程；实际操作需遵循所在企业授权，生产、敏感数据及权限变更转人工确认。",
+        "heading_path": "T25 电脑无法开机",
+        "chunk_key": "ad0b4076c8585cefc49ce167",
+        "version": 1,
+        "score": 0.016129032258064516,
+        "channels": [
+          "vector"
+        ],
+        "similarity": 0.5960031747817993,
+        "matched_terms": 1
+      },
+      {
+        "id": 10,
+        "document_id": 10,
+        "tenant_id": "demo",
+        "title": "模拟SOP T10 WiFi无法连接",
+        "content": "T10 WiFi无法连接\n适用场景：办公无线网络无法连接。处理流程：核对企业SSID；检查设备无线开关及认证证书；忘记旧配置后按官方指南连接；记录认证错误。边界：本资料为模拟操作规程；实际操作需遵循所在企业授权，生产、敏感数据及权限变更转人工确认。",
+        "heading_path": "T10 WiFi无法连接",
+        "chunk_key": "4a487d467414f526b76a7966",
+        "version": 1,
+        "score": 0.015873015873015872,
+        "channels": [
+          "vector"
+        ],
+        "similarity": 0.549591988325119,
+        "matched_terms": 0
+      },
+      {
+        "id": 9,
+        "document_id": 9,
+        "tenant_id": "demo",
+        "title": "模拟SOP T09 DNS解析失败",
+        "content": "T09 DNS解析失败\n适用场景：内网域名打不开但IP可访问。处理流程：检查DNS配置和VPN状态；记录域名及解析结果；对照批准的DNS服务；不要使用不明公共解析服务。边界：本资料为模拟操作规程；实际操作需遵循所在企业授权，生产、敏感数据及权限变更转人工确认。",
+        "heading_path": "T09 DNS解析失败",
+        "chunk_key": "00955558aeef8d4edabac3ba",
+        "version": 1,
+        "score": 0.015625,
+        "channels": [
+          "vector"
+        ],
+        "similarity": 0.5418758392333984,
+        "matched_terms": 0
+      }
+    ],
+    "called": true,
+    "latency_ms": 2299.196600000869,
+    "structured": true,
+    "citations_valid": true,
+    "usage": {
+      "completion_tokens": 19,
+      "prompt_tokens": 1256,
+      "total_tokens": 1275,
+      "completion_tokens_details": {
+        "accepted_prediction_tokens": null,
+        "audio_tokens": null,
+        "reasoning_tokens": 0,
+        "rejected_prediction_tokens": null
+      },
+      "prompt_tokens_details": {
+        "audio_tokens": null,
+        "cached_tokens": 0
+      }
+    },
+    "finish_reason": "stop",
+    "raw_output": "{\"selected_sentence_ids\": [\"12:1\", \"12:2\"]}",
+    "answer_validation": {
+      "method": "source_selection_v2",
+      "passed": true,
+      "reason": "rendered_from_source",
+      "sentences": [
+        {
+          "selector": "12:1",
+          "text": "适用场景：有线网卡提示网线未连接。",
+          "chunk_id": 12,
+          "version": 1,
+          "chunk_key": "68e253fda5fc934473e3eafd",
+          "title": "模拟SOP T12 网线连接异常"
+        },
+        {
+          "selector": "12:2",
+          "text": "处理流程：检查网线卡扣和插口指示灯；更换合规网线做交叉验证；确认网卡已启用；记录网口编号。",
+          "chunk_id": 12,
+          "version": 1,
+          "chunk_key": "68e253fda5fc934473e3eafd",
+          "title": "模拟SOP T12 网线连接异常"
+        }
+      ]
+    }
+  },
+  {
+    "case_id": "T26-Q1",
+    "query": "C盘满了软件都打不开",
+    "expected_topics": [
+      "T26"
+    ],
+    "answer": "适用场景：系统盘空间不足影响办公。\n处理流程：查看存储占用；清理批准的临时文件；按保留规则迁移个人工作文件；不要随意删除系统目录。\n适用场景：批准的办公软件安装报错。\n处理流程：确认系统版本与可用磁盘；使用企业门户安装包；收集错误码和安装日志；不要使用破解安装器。",
+    "citation_ids": [
+      26,
+      36
+    ],
+    "selected_topics": [
+      "T26",
+      "T36"
+    ],
+    "source_topic_valid": false,
+    "evidence": [
+      {
+        "id": 26,
+        "document_id": 26,
+        "tenant_id": "demo",
+        "title": "模拟SOP T26 磁盘空间不足",
+        "content": "T26 磁盘空间不足\n适用场景：系统盘空间不足影响办公。处理流程：查看存储占用；清理批准的临时文件；按保留规则迁移个人工作文件；不要随意删除系统目录。边界：本资料为模拟操作规程；实际操作需遵循所在企业授权，生产、敏感数据及权限变更转人工确认。",
+        "heading_path": "T26 磁盘空间不足",
+        "chunk_key": "f8dc4c68e037300dad893314",
+        "version": 1,
+        "score": 0.01639344262295082,
+        "channels": [
+          "vector"
+        ],
+        "similarity": 0.6612217128276825,
+        "matched_terms": 0
+      },
+      {
+        "id": 36,
+        "document_id": 36,
+        "tenant_id": "demo",
+        "title": "模拟SOP T36 软件安装失败",
+        "content": "T36 软件安装失败\n适用场景：批准的办公软件安装报错。处理流程：确认系统版本与可用磁盘；使用企业门户安装包；收集错误码和安装日志；不要使用破解安装器。边界：本资料为模拟操作规程；实际操作需遵循所在企业授权，生产、敏感数据及权限变更转人工确认。",
+        "heading_path": "T36 软件安装失败",
+        "chunk_key": "ee083276b24655119acc9ada",
+        "version": 1,
+        "score": 0.016129032258064516,
+        "channels": [
+          "vector"
+        ],
+        "similarity": 0.637092649936676,
+        "matched_terms": 1
+      },
+      {
+        "id": 25,
+        "document_id": 25,
+        "tenant_id": "demo",
+        "title": "模拟SOP T25 电脑无法开机",
+        "content": "T25 电脑无法开机\n适用场景：电脑按电源键没有反应。处理流程：检查电源线与适配器；确认插座可用；观察指示灯；按设备官方指南检查并提交资产编号。边界：本资料为模拟操作规程；实际操作需遵循所在企业授权，生产、敏感数据及权限变更转人工确认。",
+        "heading_path": "T25 电脑无法开机",
+        "chunk_key": "ad0b4076c8585cefc49ce167",
+        "version": 1,
+        "score": 0.015873015873015872,
+        "channels": [
+          "vector"
+        ],
+        "similarity": 0.6092156171798706,
+        "matched_terms": 0
+      },
+      {
+        "id": 37,
+        "document_id": 37,
+        "tenant_id": "demo",
+        "title": "模拟SOP T37 软件依赖缺失",
+        "content": "T37 软件依赖缺失\n适用场景：启动应用提示缺少运行库。处理流程：记录缺失组件名称；从批准的软件门户安装对应运行库；核对系统架构；不要从陌生网站下载DLL。边界：本资料为模拟操作规程；实际操作需遵循所在企业授权，生产、敏感数据及权限变更转人工确认。",
+        "heading_path": "T37 软件依赖缺失",
+        "chunk_key": "042001c34b1ad60c631b2a49",
+        "version": 1,
+        "score": 0.015625,
+        "channels": [
+          "vector"
+        ],
+        "similarity": 0.6071382761001587,
+        "matched_terms": 1
+      }
+    ],
+    "called": true,
+    "latency_ms": 993.7448999990011,
+    "structured": true,
+    "citations_valid": true,
+    "usage": {
+      "completion_tokens": 26,
+      "prompt_tokens": 1271,
+      "total_tokens": 1297,
+      "completion_tokens_details": {
+        "accepted_prediction_tokens": null,
+        "audio_tokens": null,
+        "reasoning_tokens": 0,
+        "rejected_prediction_tokens": null
+      },
+      "prompt_tokens_details": {
+        "audio_tokens": null,
+        "cached_tokens": 0
+      }
+    },
+    "finish_reason": "stop",
+    "raw_output": "{\"selected_sentence_ids\":[\"26:1\",\"26:2\",\"36:1\",\"36:2\"]}",
+    "answer_validation": {
+      "method": "source_selection_v2",
+      "passed": true,
+      "reason": "rendered_from_source",
+      "sentences": [
+        {
+          "selector": "26:1",
+          "text": "适用场景：系统盘空间不足影响办公。",
+          "chunk_id": 26,
+          "version": 1,
+          "chunk_key": "f8dc4c68e037300dad893314",
+          "title": "模拟SOP T26 磁盘空间不足"
+        },
+        {
+          "selector": "26:2",
+          "text": "处理流程：查看存储占用；清理批准的临时文件；按保留规则迁移个人工作文件；不要随意删除系统目录。",
+          "chunk_id": 26,
+          "version": 1,
+          "chunk_key": "f8dc4c68e037300dad893314",
+          "title": "模拟SOP T26 磁盘空间不足"
+        },
+        {
+          "selector": "36:1",
+          "text": "适用场景：批准的办公软件安装报错。",
+          "chunk_id": 36,
+          "version": 1,
+          "chunk_key": "ee083276b24655119acc9ada",
+          "title": "模拟SOP T36 软件安装失败"
+        },
+        {
+          "selector": "36:2",
+          "text": "处理流程：确认系统版本与可用磁盘；使用企业门户安装包；收集错误码和安装日志；不要使用破解安装器。",
+          "chunk_id": 36,
+          "version": 1,
+          "chunk_key": "ee083276b24655119acc9ada",
+          "title": "模拟SOP T36 软件安装失败"
+        }
+      ]
+    }
+  },
+  {
+    "case_id": "T28-Q2",
+    "query": "显示器接到笔记本后没有画面",
+    "expected_topics": [
+      "T28"
+    ],
+    "answer": "处理流程：确认投影电源与输入源；检查视频线；设置复制或扩展屏幕；对照会议室备用设备。",
+    "citation_ids": [
+      35
+    ],
+    "selected_topics": [
+      "T35"
+    ],
+    "source_topic_valid": false,
+    "evidence": [
+      {
+        "id": 35,
+        "document_id": 35,
+        "tenant_id": "demo",
+        "title": "模拟SOP T35 投影无画面",
+        "content": "T35 投影无画面\n适用场景：会议室投影仪没有画面。处理流程：确认投影电源与输入源；检查视频线；设置复制或扩展屏幕；对照会议室备用设备。边界：本资料为模拟操作规程；实际操作需遵循所在企业授权，生产、敏感数据及权限变更转人工确认。",
+        "heading_path": "T35 投影无画面",
+        "chunk_key": "3a5e705819737f645a69f3f9",
+        "version": 1,
+        "score": 0.015625,
+        "channels": [
+          "vector"
+        ],
+        "similarity": 0.5977100729942322,
+        "matched_terms": 2
+      }
+    ],
+    "called": true,
+    "latency_ms": 768.8603999995394,
+    "structured": true,
+    "citations_valid": true,
+    "usage": {
+      "completion_tokens": 11,
+      "prompt_tokens": 455,
+      "total_tokens": 466,
+      "completion_tokens_details": {
+        "accepted_prediction_tokens": null,
+        "audio_tokens": null,
+        "reasoning_tokens": 0,
+        "rejected_prediction_tokens": null
+      },
+      "prompt_tokens_details": {
+        "audio_tokens": null,
+        "cached_tokens": 0
+      }
+    },
+    "finish_reason": "stop",
+    "raw_output": "{\"selected_sentence_ids\":[\"35:2\"]}",
+    "answer_validation": {
+      "method": "source_selection_v2",
+      "passed": true,
+      "reason": "rendered_from_source",
+      "sentences": [
+        {
+          "selector": "35:2",
+          "text": "处理流程：确认投影电源与输入源；检查视频线；设置复制或扩展屏幕；对照会议室备用设备。",
+          "chunk_id": 35,
+          "version": 1,
+          "chunk_key": "3a5e705819737f645a69f3f9",
+          "title": "模拟SOP T35 投影无画面"
+        }
+      ]
+    }
+  },
+  {
+    "case_id": "T34-Q1",
+    "query": "开视频会议摄像头打不开",
+    "expected_topics": [
+      "T34"
+    ],
+    "answer": "适用场景：会议软件摄像头无法开启。\n处理流程：确认系统隐私权限；关闭占用摄像头的其他应用；核对选中的摄像头设备；检查物理遮挡。\n边界：本资料为模拟操作规程；实际操作需遵循所在企业授权，生产、敏感数据及权限变更转人工确认。",
+    "citation_ids": [
+      34
+    ],
+    "selected_topics": [
+      "T34"
+    ],
+    "source_topic_valid": true,
+    "evidence": [
+      {
+        "id": 34,
+        "document_id": 34,
+        "tenant_id": "demo",
+        "title": "模拟SOP T34 会议摄像头",
+        "content": "T34 会议摄像头\n适用场景：会议软件摄像头无法开启。处理流程：确认系统隐私权限；关闭占用摄像头的其他应用；核对选中的摄像头设备；检查物理遮挡。边界：本资料为模拟操作规程；实际操作需遵循所在企业授权，生产、敏感数据及权限变更转人工确认。",
+        "heading_path": "T34 会议摄像头",
+        "chunk_key": "bd5fa9c9fea58d5c7b53d734",
+        "version": 1,
+        "score": 0.01639344262295082,
+        "channels": [
+          "vector"
+        ],
+        "similarity": 0.718596339225769,
+        "matched_terms": 1
+      },
+      {
+        "id": 33,
+        "document_id": 33,
+        "tenant_id": "demo",
+        "title": "模拟SOP T33 会议麦克风",
+        "content": "T33 会议麦克风\n适用场景：视频会议对方听不到声音。处理流程：确认会议应用麦克风选择；检查系统隐私权限和静音；测试系统录音；对照备用耳机。边界：本资料为模拟操作规程；实际操作需遵循所在企业授权，生产、敏感数据及权限变更转人工确认。",
+        "heading_path": "T33 会议麦克风",
+        "chunk_key": "61afa2d424c2e050815d7afa",
+        "version": 1,
+        "score": 0.016129032258064516,
+        "channels": [
+          "vector"
+        ],
+        "similarity": 0.6134939789772034,
+        "matched_terms": 1
+      },
+      {
+        "id": 35,
+        "document_id": 35,
+        "tenant_id": "demo",
+        "title": "模拟SOP T35 投影无画面",
+        "content": "T35 投影无画面\n适用场景：会议室投影仪没有画面。处理流程：确认投影电源与输入源；检查视频线；设置复制或扩展屏幕；对照会议室备用设备。边界：本资料为模拟操作规程；实际操作需遵循所在企业授权，生产、敏感数据及权限变更转人工确认。",
+        "heading_path": "T35 投影无画面",
+        "chunk_key": "3a5e705819737f645a69f3f9",
+        "version": 1,
+        "score": 0.015873015873015872,
+        "channels": [
+          "vector"
+        ],
+        "similarity": 0.5632527768611908,
+        "matched_terms": 0
+      },
+      {
+        "id": 25,
+        "document_id": 25,
+        "tenant_id": "demo",
+        "title": "模拟SOP T25 电脑无法开机",
+        "content": "T25 电脑无法开机\n适用场景：电脑按电源键没有反应。处理流程：检查电源线与适配器；确认插座可用；观察指示灯；按设备官方指南检查并提交资产编号。边界：本资料为模拟操作规程；实际操作需遵循所在企业授权，生产、敏感数据及权限变更转人工确认。",
+        "heading_path": "T25 电脑无法开机",
+        "chunk_key": "ad0b4076c8585cefc49ce167",
+        "version": 1,
+        "score": 0.015625,
+        "channels": [
+          "vector"
+        ],
+        "similarity": 0.500710129737854,
+        "matched_terms": 0
+      }
+    ],
+    "called": true,
+    "latency_ms": 947.2992999999406,
+    "structured": true,
+    "citations_valid": true,
+    "usage": {
+      "completion_tokens": 21,
+      "prompt_tokens": 1241,
+      "total_tokens": 1262,
+      "completion_tokens_details": {
+        "accepted_prediction_tokens": null,
+        "audio_tokens": null,
+        "reasoning_tokens": 0,
+        "rejected_prediction_tokens": null
+      },
+      "prompt_tokens_details": {
+        "audio_tokens": null,
+        "cached_tokens": 0
+      }
+    },
+    "finish_reason": "stop",
+    "raw_output": "{\"selected_sentence_ids\":[\"34:1\",\"34:2\",\"34:3\"]}",
+    "answer_validation": {
+      "method": "source_selection_v2",
+      "passed": true,
+      "reason": "rendered_from_source",
+      "sentences": [
+        {
+          "selector": "34:1",
+          "text": "适用场景：会议软件摄像头无法开启。",
+          "chunk_id": 34,
+          "version": 1,
+          "chunk_key": "bd5fa9c9fea58d5c7b53d734",
+          "title": "模拟SOP T34 会议摄像头"
+        },
+        {
+          "selector": "34:2",
+          "text": "处理流程：确认系统隐私权限；关闭占用摄像头的其他应用；核对选中的摄像头设备；检查物理遮挡。",
+          "chunk_id": 34,
+          "version": 1,
+          "chunk_key": "bd5fa9c9fea58d5c7b53d734",
+          "title": "模拟SOP T34 会议摄像头"
+        },
+        {
+          "selector": "34:3",
+          "text": "边界：本资料为模拟操作规程；实际操作需遵循所在企业授权，生产、敏感数据及权限变更转人工确认。",
+          "chunk_id": 34,
+          "version": 1,
+          "chunk_key": "bd5fa9c9fea58d5c7b53d734",
+          "title": "模拟SOP T34 会议摄像头"
+        }
+      ]
+    }
+  },
+  {
+    "case_id": "NEW-01",
+    "query": "办公账号提示暂时停用，昨天手机还一直用旧密码自动连接，服务台一般怎么排查？",
+    "expected_topics": [
+      "T02"
+    ],
+    "answer": "适用场景：账号锁定，连续输错密码。\n处理流程：停止重复尝试；记录锁定时间；核验身份后按账号锁定规则等待或申请解锁；排查旧设备缓存密码。\n适用场景：办公无线网络无法连接。\n处理流程：核对企业SSID；检查设备无线开关及认证证书；忘记旧配置后按官方指南连接；记录认证错误。",
+    "citation_ids": [
+      2,
+      10
+    ],
+    "selected_topics": [
+      "T02",
+      "T10"
+    ],
+    "source_topic_valid": false,
+    "evidence": [
+      {
+        "id": 2,
+        "document_id": 2,
+        "tenant_id": "demo",
+        "title": "模拟SOP T02 账号锁定",
+        "content": "T02 账号锁定\n适用场景：账号锁定，连续输错密码。处理流程：停止重复尝试；记录锁定时间；核验身份后按账号锁定规则等待或申请解锁；排查旧设备缓存密码。边界：本资料为模拟操作规程；实际操作需遵循所在企业授权，生产、敏感数据及权限变更转人工确认。",
+        "heading_path": "T02 账号锁定",
+        "chunk_key": "33fa5ee1198d8f839f5ecf9b",
+        "version": 1,
+        "score": 0.016129032258064516,
+        "channels": [
+          "vector"
+        ],
+        "similarity": 0.5688591301441193,
+        "matched_terms": 2
+      },
+      {
+        "id": 10,
+        "document_id": 10,
+        "tenant_id": "demo",
+        "title": "模拟SOP T10 WiFi无法连接",
+        "content": "T10 WiFi无法连接\n适用场景：办公无线网络无法连接。处理流程：核对企业SSID；检查设备无线开关及认证证书；忘记旧配置后按官方指南连接；记录认证错误。边界：本资料为模拟操作规程；实际操作需遵循所在企业授权，生产、敏感数据及权限变更转人工确认。",
+        "heading_path": "T10 WiFi无法连接",
+        "chunk_key": "4a487d467414f526b76a7966",
+        "version": 1,
+        "score": 0.015873015873015872,
+        "channels": [
+          "vector"
+        ],
+        "similarity": 0.5187927484512329,
+        "matched_terms": 2
+      },
+      {
+        "id": 4,
+        "document_id": 4,
+        "tenant_id": "demo",
+        "title": "模拟SOP T04 MFA换手机",
+        "content": "T04 MFA换手机\n适用场景：更换手机后多因素认证动态口令失效。处理流程：确认设备时间自动同步；使用已保存的恢复码；恢复码不可用时走身份核验和重新绑定；不在聊天中传口令。边界：本资料为模拟操作规程；实际操作需遵循所在企业授权，生产、敏感数据及权限变更转人工确认。",
+        "heading_path": "T04 MFA换手机",
+        "chunk_key": "b2f3f0b5a5ae866bd6735f54",
+        "version": 1,
+        "score": 0.014925373134328358,
+        "channels": [
+          "vector"
+        ],
+        "similarity": 0.5105547308921814,
+        "matched_terms": 2
+      },
+      {
+        "id": 12,
+        "document_id": 12,
+        "tenant_id": "demo",
+        "title": "模拟SOP T12 网线连接异常",
+        "content": "T12 网线连接异常\n适用场景：有线网卡提示网线未连接。处理流程：检查网线卡扣和插口指示灯；更换合规网线做交叉验证；确认网卡已启用；记录网口编号。边界：本资料为模拟操作规程；实际操作需遵循所在企业授权，生产、敏感数据及权限变更转人工确认。",
+        "heading_path": "T12 网线连接异常",
+        "chunk_key": "68e253fda5fc934473e3eafd",
+        "version": 1,
+        "score": 0.014285714285714285,
+        "channels": [
+          "vector"
+        ],
+        "similarity": 0.4772844910621643,
+        "matched_terms": 2
+      }
+    ],
+    "called": true,
+    "latency_ms": 808.3867999994254,
+    "structured": true,
+    "citations_valid": true,
+    "usage": {
+      "completion_tokens": 24,
+      "prompt_tokens": 1306,
+      "total_tokens": 1330,
+      "completion_tokens_details": {
+        "accepted_prediction_tokens": null,
+        "audio_tokens": null,
+        "reasoning_tokens": 0,
+        "rejected_prediction_tokens": null
+      },
+      "prompt_tokens_details": {
+        "audio_tokens": null,
+        "cached_tokens": 0
+      }
+    },
+    "finish_reason": "stop",
+    "raw_output": "{\"selected_sentence_ids\":[\"2:1\",\"2:2\",\"10:1\",\"10:2\"]}",
+    "answer_validation": {
+      "method": "source_selection_v2",
+      "passed": true,
+      "reason": "rendered_from_source",
+      "sentences": [
+        {
+          "selector": "2:1",
+          "text": "适用场景：账号锁定，连续输错密码。",
+          "chunk_id": 2,
+          "version": 1,
+          "chunk_key": "33fa5ee1198d8f839f5ecf9b",
+          "title": "模拟SOP T02 账号锁定"
+        },
+        {
+          "selector": "2:2",
+          "text": "处理流程：停止重复尝试；记录锁定时间；核验身份后按账号锁定规则等待或申请解锁；排查旧设备缓存密码。",
+          "chunk_id": 2,
+          "version": 1,
+          "chunk_key": "33fa5ee1198d8f839f5ecf9b",
+          "title": "模拟SOP T02 账号锁定"
+        },
+        {
+          "selector": "10:1",
+          "text": "适用场景：办公无线网络无法连接。",
+          "chunk_id": 10,
+          "version": 1,
+          "chunk_key": "4a487d467414f526b76a7966",
+          "title": "模拟SOP T10 WiFi无法连接"
+        },
+        {
+          "selector": "10:2",
+          "text": "处理流程：核对企业SSID；检查设备无线开关及认证证书；忘记旧配置后按官方指南连接；记录认证错误。",
+          "chunk_id": 10,
+          "version": 1,
+          "chunk_key": "4a487d467414f526b76a7966",
+          "title": "模拟SOP T10 WiFi无法连接"
+        }
+      ]
+    }
+  },
+  {
+    "case_id": "NEW-09",
+    "query": "电脑有无线信号，却始终进不了公司的无线网络，认证一直失败，需要先核对什么？",
+    "expected_topics": [
+      "T10"
+    ],
+    "answer": "适用场景：办公无线网络无法连接。\n处理流程：核对企业SSID；检查设备无线开关及认证证书；忘记旧配置后按官方指南连接；记录认证错误。",
+    "citation_ids": [
+      10
+    ],
+    "selected_topics": [
+      "T10"
+    ],
+    "source_topic_valid": true,
+    "evidence": [
+      {
+        "id": 5,
+        "document_id": 5,
+        "tenant_id": "demo",
+        "title": "模拟SOP T05 VPN认证失败",
+        "content": "T05 VPN认证失败\n适用场景：VPN客户端提示认证失败。处理流程：确认账号状态与MFA；核对VPN服务地址；清理过期凭证后重新登录；记录认证错误码。边界：本资料为模拟操作规程；实际操作需遵循所在企业授权，生产、敏感数据及权限变更转人工确认。",
+        "heading_path": "T05 VPN认证失败",
+        "chunk_key": "4b8d7d1d3a4d9396c600c70a",
+        "version": 1,
+        "score": 0.01639344262295082,
+        "channels": [
+          "vector"
+        ],
+        "similarity": 0.606899619102478,
+        "matched_terms": 3
+      },
+      {
+        "id": 10,
+        "document_id": 10,
+        "tenant_id": "demo",
+        "title": "模拟SOP T10 WiFi无法连接",
+        "content": "T10 WiFi无法连接\n适用场景：办公无线网络无法连接。处理流程：核对企业SSID；检查设备无线开关及认证证书；忘记旧配置后按官方指南连接；记录认证错误。边界：本资料为模拟操作规程；实际操作需遵循所在企业授权，生产、敏感数据及权限变更转人工确认。",
+        "heading_path": "T10 WiFi无法连接",
+        "chunk_key": "4a487d467414f526b76a7966",
+        "version": 1,
+        "score": 0.016129032258064516,
+        "channels": [
+          "vector"
+        ],
+        "similarity": 0.606480062007904,
+        "matched_terms": 4
+      },
+      {
+        "id": 7,
+        "document_id": 7,
+        "tenant_id": "demo",
+        "title": "模拟SOP T07 VPN频繁断线",
+        "content": "T07 VPN频繁断线\n适用场景：VPN连接成功后频繁掉线。处理流程：查看无线信号与休眠设置；对照有线网络；核对客户端日志中的断线原因；提交时间点与版本。边界：本资料为模拟操作规程；实际操作需遵循所在企业授权，生产、敏感数据及权限变更转人工确认。",
+        "heading_path": "T07 VPN频繁断线",
+        "chunk_key": "7e55881dfc0c79e434eb6014",
+        "version": 1,
+        "score": 0.015625,
+        "channels": [
+          "vector"
+        ],
+        "similarity": 0.5721448659896851,
+        "matched_terms": 3
+      }
+    ],
+    "called": true,
+    "latency_ms": 890.6722000010632,
+    "structured": true,
+    "citations_valid": true,
+    "usage": {
+      "completion_tokens": 18,
+      "prompt_tokens": 1020,
+      "total_tokens": 1038,
+      "completion_tokens_details": {
+        "accepted_prediction_tokens": null,
+        "audio_tokens": null,
+        "reasoning_tokens": 0,
+        "rejected_prediction_tokens": null
+      },
+      "prompt_tokens_details": {
+        "audio_tokens": null,
+        "cached_tokens": 0
+      }
+    },
+    "finish_reason": "stop",
+    "raw_output": "{\"selected_sentence_ids\": [\"10:1\", \"10:2\"]}",
+    "answer_validation": {
+      "method": "source_selection_v2",
+      "passed": true,
+      "reason": "rendered_from_source",
+      "sentences": [
+        {
+          "selector": "10:1",
+          "text": "适用场景：办公无线网络无法连接。",
+          "chunk_id": 10,
+          "version": 1,
+          "chunk_key": "4a487d467414f526b76a7966",
+          "title": "模拟SOP T10 WiFi无法连接"
+        },
+        {
+          "selector": "10:2",
+          "text": "处理流程：核对企业SSID；检查设备无线开关及认证证书；忘记旧配置后按官方指南连接；记录认证错误。",
+          "chunk_id": 10,
+          "version": 1,
+          "chunk_key": "4a487d467414f526b76a7966",
+          "title": "模拟SOP T10 WiFi无法连接"
+        }
+      ]
+    }
+  },
+  {
+    "case_id": "NEW-17",
+    "query": "同一封新邮件在网页能看到，在桌面客户端一直没出现，该先核对离线开关还是账户设置？",
+    "expected_topics": [
+      "T18"
+    ],
+    "answer": "适用场景：邮件客户端不同步但网页版正常。\n处理流程：检查网络和客户端离线模式；核对账号配置；重启客户端后对照同步时间；保留日志。",
+    "citation_ids": [
+      18
+    ],
+    "selected_topics": [
+      "T18"
+    ],
+    "source_topic_valid": true,
+    "evidence": [
+      {
+        "id": 18,
+        "document_id": 18,
+        "tenant_id": "demo",
+        "title": "模拟SOP T18 邮箱客户端同步",
+        "content": "T18 邮箱客户端同步\n适用场景：邮件客户端不同步但网页版正常。处理流程：检查网络和客户端离线模式；核对账号配置；重启客户端后对照同步时间；保留日志。边界：本资料为模拟操作规程；实际操作需遵循所在企业授权，生产、敏感数据及权限变更转人工确认。",
+        "heading_path": "T18 邮箱客户端同步",
+        "chunk_key": "2967001b9c591e3343373cec",
+        "version": 1,
+        "score": 0.01639344262295082,
+        "channels": [
+          "vector"
+        ],
+        "similarity": 0.6415974795818329,
+        "matched_terms": 4
+      },
+      {
+        "id": 13,
+        "document_id": 13,
+        "tenant_id": "demo",
+        "title": "模拟SOP T13 邮件收不到",
+        "content": "T13 邮件收不到\n适用场景：外部客户邮件无法接收。处理流程：检查垃圾邮件和客户端过滤规则；核对发件地址及收件时间；让邮件管理员查询网关日志；不要直接放开全部外部邮件。边界：本资料为模拟操作规程；实际操作需遵循所在企业授权，生产、敏感数据及权限变更转人工确认。",
+        "heading_path": "T13 邮件收不到",
+        "chunk_key": "637aa5b1984902d1ac109c4e",
+        "version": 1,
+        "score": 0.015873015873015872,
+        "channels": [
+          "vector"
+        ],
+        "similarity": 0.5368288159370422,
+        "matched_terms": 2
+      }
+    ],
+    "called": true,
+    "latency_ms": 1148.5583000012412,
+    "structured": true,
+    "citations_valid": true,
+    "usage": {
+      "completion_tokens": 17,
+      "prompt_tokens": 777,
+      "total_tokens": 794,
+      "completion_tokens_details": {
+        "accepted_prediction_tokens": null,
+        "audio_tokens": null,
+        "reasoning_tokens": 0,
+        "rejected_prediction_tokens": null
+      },
+      "prompt_tokens_details": {
+        "audio_tokens": null,
+        "cached_tokens": 0
+      }
+    },
+    "finish_reason": "stop",
+    "raw_output": "{\"selected_sentence_ids\":[\"18:1\",\"18:2\"]}",
+    "answer_validation": {
+      "method": "source_selection_v2",
+      "passed": true,
+      "reason": "rendered_from_source",
+      "sentences": [
+        {
+          "selector": "18:1",
+          "text": "适用场景：邮件客户端不同步但网页版正常。",
+          "chunk_id": 18,
+          "version": 1,
+          "chunk_key": "2967001b9c591e3343373cec",
+          "title": "模拟SOP T18 邮箱客户端同步"
+        },
+        {
+          "selector": "18:2",
+          "text": "处理流程：检查网络和客户端离线模式；核对账号配置；重启客户端后对照同步时间；保留日志。",
+          "chunk_id": 18,
+          "version": 1,
+          "chunk_key": "2967001b9c591e3343373cec",
+          "title": "模拟SOP T18 邮箱客户端同步"
+        }
+      ]
+    }
+  },
+  {
+    "case_id": "NEW-25",
+    "query": "系统盘快满了，临时文件和个人工作文件都占地方，按规定可以从哪些内容开始清理？",
+    "expected_topics": [
+      "T26"
+    ],
+    "answer": "适用场景：系统盘空间不足影响办公。\n处理流程：查看存储占用；清理批准的临时文件；按保留规则迁移个人工作文件；不要随意删除系统目录。",
+    "citation_ids": [
+      26
+    ],
+    "selected_topics": [
+      "T26"
+    ],
+    "source_topic_valid": true,
+    "evidence": [
+      {
+        "id": 26,
+        "document_id": 26,
+        "tenant_id": "demo",
+        "title": "模拟SOP T26 磁盘空间不足",
+        "content": "T26 磁盘空间不足\n适用场景：系统盘空间不足影响办公。处理流程：查看存储占用；清理批准的临时文件；按保留规则迁移个人工作文件；不要随意删除系统目录。边界：本资料为模拟操作规程；实际操作需遵循所在企业授权，生产、敏感数据及权限变更转人工确认。",
+        "heading_path": "T26 磁盘空间不足",
+        "chunk_key": "f8dc4c68e037300dad893314",
+        "version": 1,
+        "score": 0.01639344262295082,
+        "channels": [
+          "vector"
+        ],
+        "similarity": 0.6476554870605469,
+        "matched_terms": 5
+      }
+    ],
+    "called": true,
+    "latency_ms": 798.2105999999476,
+    "structured": true,
+    "citations_valid": true,
+    "usage": {
+      "completion_tokens": 17,
+      "prompt_tokens": 480,
+      "total_tokens": 497,
+      "completion_tokens_details": {
+        "accepted_prediction_tokens": null,
+        "audio_tokens": null,
+        "reasoning_tokens": 0,
+        "rejected_prediction_tokens": null
+      },
+      "prompt_tokens_details": {
+        "audio_tokens": null,
+        "cached_tokens": 0
+      }
+    },
+    "finish_reason": "stop",
+    "raw_output": "{\"selected_sentence_ids\":[\"26:1\", \"26:2\"]}",
+    "answer_validation": {
+      "method": "source_selection_v2",
+      "passed": true,
+      "reason": "rendered_from_source",
+      "sentences": [
+        {
+          "selector": "26:1",
+          "text": "适用场景：系统盘空间不足影响办公。",
+          "chunk_id": 26,
+          "version": 1,
+          "chunk_key": "f8dc4c68e037300dad893314",
+          "title": "模拟SOP T26 磁盘空间不足"
+        },
+        {
+          "selector": "26:2",
+          "text": "处理流程：查看存储占用；清理批准的临时文件；按保留规则迁移个人工作文件；不要随意删除系统目录。",
+          "chunk_id": 26,
+          "version": 1,
+          "chunk_key": "f8dc4c68e037300dad893314",
+          "title": "模拟SOP T26 磁盘空间不足"
+        }
+      ]
+    }
+  },
+  {
+    "case_id": "NEW-33",
+    "query": "会议里一直打不开视频，其他程序可能占着镜头，我还需要核对系统隐私许可吗？",
+    "expected_topics": [
+      "T34"
+    ],
+    "answer": "处理流程：确认系统隐私权限；关闭占用摄像头的其他应用；核对选中的摄像头设备；检查物理遮挡。\n边界：本资料为模拟操作规程；实际操作需遵循所在企业授权，生产、敏感数据及权限变更转人工确认。",
+    "citation_ids": [
+      34
+    ],
+    "selected_topics": [
+      "T34"
+    ],
+    "source_topic_valid": true,
+    "evidence": [
+      {
+        "id": 34,
+        "document_id": 34,
+        "tenant_id": "demo",
+        "title": "模拟SOP T34 会议摄像头",
+        "content": "T34 会议摄像头\n适用场景：会议软件摄像头无法开启。处理流程：确认系统隐私权限；关闭占用摄像头的其他应用；核对选中的摄像头设备；检查物理遮挡。边界：本资料为模拟操作规程；实际操作需遵循所在企业授权，生产、敏感数据及权限变更转人工确认。",
+        "heading_path": "T34 会议摄像头",
+        "chunk_key": "bd5fa9c9fea58d5c7b53d734",
+        "version": 1,
+        "score": 0.01639344262295082,
+        "channels": [
+          "vector"
+        ],
+        "similarity": 0.6173442900180817,
+        "matched_terms": 5
+      },
+      {
+        "id": 33,
+        "document_id": 33,
+        "tenant_id": "demo",
+        "title": "模拟SOP T33 会议麦克风",
+        "content": "T33 会议麦克风\n适用场景：视频会议对方听不到声音。处理流程：确认会议应用麦克风选择；检查系统隐私权限和静音；测试系统录音；对照备用耳机。边界：本资料为模拟操作规程；实际操作需遵循所在企业授权，生产、敏感数据及权限变更转人工确认。",
+        "heading_path": "T33 会议麦克风",
+        "chunk_key": "61afa2d424c2e050815d7afa",
+        "version": 1,
+        "score": 0.016129032258064516,
+        "channels": [
+          "vector"
+        ],
+        "similarity": 0.525197297334671,
+        "matched_terms": 3
+      },
+      {
+        "id": 38,
+        "document_id": 38,
+        "tenant_id": "demo",
+        "title": "模拟SOP T38 软件版本不兼容",
+        "content": "T38 软件版本不兼容\n适用场景：应用提示系统版本不兼容。处理流程：核对支持的系统版本；使用企业批准的兼容版本；提交升级申请；保留错误截图。边界：本资料为模拟操作规程；实际操作需遵循所在企业授权，生产、敏感数据及权限变更转人工确认。",
+        "heading_path": "T38 软件版本不兼容",
+        "chunk_key": "ded5419d2561dd057cae6c2f",
+        "version": 1,
+        "score": 0.014925373134328358,
+        "channels": [
+          "vector"
+        ],
+        "similarity": 0.4729272127151489,
+        "matched_terms": 2
+      },
+      {
+        "id": 37,
+        "document_id": 37,
+        "tenant_id": "demo",
+        "title": "模拟SOP T37 软件依赖缺失",
+        "content": "T37 软件依赖缺失\n适用场景：启动应用提示缺少运行库。处理流程：记录缺失组件名称；从批准的软件门户安装对应运行库；核对系统架构；不要从陌生网站下载DLL。边界：本资料为模拟操作规程；实际操作需遵循所在企业授权，生产、敏感数据及权限变更转人工确认。",
+        "heading_path": "T37 软件依赖缺失",
+        "chunk_key": "042001c34b1ad60c631b2a49",
+        "version": 1,
+        "score": 0.014084507042253521,
+        "channels": [
+          "vector"
+        ],
+        "similarity": 0.46509838104248047,
+        "matched_terms": 2
+      }
+    ],
+    "called": true,
+    "latency_ms": 1221.88769999957,
+    "structured": true,
+    "citations_valid": true,
+    "usage": {
+      "completion_tokens": 16,
+      "prompt_tokens": 1281,
+      "total_tokens": 1297,
+      "completion_tokens_details": {
+        "accepted_prediction_tokens": null,
+        "audio_tokens": null,
+        "reasoning_tokens": 0,
+        "rejected_prediction_tokens": null
+      },
+      "prompt_tokens_details": {
+        "audio_tokens": null,
+        "cached_tokens": 0
+      }
+    },
+    "finish_reason": "stop",
+    "raw_output": "{\"selected_sentence_ids\":[\"34:2\",\"34:3\"]}",
+    "answer_validation": {
+      "method": "source_selection_v2",
+      "passed": true,
+      "reason": "rendered_from_source",
+      "sentences": [
+        {
+          "selector": "34:2",
+          "text": "处理流程：确认系统隐私权限；关闭占用摄像头的其他应用；核对选中的摄像头设备；检查物理遮挡。",
+          "chunk_id": 34,
+          "version": 1,
+          "chunk_key": "bd5fa9c9fea58d5c7b53d734",
+          "title": "模拟SOP T34 会议摄像头"
+        },
+        {
+          "selector": "34:3",
+          "text": "边界：本资料为模拟操作规程；实际操作需遵循所在企业授权，生产、敏感数据及权限变更转人工确认。",
+          "chunk_id": 34,
+          "version": 1,
+          "chunk_key": "bd5fa9c9fea58d5c7b53d734",
+          "title": "模拟SOP T34 会议摄像头"
+        }
+      ]
+    }
+  }
+]

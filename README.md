@@ -5,14 +5,14 @@
 ## 已实现能力
 
 - FastAPI API 与响应式中文演示页面。
-- LangGraph 编排“分诊 → 查询改写 → 检索 → 证据判断 → 生成与逐句来源对齐”。
+- LangGraph 编排“分诊 → 查询改写 → 检索 → 证据判断 → 句子ID选择与服务端答复组装”。
 - 默认使用 `sqlite-vec` BGE 中文向量召回，故障或关闭向量时降级至 SQLite FTS5 BM25；RRF 混合与业务重排保留为对照配置。
 - 版本化知识库，管理员可导入 TXT、Markdown 和文本 PDF。
 - 访客工单访问凭证、管理员签名会话、CSRF 校验、租户过滤、限流和 Turnstile。
 - 高风险、证据不足及评测发布保护触发时人工接管，审批状态使用条件更新防止重复处理。
 - 支持从 `MIMO_API_KEY` 自动接入 MiMo；模型失败或引用校验失败时转人工。
 - 工单、状态变化和审计日志同事务保存。
-- Docker/K3s 部署配置、41 项工程测试、60 段模拟语料和 180 条固定评测查询。
+- Docker/K3s 部署配置、45 项工程测试、60 段模拟语料和 180 条固定评测查询。
 
 ## 处理流程
 
@@ -24,12 +24,12 @@ FastAPI 接收工单
 → 默认 sqlite-vec 向量召回，失败时降级至 FTS5 BM25
 → 混合配置可选 RRF 合并、去重和轻量重排
 → 判断资料相关度
-→ 校准阈值与发布门槛通过后生成抽取式答复，校验引用与完整原句
+→ 校准阈值与发布门槛通过后模型选择句子ID，服务端校验引用并从原文组装答复
 → 高风险、证据不足或发布保护触发时转人工
 → SQLite 保存工单、答案、来源和审计记录
 ```
 
-架构图见 [docs/architecture.md](docs/architecture.md)，最新实测见 [反馈改造与复测报告](docs/review-followup-20261001.md)，可复制的简历描述见 [简历证据](docs/resume-evidence.md)。
+架构图见 [docs/architecture.md](docs/architecture.md)，最新实测见 [新预留集与协议实测](docs/new-heldout-20261001.md)，可复制的简历描述见 [简历证据](docs/resume-evidence.md)。
 
 默认向量模式已经单独校准阈值，但在原冻结测试集上未达到 95% 的放行精确率，自动建议发布保护默认开启。提交后会展示资料并等待人工审核；这是实际评测结果触发的保护。MiMo 已完成 30 次真实生成实验，原始答案与语义审查单独保存。
 
@@ -104,14 +104,24 @@ powershell -ExecutionPolicy Bypass -File .\scripts\evaluate-conda.ps1 -Performan
 powershell -ExecutionPolicy Bypass -File .\scripts\evaluate-conda.ps1 -LiveMimo -Performance
 ```
 
-最新复测保留 60 段模拟语料／180 问，另有30条独立知识外挑战（不用于校准）；主题分组校准与测试各90问。测试60条可回答查询的 Hit@3：旧关键词40%，BM25 85%，真实向量93.33%，混合86.67%。本地关闭LLM的300次HTTP工作流全部成功；41项工程测试通过。原测试集已有15条证据不足负例，向量阈值拒绝15/15；额外30条挑战仅拒绝24/30，人工审核保护仍开启。指标及限制见[复测报告](docs/review-followup-20261001.md)。
+历史180问按主题分组，校准与测试各90问；其中60条可回答测试查询的Hit@3为旧关键词40%、BM25 85%、纯向量93.33%、混合86.67%。这些方法使用同一语料与查询，分开报告，不能与新60题成绩混用。历史15条证据不足负例与30条额外挑战见[b8dcbf3复测快照](docs/review-followup-20261001.md)。
+
+当前45项工程测试通过。先前版本关闭LLM的300次HTTP工作流全部成功，本轮没有重跑压测。最新60题预留集与追加10次MiMo协议验证见[新报告](docs/new-heldout-20261001.md)，人工审核保护继续开启。
 
 评测数据库临时隔离，不改现有工单库。模型原始结果可用 `--reuse-generation` 复用，绝不发送LLM请求。历史六段／30问实验保留在[旧评测记录](docs/evaluation-results.md)，不能与新语料混用提升数字。
 
-工单新增 `evidence_score`、`handoff_reason` 和 `request_id`；`confidence` 仅保留兼容别名。评分不是正确概率。向量使用精确余弦扫描，当前未使用 ANN、Cross-Encoder或NLI；完整原句对齐会拒绝有支持的改写，不能证明句子与问题相关。首次升级前自动在线备份SQLite；限流桶按绝对过期时间清理。
+工单新增 `evidence_score`、`handoff_reason` 和 `request_id`；`confidence` 仅保留兼容别名。评分不是正确概率。向量使用精确余弦扫描，当前未使用 ANN、Cross-Encoder或NLI；模型只选择句子ID，服务端从原文组装答复，仍不能证明来源与问题相关。首次升级前自动在线备份SQLite；限流桶按绝对过期时间清理。
 
 ## 生产部署
 
 复制 `.env.example` 并填写生产配置。生产启动会强制检查管理员、会话和 Turnstile 配置。完整步骤见 [docs/deployment.md](docs/deployment.md)。
 
 安全提醒：旧 `.env` 曾被 Git 跟踪。部署前必须在服务商后台撤销旧模型密钥并创建新密钥；仅从当前版本删除文件不能消除历史泄露风险。
+
+### 后续预留集与多信号实验
+
+8信号逻辑回归只用原校准集75条非高风险记录训练，按主题做五折交叉验证。模型与阈值冻结后新增60题，其中40条可回答问题所属主题不在训练集；单评分与逻辑回归的放行判断精确率为76.09%与93.55%，覆盖率为76.67%与51.67%。逻辑回归仍未通过95%门槛，保留为离线实验；没有将新题用于再次调参。
+
+新句子ID协议获得追加10次MiMo授权，结构化10/10、组装原文9/10，输出177 tokens；严格来源主题匹配6/10，不能写成答案正确率90%。详细数字和限制见[新评测报告](docs/new-heldout-20261001.md)。
+
+已有新预留实验可离线复核：`conda run -n ticket-agent python -m evaluation.reproduce_heldout --output evaluation/results/heldout-reproduction`。它重新计算训练权重与冻结决策，不重新调阈值，也不调用MiMo。

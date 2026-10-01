@@ -16,6 +16,7 @@ from app.evidence import evidence_score, threshold, policy, automation_enabled
 from app.retrieval_health import vector_health, record_vector
 from app.observability import request_id, event
 from app.resources import resource_path
+from app.retrieval_features import retrieval_features
 
 
 def now() -> str:
@@ -187,7 +188,8 @@ def bm25_hits(terms: list[str], tenant_id: str) -> list[dict]:
 
 
 def retrieve(query: str, tenant_id: str, limit: int = 5, *, mode: str | None = None,
-             rewrite: bool = True, title_signal: bool = True, rerank: bool | None = None) -> dict:
+             rewrite: bool = True, title_signal: bool = True, rerank: bool | None = None,
+             collect_features: bool = False) -> dict:
     started = time.perf_counter()
     mode = mode or ("bm25" if settings.embedding_provider == "disabled" else policy().get("default_mode", "bm25"))
     if mode not in {"bm25", "vector", "hybrid"}:
@@ -226,6 +228,9 @@ def retrieve(query: str, tenant_id: str, limit: int = 5, *, mode: str | None = N
         lexical = bm25_hits(terms, tenant_id)
         semantic = []
         rerank = False
+    # A shadow lexical request supplies agreement signals for the experiment;
+    # it does not change the vector ranking or become an answer source.
+    feature_lexical = bm25_hits(terms, tenant_id) if collect_features and mode == "vector" and not vector_fallback else lexical
     ranked: dict[int, dict] = {}
     for source, hits in (("bm25", lexical), ("vector", semantic)):
         for rank, hit in enumerate(hits, 1):
@@ -259,7 +264,7 @@ def retrieve(query: str, tenant_id: str, limit: int = 5, *, mode: str | None = N
     sufficient = calibrated_sufficient and enabled
     elapsed = round((time.perf_counter() - started) * 1000, 3)
     event("retrieval", mode=mode, hits=len(hits), vector_state=vector_state, latency_ms=elapsed)
-    return {"query": rewritten, "hits": hits, "sufficient": sufficient,
+    result = {"query": rewritten, "hits": hits, "sufficient": sufficient,
             "schema_version": 3, "mode": mode, "evidence_mode": evidence_mode, "vector_fallback": vector_fallback,
             "evidence_score": score, "threshold": threshold(evidence_mode),
             "calibrated_sufficient": calibrated_sufficient, "automation_enabled": enabled,
@@ -268,6 +273,9 @@ def retrieve(query: str, tenant_id: str, limit: int = 5, *, mode: str | None = N
             "bm25_count": len(lexical), "vector_count": len(semantic),
             "bm25_ids": [item["id"] for item in lexical[:limit]],
             "vector_ids": [item["id"] for item in semantic[:limit]]}
+    if collect_features:
+        result["features"] = retrieval_features(hits, terms, feature_lexical, semantic)
+    return result
 
 
 if __name__ == "__main__":

@@ -103,7 +103,7 @@ def answer(state: TicketState) -> dict:
     suggestions = "\n".join(f"{i}. {hit['content']}" for i, hit in enumerate(hits[:3], 1))
     if state["allow_llm"] and is_llm_enabled():
         return {"status": "待人工处理", "needs_human_approval": True,
-                "handoff_reason": "sentence_alignment_failed" if validation and not validation["passed"] else "generation_or_citation_failed",
+                "handoff_reason": "source_selection_failed" if validation and not validation["passed"] else "generation_or_citation_failed",
                 "answer": f"模型生成或引用校验未通过，已转交人工处理。以下为检索资料：\n{suggestions}",
                 "answer_source": "模型校验失败，人工接管", "retrieval": retrieval}
     return {"status": "已给出处理建议", "answer": f"可先依据以下知识库资料排查：\n{suggestions}",
