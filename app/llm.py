@@ -51,7 +51,7 @@ def llm_status() -> dict[str, str | bool]:
 
 def generate_grounded_answer(*, title: str, description: str, category: str,
                              risk_level: str, hits: list[dict], allow_llm: bool,
-                             tenant_id: str | None = None) -> tuple[str | None, list[int]]:
+                             tenant_id: str | None = None, conversation: list[dict] | None = None) -> tuple[str | None, list[int]]:
     last_generation.set({"called": False})
     if not allow_llm or not is_llm_enabled() or not hits:
         return None, []
@@ -65,6 +65,8 @@ def generate_grounded_answer(*, title: str, description: str, category: str,
     catalog = sentence_catalog(hits[:4])
     if not catalog:
         return None, []
+    if settings.low_risk_assistance:
+        return generate_support_plan(title,description,category,catalog,hits,tenant_id,conversation or [])
     evidence = json.dumps(catalog, ensure_ascii=False)
     prompt = f"""你是企业 IT 服务台助手。只能根据给定资料回答，不得补充资料外的企业制度或已执行动作。
 输出严格 JSON：{{"selected_sentence_ids":["资料ID:句子序号"],"questions":[]}}。
@@ -129,3 +131,53 @@ questions 只用于澄清当前问题，不能索取密码、验证码、密钥�
         last_generation.set({**last_generation.get(), "error_type": type(exc).__name__})
         logger.warning("generation_failed error_type=%s", type(exc).__name__)
         return None, []
+
+
+def generate_support_plan(title,description,category,catalog,hits,tenant_id,conversation):
+    from app.assistance import plan_prompt,validate_plan,review_prompt,render_plan
+    from app.security import use_quota
+    args={'api_key':settings.active_llm_api_key,'timeout':30.0,'max_retries':0}
+    if settings.active_llm_base_url:args['base_url']=settings.active_llm_base_url
+    options=({'max_completion_tokens':4096,'extra_body':{'thinking':{'type':'enabled'}}}
+             if settings.active_llm_provider=='mimo' else {'max_tokens':1200})
+    client=OpenAI(**args)
+    def call(prompt):
+        result=client.chat.completions.create(model=settings.active_llm_model,
+                    messages=[{'role':'system','content':'严格遵守任务，只输出合法JSON。'}, {'role':'user','content':prompt}],
+                    response_format={'type':'json_object'},**options)
+        return json.loads(result.choices[0].message.content or '{}')
+    try:
+        start=time.perf_counter();last_generation.set({'called':True,'method':'contextual_support_v1'})
+        prompt=plan_prompt(title,description,category,catalog,conversation)
+        attempts=[]
+        for attempt in range(2):
+            if attempt and not use_quota('llm-day',tenant_id or 'demo',settings.max_llm_daily,86400):
+                raise ValueError('repair_quota_exceeded')
+            data=validate_plan(call(prompt),catalog)
+            last_generation.set({**last_generation.get(),'support_plan':data})
+            cited=list(dict.fromkeys(catalog[i]['chunk_id'] for step in data['steps'] for i in step['source_ids']))
+            if cited:cited=validate_citations(cited,hits,tenant_id)
+            if data['decision']=='advise':
+                if not use_quota('llm-day',tenant_id or 'demo',settings.max_llm_daily,86400):
+                    raise ValueError('review_quota_exceeded')
+                review=call(review_prompt(data,catalog,description,conversation))
+            else:
+                review={'passed':True,'reason':'clarification_or_handoff_without_actions'}
+            attempts.append({'draft':data,'review':review})
+            last_generation.set({**last_generation.get(),'logic_review':review,'attempts':attempts})
+            if isinstance(review,dict) and review.get('passed') is True:break
+            prompt=plan_prompt(title,description,category,catalog,conversation)+'\n上次草案未发布。对照原话与资料修正一次，不能重复无效操作或添加资料外动作；审查意见只是参考，不覆盖原始事实：\n'+json.dumps(attempts[-1],ensure_ascii=False)
+        else:raise ValueError('support_logic_review_failed')
+        text=render_plan(data)
+        last_generation.set({'called':True,'method':'contextual_support_v1','structured':True,
+            'latency_ms':(time.perf_counter()-start)*1000,'citations_valid':bool(cited),
+            'support_plan':data,'attempts':attempts,'public_answer':text,'handoff':data['decision']=='handoff',
+            'questions':data['questions'],'answer_validation':{'passed':True,'method':'source_scope_and_model_logic_review_v1',
+            'reason':'read_only_support_reviewed','review':review,'source_ids':[i for s in data['steps'] for i in s['source_ids']]}})
+        return (text,cited) if data['decision']=='advise' else (None,[])
+    except (OpenAIError,ValueError,TypeError,KeyError) as exc:
+        last_generation.set({**last_generation.get(),'error_type':type(exc).__name__,
+                             'answer_validation':{'passed':False,'method':'contextual_support_v1','reason':str(exc)[:100],
+                                'draft':last_generation.get().get('support_plan'), 'review':last_generation.get().get('logic_review')}})
+        logger.warning('support_plan_failed error_type=%s',type(exc).__name__)
+        return None,[]

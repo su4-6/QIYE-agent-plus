@@ -30,6 +30,13 @@ def import_simulated(tenant="demo", *, vectors=True):
                                 (tenant,'员工自助支持 T24 电脑蓝屏')).fetchone()
         if not existing:
             count+=import_document(tenant,'员工自助支持 T24 电脑蓝屏','md',supplement.read_text(encoding='utf-8'),with_embedding=vectors)['chunks']
+    printer=resource_path('printer_self_help.md')
+    if printer.exists():
+        title='员工自助支持 T05 打印机缺纸'
+        with get_connection() as db:
+            existing=db.execute('SELECT 1 FROM knowledge_documents WHERE tenant_id=? AND title=? AND active=1',(tenant,title)).fetchone()
+        if not existing:
+            count+=import_document(tenant,title,'md',printer.read_text(encoding='utf-8'),with_embedding=vectors)['chunks']
     return count
 
 

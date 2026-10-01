@@ -37,7 +37,8 @@ def change_ticket(ticket_id, tenant_id, actor, action, body="", expected_version
             elif (action=='retry_ai' and settings.low_risk_assistance and status=='待人工处理'
                   and row['risk_level']=='低风险' and not row['assigned_to']):
                 target='AI处理中'
-                body=body or '希望 AI 继续根据目前信息排查。'
+                # Retrying is an audit action, not a statement the employee typed.
+                body=''
             else:
                 raise LookupError("当前状态不允许此操作")
         elif actor == "admin":

@@ -118,12 +118,18 @@ class WorkflowTest(unittest.TestCase):
         import_document('demo','打印机自助支持','md','打印机显示缺纸时先确认纸盒是否有纸。纸张充足时，检查纸张尺寸是否与纸盒设置一致。',with_embedding=False)
         responses=[]
         def model_response(**kwargs):
-            catalog=json.loads(kwargs['messages'][1]['content'].split('资料：\n')[1])
+            prompt=kwargs['messages'][1]['content']
+            if '独立审查员' in prompt:
+                return SimpleNamespace(choices=[SimpleNamespace(message=SimpleNamespace(content=json.dumps({'passed':True,'reason':'supported'})),finish_reason='stop')],usage=None)
+            catalog=json.loads(prompt.split('当前数据：\n')[1])['sources']
             if not responses:
-                data={'selected_sentence_ids':[],'questions':['纸盒中是否已经放入纸张？']}
+                data={'decision':'clarify','understanding':'需要确认纸盒是否有纸。','steps':[],
+                      'questions':['纸盒中是否已经放入纸张？'],'check_result':'','handoff_reason':''}
             else:
                 selected=next(k for k,v in catalog.items() if '纸张尺寸' in v['text'])
-                data={'selected_sentence_ids':[selected],'questions':[]}
+                data={'decision':'advise','understanding':'已确认纸盒里有纸。',
+                      'steps':[{'text':'请核对纸张尺寸与纸盒设置是否一致。','source_ids':[selected]}],
+                      'questions':[],'check_result':'调整后观察缺纸提示是否消失。','handoff_reason':''}
             responses.append(data)
             return SimpleNamespace(choices=[SimpleNamespace(message=SimpleNamespace(content=json.dumps(data,ensure_ascii=False)),finish_reason='stop')],usage=None)
         with patch('app.llm.OpenAI') as factory:
@@ -144,6 +150,29 @@ class WorkflowTest(unittest.TestCase):
         self.assertEqual(t['status'],'待人工处理');factory.assert_not_called()
         self.assertIn('接管原因',t['handoff_summary'])
 
+    def test_employee_followup_preserves_chronology_without_ai_risk_contamination(self):
+        t=self.create()
+        warning='请放入纸张。无需修改生产数据库权限。'
+        with get_connection() as db:
+            db.execute('UPDATE tickets SET public_answer=?,answer_source=? WHERE ticket_id=?',
+                       (warning,'结合上下文的AI排查建议',t['ticket_id']))
+        object.__setattr__(settings,'low_risk_assistance',True)
+        captured=[]
+        def next_reply(state):
+            captured.append(state)
+            return {'status':'等待补充信息（AI）','answer':'纸盒装纸后有什么提示？',
+                    'public_answer':'纸盒装纸后有什么提示？','answer_source':'AI澄清问题','citations':[],
+                    'retrieval':{},'needs_human_approval':False,'risk_level':'低风险'}
+        with patch('app.agent.ticket_graph.invoke',side_effect=next_reply):
+            r=self.client.post('/api/v1/tickets/'+t['ticket_id']+'/messages',
+                headers={'X-Ticket-Token':t['access_token']},json={'body':'已经放入纸张，但仍报错。'})
+        self.assertEqual(r.status_code,200,r.text)
+        state=captured[0]
+        self.assertNotIn('生产数据库权限',state['description'])
+        self.assertEqual(state['initial_description'],t['description'])
+        self.assertEqual(state['conversation'][-1],{'role':'employee','text':'已经放入纸张，但仍报错。'})
+        self.assertTrue(any(x['role']=='ai' and warning in x['text'] for x in state['conversation']))
+
     def test_legacy_ai_retry_keeps_ticket_and_rejects_sensitive_or_assigned(self):
         from app.workflow import change_ticket
         from app.repository import continue_assistance
@@ -151,13 +180,15 @@ class WorkflowTest(unittest.TestCase):
         object.__setattr__(settings,'low_risk_assistance',True)
         changed=change_ticket(t['ticket_id'],'demo','employee','retry_ai',expected_version=t['workflow_version'])
         self.assertEqual(changed['status'],'AI处理中')
-        response=SimpleNamespace(choices=[SimpleNamespace(message=SimpleNamespace(content='{"selected_sentence_ids":[],"questions":["打印机屏幕显示了什么报错？"]}'),finish_reason='stop')],usage=None)
+        response=SimpleNamespace(choices=[SimpleNamespace(message=SimpleNamespace(content=json.dumps({
+            'decision':'clarify','understanding':'需要确认设备当前提示。','steps':[],
+            'questions':['打印机屏幕显示了什么报错？'],'check_result':'','handoff_reason':''},ensure_ascii=False)),finish_reason='stop')],usage=None)
         object.__setattr__(settings,'llm_provider','mimo');object.__setattr__(settings,'mimo_api_key','test-only')
         with patch('app.llm.OpenAI') as factory:
-            factory.return_value.chat.completions.create.return_value=response
+            factory.return_value.chat.completions.create.side_effect=[response,SimpleNamespace(choices=[SimpleNamespace(message=SimpleNamespace(content=json.dumps({'passed':True,'reason':'supported'})),finish_reason='stop')],usage=None)]
             result=continue_assistance(t['ticket_id'],'demo')
         self.assertEqual(result['ticket_id'],t['ticket_id']);self.assertEqual(result['status'],'等待补充信息（AI）')
-        self.assertEqual([m['actor'] for m in result['messages']],['employee','ai'])
+        self.assertEqual([m['actor'] for m in result['messages']],['ai'])
         high=self.create(high=True)
         with self.assertRaises(LookupError):change_ticket(high['ticket_id'],'demo','employee','retry_ai')
         assigned=self.create(auto=False)
@@ -175,7 +206,7 @@ class WorkflowTest(unittest.TestCase):
 
     def test_unsafe_model_clarification_is_not_sent_to_employee(self):
         for k,v in {'low_risk_assistance':True,'llm_provider':'mimo','mimo_api_key':'test-only'}.items():object.__setattr__(settings,k,v)
-        response=SimpleNamespace(choices=[SimpleNamespace(message=SimpleNamespace(content='{"selected_sentence_ids":[],"questions":["请把账号密码发给我？"]}'),finish_reason='stop')],usage=None)
+        response=SimpleNamespace(choices=[SimpleNamespace(message=SimpleNamespace(content='{"decision":"clarify","understanding":"需确认账户情况","questions":["请把账号密码发给我？"]}'),finish_reason='stop')],usage=None)
         with patch('app.llm.OpenAI') as factory:
             factory.return_value.chat.completions.create.return_value=response
             t=self.create(auto=False)

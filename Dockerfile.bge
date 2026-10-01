@@ -8,7 +8,7 @@ RUN pip install --no-cache-dir -r requirements.txt -i https://pypi.tuna.tsinghua
 # Download at build time; serving a first request must not download a model.
 RUN python -c "from fastembed import TextEmbedding; m=TextEmbedding(model_name='BAAI/bge-small-zh-v1.5', threads=2); list(m.embed(['构建时验证中文向量模型']))"
 COPY app ./app
-COPY data/knowledge_base.txt data/simulated_sops.json data/employee_self_help.md ./resources/
+COPY data/knowledge_base.txt data/simulated_sops.json data/employee_self_help.md data/printer_self_help.md ./resources/
 COPY evaluation/policy.json ./evaluation/policy.json
 COPY scripts/import-demo.py ./scripts/import-demo.py
 ENV HF_HUB_OFFLINE=1 EMBEDDING_PROVIDER=local EMBEDDING_MODEL=BAAI/bge-small-zh-v1.5

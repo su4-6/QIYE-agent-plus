@@ -35,6 +35,8 @@ class TicketState(TypedDict):
     answer_source: NotRequired[str]
     public_answer: NotRequired[str]
     retrieval_query: NotRequired[str]
+    conversation: NotRequired[list[dict]]
+    initial_description: NotRequired[str]
 
 
 def triage(state: TicketState) -> dict:
@@ -97,18 +99,23 @@ def answer(state: TicketState) -> dict:
     # With weak evidence the model may only ask questions, not publish steps.
     last_generation.set({})
     generated, cited = generate_grounded_answer(
-        title=state["title"], description=state["description"], category=state["category"],
+        title=state["title"], description=state.get('initial_description',state["description"]), category=state["category"],
         risk_level=state["risk_level"], hits=hits[:4], allow_llm=allowed,
         tenant_id=state["tenant_id"],
+        conversation=state.get('conversation',[]),
     )
     validation = last_generation.get().get("answer_validation")
     retrieval = {**state["retrieval"]}
     if validation:
         retrieval["answer_validation"] = validation
     generation = last_generation.get()
+    if generation.get('handoff'):
+        return {'status':'待人工处理','needs_human_approval':True,'handoff_reason':'support_requires_it',
+                'answer':generation['public_answer'],'public_answer':generation['public_answer'],
+                'answer_source':'AI判断需人工协助','citations':[], 'retrieval':retrieval}
     questions = generation.get('questions', [])
     if questions and settings.low_risk_assistance:
-        text = '为了给出适合你情况的建议，请补充：\n' + '\n'.join(f'{i}. {q}' for i,q in enumerate(questions,1))
+        text = generation.get('public_answer') or ('为了给出适合你情况的建议，请补充：\n' + '\n'.join(f'{i}. {q}' for i,q in enumerate(questions,1)))
         retrieval['assistant_questions']=questions
         return {'status':'等待补充信息（AI）','answer':text,'public_answer':text,
                 'answer_source':'AI澄清问题','needs_human_approval':False,'citations':[], 'retrieval':retrieval}
@@ -118,8 +125,8 @@ def answer(state: TicketState) -> dict:
     if generated:
         citations = [item for item in state["citations"] if item["chunk_id"] in cited]
         return {"status": "已给出处理建议",
-                "answer": generated, "answer_source": "逐句引用对齐的检索答复", "citations": citations,
-                "public_answer": '可以先尝试以下排查建议。完成后，请确认是否恢复；仍有问题可继续补充或联系 IT。\n'+generated,
+                "answer": generated, "answer_source": '结合上下文的AI排查建议' if generation.get('support_plan') else "逐句引用对齐的检索答复", "citations": citations,
+                "public_answer": generated if generation.get('support_plan') else '可以先尝试以下排查建议。完成后，请确认是否恢复；仍有问题可继续补充或联系 IT。\n'+generated,
                 "retrieval": retrieval}
     suggestions = "\n".join(f"{i}. {hit['content']}" for i, hit in enumerate(hits[:3], 1))
     if state["allow_llm"] and is_llm_enabled():

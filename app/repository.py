@@ -74,7 +74,8 @@ def get_ticket(ticket_id: str, tenant_id: str) -> dict | None:
                 (ticket_id, tenant_id))]
             reasons={'high_risk':'涉及敏感操作，需要审批','employee_request':'员工尝试后申请人工','insufficient_evidence':'资料不足，无法可靠建议',
                      'generation_or_citation_failed':'模型未提供有效回复','source_selection_failed':'引用校验未通过',
-                     'daily_model_quota':'今日模型额度已用完','clarification_limit':'多轮补充后仍未解决'}
+                     'daily_model_quota':'今日模型额度已用完','clarification_limit':'多轮补充后仍未解决',
+                     'support_requires_it':'已尝试的自助步骤无效，需IT进一步处理'}
             last=[m for m in item['messages'] if m['actor']=='employee'][-3:]
             item['handoff_summary']='问题：'+item['title']+'\n员工描述：'+item['description'][:800]+'\n接管原因：'+reasons.get(item['handoff_reason'], '等待 IT 跟进')
             if last:item['handoff_summary']+='\n最近补充：\n'+'\n'.join(m['body'][:300] for m in last)
@@ -135,15 +136,23 @@ def continue_assistance(ticket_id: str, tenant_id: str) -> dict:
         raise LookupError('工单已更新，请刷新')
     old_version=item['workflow_version']
     turns=sum(m['actor']=='ai' for m in item['messages'])
-    if turns>=3:
+    if turns>=5:
         result={'status':'待人工处理','needs_human_approval':True,'handoff_reason':'clarification_limit',
                 'answer':'多轮补充后仍未解决，交给 IT 继续处理。','answer_source':'AI多轮跟进后人工接管','citations':[],
                 'public_answer':'已将问题、沟通记录与尝试情况交给 IT 服务台，你无需重新提交。','retrieval':item['retrieval']}
     else:
-        context='\n'.join(('员工补充：' if m['actor']=='employee' else '此前回复：')+m['body'] for m in item['messages'][-6:])
-        latest=[m['body'] for m in item['messages'] if m['actor']=='employee'][-1]
+        employee_text=[m['body'] for m in item['messages'] if m['actor']=='employee'
+                       and m['body']!='希望 AI 继续根据目前信息排查。']
+        conversation=[{'role':m['actor'],'text':m['body']} for m in item['messages']
+                      if m['body']!='希望 AI 继续根据目前信息排查。'][-8:]
+        if item['answer_source'] in {'AI澄清问题','逐句引用对齐的检索答复','结合上下文的AI排查建议'}:
+            if not any(m['role']=='ai' for m in conversation):
+                conversation.insert(0,{'role':'ai','text':item['public_answer']})
+        latest=employee_text[-1] if employee_text else item['description']
+        # Triage sees employee facts only: assistant warnings are not user requests.
+        description=(item['description']+'\n员工补充：'+'\n'.join(employee_text[-6:]))[-5000:]
         try:
-            result=ticket_graph.invoke({'title':item['title'],'description':(item['description']+'\n'+context)[-5000:],
+            result=ticket_graph.invoke({'title':item['title'],'description':description,'initial_description':item['description'],'conversation':conversation,
                                        'requester':item['requester'],'tenant_id':tenant_id,'allow_llm':True,
                                        'retrieval_query':item['title']+' '+latest})
         except Exception:
@@ -158,15 +167,18 @@ def continue_assistance(ticket_id: str, tenant_id: str) -> dict:
         if not current or current['workflow_version']!=old_version or current['status']!='AI处理中':
             raise LookupError('工单已更新，请刷新')
         if (not any(m['actor']=='ai' for m in item['messages'])
-                and item['answer_source'] in {'AI澄清问题', '逐句引用对齐的检索答复'}):
+                and item['answer_source'] in {'AI澄清问题', '逐句引用对齐的检索答复','结合上下文的AI排查建议'}):
             db.execute('INSERT INTO ticket_messages(ticket_id,tenant_id,actor,operator,body,created_at) VALUES(?,?,?,?,?,?)',
                        (ticket_id,tenant_id,'ai','Atlas AI',item['public_answer'],item['created_at']))
         db.execute("""UPDATE tickets SET status=?,answer=?,public_answer=?,answer_source=?,needs_human_approval=?,
                       handoff_reason=?,citations_json=?,retrieval_json=?,workflow_version=workflow_version+1,updated_at=?
+                      ,risk_level=?,category=?,priority=?,evidence_score=?,confidence=?
                       WHERE ticket_id=? AND tenant_id=?""",
                    (result['status'],result['answer'],public,result['answer_source'],int(result.get('needs_human_approval',False)),
                     result.get('handoff_reason',''),json.dumps(result.get('citations',[]),ensure_ascii=False),
-                    json.dumps(result.get('retrieval',{}),ensure_ascii=False),utc_now(),ticket_id,tenant_id))
+                    json.dumps(result.get('retrieval',{}),ensure_ascii=False),utc_now(),
+                    result.get('risk_level',item['risk_level']),result.get('category',item['category']),result.get('priority',item['priority']),
+                    result.get('evidence_score',item.get('evidence_score')),result.get('confidence',item['confidence']),ticket_id,tenant_id))
         db.execute('INSERT INTO ticket_messages(ticket_id,tenant_id,actor,operator,body,created_at) VALUES(?,?,?,?,?,?)',
                    (ticket_id,tenant_id,'ai','Atlas AI',public,utc_now()))
         _audit(db,ticket_id,tenant_id,'AI跟进','system',{'from':'AI处理中','to':result['status'],'source':result['answer_source']})
