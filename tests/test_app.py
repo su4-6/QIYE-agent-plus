@@ -17,6 +17,7 @@ from app.security import new_access_token, password_hash, use_quota
 class TicketSystemTest(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
+        cls.original_settings = dict(vars(settings))
         cls.database = Path("data/test-suite.db")
         for suffix in ("", "-shm", "-wal"):
             target = Path(str(cls.database) + suffix)
@@ -35,6 +36,8 @@ class TicketSystemTest(unittest.TestCase):
     @classmethod
     def tearDownClass(cls):
         cls.client.__exit__(None, None, None)
+        for key, value in cls.original_settings.items():
+            object.__setattr__(settings, key, value)
 
     def create(self, *, high_risk=False):
         data = ({"工单标题": "生产支付系统失败", "工单描述": "线上订单大面积支付失败，需要修改数据库"}
@@ -81,7 +84,9 @@ class TicketSystemTest(unittest.TestCase):
         object.__setattr__(settings, "llm_provider", "generic")
         object.__setattr__(settings, "llm_api_key", "test-only")
         try:
-            with patch("app.agent.generate_grounded_answer", return_value=(None, [])):
+            # This tests generation failure routing independently of calibrated
+            # retrieval thresholds; the tiny legacy seed is not the benchmark SOP.
+            with patch("app.knowledge.threshold", return_value=0), patch("app.knowledge.automation_enabled", return_value=True), patch("app.agent.generate_grounded_answer", return_value=(None, [])):
                 ticket = self.create()
             self.assertEqual(ticket["status"], "待人工处理")
             self.assertTrue(ticket["needs_human_approval"])

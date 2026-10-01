@@ -7,7 +7,7 @@ from pathlib import Path
 #导入constants文件
 from app.constants import CATEGORY_TERMS, DOMAIN_TERMS, FAULT_TOKENS, RISK_SENSITIVE_TOKENS
 #知识库
-KB_PATH = Path("data/knowledge_base.txt")
+KB_PATH = Path(__file__).resolve().parent.parent / "data" / "knowledge_base.txt"
 #加载知识库
 @lru_cache(maxsize=1)
 def load_knowledge_chunks() -> list[str]:
@@ -73,8 +73,8 @@ def _score_chunk(chunk: str, query_tokens: dict[str, int]) -> int:
 
     return score
 #把上面的函数串起来执行，检索入口，
-def retrieve_context(query: str, top_k: int = 3) -> list[str]:
-    chunks = load_knowledge_chunks()
+def retrieve_context(query: str, top_k: int = 3, *, corpus: list[str] | None = None) -> list[str]:
+    chunks = corpus if corpus is not None else load_knowledge_chunks()
     if not chunks or top_k <= 0:
         return []
 

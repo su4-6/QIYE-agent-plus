@@ -1,0 +1,1495 @@
+[
+  {
+    "case_id": "T02-Q1",
+    "query": "连续输错几次现在账号被锁住了",
+    "answer": "根据资料，您因连续输错密码导致账号锁定。请按以下步骤处理：1. 立即停止尝试登录，避免进一步延长锁定时间。2. 记录账号首次被锁定的大概时间。3. 通过官方身份验证渠道（如服务台或自助门户）核验您的身份。4. 核验身份后，根据企业账号锁定规则，可能需等待系统自动解锁或申请人工解锁。5. 检查您常用的旧设备（如手机、电脑）的浏览器或应用程序中是否保存了旧密码，如有，请更新或清除缓存，以免再次触发锁定。",
+    "citations": [
+      2
+    ],
+    "evidence": [
+      {
+        "id": 2,
+        "title": "模拟SOP T02 账号锁定",
+        "content": "T02 账号锁定\n适用场景：账号锁定，连续输错密码。处理流程：停止重复尝试；记录锁定时间；核验身份后按账号锁定规则等待或申请解锁；排查旧设备缓存密码。边界：本资料为模拟操作规程；实际操作需遵循所在企业授权，生产、敏感数据及权限变更转人工确认。",
+        "version": 1
+      }
+    ],
+    "elapsed_ms": 6115.28030000045,
+    "called": true,
+    "latency_ms": 6111.874600000192,
+    "structured": true,
+    "citations_valid": true,
+    "usage": {
+      "completion_tokens": 145,
+      "prompt_tokens": 234,
+      "total_tokens": 379,
+      "completion_tokens_details": {
+        "accepted_prediction_tokens": null,
+        "audio_tokens": null,
+        "reasoning_tokens": 0,
+        "rejected_prediction_tokens": null
+      },
+      "prompt_tokens_details": {
+        "audio_tokens": null,
+        "cached_tokens": 0
+      }
+    },
+    "finish_reason": "stop",
+    "raw_output": "{\"answer\":\"根据资料，您因连续输错密码导致账号锁定。请按以下步骤处理：1. 立即停止尝试登录，避免进一步延长锁定时间。2. 记录账号首次被锁定的大概时间。3. 通过官方身份验证渠道（如服务台或自助门户）核验您的身份。4. 核验身份后，根据企业账号锁定规则，可能需等待系统自动解锁或申请人工解锁。5. 检查您常用的旧设备（如手机、电脑）的浏览器或应用程序中是否保存了旧密码，如有，请更新或清除缓存，以免再次触发锁定。\",\"citation_ids\":[2]}",
+    "semantic_review": {
+      "reviewer": "AI review pending",
+      "verdict": "pending"
+    }
+  },
+  {
+    "case_id": "T02-Q2",
+    "query": "登录提示账户锁定，等一会儿能恢复吗",
+    "answer": "根据您描述的‘登录提示账户锁定’，结合低风险分类，建议您按以下步骤进行初步排查：\n1.  **确认账号状态**：请尝试登录其他内部系统（如企业邮箱、OA），确认是否也提示账户锁定。若多个系统均无法登录，则可能涉及账号锁定策略。\n2.  **等待一段时间**：根据常见的账户锁定策略，因连续输错密码导致的锁定，通常在等待一段时间（例如15-30分钟）后会自动解除。您可以尝试等待后再次登录。\n3.  **检查输入法与大小写**：重新登录前，请确认未误开中文输入法，并仔细核对密码大小写及特殊字符。\n4.  **清理登录凭证**：如果使用VPN或特定客户端登录，请参考以下步骤清理凭证：打开“控制面板”->“用户账户”->“管理Windows凭据”，删除与公司服务器或VPN相关的旧凭据，然后重启客户端重试。\n5.  **记录错误信息**：若问题复现，请记录下完整的错误提示内容（如错误代码），以便进一步分析。",
+    "citations": [
+      5
+    ],
+    "evidence": [
+      {
+        "id": 5,
+        "title": "模拟SOP T05 VPN认证失败",
+        "content": "T05 VPN认证失败\n适用场景：VPN客户端提示认证失败。处理流程：确认账号状态与MFA；核对VPN服务地址；清理过期凭证后重新登录；记录认证错误码。边界：本资料为模拟操作规程；实际操作需遵循所在企业授权，生产、敏感数据及权限变更转人工确认。",
+        "version": 1
+      }
+    ],
+    "elapsed_ms": 6077.623900000617,
+    "called": true,
+    "latency_ms": 6072.848800000429,
+    "structured": true,
+    "citations_valid": true,
+    "usage": {
+      "completion_tokens": 251,
+      "prompt_tokens": 228,
+      "total_tokens": 479,
+      "completion_tokens_details": {
+        "accepted_prediction_tokens": null,
+        "audio_tokens": null,
+        "reasoning_tokens": 0,
+        "rejected_prediction_tokens": null
+      },
+      "prompt_tokens_details": {
+        "audio_tokens": null,
+        "cached_tokens": 0
+      }
+    },
+    "finish_reason": "stop",
+    "raw_output": "{\"answer\":\"根据您描述的‘登录提示账户锁定’，结合低风险分类，建议您按以下步骤进行初步排查：\\n1.  **确认账号状态**：请尝试登录其他内部系统（如企业邮箱、OA），确认是否也提示账户锁定。若多个系统均无法登录，则可能涉及账号锁定策略。\\n2.  **等待一段时间**：根据常见的账户锁定策略，因连续输错密码导致的锁定，通常在等待一段时间（例如15-30分钟）后会自动解除。您可以尝试等待后再次登录。\\n3.  **检查输入法与大小写**：重新登录前，请确认未误开中文输入法，并仔细核对密码大小写及特殊字符。\\n4.  **清理登录凭证**：如果使用VPN或特定客户端登录，请参考以下步骤清理凭证：打开“控制面板”->“用户账户”->“管理Windows凭据”，删除与公司服务器或VPN相关的旧凭据，然后重启客户端重试。\\n5.  **记录错误信息**：若问题复现，请记录下完整的错误提示内容（如错误代码），以便进一步分析。\",\"citation_ids\":[5]}",
+    "semantic_review": {
+      "reviewer": "AI review pending",
+      "verdict": "pending"
+    }
+  },
+  {
+    "case_id": "T04-Q1",
+    "query": "换了手机认证器的动态码都不对",
+    "answer": "根据已保存资料，您的问题属于更换手机后多因素认证（MFA）动态口令失效的常见情况。我们已确认该问题属于低风险模拟场景，但为确保安全，仍建议您按以下步骤进行初步排查：\n1.  **检查设备时间**：请确保您新手机的系统时间已设置为自动同步网络时间。时间不准确是导致动态码错误的常见原因。\n2.  **尝试使用恢复码**：如果您在首次绑定认证器时保存了“恢复码”，请尝试使用其中一个恢复码登录。恢复码是专为此类情况设计的备用方案。\n3.  **身份核验与重新绑定**：如果恢复码不可用或已用完，需要通过官方流程进行身份核验，以安全地解绑旧设备并重新绑定新手机的认证器。此操作需按企业授权流程进行。\n4.  **安全提醒**：请注意，任何操作过程中都不要在聊天或邮件中直接传递口令或恢复码。\n\n由于此问题涉及账户认证安全，相关重置或重新绑定操作需要遵循企业授权流程并可能需人工确认。",
+    "citations": [
+      4
+    ],
+    "evidence": [
+      {
+        "id": 4,
+        "title": "模拟SOP T04 MFA换手机",
+        "content": "T04 MFA换手机\n适用场景：更换手机后多因素认证动态口令失效。处理流程：确认设备时间自动同步；使用已保存的恢复码；恢复码不可用时走身份核验和重新绑定；不在聊天中传口令。边界：本资料为模拟操作规程；实际操作需遵循所在企业授权，生产、敏感数据及权限变更转人工确认。",
+        "version": 1
+      }
+    ],
+    "elapsed_ms": 5622.012699999686,
+    "called": true,
+    "latency_ms": 5617.554700000255,
+    "structured": true,
+    "citations_valid": true,
+    "usage": {
+      "completion_tokens": 259,
+      "prompt_tokens": 240,
+      "total_tokens": 499,
+      "completion_tokens_details": {
+        "accepted_prediction_tokens": null,
+        "audio_tokens": null,
+        "reasoning_tokens": 0,
+        "rejected_prediction_tokens": null
+      },
+      "prompt_tokens_details": {
+        "audio_tokens": null,
+        "cached_tokens": 0
+      }
+    },
+    "finish_reason": "stop",
+    "raw_output": "{\"answer\":\"根据已保存资料，您的问题属于更换手机后多因素认证（MFA）动态口令失效的常见情况。我们已确认该问题属于低风险模拟场景，但为确保安全，仍建议您按以下步骤进行初步排查：\\n1.  **检查设备时间**：请确保您新手机的系统时间已设置为自动同步网络时间。时间不准确是导致动态码错误的常见原因。\\n2.  **尝试使用恢复码**：如果您在首次绑定认证器时保存了“恢复码”，请尝试使用其中一个恢复码登录。恢复码是专为此类情况设计的备用方案。\\n3.  **身份核验与重新绑定**：如果恢复码不可用或已用完，需要通过官方流程进行身份核验，以安全地解绑旧设备并重新绑定新手机的认证器。此操作需按企业授权流程进行。\\n4.  **安全提醒**：请注意，任何操作过程中都不要在聊天或邮件中直接传递口令或恢复码。\\n\\n由于此问题涉及账户认证安全，相关重置或重新绑定操作需要遵循企业授权流程并可能需人工确认。\",\"citation_ids\":[4]}",
+    "semantic_review": {
+      "reviewer": "AI review pending",
+      "verdict": "pending"
+    }
+  },
+  {
+    "case_id": "T04-Q2",
+    "query": "旧手机坏了没法做多因素验证了",
+    "answer": "根据资料，判断为模拟工单场景，属于低风险。可执行排查建议如下：1. 确认设备时间是否已设置为自动同步；2. 尝试使用已保存的恢复码进行登录；3. 若恢复码不可用，需按流程进行身份核验以重新绑定多因素认证；4. 切勿在聊天中传输口令或敏感信息。",
+    "citations": [
+      4
+    ],
+    "evidence": [
+      {
+        "id": 4,
+        "title": "模拟SOP T04 MFA换手机",
+        "content": "T04 MFA换手机\n适用场景：更换手机后多因素认证动态口令失效。处理流程：确认设备时间自动同步；使用已保存的恢复码；恢复码不可用时走身份核验和重新绑定；不在聊天中传口令。边界：本资料为模拟操作规程；实际操作需遵循所在企业授权，生产、敏感数据及权限变更转人工确认。",
+        "version": 1
+      }
+    ],
+    "elapsed_ms": 7626.746599999933,
+    "called": true,
+    "latency_ms": 7623.979999999392,
+    "structured": true,
+    "citations_valid": true,
+    "usage": {
+      "completion_tokens": 96,
+      "prompt_tokens": 240,
+      "total_tokens": 336,
+      "completion_tokens_details": {
+        "accepted_prediction_tokens": null,
+        "audio_tokens": null,
+        "reasoning_tokens": 0,
+        "rejected_prediction_tokens": null
+      },
+      "prompt_tokens_details": {
+        "audio_tokens": null,
+        "cached_tokens": 0
+      }
+    },
+    "finish_reason": "stop",
+    "raw_output": "{\"answer\":\"根据资料，判断为模拟工单场景，属于低风险。可执行排查建议如下：1. 确认设备时间是否已设置为自动同步；2. 尝试使用已保存的恢复码进行登录；3. 若恢复码不可用，需按流程进行身份核验以重新绑定多因素认证；4. 切勿在聊天中传输口令或敏感信息。\",\"citation_ids\":[4]}",
+    "semantic_review": {
+      "reviewer": "AI review pending",
+      "verdict": "pending"
+    }
+  },
+  {
+    "case_id": "T08-Q2",
+    "query": "公司远程接入软件让我更新版本",
+    "answer": "根据资料判断，此工单涉及远程接入软件（如VPN）的版本更新提示，属于低风险操作。建议按以下步骤排查：1. 检查当前软件版本号，确认是否确需更新；2. 前往企业软件门户或内部资源库，查找并下载经批准的最新版本安装包；3. 在安装前，备份现有软件的配置信息（如服务器地址、账户等）；4. 按照企业标准流程安装新版本，安装后验证连接功能及版本号。注意：所有操作应使用企业提供的正式渠道，避免使用未经批准的第三方来源。",
+    "citations": [
+      8,
+      36
+    ],
+    "evidence": [
+      {
+        "id": 38,
+        "title": "模拟SOP T38 软件版本不兼容",
+        "content": "T38 软件版本不兼容\n适用场景：应用提示系统版本不兼容。处理流程：核对支持的系统版本；使用企业批准的兼容版本；提交升级申请；保留错误截图。边界：本资料为模拟操作规程；实际操作需遵循所在企业授权，生产、敏感数据及权限变更转人工确认。",
+        "version": 1
+      },
+      {
+        "id": 8,
+        "title": "模拟SOP T08 VPN客户端更新",
+        "content": "T08 VPN客户端更新\n适用场景：VPN客户端版本太旧无法连接。处理流程：从企业软件门户获取批准版本；保存配置；安装后确认版本号；遇到兼容问题联系服务台。边界：本资料为模拟操作规程；实际操作需遵循所在企业授权，生产、敏感数据及权限变更转人工确认。",
+        "version": 1
+      },
+      {
+        "id": 36,
+        "title": "模拟SOP T36 软件安装失败",
+        "content": "T36 软件安装失败\n适用场景：批准的办公软件安装报错。处理流程：确认系统版本与可用磁盘；使用企业门户安装包；收集错误码和安装日志；不要使用破解安装器。边界：本资料为模拟操作规程；实际操作需遵循所在企业授权，生产、敏感数据及权限变更转人工确认。",
+        "version": 1
+      }
+    ],
+    "elapsed_ms": 6286.510199999611,
+    "called": true,
+    "latency_ms": 6280.698800000209,
+    "structured": true,
+    "citations_valid": true,
+    "usage": {
+      "completion_tokens": 148,
+      "prompt_tokens": 423,
+      "total_tokens": 571,
+      "completion_tokens_details": {
+        "accepted_prediction_tokens": null,
+        "audio_tokens": null,
+        "reasoning_tokens": 0,
+        "rejected_prediction_tokens": null
+      },
+      "prompt_tokens_details": {
+        "audio_tokens": null,
+        "cached_tokens": 0
+      }
+    },
+    "finish_reason": "stop",
+    "raw_output": "{\"answer\":\"根据资料判断，此工单涉及远程接入软件（如VPN）的版本更新提示，属于低风险操作。建议按以下步骤排查：1. 检查当前软件版本号，确认是否确需更新；2. 前往企业软件门户或内部资源库，查找并下载经批准的最新版本安装包；3. 在安装前，备份现有软件的配置信息（如服务器地址、账户等）；4. 按照企业标准流程安装新版本，安装后验证连接功能及版本号。注意：所有操作应使用企业提供的正式渠道，避免使用未经批准的第三方来源。\",\"citation_ids\":[8,36]}",
+    "semantic_review": {
+      "reviewer": "AI review pending",
+      "verdict": "pending"
+    }
+  },
+  {
+    "case_id": "T10-Q1",
+    "query": "笔记本连不上办公室WiFi",
+    "answer": null,
+    "citations": [],
+    "evidence": [
+      {
+        "id": 11,
+        "title": "模拟SOP T11 WiFi信号弱",
+        "content": "T11 WiFi信号弱\n适用场景：办公室WiFi信号弱经常丢包。处理流程：记录位置与时间；检查是否连接正确SSID；对照有线网络；提交信号强度和影响范围。边界：本资料为模拟操作规程；实际操作需遵循所在企业授权，生产、敏感数据及权限变更转人工确认。",
+        "version": 1
+      }
+    ],
+    "elapsed_ms": 4423.66629999924,
+    "called": true,
+    "latency_ms": 4423.390900000413,
+    "structured": true,
+    "citations_valid": false,
+    "usage": {
+      "completion_tokens": 124,
+      "prompt_tokens": 218,
+      "total_tokens": 342,
+      "completion_tokens_details": {
+        "accepted_prediction_tokens": null,
+        "audio_tokens": null,
+        "reasoning_tokens": 0,
+        "rejected_prediction_tokens": null
+      },
+      "prompt_tokens_details": {
+        "audio_tokens": null,
+        "cached_tokens": 0
+      }
+    },
+    "finish_reason": "stop",
+    "raw_output": "{\"answer\":\"根据工单描述，您的问题是无法连接办公室WiFi，而非信号弱问题，因此不直接适用资料11的处理流程。以下是排查建议：\\n1. 确认您连接的WiFi名称（SSID）是否正确，并检查是否有其他可用网络。\\n2. 尝试重启笔记本电脑的WiFi功能或重启设备本身。\\n3. 检查笔记本电脑的无线网卡驱动是否正常或需要更新。\\n4. 尝试靠近无线路由器，以排除距离或障碍物导致的连接问题。\",\"citation_ids\":[]}",
+    "error_type": "ValueError",
+    "semantic_review": {
+      "reviewer": "AI review pending",
+      "verdict": "pending"
+    }
+  },
+  {
+    "case_id": "T10-Q2",
+    "query": "公司无线网络一直提示连接失败",
+    "answer": "根据工单描述，此为公司无线网络连接失败问题。判断属于低风险网络连接故障。建议按以下步骤排查：1. 核对公司提供的正确无线网络名称（SSID）；2. 检查设备的无线功能开关是否已开启；3. 如设备存储了旧网络配置，尝试将其忘记并重新连接；4. 在连接过程中，记录出现的具体认证错误信息；5. 如以上步骤无法解决，需转交人工进行进一步确认。",
+    "citations": [
+      10
+    ],
+    "evidence": [
+      {
+        "id": 10,
+        "title": "模拟SOP T10 WiFi无法连接",
+        "content": "T10 WiFi无法连接\n适用场景：办公无线网络无法连接。处理流程：核对企业SSID；检查设备无线开关及认证证书；忘记旧配置后按官方指南连接；记录认证错误。边界：本资料为模拟操作规程；实际操作需遵循所在企业授权，生产、敏感数据及权限变更转人工确认。",
+        "version": 1
+      },
+      {
+        "id": 12,
+        "title": "模拟SOP T12 网线连接异常",
+        "content": "T12 网线连接异常\n适用场景：有线网卡提示网线未连接。处理流程：检查网线卡扣和插口指示灯；更换合规网线做交叉验证；确认网卡已启用；记录网口编号。边界：本资料为模拟操作规程；实际操作需遵循所在企业授权，生产、敏感数据及权限变更转人工确认。",
+        "version": 1
+      },
+      {
+        "id": 5,
+        "title": "模拟SOP T05 VPN认证失败",
+        "content": "T05 VPN认证失败\n适用场景：VPN客户端提示认证失败。处理流程：确认账号状态与MFA；核对VPN服务地址；清理过期凭证后重新登录；记录认证错误码。边界：本资料为模拟操作规程；实际操作需遵循所在企业授权，生产、敏感数据及权限变更转人工确认。",
+        "version": 1
+      },
+      {
+        "id": 22,
+        "title": "模拟SOP T22 打印队列阻塞",
+        "content": "T22 打印队列阻塞\n适用场景：打印任务一直排队不出纸。处理流程：检查队列首个失败任务；确认设备在线；按批准流程取消自己的阻塞任务；记录任务与错误信息。边界：本资料为模拟操作规程；实际操作需遵循所在企业授权，生产、敏感数据及权限变更转人工确认。",
+        "version": 1
+      }
+    ],
+    "elapsed_ms": 4023.688599999332,
+    "called": true,
+    "latency_ms": 4020.9104000005027,
+    "structured": true,
+    "citations_valid": true,
+    "usage": {
+      "completion_tokens": 120,
+      "prompt_tokens": 523,
+      "total_tokens": 643,
+      "completion_tokens_details": {
+        "accepted_prediction_tokens": null,
+        "audio_tokens": null,
+        "reasoning_tokens": 0,
+        "rejected_prediction_tokens": null
+      },
+      "prompt_tokens_details": {
+        "audio_tokens": null,
+        "cached_tokens": 0
+      }
+    },
+    "finish_reason": "stop",
+    "raw_output": "{\n  \"answer\": \"根据工单描述，此为公司无线网络连接失败问题。判断属于低风险网络连接故障。建议按以下步骤排查：1. 核对公司提供的正确无线网络名称（SSID）；2. 检查设备的无线功能开关是否已开启；3. 如设备存储了旧网络配置，尝试将其忘记并重新连接；4. 在连接过程中，记录出现的具体认证错误信息；5. 如以上步骤无法解决，需转交人工进行进一步确认。\",\n  \"citation_ids\": [10]\n}",
+    "semantic_review": {
+      "reviewer": "AI review pending",
+      "verdict": "pending"
+    }
+  },
+  {
+    "case_id": "T12-Q1",
+    "query": "插着网线却显示未连接",
+    "answer": "该问题为低风险的网线连接异常。建议您按以下步骤排查：1. 检查网线与电脑/墙插的连接是否牢固，观察网口指示灯是否亮起。2. 更换一根已知完好的合规网线进行交叉测试。3. 在操作系统设置中检查对应的有线网络适配器是否被禁用，若禁用请启用。4. 记录下连接异常的具体网口编号或位置信息。如以上步骤无法解决，或涉及网络配置变更，请联系企业IT支持人员。",
+    "citations": [
+      12
+    ],
+    "evidence": [
+      {
+        "id": 12,
+        "title": "模拟SOP T12 网线连接异常",
+        "content": "T12 网线连接异常\n适用场景：有线网卡提示网线未连接。处理流程：检查网线卡扣和插口指示灯；更换合规网线做交叉验证；确认网卡已启用；记录网口编号。边界：本资料为模拟操作规程；实际操作需遵循所在企业授权，生产、敏感数据及权限变更转人工确认。",
+        "version": 1
+      },
+      {
+        "id": 21,
+        "title": "模拟SOP T21 打印机脱机",
+        "content": "T21 打印机脱机\n适用场景：网络打印机显示脱机。处理流程：确认设备电源和网络地址；检查打印队列离线设置；对照网页管理页面；重新连接批准的打印队列。边界：本资料为模拟操作规程；实际操作需遵循所在企业授权，生产、敏感数据及权限变更转人工确认。",
+        "version": 1
+      }
+    ],
+    "elapsed_ms": 3585.319900000286,
+    "called": true,
+    "latency_ms": 3581.778800000393,
+    "structured": true,
+    "citations_valid": true,
+    "usage": {
+      "completion_tokens": 137,
+      "prompt_tokens": 340,
+      "total_tokens": 477,
+      "completion_tokens_details": {
+        "accepted_prediction_tokens": null,
+        "audio_tokens": null,
+        "reasoning_tokens": 0,
+        "rejected_prediction_tokens": null
+      },
+      "prompt_tokens_details": {
+        "audio_tokens": null,
+        "cached_tokens": 0
+      }
+    },
+    "finish_reason": "stop",
+    "raw_output": "{\n  \"answer\": \"该问题为低风险的网线连接异常。建议您按以下步骤排查：1. 检查网线与电脑/墙插的连接是否牢固，观察网口指示灯是否亮起。2. 更换一根已知完好的合规网线进行交叉测试。3. 在操作系统设置中检查对应的有线网络适配器是否被禁用，若禁用请启用。4. 记录下连接异常的具体网口编号或位置信息。如以上步骤无法解决，或涉及网络配置变更，请联系企业IT支持人员。\",\n  \"citation_ids\": [12]\n}",
+    "semantic_review": {
+      "reviewer": "AI review pending",
+      "verdict": "pending"
+    }
+  },
+  {
+    "case_id": "T12-Q2",
+    "query": "电脑有线网口灯不亮怎么查",
+    "answer": "根据现有资料判断，没有直接适用于“电脑有线网口灯不亮”的模拟操作规程。可执行排查建议：1. 检查网线两端是否插紧，尝试更换一根已知正常的网线。2. 检查网口对应的交换机或路由器端口是否正常供电和指示灯亮。3. 尝试将电脑连接到另一个已知正常的网络端口。4. 如果电脑通过扩展坞连接网络，请参照扩展坞异常的流程检查其供电与连接。5. 如果以上步骤无法解决，且问题持续，建议联系服务台并提供电脑资产编号以进一步排查。",
+    "citations": [
+      30
+    ],
+    "evidence": [
+      {
+        "id": 25,
+        "title": "模拟SOP T25 电脑无法开机",
+        "content": "T25 电脑无法开机\n适用场景：电脑按电源键没有反应。处理流程：检查电源线与适配器；确认插座可用；观察指示灯；按设备官方指南检查并提交资产编号。边界：本资料为模拟操作规程；实际操作需遵循所在企业授权，生产、敏感数据及权限变更转人工确认。",
+        "version": 1
+      },
+      {
+        "id": 30,
+        "title": "模拟SOP T30 扩展坞异常",
+        "content": "T30 扩展坞异常\n适用场景：扩展坞接显示器键鼠均失效。处理流程：检查扩展坞供电及连接线；对照直接连接电脑；核对固件与兼容机型；收集设备型号。边界：本资料为模拟操作规程；实际操作需遵循所在企业授权，生产、敏感数据及权限变更转人工确认。",
+        "version": 1
+      },
+      {
+        "id": 24,
+        "title": "模拟SOP T24 电脑蓝屏",
+        "content": "T24 电脑蓝屏\n适用场景：电脑蓝屏突然重启。处理流程：记录停止代码和最近变更；保存可用日志；检查批准的驱动更新；持续出现时联系服务台。边界：本资料为模拟操作规程；实际操作需遵循所在企业授权，生产、敏感数据及权限变更转人工确认。",
+        "version": 1
+      },
+      {
+        "id": 27,
+        "title": "模拟SOP T27 电脑运行缓慢",
+        "content": "T27 电脑运行缓慢\n适用场景：电脑卡顿CPU或内存占用高。处理流程：记录卡顿时段；查看任务管理器占用；关闭已保存工作的非必要程序；提交进程名称与系统版本。边界：本资料为模拟操作规程；实际操作需遵循所在企业授权，生产、敏感数据及权限变更转人工确认。",
+        "version": 1
+      }
+    ],
+    "elapsed_ms": 3366.4528999997856,
+    "called": true,
+    "latency_ms": 3362.341099999867,
+    "structured": true,
+    "citations_valid": true,
+    "usage": {
+      "completion_tokens": 147,
+      "prompt_tokens": 523,
+      "total_tokens": 670,
+      "completion_tokens_details": {
+        "accepted_prediction_tokens": null,
+        "audio_tokens": null,
+        "reasoning_tokens": 0,
+        "rejected_prediction_tokens": null
+      },
+      "prompt_tokens_details": {
+        "audio_tokens": null,
+        "cached_tokens": 0
+      }
+    },
+    "finish_reason": "stop",
+    "raw_output": "{\"answer\":\"根据现有资料判断，没有直接适用于“电脑有线网口灯不亮”的模拟操作规程。可执行排查建议：1. 检查网线两端是否插紧，尝试更换一根已知正常的网线。2. 检查网口对应的交换机或路由器端口是否正常供电和指示灯亮。3. 尝试将电脑连接到另一个已知正常的网络端口。4. 如果电脑通过扩展坞连接网络，请参照扩展坞异常的流程检查其供电与连接。5. 如果以上步骤无法解决，且问题持续，建议联系服务台并提供电脑资产编号以进一步排查。\",\"citation_ids\":[30]}",
+    "semantic_review": {
+      "reviewer": "AI review pending",
+      "verdict": "pending"
+    }
+  },
+  {
+    "case_id": "T14-Q1",
+    "query": "发给客户的邮件退信了",
+    "answer": "根据资料，邮件退信属于低风险事件。建议按以下步骤排查：\n1. 保留退信原文和错误码，作为后续分析的依据。\n2. 仔细核对收件人邮箱地址，确认拼写是否正确无误。\n3. 检查邮件附件大小，确认是否超过对方邮箱系统或双方邮件服务器的限制。\n4. 核对对方邮箱状态，确认是否存在账户异常、已满或已停用的情况。\n5. 根据错误码，必要时联系邮件管理员进行查询或协助。",
+    "citations": [
+      14
+    ],
+    "evidence": [
+      {
+        "id": 14,
+        "title": "模拟SOP T14 邮件发送退信",
+        "content": "T14 邮件发送退信\n适用场景：发邮件后收到退信通知。处理流程：保留退信原文和错误码；确认收件地址拼写；核对附件大小和对方邮箱状态；根据错误码联系管理员。边界：本资料为模拟操作规程；实际操作需遵循所在企业授权，生产、敏感数据及权限变更转人工确认。",
+        "version": 1
+      },
+      {
+        "id": 13,
+        "title": "模拟SOP T13 邮件收不到",
+        "content": "T13 邮件收不到\n适用场景：外部客户邮件无法接收。处理流程：检查垃圾邮件和客户端过滤规则；核对发件地址及收件时间；让邮件管理员查询网关日志；不要直接放开全部外部邮件。边界：本资料为模拟操作规程；实际操作需遵循所在企业授权，生产、敏感数据及权限变更转人工确认。",
+        "version": 1
+      }
+    ],
+    "elapsed_ms": 23965.2016,
+    "called": true,
+    "latency_ms": 23962.21989999958,
+    "structured": true,
+    "citations_valid": true,
+    "usage": {
+      "completion_tokens": 140,
+      "prompt_tokens": 344,
+      "total_tokens": 484,
+      "completion_tokens_details": {
+        "accepted_prediction_tokens": null,
+        "audio_tokens": null,
+        "reasoning_tokens": 0,
+        "rejected_prediction_tokens": null
+      },
+      "prompt_tokens_details": {
+        "audio_tokens": null,
+        "cached_tokens": 0
+      }
+    },
+    "finish_reason": "stop",
+    "raw_output": "{\n  \"answer\": \"根据资料，邮件退信属于低风险事件。建议按以下步骤排查：\\n1. 保留退信原文和错误码，作为后续分析的依据。\\n2. 仔细核对收件人邮箱地址，确认拼写是否正确无误。\\n3. 检查邮件附件大小，确认是否超过对方邮箱系统或双方邮件服务器的限制。\\n4. 核对对方邮箱状态，确认是否存在账户异常、已满或已停用的情况。\\n5. 根据错误码，必要时联系邮件管理员进行查询或协助。\",\n  \"citation_ids\": [14]\n}",
+    "semantic_review": {
+      "reviewer": "AI review pending",
+      "verdict": "pending"
+    }
+  },
+  {
+    "case_id": "T14-Q2",
+    "query": "邮件发出去又退回来有错误代码",
+    "answer": "根据工单描述，邮件发送后收到退信，属于邮件发送退信场景。建议：1. 保留退信原文和错误码；2. 确认收件地址拼写是否正确；3. 核对附件大小及对方邮箱状态（如是否已满）；4. 根据退信错误码联系邮件管理员查询具体原因。",
+    "citations": [
+      14
+    ],
+    "evidence": [
+      {
+        "id": 13,
+        "title": "模拟SOP T13 邮件收不到",
+        "content": "T13 邮件收不到\n适用场景：外部客户邮件无法接收。处理流程：检查垃圾邮件和客户端过滤规则；核对发件地址及收件时间；让邮件管理员查询网关日志；不要直接放开全部外部邮件。边界：本资料为模拟操作规程；实际操作需遵循所在企业授权，生产、敏感数据及权限变更转人工确认。",
+        "version": 1
+      },
+      {
+        "id": 14,
+        "title": "模拟SOP T14 邮件发送退信",
+        "content": "T14 邮件发送退信\n适用场景：发邮件后收到退信通知。处理流程：保留退信原文和错误码；确认收件地址拼写；核对附件大小和对方邮箱状态；根据错误码联系管理员。边界：本资料为模拟操作规程；实际操作需遵循所在企业授权，生产、敏感数据及权限变更转人工确认。",
+        "version": 1
+      },
+      {
+        "id": 57,
+        "title": "模拟SOP T57 疑似钓鱼邮件",
+        "content": "T57 疑似钓鱼邮件\n适用场景：可疑邮件冒充同事索要凭证。处理流程：不要点击链接或附件；保留原始邮件；上报安全团队；已输入凭证时通知身份管理员。边界：本资料为模拟操作规程；实际操作需遵循所在企业授权，生产、敏感数据及权限变更转人工确认。",
+        "version": 1
+      },
+      {
+        "id": 18,
+        "title": "模拟SOP T18 邮箱客户端同步",
+        "content": "T18 邮箱客户端同步\n适用场景：邮件客户端不同步但网页版正常。处理流程：检查网络和客户端离线模式；核对账号配置；重启客户端后对照同步时间；保留日志。边界：本资料为模拟操作规程；实际操作需遵循所在企业授权，生产、敏感数据及权限变更转人工确认。",
+        "version": 1
+      }
+    ],
+    "elapsed_ms": 4382.643399999324,
+    "called": true,
+    "latency_ms": 4379.828300000554,
+    "structured": true,
+    "citations_valid": true,
+    "usage": {
+      "completion_tokens": 97,
+      "prompt_tokens": 546,
+      "total_tokens": 643,
+      "completion_tokens_details": {
+        "accepted_prediction_tokens": null,
+        "audio_tokens": null,
+        "reasoning_tokens": 0,
+        "rejected_prediction_tokens": null
+      },
+      "prompt_tokens_details": {
+        "audio_tokens": null,
+        "cached_tokens": 0
+      }
+    },
+    "finish_reason": "stop",
+    "raw_output": "{\n  \"answer\": \"根据工单描述，邮件发送后收到退信，属于邮件发送退信场景。建议：1. 保留退信原文和错误码；2. 确认收件地址拼写是否正确；3. 核对附件大小及对方邮箱状态（如是否已满）；4. 根据退信错误码联系邮件管理员查询具体原因。\",\n  \"citation_ids\": [14]\n}",
+    "semantic_review": {
+      "reviewer": "AI review pending",
+      "verdict": "pending"
+    }
+  },
+  {
+    "case_id": "T16-Q1",
+    "query": "邮件附件太大一直发不出去",
+    "answer": "根据资料，此问题为附件过大无法发送。请按以下步骤排查：1. 确认当前邮件系统的附件大小上限；2. 如附件确实超标，请使用企业批准的文件分享工具进行传输；3. 分享时需根据数据分类设置合适的分享范围；4. 切勿将文件上传至私人网盘。",
+    "citations": [
+      16
+    ],
+    "evidence": [
+      {
+        "id": 16,
+        "title": "模拟SOP T16 附件过大",
+        "content": "T16 附件过大\n适用场景：邮件附件超过大小限制。处理流程：确认邮件系统附件上限；使用批准的企业文件分享工具；按数据分类设置分享范围；不要上传私人网盘。边界：本资料为模拟操作规程；实际操作需遵循所在企业授权，生产、敏感数据及权限变更转人工确认。",
+        "version": 1
+      },
+      {
+        "id": 22,
+        "title": "模拟SOP T22 打印队列阻塞",
+        "content": "T22 打印队列阻塞\n适用场景：打印任务一直排队不出纸。处理流程：检查队列首个失败任务；确认设备在线；按批准流程取消自己的阻塞任务；记录任务与错误信息。边界：本资料为模拟操作规程；实际操作需遵循所在企业授权，生产、敏感数据及权限变更转人工确认。",
+        "version": 1
+      },
+      {
+        "id": 13,
+        "title": "模拟SOP T13 邮件收不到",
+        "content": "T13 邮件收不到\n适用场景：外部客户邮件无法接收。处理流程：检查垃圾邮件和客户端过滤规则；核对发件地址及收件时间；让邮件管理员查询网关日志；不要直接放开全部外部邮件。边界：本资料为模拟操作规程；实际操作需遵循所在企业授权，生产、敏感数据及权限变更转人工确认。",
+        "version": 1
+      },
+      {
+        "id": 15,
+        "title": "模拟SOP T15 邮箱容量超限",
+        "content": "T15 邮箱容量超限\n适用场景：邮箱存储配额满无法收发。处理流程：按公司留存要求归档历史邮件；清理可删除的大附件；确认回收站占用；需要扩容时提交申请。边界：本资料为模拟操作规程；实际操作需遵循所在企业授权，生产、敏感数据及权限变更转人工确认。",
+        "version": 1
+      }
+    ],
+    "elapsed_ms": 2564.8455999998987,
+    "called": true,
+    "latency_ms": 2561.5930000003573,
+    "structured": true,
+    "citations_valid": true,
+    "usage": {
+      "completion_tokens": 91,
+      "prompt_tokens": 536,
+      "total_tokens": 627,
+      "completion_tokens_details": {
+        "accepted_prediction_tokens": null,
+        "audio_tokens": null,
+        "reasoning_tokens": 0,
+        "rejected_prediction_tokens": null
+      },
+      "prompt_tokens_details": {
+        "audio_tokens": null,
+        "cached_tokens": 0
+      }
+    },
+    "finish_reason": "stop",
+    "raw_output": "{\n  \"answer\": \"根据资料，此问题为附件过大无法发送。请按以下步骤排查：1. 确认当前邮件系统的附件大小上限；2. 如附件确实超标，请使用企业批准的文件分享工具进行传输；3. 分享时需根据数据分类设置合适的分享范围；4. 切勿将文件上传至私人网盘。\",\n  \"citation_ids\": [16]\n}",
+    "semantic_review": {
+      "reviewer": "AI review pending",
+      "verdict": "pending"
+    }
+  },
+  {
+    "case_id": "T16-Q2",
+    "query": "几十兆的文件邮件系统不让我附上",
+    "answer": "判断：根据工单描述，您遇到的是邮件附件大小超过系统限制的问题。处理建议如下：1. 请确认您所在企业邮件系统的官方附件大小上限（例如，查看系统帮助文档或联系IT管理员获取准确数值）。2. 如果文件确实超出附件大小限制，建议使用企业已批准的文件分享工具（如企业网盘、协作平台等）进行传输，但需确保遵循数据分类要求，仅向授权人员分享。3. 设置分享范围时，请根据文件的数据分类（如公开、内部、机密等）进行配置，避免信息泄露。4. 严禁使用个人网盘或未授权的第三方服务上传企业文件。5. 如果涉及敏感数据或权限变更，请勿自行操作，需转交人工处理确认。",
+    "citations": [
+      16
+    ],
+    "evidence": [
+      {
+        "id": 16,
+        "title": "模拟SOP T16 附件过大",
+        "content": "T16 附件过大\n适用场景：邮件附件超过大小限制。处理流程：确认邮件系统附件上限；使用批准的企业文件分享工具；按数据分类设置分享范围；不要上传私人网盘。边界：本资料为模拟操作规程；实际操作需遵循所在企业授权，生产、敏感数据及权限变更转人工确认。",
+        "version": 1
+      }
+    ],
+    "elapsed_ms": 5019.806999999673,
+    "called": true,
+    "latency_ms": 5016.1744000006365,
+    "structured": true,
+    "citations_valid": true,
+    "usage": {
+      "completion_tokens": 181,
+      "prompt_tokens": 229,
+      "total_tokens": 410,
+      "completion_tokens_details": {
+        "accepted_prediction_tokens": null,
+        "audio_tokens": null,
+        "reasoning_tokens": 0,
+        "rejected_prediction_tokens": null
+      },
+      "prompt_tokens_details": {
+        "audio_tokens": null,
+        "cached_tokens": 0
+      }
+    },
+    "finish_reason": "stop",
+    "raw_output": "{\n  \"answer\": \"判断：根据工单描述，您遇到的是邮件附件大小超过系统限制的问题。处理建议如下：1. 请确认您所在企业邮件系统的官方附件大小上限（例如，查看系统帮助文档或联系IT管理员获取准确数值）。2. 如果文件确实超出附件大小限制，建议使用企业已批准的文件分享工具（如企业网盘、协作平台等）进行传输，但需确保遵循数据分类要求，仅向授权人员分享。3. 设置分享范围时，请根据文件的数据分类（如公开、内部、机密等）进行配置，避免信息泄露。4. 严禁使用个人网盘或未授权的第三方服务上传企业文件。5. 如果涉及敏感数据或权限变更，请勿自行操作，需转交人工处理确认。\",\n  \"citation_ids\": [16]\n}",
+    "semantic_review": {
+      "reviewer": "AI review pending",
+      "verdict": "pending"
+    }
+  },
+  {
+    "case_id": "T18-Q1",
+    "query": "网页版有新邮件客户端没有",
+    "answer": "判断：邮件客户端同步功能出现故障，需按照同步流程进行排查。建议：1. 检查客户端网络连接是否正常，并确认是否处于离线模式。2. 核对邮箱账号配置信息（如服务器地址、端口）是否正确。3. 尝试重启邮件客户端，并检查同步时间设置。4. 查看客户端日志，以获取可能的错误信息。",
+    "citations": [
+      18
+    ],
+    "evidence": [
+      {
+        "id": 18,
+        "title": "模拟SOP T18 邮箱客户端同步",
+        "content": "T18 邮箱客户端同步\n适用场景：邮件客户端不同步但网页版正常。处理流程：检查网络和客户端离线模式；核对账号配置；重启客户端后对照同步时间；保留日志。边界：本资料为模拟操作规程；实际操作需遵循所在企业授权，生产、敏感数据及权限变更转人工确认。",
+        "version": 1
+      }
+    ],
+    "elapsed_ms": 3966.509099999712,
+    "called": true,
+    "latency_ms": 3963.5788999994475,
+    "structured": true,
+    "citations_valid": true,
+    "usage": {
+      "completion_tokens": 97,
+      "prompt_tokens": 230,
+      "total_tokens": 327,
+      "completion_tokens_details": {
+        "accepted_prediction_tokens": null,
+        "audio_tokens": null,
+        "reasoning_tokens": 0,
+        "rejected_prediction_tokens": null
+      },
+      "prompt_tokens_details": {
+        "audio_tokens": null,
+        "cached_tokens": 0
+      }
+    },
+    "finish_reason": "stop",
+    "raw_output": "{\"answer\":\"判断：邮件客户端同步功能出现故障，需按照同步流程进行排查。建议：1. 检查客户端网络连接是否正常，并确认是否处于离线模式。2. 核对邮箱账号配置信息（如服务器地址、端口）是否正确。3. 尝试重启邮件客户端，并检查同步时间设置。4. 查看客户端日志，以获取可能的错误信息。\",\"citation_ids\":[18]}",
+    "semantic_review": {
+      "reviewer": "AI review pending",
+      "verdict": "pending"
+    }
+  },
+  {
+    "case_id": "T18-Q2",
+    "query": "Outlook一直不更新邮件",
+    "answer": null,
+    "citations": [],
+    "evidence": [
+      {
+        "id": 13,
+        "title": "模拟SOP T13 邮件收不到",
+        "content": "T13 邮件收不到\n适用场景：外部客户邮件无法接收。处理流程：检查垃圾邮件和客户端过滤规则；核对发件地址及收件时间；让邮件管理员查询网关日志；不要直接放开全部外部邮件。边界：本资料为模拟操作规程；实际操作需遵循所在企业授权，生产、敏感数据及权限变更转人工确认。",
+        "version": 1
+      },
+      {
+        "id": 8,
+        "title": "模拟SOP T08 VPN客户端更新",
+        "content": "T08 VPN客户端更新\n适用场景：VPN客户端版本太旧无法连接。处理流程：从企业软件门户获取批准版本；保存配置；安装后确认版本号；遇到兼容问题联系服务台。边界：本资料为模拟操作规程；实际操作需遵循所在企业授权，生产、敏感数据及权限变更转人工确认。",
+        "version": 1
+      },
+      {
+        "id": 57,
+        "title": "模拟SOP T57 疑似钓鱼邮件",
+        "content": "T57 疑似钓鱼邮件\n适用场景：可疑邮件冒充同事索要凭证。处理流程：不要点击链接或附件；保留原始邮件；上报安全团队；已输入凭证时通知身份管理员。边界：本资料为模拟操作规程；实际操作需遵循所在企业授权，生产、敏感数据及权限变更转人工确认。",
+        "version": 1
+      },
+      {
+        "id": 14,
+        "title": "模拟SOP T14 邮件发送退信",
+        "content": "T14 邮件发送退信\n适用场景：发邮件后收到退信通知。处理流程：保留退信原文和错误码；确认收件地址拼写；核对附件大小和对方邮箱状态；根据错误码联系管理员。边界：本资料为模拟操作规程；实际操作需遵循所在企业授权，生产、敏感数据及权限变更转人工确认。",
+        "version": 1
+      }
+    ],
+    "elapsed_ms": 7267.183699999805,
+    "called": true,
+    "latency_ms": 7267.05629999924,
+    "structured": true,
+    "citations_valid": false,
+    "usage": {
+      "completion_tokens": 162,
+      "prompt_tokens": 532,
+      "total_tokens": 694,
+      "completion_tokens_details": {
+        "accepted_prediction_tokens": null,
+        "audio_tokens": null,
+        "reasoning_tokens": 0,
+        "rejected_prediction_tokens": null
+      },
+      "prompt_tokens_details": {
+        "audio_tokens": null,
+        "cached_tokens": 0
+      }
+    },
+    "finish_reason": "stop",
+    "raw_output": "{\n  \"answer\": \"判断：您的Outlook客户端未自动更新邮件，可能与网络连接、客户端配置或服务器状态有关。以下是可执行排查建议：\\n1. 检查Outlook客户端的网络连接状态，确保设备已正常接入互联网或企业网络。\\n2. 查看Outlook的“发送/接收”设置，确认自动更新功能已启用且计划任务未被禁用。\\n3. 尝试手动点击“发送/接收所有文件夹”按钮，观察是否能立即更新邮件。\\n4. 重启Outlook客户端或重启设备，以排除临时软件故障。\\n5. 如果问题持续，请联系服务台提供具体错误信息或截图，以便进一步排查。\",\n  \"citation_ids\": []\n}",
+    "error_type": "ValueError",
+    "semantic_review": {
+      "reviewer": "AI review pending",
+      "verdict": "pending"
+    }
+  },
+  {
+    "case_id": "T20-Q1",
+    "query": "打印机卡纸了纸拉不出来",
+    "answer": "判断：根据工单描述，此问题属于常见的打印机卡纸故障，且已归类为低风险模拟工单。\n\n可执行排查建议：\n1.  关闭打印机电源，确保设备安全。\n2.  按照打印机机身图示或用户手册的指引，打开卡纸区域的盖板（如纸盒、顶盖或后部盖板）。\n3.  沿着纸张正常运行的方向，用双手均匀、缓慢地用力，尝试将卡住的纸张完整拉出，避免撕裂。\n4.  取出纸张后，仔细检查打印机内部（特别是滚轮、通道）是否残留有撕碎的纸片，并清除干净。\n5.  在操作过程中，注意避免触碰打印机内部的高温定影组件（通常标有高温警告标识），以防烫伤。",
+    "citations": [
+      20
+    ],
+    "evidence": [
+      {
+        "id": 20,
+        "title": "模拟SOP T20 打印机卡纸",
+        "content": "T20 打印机卡纸\n适用场景：打印机卡纸停止打印。处理流程：按设备指南关闭相关盖板；沿纸张方向缓慢取出；检查残留纸片；避免触碰高温定影组件。边界：本资料为模拟操作规程；实际操作需遵循所在企业授权，生产、敏感数据及权限变更转人工确认。",
+        "version": 1
+      }
+    ],
+    "elapsed_ms": 4658.46590000001,
+    "called": true,
+    "latency_ms": 4653.440200000659,
+    "structured": true,
+    "citations_valid": true,
+    "usage": {
+      "completion_tokens": 200,
+      "prompt_tokens": 231,
+      "total_tokens": 431,
+      "completion_tokens_details": {
+        "accepted_prediction_tokens": null,
+        "audio_tokens": null,
+        "reasoning_tokens": 0,
+        "rejected_prediction_tokens": null
+      },
+      "prompt_tokens_details": {
+        "audio_tokens": null,
+        "cached_tokens": 0
+      }
+    },
+    "finish_reason": "stop",
+    "raw_output": "{\"answer\":\"判断：根据工单描述，此问题属于常见的打印机卡纸故障，且已归类为低风险模拟工单。\\n\\n可执行排查建议：\\n1.  关闭打印机电源，确保设备安全。\\n2.  按照打印机机身图示或用户手册的指引，打开卡纸区域的盖板（如纸盒、顶盖或后部盖板）。\\n3.  沿着纸张正常运行的方向，用双手均匀、缓慢地用力，尝试将卡住的纸张完整拉出，避免撕裂。\\n4.  取出纸张后，仔细检查打印机内部（特别是滚轮、通道）是否残留有撕碎的纸片，并清除干净。\\n5.  在操作过程中，注意避免触碰打印机内部的高温定影组件（通常标有高温警告标识），以防烫伤。\",\"citation_ids\":[20]}",
+    "semantic_review": {
+      "reviewer": "AI review pending",
+      "verdict": "pending"
+    }
+  },
+  {
+    "case_id": "T20-Q2",
+    "query": "打印一半纸夹在机器里",
+    "answer": "判断：该问题属于打印机卡纸，应参照卡纸处理流程。建议：1. 按设备指南关闭打印机相关盖板。2. 沿纸张方向缓慢取出卡住的纸张。3. 检查是否有残留纸片。4. 操作时避免触碰高温定影组件。5. 取出纸张后，按正常流程重新启动打印任务。",
+    "citations": [
+      20
+    ],
+    "evidence": [
+      {
+        "id": 22,
+        "title": "模拟SOP T22 打印队列阻塞",
+        "content": "T22 打印队列阻塞\n适用场景：打印任务一直排队不出纸。处理流程：检查队列首个失败任务；确认设备在线；按批准流程取消自己的阻塞任务；记录任务与错误信息。边界：本资料为模拟操作规程；实际操作需遵循所在企业授权，生产、敏感数据及权限变更转人工确认。",
+        "version": 1
+      },
+      {
+        "id": 20,
+        "title": "模拟SOP T20 打印机卡纸",
+        "content": "T20 打印机卡纸\n适用场景：打印机卡纸停止打印。处理流程：按设备指南关闭相关盖板；沿纸张方向缓慢取出；检查残留纸片；避免触碰高温定影组件。边界：本资料为模拟操作规程；实际操作需遵循所在企业授权，生产、敏感数据及权限变更转人工确认。",
+        "version": 1
+      },
+      {
+        "id": 21,
+        "title": "模拟SOP T21 打印机脱机",
+        "content": "T21 打印机脱机\n适用场景：网络打印机显示脱机。处理流程：确认设备电源和网络地址；检查打印队列离线设置；对照网页管理页面；重新连接批准的打印队列。边界：本资料为模拟操作规程；实际操作需遵循所在企业授权，生产、敏感数据及权限变更转人工确认。",
+        "version": 1
+      },
+      {
+        "id": 19,
+        "title": "模拟SOP T19 打印机缺纸误报",
+        "content": "T19 打印机缺纸误报\n适用场景：打印机显示缺纸但纸盒有纸。处理流程：确认纸盒与纸张尺寸设置匹配；重新放置纸张并检查导纸板；按设备指南检查传感器；记录型号。边界：本资料为模拟操作规程；实际操作需遵循所在企业授权，生产、敏感数据及权限变更转人工确认。",
+        "version": 1
+      }
+    ],
+    "elapsed_ms": 2035.0330999999642,
+    "called": true,
+    "latency_ms": 2030.4425000003903,
+    "structured": true,
+    "citations_valid": true,
+    "usage": {
+      "completion_tokens": 105,
+      "prompt_tokens": 544,
+      "total_tokens": 649,
+      "completion_tokens_details": {
+        "accepted_prediction_tokens": null,
+        "audio_tokens": null,
+        "reasoning_tokens": 0,
+        "rejected_prediction_tokens": null
+      },
+      "prompt_tokens_details": {
+        "audio_tokens": null,
+        "cached_tokens": 0
+      }
+    },
+    "finish_reason": "stop",
+    "raw_output": "{\n  \"answer\": \"判断：该问题属于打印机卡纸，应参照卡纸处理流程。建议：1. 按设备指南关闭打印机相关盖板。2. 沿纸张方向缓慢取出卡住的纸张。3. 检查是否有残留纸片。4. 操作时避免触碰高温定影组件。5. 取出纸张后，按正常流程重新启动打印任务。\",\n  \"citation_ids\": [20]\n}",
+    "semantic_review": {
+      "reviewer": "AI review pending",
+      "verdict": "pending"
+    }
+  },
+  {
+    "case_id": "T22-Q1",
+    "query": "打印任务一直在队列里转圈",
+    "answer": "判断：打印队列阻塞导致任务无法打印。排查建议：1. 检查打印队列中首个失败任务，记录其状态和错误信息；2. 确认打印机设备是否在线（检查电源和网络地址）；3. 检查打印队列的离线设置，并通过网页管理页面对照确认；4. 如需取消阻塞任务，请按企业批准流程操作并记录详情。",
+    "citations": [
+      22,
+      21
+    ],
+    "evidence": [
+      {
+        "id": 22,
+        "title": "模拟SOP T22 打印队列阻塞",
+        "content": "T22 打印队列阻塞\n适用场景：打印任务一直排队不出纸。处理流程：检查队列首个失败任务；确认设备在线；按批准流程取消自己的阻塞任务；记录任务与错误信息。边界：本资料为模拟操作规程；实际操作需遵循所在企业授权，生产、敏感数据及权限变更转人工确认。",
+        "version": 1
+      },
+      {
+        "id": 21,
+        "title": "模拟SOP T21 打印机脱机",
+        "content": "T21 打印机脱机\n适用场景：网络打印机显示脱机。处理流程：确认设备电源和网络地址；检查打印队列离线设置；对照网页管理页面；重新连接批准的打印队列。边界：本资料为模拟操作规程；实际操作需遵循所在企业授权，生产、敏感数据及权限变更转人工确认。",
+        "version": 1
+      }
+    ],
+    "elapsed_ms": 2221.462999999858,
+    "called": true,
+    "latency_ms": 2216.4826999996876,
+    "structured": true,
+    "citations_valid": true,
+    "usage": {
+      "completion_tokens": 114,
+      "prompt_tokens": 335,
+      "total_tokens": 449,
+      "completion_tokens_details": {
+        "accepted_prediction_tokens": null,
+        "audio_tokens": null,
+        "reasoning_tokens": 0,
+        "rejected_prediction_tokens": null
+      },
+      "prompt_tokens_details": {
+        "audio_tokens": null,
+        "cached_tokens": 0
+      }
+    },
+    "finish_reason": "stop",
+    "raw_output": "{\n  \"answer\": \"判断：打印队列阻塞导致任务无法打印。排查建议：1. 检查打印队列中首个失败任务，记录其状态和错误信息；2. 确认打印机设备是否在线（检查电源和网络地址）；3. 检查打印队列的离线设置，并通过网页管理页面对照确认；4. 如需取消阻塞任务，请按企业批准流程操作并记录详情。\",\n  \"citation_ids\": [22, 21]\n}",
+    "semantic_review": {
+      "reviewer": "AI review pending",
+      "verdict": "pending"
+    }
+  },
+  {
+    "case_id": "T22-Q2",
+    "query": "发送打印后排队很久没有输出",
+    "answer": "判断：该问题属于打印队列阻塞，为低风险模拟工单，可依据模拟SOP T22处理。可执行排查建议：1. 检查打印队列，查看是否有任务处于失败或错误状态；2. 确认目标打印机是否在线且网络连接正常；3. 若队列中有自己的阻塞任务，按批准流程取消该任务；4. 记录相关任务信息和错误信息以便后续分析；5. 若问题持续，转交人工处理以遵循企业授权流程。",
+    "citations": [
+      22
+    ],
+    "evidence": [
+      {
+        "id": 22,
+        "title": "模拟SOP T22 打印队列阻塞",
+        "content": "T22 打印队列阻塞\n适用场景：打印任务一直排队不出纸。处理流程：检查队列首个失败任务；确认设备在线；按批准流程取消自己的阻塞任务；记录任务与错误信息。边界：本资料为模拟操作规程；实际操作需遵循所在企业授权，生产、敏感数据及权限变更转人工确认。",
+        "version": 1
+      },
+      {
+        "id": 19,
+        "title": "模拟SOP T19 打印机缺纸误报",
+        "content": "T19 打印机缺纸误报\n适用场景：打印机显示缺纸但纸盒有纸。处理流程：确认纸盒与纸张尺寸设置匹配；重新放置纸张并检查导纸板；按设备指南检查传感器；记录型号。边界：本资料为模拟操作规程；实际操作需遵循所在企业授权，生产、敏感数据及权限变更转人工确认。",
+        "version": 1
+      },
+      {
+        "id": 23,
+        "title": "模拟SOP T23 打印驱动安装",
+        "content": "T23 打印驱动安装\n适用场景：打印驱动安装失败或型号不匹配。处理流程：确认系统架构和打印机型号；从企业门户获取签名驱动；按批准权限安装；收集安装日志。边界：本资料为模拟操作规程；实际操作需遵循所在企业授权，生产、敏感数据及权限变更转人工确认。",
+        "version": 1
+      },
+      {
+        "id": 13,
+        "title": "模拟SOP T13 邮件收不到",
+        "content": "T13 邮件收不到\n适用场景：外部客户邮件无法接收。处理流程：检查垃圾邮件和客户端过滤规则；核对发件地址及收件时间；让邮件管理员查询网关日志；不要直接放开全部外部邮件。边界：本资料为模拟操作规程；实际操作需遵循所在企业授权，生产、敏感数据及权限变更转人工确认。",
+        "version": 1
+      }
+    ],
+    "elapsed_ms": 3330.081600000085,
+    "called": true,
+    "latency_ms": 3325.1798999999664,
+    "structured": true,
+    "citations_valid": true,
+    "usage": {
+      "completion_tokens": 134,
+      "prompt_tokens": 547,
+      "total_tokens": 681,
+      "completion_tokens_details": {
+        "accepted_prediction_tokens": null,
+        "audio_tokens": null,
+        "reasoning_tokens": 0,
+        "rejected_prediction_tokens": null
+      },
+      "prompt_tokens_details": {
+        "audio_tokens": null,
+        "cached_tokens": 0
+      }
+    },
+    "finish_reason": "stop",
+    "raw_output": "{\n  \"answer\": \"判断：该问题属于打印队列阻塞，为低风险模拟工单，可依据模拟SOP T22处理。可执行排查建议：1. 检查打印队列，查看是否有任务处于失败或错误状态；2. 确认目标打印机是否在线且网络连接正常；3. 若队列中有自己的阻塞任务，按批准流程取消该任务；4. 记录相关任务信息和错误信息以便后续分析；5. 若问题持续，转交人工处理以遵循企业授权流程。\",\n  \"citation_ids\": [22]\n}",
+    "semantic_review": {
+      "reviewer": "AI review pending",
+      "verdict": "pending"
+    }
+  },
+  {
+    "case_id": "T24-Q1",
+    "query": "电脑蓝屏重启能帮我排查吗",
+    "answer": "判断：您遇到的电脑蓝屏重启问题属于模拟SOP T24的适用场景。以下是可执行的排查建议：1. 记录下蓝屏时屏幕显示的停止代码（如0x0000000A等）和蓝屏前进行的任何操作或系统变更。2. 如果电脑能重新启动，请尝试查看系统事件日志中与蓝屏时间点相关的错误记录并保存。3. 检查操作系统和关键硬件驱动程序是否有已批准的更新（需遵循企业软件更新策略）。4. 若蓝屏问题持续出现，请收集以上信息后联系服务台进行进一步分析。",
+    "citations": [
+      24
+    ],
+    "evidence": [
+      {
+        "id": 24,
+        "title": "模拟SOP T24 电脑蓝屏",
+        "content": "T24 电脑蓝屏\n适用场景：电脑蓝屏突然重启。处理流程：记录停止代码和最近变更；保存可用日志；检查批准的驱动更新；持续出现时联系服务台。边界：本资料为模拟操作规程；实际操作需遵循所在企业授权，生产、敏感数据及权限变更转人工确认。",
+        "version": 1
+      }
+    ],
+    "elapsed_ms": 2977.72520000035,
+    "called": true,
+    "latency_ms": 2974.5585000000574,
+    "structured": true,
+    "citations_valid": true,
+    "usage": {
+      "completion_tokens": 150,
+      "prompt_tokens": 226,
+      "total_tokens": 376,
+      "completion_tokens_details": {
+        "accepted_prediction_tokens": null,
+        "audio_tokens": null,
+        "reasoning_tokens": 0,
+        "rejected_prediction_tokens": null
+      },
+      "prompt_tokens_details": {
+        "audio_tokens": null,
+        "cached_tokens": 0
+      }
+    },
+    "finish_reason": "stop",
+    "raw_output": "{\"answer\":\"判断：您遇到的电脑蓝屏重启问题属于模拟SOP T24的适用场景。以下是可执行的排查建议：1. 记录下蓝屏时屏幕显示的停止代码（如0x0000000A等）和蓝屏前进行的任何操作或系统变更。2. 如果电脑能重新启动，请尝试查看系统事件日志中与蓝屏时间点相关的错误记录并保存。3. 检查操作系统和关键硬件驱动程序是否有已批准的更新（需遵循企业软件更新策略）。4. 若蓝屏问题持续出现，请收集以上信息后联系服务台进行进一步分析。\",\"citation_ids\":[24]}",
+    "semantic_review": {
+      "reviewer": "AI review pending",
+      "verdict": "pending"
+    }
+  },
+  {
+    "case_id": "T24-Q2",
+    "query": "一开工作软件就出现蓝色屏幕",
+    "answer": null,
+    "citations": [],
+    "evidence": [
+      {
+        "id": 59,
+        "title": "模拟SOP T59 可疑软件弹窗",
+        "content": "T59 可疑软件弹窗\n适用场景：设备出现恶意软件告警。处理流程：不要运行可疑文件；记录告警与设备编号；通知安全团队；隔离操作由授权人员执行。边界：本资料为模拟操作规程；实际操作需遵循所在企业授权，生产、敏感数据及权限变更转人工确认。",
+        "version": 1
+      }
+    ],
+    "elapsed_ms": 7201.477800000248,
+    "called": true,
+    "latency_ms": 7201.221899999837,
+    "structured": true,
+    "citations_valid": false,
+    "usage": {
+      "completion_tokens": 139,
+      "prompt_tokens": 229,
+      "total_tokens": 368,
+      "completion_tokens_details": {
+        "accepted_prediction_tokens": null,
+        "audio_tokens": null,
+        "reasoning_tokens": 0,
+        "rejected_prediction_tokens": null
+      },
+      "prompt_tokens_details": {
+        "audio_tokens": null,
+        "cached_tokens": 0
+      }
+    },
+    "finish_reason": "stop",
+    "raw_output": "{\"answer\":\"根据现有资料，您的问题（工作软件导致蓝屏）与当前适用的“可疑软件弹窗”资料场景不符，无法直接提供排查方案。建议您先确认：1. 蓝屏前是否有安全软件弹出恶意软件告警窗口；2. 是否记录了具体的蓝屏错误代码；3. 该工作软件是否为公司批准的官方版本；4. 尝试在安全模式下启动电脑，观察是否还会因该软件触发蓝屏。若无安全告警，此问题可能属于软件兼容性或系统故障范畴，建议补充信息后由人工支持处理。\",\"citation_ids\":[]}",
+    "error_type": "ValueError",
+    "semantic_review": {
+      "reviewer": "AI review pending",
+      "verdict": "pending"
+    }
+  },
+  {
+    "case_id": "T26-Q1",
+    "query": "C盘满了软件都打不开",
+    "answer": "判断：C盘磁盘空间不足导致软件无法正常运行。可执行排查建议：1. 检查C盘剩余空间，清理临时文件（如运行磁盘清理工具）；2. 卸载不常用的程序以释放磁盘空间；3. 将大文件或个人文档迁移至其他磁盘；4. 检查系统日志，确认是否有错误提示与磁盘相关；5. 如清理后问题依旧，建议联系IT支持进一步检查。",
+    "citations": [
+      36
+    ],
+    "evidence": [
+      {
+        "id": 36,
+        "title": "模拟SOP T36 软件安装失败",
+        "content": "T36 软件安装失败\n适用场景：批准的办公软件安装报错。处理流程：确认系统版本与可用磁盘；使用企业门户安装包；收集错误码和安装日志；不要使用破解安装器。边界：本资料为模拟操作规程；实际操作需遵循所在企业授权，生产、敏感数据及权限变更转人工确认。",
+        "version": 1
+      },
+      {
+        "id": 37,
+        "title": "模拟SOP T37 软件依赖缺失",
+        "content": "T37 软件依赖缺失\n适用场景：启动应用提示缺少运行库。处理流程：记录缺失组件名称；从批准的软件门户安装对应运行库；核对系统架构；不要从陌生网站下载DLL。边界：本资料为模拟操作规程；实际操作需遵循所在企业授权，生产、敏感数据及权限变更转人工确认。",
+        "version": 1
+      },
+      {
+        "id": 38,
+        "title": "模拟SOP T38 软件版本不兼容",
+        "content": "T38 软件版本不兼容\n适用场景：应用提示系统版本不兼容。处理流程：核对支持的系统版本；使用企业批准的兼容版本；提交升级申请；保留错误截图。边界：本资料为模拟操作规程；实际操作需遵循所在企业授权，生产、敏感数据及权限变更转人工确认。",
+        "version": 1
+      },
+      {
+        "id": 9,
+        "title": "模拟SOP T09 DNS解析失败",
+        "content": "T09 DNS解析失败\n适用场景：内网域名打不开但IP可访问。处理流程：检查DNS配置和VPN状态；记录域名及解析结果；对照批准的DNS服务；不要使用不明公共解析服务。边界：本资料为模拟操作规程；实际操作需遵循所在企业授权，生产、敏感数据及权限变更转人工确认。",
+        "version": 1
+      }
+    ],
+    "elapsed_ms": 3063.0787000000055,
+    "called": true,
+    "latency_ms": 3057.8654000000824,
+    "structured": true,
+    "citations_valid": true,
+    "usage": {
+      "completion_tokens": 116,
+      "prompt_tokens": 528,
+      "total_tokens": 644,
+      "completion_tokens_details": {
+        "accepted_prediction_tokens": null,
+        "audio_tokens": null,
+        "reasoning_tokens": 0,
+        "rejected_prediction_tokens": null
+      },
+      "prompt_tokens_details": {
+        "audio_tokens": null,
+        "cached_tokens": 0
+      }
+    },
+    "finish_reason": "stop",
+    "raw_output": "{\"answer\":\"判断：C盘磁盘空间不足导致软件无法正常运行。可执行排查建议：1. 检查C盘剩余空间，清理临时文件（如运行磁盘清理工具）；2. 卸载不常用的程序以释放磁盘空间；3. 将大文件或个人文档迁移至其他磁盘；4. 检查系统日志，确认是否有错误提示与磁盘相关；5. 如清理后问题依旧，建议联系IT支持进一步检查。\",\"citation_ids\":[36]}",
+    "semantic_review": {
+      "reviewer": "AI review pending",
+      "verdict": "pending"
+    }
+  },
+  {
+    "case_id": "T26-Q2",
+    "query": "电脑磁盘快没空间如何清理",
+    "answer": "根据您描述的磁盘空间不足问题，建议按以下步骤进行排查和清理：1. 检查存储占用情况，确认是系统盘还是其他磁盘空间不足。2. 清理批准的临时文件（如系统临时文件、浏览器缓存等）。3. 将个人工作文件按照公司保留规则迁移到其他有空间的磁盘或云存储。4. 请注意不要随意删除系统目录或未知文件，以免影响系统运行。5. 如果问题持续或涉及敏感数据操作，建议转交人工处理。",
+    "citations": [
+      26
+    ],
+    "evidence": [
+      {
+        "id": 26,
+        "title": "模拟SOP T26 磁盘空间不足",
+        "content": "T26 磁盘空间不足\n适用场景：系统盘空间不足影响办公。处理流程：查看存储占用；清理批准的临时文件；按保留规则迁移个人工作文件；不要随意删除系统目录。边界：本资料为模拟操作规程；实际操作需遵循所在企业授权，生产、敏感数据及权限变更转人工确认。",
+        "version": 1
+      }
+    ],
+    "elapsed_ms": 4002.4732000001677,
+    "called": true,
+    "latency_ms": 3999.6341000005486,
+    "structured": true,
+    "citations_valid": true,
+    "usage": {
+      "completion_tokens": 131,
+      "prompt_tokens": 230,
+      "total_tokens": 361,
+      "completion_tokens_details": {
+        "accepted_prediction_tokens": null,
+        "audio_tokens": null,
+        "reasoning_tokens": 0,
+        "rejected_prediction_tokens": null
+      },
+      "prompt_tokens_details": {
+        "audio_tokens": null,
+        "cached_tokens": 0
+      }
+    },
+    "finish_reason": "stop",
+    "raw_output": "{\"answer\":\"根据您描述的磁盘空间不足问题，建议按以下步骤进行排查和清理：1. 检查存储占用情况，确认是系统盘还是其他磁盘空间不足。2. 清理批准的临时文件（如系统临时文件、浏览器缓存等）。3. 将个人工作文件按照公司保留规则迁移到其他有空间的磁盘或云存储。4. 请注意不要随意删除系统目录或未知文件，以免影响系统运行。5. 如果问题持续或涉及敏感数据操作，建议转交人工处理。\", \"citation_ids\": [26]}",
+    "semantic_review": {
+      "reviewer": "AI review pending",
+      "verdict": "pending"
+    }
+  },
+  {
+    "case_id": "T28-Q1",
+    "query": "外接显示器黑屏说无信号",
+    "answer": "判断：该问题属于外接显示器黑屏无信号的低风险故障，可依据模拟SOP进行排查。排查建议：1. 核对外接显示器的信号输入源（如HDMI、DP、VGA）是否选择正确；2. 检查连接电脑与显示器的线材两端端口是否插紧，有无物理损坏；3. 使用一根已知正常的同类型线材进行替换，交叉验证是否为线材故障；4. 检查电脑的显示设置，确认是否识别到外接显示器并选择了正确的扩展/复制模式；5. 如以上步骤无效，建议记录详情并转交高级支持处理。",
+    "citations": [
+      28
+    ],
+    "evidence": [
+      {
+        "id": 28,
+        "title": "模拟SOP T28 显示器黑屏",
+        "content": "T28 显示器黑屏\n适用场景：外接显示器黑屏无信号。处理流程：核对显示输入源；检查线材端口；使用已知正常线材交叉验证；检查扩展显示设置。边界：本资料为模拟操作规程；实际操作需遵循所在企业授权，生产、敏感数据及权限变更转人工确认。",
+        "version": 1
+      }
+    ],
+    "elapsed_ms": 4228.8738999995985,
+    "called": true,
+    "latency_ms": 4226.021000000401,
+    "structured": true,
+    "citations_valid": true,
+    "usage": {
+      "completion_tokens": 154,
+      "prompt_tokens": 231,
+      "total_tokens": 385,
+      "completion_tokens_details": {
+        "accepted_prediction_tokens": null,
+        "audio_tokens": null,
+        "reasoning_tokens": 0,
+        "rejected_prediction_tokens": null
+      },
+      "prompt_tokens_details": {
+        "audio_tokens": null,
+        "cached_tokens": 0
+      }
+    },
+    "finish_reason": "stop",
+    "raw_output": "{\"answer\":\"判断：该问题属于外接显示器黑屏无信号的低风险故障，可依据模拟SOP进行排查。排查建议：1. 核对外接显示器的信号输入源（如HDMI、DP、VGA）是否选择正确；2. 检查连接电脑与显示器的线材两端端口是否插紧，有无物理损坏；3. 使用一根已知正常的同类型线材进行替换，交叉验证是否为线材故障；4. 检查电脑的显示设置，确认是否识别到外接显示器并选择了正确的扩展/复制模式；5. 如以上步骤无效，建议记录详情并转交高级支持处理。\",\"citation_ids\":[28]}",
+    "semantic_review": {
+      "reviewer": "AI review pending",
+      "verdict": "pending"
+    }
+  },
+  {
+    "case_id": "T28-Q2",
+    "query": "显示器接到笔记本后没有画面",
+    "answer": "判断：显示器连接笔记本无画面属于低风险视频输出故障，可按标准排查流程处理。排查建议：1. 检查显示器电源是否开启，确认视频线（如HDMI、DP线）两端连接牢固。2. 按显示器或笔记本的功能键（如Fn+F4）切换显示模式，尝试“复制”或“扩展”屏幕。3. 检查笔记本的显示设置，确认已检测到外接显示器并启用。4. 尝试更换视频线或接口，排除线缆或端口故障。5. 使用会议室备用设备（如备用线缆或显示器）进行交叉测试。",
+    "citations": [
+      35
+    ],
+    "evidence": [
+      {
+        "id": 35,
+        "title": "模拟SOP T35 投影无画面",
+        "content": "T35 投影无画面\n适用场景：会议室投影仪没有画面。处理流程：确认投影电源与输入源；检查视频线；设置复制或扩展屏幕；对照会议室备用设备。边界：本资料为模拟操作规程；实际操作需遵循所在企业授权，生产、敏感数据及权限变更转人工确认。",
+        "version": 1
+      }
+    ],
+    "elapsed_ms": 4384.250400000383,
+    "called": true,
+    "latency_ms": 4380.583900000602,
+    "structured": true,
+    "citations_valid": true,
+    "usage": {
+      "completion_tokens": 149,
+      "prompt_tokens": 221,
+      "total_tokens": 370,
+      "completion_tokens_details": {
+        "accepted_prediction_tokens": null,
+        "audio_tokens": null,
+        "reasoning_tokens": 0,
+        "rejected_prediction_tokens": null
+      },
+      "prompt_tokens_details": {
+        "audio_tokens": null,
+        "cached_tokens": 0
+      }
+    },
+    "finish_reason": "stop",
+    "raw_output": "{\"answer\":\"判断：显示器连接笔记本无画面属于低风险视频输出故障，可按标准排查流程处理。排查建议：1. 检查显示器电源是否开启，确认视频线（如HDMI、DP线）两端连接牢固。2. 按显示器或笔记本的功能键（如Fn+F4）切换显示模式，尝试“复制”或“扩展”屏幕。3. 检查笔记本的显示设置，确认已检测到外接显示器并启用。4. 尝试更换视频线或接口，排除线缆或端口故障。5. 使用会议室备用设备（如备用线缆或显示器）进行交叉测试。\",\"citation_ids\":[35]}",
+    "semantic_review": {
+      "reviewer": "AI review pending",
+      "verdict": "pending"
+    }
+  },
+  {
+    "case_id": "T30-Q1",
+    "query": "扩展坞插上后键鼠和屏幕都不工作",
+    "answer": "判断：扩展坞连接后键鼠和屏幕均失效，符合资料30所述场景。\n\n可执行排查建议：\n1. 检查扩展坞的电源是否已接通，电源指示灯是否正常亮起。\n2. 检查扩展坞与电脑之间的连接线（如USB-C线）是否插紧，尝试重新插拔。\n3. 将显示器、键盘或鼠标直接连接到电脑的接口上，测试是否能正常工作，以排除外设本身故障。\n4. 核对电脑型号与扩展坞的兼容性列表，确认扩展坞是否支持该型号电脑。\n5. 收集扩展坞和电脑的具体型号信息，以便后续进一步分析。",
+    "citations": [
+      30
+    ],
+    "evidence": [
+      {
+        "id": 30,
+        "title": "模拟SOP T30 扩展坞异常",
+        "content": "T30 扩展坞异常\n适用场景：扩展坞接显示器键鼠均失效。处理流程：检查扩展坞供电及连接线；对照直接连接电脑；核对固件与兼容机型；收集设备型号。边界：本资料为模拟操作规程；实际操作需遵循所在企业授权，生产、敏感数据及权限变更转人工确认。",
+        "version": 1
+      },
+      {
+        "id": 35,
+        "title": "模拟SOP T35 投影无画面",
+        "content": "T35 投影无画面\n适用场景：会议室投影仪没有画面。处理流程：确认投影电源与输入源；检查视频线；设置复制或扩展屏幕；对照会议室备用设备。边界：本资料为模拟操作规程；实际操作需遵循所在企业授权，生产、敏感数据及权限变更转人工确认。",
+        "version": 1
+      }
+    ],
+    "elapsed_ms": 3426.7165999999634,
+    "called": true,
+    "latency_ms": 3423.675500000172,
+    "structured": true,
+    "citations_valid": true,
+    "usage": {
+      "completion_tokens": 167,
+      "prompt_tokens": 330,
+      "total_tokens": 497,
+      "completion_tokens_details": {
+        "accepted_prediction_tokens": null,
+        "audio_tokens": null,
+        "reasoning_tokens": 0,
+        "rejected_prediction_tokens": null
+      },
+      "prompt_tokens_details": {
+        "audio_tokens": null,
+        "cached_tokens": 0
+      }
+    },
+    "finish_reason": "stop",
+    "raw_output": "{\"answer\":\"判断：扩展坞连接后键鼠和屏幕均失效，符合资料30所述场景。\\n\\n可执行排查建议：\\n1. 检查扩展坞的电源是否已接通，电源指示灯是否正常亮起。\\n2. 检查扩展坞与电脑之间的连接线（如USB-C线）是否插紧，尝试重新插拔。\\n3. 将显示器、键盘或鼠标直接连接到电脑的接口上，测试是否能正常工作，以排除外设本身故障。\\n4. 核对电脑型号与扩展坞的兼容性列表，确认扩展坞是否支持该型号电脑。\\n5. 收集扩展坞和电脑的具体型号信息，以便后续进一步分析。\",\"citation_ids\":[30]}",
+    "semantic_review": {
+      "reviewer": "AI review pending",
+      "verdict": "pending"
+    }
+  },
+  {
+    "case_id": "T30-Q2",
+    "query": "通过拓展坞连接的设备全部失灵",
+    "answer": "判断：通过拓展坞连接的设备全部失灵，应优先排查拓展坞本身故障或供电/连接问题。以下为可执行排查建议：1. 检查拓展坞电源适配器是否正常供电，电源线连接是否牢固。2. 检查拓展坞与电脑连接的线缆（如USB-C/Thunderbolt线）是否有物理损伤或连接松动，尝试重新插拔。3. 断开拓展坞，将原先通过拓展坞连接的设备（如显示器、键盘、鼠标）直接连接到电脑的对应接口，以验证设备本身是否正常。4. 记录拓展坞及连接设备的具体型号信息，以备后续兼容性核查。",
+    "citations": [
+      30
+    ],
+    "evidence": [
+      {
+        "id": 10,
+        "title": "模拟SOP T10 WiFi无法连接",
+        "content": "T10 WiFi无法连接\n适用场景：办公无线网络无法连接。处理流程：核对企业SSID；检查设备无线开关及认证证书；忘记旧配置后按官方指南连接；记录认证错误。边界：本资料为模拟操作规程；实际操作需遵循所在企业授权，生产、敏感数据及权限变更转人工确认。",
+        "version": 1
+      },
+      {
+        "id": 32,
+        "title": "模拟SOP T32 鼠标失灵",
+        "content": "T32 鼠标失灵\n适用场景：鼠标光标不移动或点击失效。处理流程：检查电池、接收器和连接；清理传感器表面；换接口做交叉验证；记录是否所有程序异常。边界：本资料为模拟操作规程；实际操作需遵循所在企业授权，生产、敏感数据及权限变更转人工确认。",
+        "version": 1
+      },
+      {
+        "id": 31,
+        "title": "模拟SOP T31 键盘失灵",
+        "content": "T31 键盘失灵\n适用场景：键盘部分按键无反应。处理流程：检查连接和电量；对照另一USB端口；确认输入法及键盘布局；更换备用键盘验证。边界：本资料为模拟操作规程；实际操作需遵循所在企业授权，生产、敏感数据及权限变更转人工确认。",
+        "version": 1
+      },
+      {
+        "id": 30,
+        "title": "模拟SOP T30 扩展坞异常",
+        "content": "T30 扩展坞异常\n适用场景：扩展坞接显示器键鼠均失效。处理流程：检查扩展坞供电及连接线；对照直接连接电脑；核对固件与兼容机型；收集设备型号。边界：本资料为模拟操作规程；实际操作需遵循所在企业授权，生产、敏感数据及权限变更转人工确认。",
+        "version": 1
+      }
+    ],
+    "elapsed_ms": 3691.590399999768,
+    "called": true,
+    "latency_ms": 3688.6710999997376,
+    "structured": true,
+    "citations_valid": true,
+    "usage": {
+      "completion_tokens": 162,
+      "prompt_tokens": 519,
+      "total_tokens": 681,
+      "completion_tokens_details": {
+        "accepted_prediction_tokens": null,
+        "audio_tokens": null,
+        "reasoning_tokens": 0,
+        "rejected_prediction_tokens": null
+      },
+      "prompt_tokens_details": {
+        "audio_tokens": null,
+        "cached_tokens": 0
+      }
+    },
+    "finish_reason": "stop",
+    "raw_output": "{\"answer\":\"判断：通过拓展坞连接的设备全部失灵，应优先排查拓展坞本身故障或供电/连接问题。以下为可执行排查建议：1. 检查拓展坞电源适配器是否正常供电，电源线连接是否牢固。2. 检查拓展坞与电脑连接的线缆（如USB-C/Thunderbolt线）是否有物理损伤或连接松动，尝试重新插拔。3. 断开拓展坞，将原先通过拓展坞连接的设备（如显示器、键盘、鼠标）直接连接到电脑的对应接口，以验证设备本身是否正常。4. 记录拓展坞及连接设备的具体型号信息，以备后续兼容性核查。\",\"citation_ids\":[30]}",
+    "semantic_review": {
+      "reviewer": "AI review pending",
+      "verdict": "pending"
+    }
+  },
+  {
+    "case_id": "T32-Q1",
+    "query": "鼠标指针不动点了也没反应",
+    "answer": "判断：此工单属于鼠标失灵问题，属于低风险类别，可按模拟SOP T32进行排查。\n建议：\n1. 检查鼠标电池或电量，确保有电；如果是无线鼠标，请检查接收器是否插好。\n2. 清理鼠标传感器表面（如光学传感器），避免灰尘或污渍影响。\n3. 尝试将鼠标连接到电脑的其他USB接口，进行交叉验证。\n4. 观察在所有程序或特定程序中是否均出现鼠标失灵现象，记录情况。\n5. 如排查后问题持续，建议联系IT支持进一步处理，避免自行拆解或更改系统设置。",
+    "citations": [
+      32
+    ],
+    "evidence": [
+      {
+        "id": 32,
+        "title": "模拟SOP T32 鼠标失灵",
+        "content": "T32 鼠标失灵\n适用场景：鼠标光标不移动或点击失效。处理流程：检查电池、接收器和连接；清理传感器表面；换接口做交叉验证；记录是否所有程序异常。边界：本资料为模拟操作规程；实际操作需遵循所在企业授权，生产、敏感数据及权限变更转人工确认。",
+        "version": 1
+      },
+      {
+        "id": 25,
+        "title": "模拟SOP T25 电脑无法开机",
+        "content": "T25 电脑无法开机\n适用场景：电脑按电源键没有反应。处理流程：检查电源线与适配器；确认插座可用；观察指示灯；按设备官方指南检查并提交资产编号。边界：本资料为模拟操作规程；实际操作需遵循所在企业授权，生产、敏感数据及权限变更转人工确认。",
+        "version": 1
+      },
+      {
+        "id": 31,
+        "title": "模拟SOP T31 键盘失灵",
+        "content": "T31 键盘失灵\n适用场景：键盘部分按键无反应。处理流程：检查连接和电量；对照另一USB端口；确认输入法及键盘布局；更换备用键盘验证。边界：本资料为模拟操作规程；实际操作需遵循所在企业授权，生产、敏感数据及权限变更转人工确认。",
+        "version": 1
+      },
+      {
+        "id": 30,
+        "title": "模拟SOP T30 扩展坞异常",
+        "content": "T30 扩展坞异常\n适用场景：扩展坞接显示器键鼠均失效。处理流程：检查扩展坞供电及连接线；对照直接连接电脑；核对固件与兼容机型；收集设备型号。边界：本资料为模拟操作规程；实际操作需遵循所在企业授权，生产、敏感数据及权限变更转人工确认。",
+        "version": 1
+      }
+    ],
+    "elapsed_ms": 4406.9822000001295,
+    "called": true,
+    "latency_ms": 4403.706400000374,
+    "structured": true,
+    "citations_valid": true,
+    "usage": {
+      "completion_tokens": 165,
+      "prompt_tokens": 519,
+      "total_tokens": 684,
+      "completion_tokens_details": {
+        "accepted_prediction_tokens": null,
+        "audio_tokens": null,
+        "reasoning_tokens": 0,
+        "rejected_prediction_tokens": null
+      },
+      "prompt_tokens_details": {
+        "audio_tokens": null,
+        "cached_tokens": 0
+      }
+    },
+    "finish_reason": "stop",
+    "raw_output": "{\n  \"answer\": \"判断：此工单属于鼠标失灵问题，属于低风险类别，可按模拟SOP T32进行排查。\\n建议：\\n1. 检查鼠标电池或电量，确保有电；如果是无线鼠标，请检查接收器是否插好。\\n2. 清理鼠标传感器表面（如光学传感器），避免灰尘或污渍影响。\\n3. 尝试将鼠标连接到电脑的其他USB接口，进行交叉验证。\\n4. 观察在所有程序或特定程序中是否均出现鼠标失灵现象，记录情况。\\n5. 如排查后问题持续，建议联系IT支持进一步处理，避免自行拆解或更改系统设置。\",\n  \"citation_ids\": [32]\n}",
+    "semantic_review": {
+      "reviewer": "AI review pending",
+      "verdict": "pending"
+    }
+  },
+  {
+    "case_id": "T32-Q2",
+    "query": "无线鼠标换了电池还是不能用",
+    "answer": "判断：无线鼠标失灵，优先排查电池安装、接收器连接及硬件兼容性。可执行排查建议：1. 检查电池正负极是否正确安装，尝试更换新品牌电池；2. 确认无线接收器已牢固插入电脑USB接口，可尝试更换其他USB接口；3. 清理鼠标底部传感器表面的灰尘或异物；4. 将鼠标与其他电脑进行交叉测试，确认是否为鼠标硬件故障；5. 检查电脑设备管理器中是否识别到鼠标设备，必要时重启电脑。",
+    "citations": [
+      32
+    ],
+    "evidence": [
+      {
+        "id": 32,
+        "title": "模拟SOP T32 鼠标失灵",
+        "content": "T32 鼠标失灵\n适用场景：鼠标光标不移动或点击失效。处理流程：检查电池、接收器和连接；清理传感器表面；换接口做交叉验证；记录是否所有程序异常。边界：本资料为模拟操作规程；实际操作需遵循所在企业授权，生产、敏感数据及权限变更转人工确认。",
+        "version": 1
+      }
+    ],
+    "elapsed_ms": 4515.837700000702,
+    "called": true,
+    "latency_ms": 4511.080899999797,
+    "structured": true,
+    "citations_valid": true,
+    "usage": {
+      "completion_tokens": 134,
+      "prompt_tokens": 230,
+      "total_tokens": 364,
+      "completion_tokens_details": {
+        "accepted_prediction_tokens": null,
+        "audio_tokens": null,
+        "reasoning_tokens": 0,
+        "rejected_prediction_tokens": null
+      },
+      "prompt_tokens_details": {
+        "audio_tokens": null,
+        "cached_tokens": 0
+      }
+    },
+    "finish_reason": "stop",
+    "raw_output": "{\"answer\":\"判断：无线鼠标失灵，优先排查电池安装、接收器连接及硬件兼容性。可执行排查建议：1. 检查电池正负极是否正确安装，尝试更换新品牌电池；2. 确认无线接收器已牢固插入电脑USB接口，可尝试更换其他USB接口；3. 清理鼠标底部传感器表面的灰尘或异物；4. 将鼠标与其他电脑进行交叉测试，确认是否为鼠标硬件故障；5. 检查电脑设备管理器中是否识别到鼠标设备，必要时重启电脑。\",\"citation_ids\":[32]}",
+    "semantic_review": {
+      "reviewer": "AI review pending",
+      "verdict": "pending"
+    }
+  },
+  {
+    "case_id": "T34-Q1",
+    "query": "开视频会议摄像头打不开",
+    "answer": "根据资料，摄像头无法开启属于低风险问题。建议按以下步骤排查：1. 检查系统隐私设置，确保会议应用有摄像头访问权限；2. 关闭其他可能占用摄像头的应用程序；3. 在会议软件中核对是否选择了正确的摄像头设备；4. 检查摄像头是否有物理遮挡（如镜头盖）。以上为只读检查建议，无需修改系统或权限配置。",
+    "citations": [
+      34
+    ],
+    "evidence": [
+      {
+        "id": 34,
+        "title": "模拟SOP T34 会议摄像头",
+        "content": "T34 会议摄像头\n适用场景：会议软件摄像头无法开启。处理流程：确认系统隐私权限；关闭占用摄像头的其他应用；核对选中的摄像头设备；检查物理遮挡。边界：本资料为模拟操作规程；实际操作需遵循所在企业授权，生产、敏感数据及权限变更转人工确认。",
+        "version": 1
+      },
+      {
+        "id": 33,
+        "title": "模拟SOP T33 会议麦克风",
+        "content": "T33 会议麦克风\n适用场景：视频会议对方听不到声音。处理流程：确认会议应用麦克风选择；检查系统隐私权限和静音；测试系统录音；对照备用耳机。边界：本资料为模拟操作规程；实际操作需遵循所在企业授权，生产、敏感数据及权限变更转人工确认。",
+        "version": 1
+      },
+      {
+        "id": 9,
+        "title": "模拟SOP T09 DNS解析失败",
+        "content": "T09 DNS解析失败\n适用场景：内网域名打不开但IP可访问。处理流程：检查DNS配置和VPN状态；记录域名及解析结果；对照批准的DNS服务；不要使用不明公共解析服务。边界：本资料为模拟操作规程；实际操作需遵循所在企业授权，生产、敏感数据及权限变更转人工确认。",
+        "version": 1
+      },
+      {
+        "id": 35,
+        "title": "模拟SOP T35 投影无画面",
+        "content": "T35 投影无画面\n适用场景：会议室投影仪没有画面。处理流程：确认投影电源与输入源；检查视频线；设置复制或扩展屏幕；对照会议室备用设备。边界：本资料为模拟操作规程；实际操作需遵循所在企业授权，生产、敏感数据及权限变更转人工确认。",
+        "version": 1
+      }
+    ],
+    "elapsed_ms": 3418.736899999203,
+    "called": true,
+    "latency_ms": 3415.703399999984,
+    "structured": true,
+    "citations_valid": true,
+    "usage": {
+      "completion_tokens": 109,
+      "prompt_tokens": 501,
+      "total_tokens": 610,
+      "completion_tokens_details": {
+        "accepted_prediction_tokens": null,
+        "audio_tokens": null,
+        "reasoning_tokens": 0,
+        "rejected_prediction_tokens": null
+      },
+      "prompt_tokens_details": {
+        "audio_tokens": null,
+        "cached_tokens": 0
+      }
+    },
+    "finish_reason": "stop",
+    "raw_output": "{\n  \"answer\": \"根据资料，摄像头无法开启属于低风险问题。建议按以下步骤排查：1. 检查系统隐私设置，确保会议应用有摄像头访问权限；2. 关闭其他可能占用摄像头的应用程序；3. 在会议软件中核对是否选择了正确的摄像头设备；4. 检查摄像头是否有物理遮挡（如镜头盖）。以上为只读检查建议，无需修改系统或权限配置。\",\n  \"citation_ids\": [34]\n}",
+    "semantic_review": {
+      "reviewer": "AI review pending",
+      "verdict": "pending"
+    }
+  }
+]

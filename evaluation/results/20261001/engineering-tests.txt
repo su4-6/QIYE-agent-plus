@@ -1,0 +1,160 @@
+Building prefix dict from the default dictionary ...
+Loading model from cache C:\Users\hp\AppData\Local\Temp\jieba.cache
+Loading model cost 0.379 seconds.
+Prefix dict has been built successfully.
+test_cross_tenant_ticket_is_hidden (test_app.TicketSystemTest.test_cross_tenant_ticket_is_hidden) ... {"event": "http_request", "request_id": "eeca1303a9b144549cffd978541a6d5e", "timestamp": "2026-10-01T04:12:20.210378+00:00", "method": "GET", "status": 404, "latency_ms": 4.403}
+ok
+test_high_risk_approval_is_atomic_and_single_use (test_app.TicketSystemTest.test_high_risk_approval_is_atomic_and_single_use) ... {"event": "retrieval", "request_id": "15edb9c1b05f4a008ef8f0ba4a589652", "timestamp": "2026-10-01T04:12:20.231115+00:00", "mode": "bm25", "hits": 1, "vector_state": "not_used", "latency_ms": 5.692}
+{"event": "http_request", "request_id": "15edb9c1b05f4a008ef8f0ba4a589652", "timestamp": "2026-10-01T04:12:20.245701+00:00", "method": "POST", "status": 201, "latency_ms": 33.999}
+{"event": "http_request", "request_id": "5dca73a42a0e4ff9a22ca569600ce8e8", "timestamp": "2026-10-01T04:12:20.291590+00:00", "method": "POST", "status": 200, "latency_ms": 44.952}
+{"event": "http_request", "request_id": "eafa5f7d36334f579771f740555dfe46", "timestamp": "2026-10-01T04:12:20.309118+00:00", "method": "POST", "status": 200, "latency_ms": 16.325}
+{"event": "http_request", "request_id": "9265e6a032184a63a800a3cca0193c23", "timestamp": "2026-10-01T04:12:20.312712+00:00", "method": "POST", "status": 409, "latency_ms": 2.803}
+{"event": "http_request", "request_id": "8f311989be134817928f18b93066c705", "timestamp": "2026-10-01T04:12:20.318351+00:00", "method": "GET", "status": 200, "latency_ms": 4.834}
+ok
+test_model_validation_failure_goes_to_human (test_app.TicketSystemTest.test_model_validation_failure_goes_to_human) ... {"event": "retrieval", "request_id": "24ed40c26a4549d2ae1bfd1b934d9379", "timestamp": "2026-10-01T04:12:20.335479+00:00", "mode": "bm25", "hits": 1, "vector_state": "not_used", "latency_ms": 4.68}
+{"event": "http_request", "request_id": "24ed40c26a4549d2ae1bfd1b934d9379", "timestamp": "2026-10-01T04:12:20.361060+00:00", "method": "POST", "status": 201, "latency_ms": 41.566}
+ok
+test_rate_limit_and_prompt_injection_rejection (test_app.TicketSystemTest.test_rate_limit_and_prompt_injection_rejection) ... {"event": "http_request", "request_id": "60cffc13c2c346dc9a0c5a764a21b62a", "timestamp": "2026-10-01T04:12:20.436965+00:00", "method": "POST", "status": 200, "latency_ms": 53.803}
+{"event": "http_request", "request_id": "f98727abc8c24024a826ed0dc939db3a", "timestamp": "2026-10-01T04:12:20.439308+00:00", "method": "POST", "status": 422, "latency_ms": 0.911}
+ok
+test_tenant_filter_and_knowledge_upload (test_app.TicketSystemTest.test_tenant_filter_and_knowledge_upload) ... {"event": "http_request", "request_id": "ae133c400f9847b1b9fd0a548b92b129", "timestamp": "2026-10-01T04:12:20.500058+00:00", "method": "POST", "status": 200, "latency_ms": 54.235}
+{"event": "http_request", "request_id": "359de114096643a7a6eb6536859b0458", "timestamp": "2026-10-01T04:12:20.515892+00:00", "method": "POST", "status": 201, "latency_ms": 14.415}
+{"event": "retrieval", "request_id": "", "timestamp": "2026-10-01T04:12:20.532903+00:00", "mode": "bm25", "hits": 0, "vector_state": "not_used", "latency_ms": 4.373}
+ok
+test_ticket_token_is_required (test_app.TicketSystemTest.test_ticket_token_is_required) ... {"event": "retrieval", "request_id": "f7e48dda97504cfabd1a1601781bce5c", "timestamp": "2026-10-01T04:12:20.551666+00:00", "mode": "bm25", "hits": 1, "vector_state": "not_used", "latency_ms": 5.165}
+{"event": "http_request", "request_id": "f7e48dda97504cfabd1a1601781bce5c", "timestamp": "2026-10-01T04:12:20.566435+00:00", "method": "POST", "status": 201, "latency_ms": 32.433}
+{"event": "http_request", "request_id": "3853230e3ba941ca877f66aeb7338318", "timestamp": "2026-10-01T04:12:20.572463+00:00", "method": "GET", "status": 200, "latency_ms": 5.029}
+{"event": "http_request", "request_id": "8f3e28f1917949dc8912759bc7bd8e46", "timestamp": "2026-10-01T04:12:20.576351+00:00", "method": "GET", "status": 404, "latency_ms": 3.076}
+ok
+test_actual_old_schema_migration_preserves_data (test_engineering.EngineeringTest.test_actual_old_schema_migration_preserves_data) ... ok
+test_admin_metrics_tenant_window_and_legacy_denominator (test_engineering.EngineeringTest.test_admin_metrics_tenant_window_and_legacy_denominator) ... {"event": "http_request", "request_id": "cd7e974628304773ad89fe0494605b21", "timestamp": "2026-10-01T04:12:20.861203+00:00", "method": "GET", "status": 403, "latency_ms": 1.366}
+{"event": "http_request", "request_id": "edcfbe97e05046b48e961db5ffcac28b", "timestamp": "2026-10-01T04:12:20.862526+00:00", "method": "GET", "status": 422, "latency_ms": 0.442}
+{"event": "http_request", "request_id": "cec44003f07f4d7ba153dd5c17a2fbfd", "timestamp": "2026-10-01T04:12:20.867950+00:00", "method": "GET", "status": 200, "latency_ms": 4.675}
+ok
+test_backup_restore_and_service_restart (test_engineering.EngineeringTest.test_backup_restore_and_service_restart) ... {"event": "http_request", "request_id": "52fa89e1037e49989ef67bc9d51b2d8f", "timestamp": "2026-10-01T04:12:21.029186+00:00", "method": "GET", "status": 200, "latency_ms": 0.673}
+{"event": "http_request", "request_id": "d39e4680f5e64e2aa4e9a5cea5930678", "timestamp": "2026-10-01T04:12:21.053712+00:00", "method": "GET", "status": 200, "latency_ms": 0.539}
+ok
+test_bm25_quality_regression_on_frozen_queries (test_engineering.EngineeringTest.test_bm25_quality_regression_on_frozen_queries) ... {"event": "retrieval", "request_id": "", "timestamp": "2026-10-01T04:12:22.364153+00:00", "mode": "bm25", "hits": 1, "vector_state": "not_used", "latency_ms": 27.088}
+{"event": "retrieval", "request_id": "", "timestamp": "2026-10-01T04:12:22.395128+00:00", "mode": "bm25", "hits": 1, "vector_state": "not_used", "latency_ms": 30.459}
+{"event": "retrieval", "request_id": "", "timestamp": "2026-10-01T04:12:22.410681+00:00", "mode": "bm25", "hits": 1, "vector_state": "not_used", "latency_ms": 15.134}
+{"event": "retrieval", "request_id": "", "timestamp": "2026-10-01T04:12:22.430540+00:00", "mode": "bm25", "hits": 1, "vector_state": "not_used", "latency_ms": 19.468}
+{"event": "retrieval", "request_id": "", "timestamp": "2026-10-01T04:12:22.461406+00:00", "mode": "bm25", "hits": 3, "vector_state": "not_used", "latency_ms": 30.435}
+{"event": "retrieval", "request_id": "", "timestamp": "2026-10-01T04:12:22.495919+00:00", "mode": "bm25", "hits": 2, "vector_state": "not_used", "latency_ms": 34.093}
+{"event": "retrieval", "request_id": "", "timestamp": "2026-10-01T04:12:22.539386+00:00", "mode": "bm25", "hits": 3, "vector_state": "not_used", "latency_ms": 43.039}
+{"event": "retrieval", "request_id": "", "timestamp": "2026-10-01T04:12:22.570572+00:00", "mode": "bm25", "hits": 3, "vector_state": "not_used", "latency_ms": 30.749}
+{"event": "retrieval", "request_id": "", "timestamp": "2026-10-01T04:12:22.586042+00:00", "mode": "bm25", "hits": 1, "vector_state": "not_used", "latency_ms": 15.037}
+{"event": "retrieval", "request_id": "", "timestamp": "2026-10-01T04:12:22.612573+00:00", "mode": "bm25", "hits": 3, "vector_state": "not_used", "latency_ms": 26.129}
+{"event": "retrieval", "request_id": "", "timestamp": "2026-10-01T04:12:22.634585+00:00", "mode": "bm25", "hits": 2, "vector_state": "not_used", "latency_ms": 21.566}
+{"event": "retrieval", "request_id": "", "timestamp": "2026-10-01T04:12:22.652193+00:00", "mode": "bm25", "hits": 3, "vector_state": "not_used", "latency_ms": 17.139}
+{"event": "retrieval", "request_id": "", "timestamp": "2026-10-01T04:12:22.671091+00:00", "mode": "bm25", "hits": 2, "vector_state": "not_used", "latency_ms": 18.535}
+{"event": "retrieval", "request_id": "", "timestamp": "2026-10-01T04:12:22.688568+00:00", "mode": "bm25", "hits": 3, "vector_state": "not_used", "latency_ms": 17.074}
+{"event": "retrieval", "request_id": "", "timestamp": "2026-10-01T04:12:22.701811+00:00", "mode": "bm25", "hits": 2, "vector_state": "not_used", "latency_ms": 12.84}
+{"event": "retrieval", "request_id": "", "timestamp": "2026-10-01T04:12:22.721201+00:00", "mode": "bm25", "hits": 1, "vector_state": "not_used", "latency_ms": 19.035}
+{"event": "retrieval", "request_id": "", "timestamp": "2026-10-01T04:12:22.747819+00:00", "mode": "bm25", "hits": 1, "vector_state": "not_used", "latency_ms": 26.268}
+{"event": "retrieval", "request_id": "", "timestamp": "2026-10-01T04:12:22.770432+00:00", "mode": "bm25", "hits": 3, "vector_state": "not_used", "latency_ms": 22.122}
+{"event": "retrieval", "request_id": "", "timestamp": "2026-10-01T04:12:22.782625+00:00", "mode": "bm25", "hits": 1, "vector_state": "not_used", "latency_ms": 11.769}
+{"event": "retrieval", "request_id": "", "timestamp": "2026-10-01T04:12:22.799741+00:00", "mode": "bm25", "hits": 3, "vector_state": "not_used", "latency_ms": 16.809}
+{"event": "retrieval", "request_id": "", "timestamp": "2026-10-01T04:12:22.821881+00:00", "mode": "bm25", "hits": 2, "vector_state": "not_used", "latency_ms": 21.697}
+{"event": "retrieval", "request_id": "", "timestamp": "2026-10-01T04:12:22.837873+00:00", "mode": "bm25", "hits": 1, "vector_state": "not_used", "latency_ms": 15.585}
+{"event": "retrieval", "request_id": "", "timestamp": "2026-10-01T04:12:22.857720+00:00", "mode": "bm25", "hits": 1, "vector_state": "not_used", "latency_ms": 19.418}
+{"event": "retrieval", "request_id": "", "timestamp": "2026-10-01T04:12:22.886562+00:00", "mode": "bm25", "hits": 1, "vector_state": "not_used", "latency_ms": 28.428}
+{"event": "retrieval", "request_id": "", "timestamp": "2026-10-01T04:12:22.905358+00:00", "mode": "bm25", "hits": 3, "vector_state": "not_used", "latency_ms": 18.348}
+{"event": "retrieval", "request_id": "", "timestamp": "2026-10-01T04:12:22.929831+00:00", "mode": "bm25", "hits": 1, "vector_state": "not_used", "latency_ms": 24.094}
+{"event": "retrieval", "request_id": "", "timestamp": "2026-10-01T04:12:22.944655+00:00", "mode": "bm25", "hits": 1, "vector_state": "not_used", "latency_ms": 14.468}
+{"event": "retrieval", "request_id": "", "timestamp": "2026-10-01T04:12:22.962347+00:00", "mode": "bm25", "hits": 1, "vector_state": "not_used", "latency_ms": 17.353}
+{"event": "retrieval", "request_id": "", "timestamp": "2026-10-01T04:12:22.978625+00:00", "mode": "bm25", "hits": 1, "vector_state": "not_used", "latency_ms": 15.949}
+{"event": "retrieval", "request_id": "", "timestamp": "2026-10-01T04:12:23.010773+00:00", "mode": "bm25", "hits": 3, "vector_state": "not_used", "latency_ms": 31.778}
+{"event": "retrieval", "request_id": "", "timestamp": "2026-10-01T04:12:23.027517+00:00", "mode": "bm25", "hits": 3, "vector_state": "not_used", "latency_ms": 16.359}
+{"event": "retrieval", "request_id": "", "timestamp": "2026-10-01T04:12:23.046948+00:00", "mode": "bm25", "hits": 1, "vector_state": "not_used", "latency_ms": 19.063}
+{"event": "retrieval", "request_id": "", "timestamp": "2026-10-01T04:12:23.061554+00:00", "mode": "bm25", "hits": 3, "vector_state": "not_used", "latency_ms": 14.203}
+{"event": "retrieval", "request_id": "", "timestamp": "2026-10-01T04:12:23.082389+00:00", "mode": "bm25", "hits": 2, "vector_state": "not_used", "latency_ms": 20.454}
+{"event": "retrieval", "request_id": "", "timestamp": "2026-10-01T04:12:23.110458+00:00", "mode": "bm25", "hits": 3, "vector_state": "not_used", "latency_ms": 27.625}
+{"event": "retrieval", "request_id": "", "timestamp": "2026-10-01T04:12:23.137091+00:00", "mode": "bm25", "hits": 3, "vector_state": "not_used", "latency_ms": 26.189}
+{"event": "retrieval", "request_id": "", "timestamp": "2026-10-01T04:12:23.165689+00:00", "mode": "bm25", "hits": 3, "vector_state": "not_used", "latency_ms": 28.182}
+{"event": "retrieval", "request_id": "", "timestamp": "2026-10-01T04:12:23.181520+00:00", "mode": "bm25", "hits": 1, "vector_state": "not_used", "latency_ms": 15.425}
+{"event": "retrieval", "request_id": "", "timestamp": "2026-10-01T04:12:23.202748+00:00", "mode": "bm25", "hits": 3, "vector_state": "not_used", "latency_ms": 20.819}
+{"event": "retrieval", "request_id": "", "timestamp": "2026-10-01T04:12:23.223505+00:00", "mode": "bm25", "hits": 2, "vector_state": "not_used", "latency_ms": 20.352}
+{"event": "retrieval", "request_id": "", "timestamp": "2026-10-01T04:12:23.249880+00:00", "mode": "bm25", "hits": 3, "vector_state": "not_used", "latency_ms": 25.986}
+{"event": "retrieval", "request_id": "", "timestamp": "2026-10-01T04:12:23.274807+00:00", "mode": "bm25", "hits": 1, "vector_state": "not_used", "latency_ms": 24.457}
+{"event": "retrieval", "request_id": "", "timestamp": "2026-10-01T04:12:23.297669+00:00", "mode": "bm25", "hits": 1, "vector_state": "not_used", "latency_ms": 22.474}
+{"event": "retrieval", "request_id": "", "timestamp": "2026-10-01T04:12:23.331356+00:00", "mode": "bm25", "hits": 3, "vector_state": "not_used", "latency_ms": 33.297}
+{"event": "retrieval", "request_id": "", "timestamp": "2026-10-01T04:12:23.364365+00:00", "mode": "bm25", "hits": 3, "vector_state": "not_used", "latency_ms": 32.59}
+{"event": "retrieval", "request_id": "", "timestamp": "2026-10-01T04:12:23.386507+00:00", "mode": "bm25", "hits": 3, "vector_state": "not_used", "latency_ms": 21.765}
+{"event": "retrieval", "request_id": "", "timestamp": "2026-10-01T04:12:23.416541+00:00", "mode": "bm25", "hits": 3, "vector_state": "not_used", "latency_ms": 29.765}
+{"event": "retrieval", "request_id": "", "timestamp": "2026-10-01T04:12:23.445522+00:00", "mode": "bm25", "hits": 3, "vector_state": "not_used", "latency_ms": 28.568}
+{"event": "retrieval", "request_id": "", "timestamp": "2026-10-01T04:12:23.461534+00:00", "mode": "bm25", "hits": 2, "vector_state": "not_used", "latency_ms": 15.597}
+{"event": "retrieval", "request_id": "", "timestamp": "2026-10-01T04:12:23.471964+00:00", "mode": "bm25", "hits": 1, "vector_state": "not_used", "latency_ms": 10.154}
+{"event": "retrieval", "request_id": "", "timestamp": "2026-10-01T04:12:23.487297+00:00", "mode": "bm25", "hits": 1, "vector_state": "not_used", "latency_ms": 15.084}
+{"event": "retrieval", "request_id": "", "timestamp": "2026-10-01T04:12:23.509520+00:00", "mode": "bm25", "hits": 2, "vector_state": "not_used", "latency_ms": 21.974}
+{"event": "retrieval", "request_id": "", "timestamp": "2026-10-01T04:12:23.530030+00:00", "mode": "bm25", "hits": 1, "vector_state": "not_used", "latency_ms": 20.129}
+{"event": "retrieval", "request_id": "", "timestamp": "2026-10-01T04:12:23.549136+00:00", "mode": "bm25", "hits": 1, "vector_state": "not_used", "latency_ms": 18.763}
+{"event": "retrieval", "request_id": "", "timestamp": "2026-10-01T04:12:23.568778+00:00", "mode": "bm25", "hits": 1, "vector_state": "not_used", "latency_ms": 19.259}
+{"event": "retrieval", "request_id": "", "timestamp": "2026-10-01T04:12:23.590526+00:00", "mode": "bm25", "hits": 3, "vector_state": "not_used", "latency_ms": 21.313}
+{"event": "retrieval", "request_id": "", "timestamp": "2026-10-01T04:12:23.613933+00:00", "mode": "bm25", "hits": 1, "vector_state": "not_used", "latency_ms": 23.022}
+{"event": "retrieval", "request_id": "", "timestamp": "2026-10-01T04:12:23.650763+00:00", "mode": "bm25", "hits": 3, "vector_state": "not_used", "latency_ms": 36.367}
+{"event": "retrieval", "request_id": "", "timestamp": "2026-10-01T04:12:23.667925+00:00", "mode": "bm25", "hits": 1, "vector_state": "not_used", "latency_ms": 16.75}
+{"event": "retrieval", "request_id": "", "timestamp": "2026-10-01T04:12:23.686753+00:00", "mode": "bm25", "hits": 2, "vector_state": "not_used", "latency_ms": 18.466}
+ok
+test_calibration_fails_closed_and_never_reads_test_rows (test_engineering.EngineeringTest.test_calibration_fails_closed_and_never_reads_test_rows) ... ok
+test_concurrent_approval_has_one_winner (test_engineering.EngineeringTest.test_concurrent_approval_has_one_winner) ... ok
+test_cross_tenant_and_stale_citation_rejected (test_engineering.EngineeringTest.test_cross_tenant_and_stale_citation_rejected) ... {"event": "retrieval", "request_id": "", "timestamp": "2026-10-01T04:12:23.951156+00:00", "mode": "bm25", "hits": 1, "vector_state": "not_used", "latency_ms": 5.784}
+{"event": "retrieval", "request_id": "", "timestamp": "2026-10-01T04:12:23.973440+00:00", "mode": "bm25", "hits": 1, "vector_state": "not_used", "latency_ms": 4.968}
+ok
+test_database_health_failure_is_503_without_error_details (test_engineering.EngineeringTest.test_database_health_failure_is_503_without_error_details) ... database_health_failed type=OperationalError
+{"event": "http_request", "request_id": "b8b77621af3f43f0aa52f1b423d525da", "timestamp": "2026-10-01T04:12:24.085684+00:00", "method": "GET", "status": 503, "latency_ms": 1.691}
+ok
+test_evidence_boundary_is_single_predicate (test_engineering.EngineeringTest.test_evidence_boundary_is_single_predicate) ... {"event": "retrieval", "request_id": "", "timestamp": "2026-10-01T04:12:24.173650+00:00", "mode": "bm25", "hits": 1, "vector_state": "not_used", "latency_ms": 5.797}
+{"event": "retrieval", "request_id": "", "timestamp": "2026-10-01T04:12:24.178402+00:00", "mode": "bm25", "hits": 1, "vector_state": "not_used", "latency_ms": 4.573}
+{"event": "retrieval", "request_id": "", "timestamp": "2026-10-01T04:12:24.183378+00:00", "mode": "bm25", "hits": 1, "vector_state": "not_used", "latency_ms": 4.597}
+ok
+test_existing_index_does_not_claim_unchecked_runtime (test_engineering.EngineeringTest.test_existing_index_does_not_claim_unchecked_runtime) ... {"event": "retrieval", "request_id": "", "timestamp": "2026-10-01T04:12:24.265774+00:00", "mode": "bm25", "hits": 1, "vector_state": "not_used", "latency_ms": 5.678}
+{"event": "retrieval", "request_id": "", "timestamp": "2026-10-01T04:12:25.031074+00:00", "mode": "hybrid", "hits": 1, "vector_state": "ready", "latency_ms": 16.278}
+ok
+test_extension_load_failure_degrades_health (test_engineering.EngineeringTest.test_extension_load_failure_degrades_health) ... sqlite_vec_load_failed type=OperationalError
+vector_extension_unavailable type=OperationalError
+ok
+test_failed_release_gate_prevents_generation (test_engineering.EngineeringTest.test_failed_release_gate_prevents_generation) ... {"event": "retrieval", "request_id": "", "timestamp": "2026-10-01T04:12:25.198832+00:00", "mode": "bm25", "hits": 1, "vector_state": "not_used", "latency_ms": 6.041}
+{"event": "retrieval", "request_id": "", "timestamp": "2026-10-01T04:12:25.204183+00:00", "mode": "bm25", "hits": 1, "vector_state": "not_used", "latency_ms": 4.616}
+ok
+test_fourth_citation_is_valid (test_engineering.EngineeringTest.test_fourth_citation_is_valid) ... {"event": "retrieval", "request_id": "", "timestamp": "2026-10-01T04:12:25.350340+00:00", "mode": "bm25", "hits": 4, "vector_state": "not_used", "latency_ms": 6.846}
+ok
+test_fourth_citation_returned_to_ticket_view (test_engineering.EngineeringTest.test_fourth_citation_returned_to_ticket_view) ... {"event": "retrieval", "request_id": "", "timestamp": "2026-10-01T04:12:25.503718+00:00", "mode": "bm25", "hits": 4, "vector_state": "not_used", "latency_ms": 6.808}
+ok
+test_health_disabled_without_embedding_call (test_engineering.EngineeringTest.test_health_disabled_without_embedding_call) ... {"event": "http_request", "request_id": "48b48d071e304782b267ee78f9e441f1", "timestamp": "2026-10-01T04:12:25.631052+00:00", "method": "GET", "status": 200, "latency_ms": 6.885}
+{"event": "http_request", "request_id": "3f0d6d3180c346d6b5c83b6d8e860007", "timestamp": "2026-10-01T04:12:25.632623+00:00", "method": "GET", "status": 200, "latency_ms": 0.386}
+ok
+test_legacy_rate_migration_and_online_backup (test_engineering.EngineeringTest.test_legacy_rate_migration_and_online_backup) ... ok
+test_long_sentence_fallback_loses_no_text (test_engineering.EngineeringTest.test_long_sentence_fallback_loses_no_text) ... ok
+test_mixed_valid_and_invalid_citations_are_rejected (test_engineering.EngineeringTest.test_mixed_valid_and_invalid_citations_are_rejected) ... {"event": "retrieval", "request_id": "", "timestamp": "2026-10-01T04:12:25.956852+00:00", "mode": "bm25", "hits": 1, "vector_state": "not_used", "latency_ms": 6.718}
+ok
+test_rate_limit_hour_and_day_expiry (test_engineering.EngineeringTest.test_rate_limit_hour_and_day_expiry) ... ok
+test_release_gate_is_not_counted_as_missing_evidence (test_engineering.EngineeringTest.test_release_gate_is_not_counted_as_missing_evidence) ... ok
+test_request_id_persisted_through_http_and_audit (test_engineering.EngineeringTest.test_request_id_persisted_through_http_and_audit) ... {"event": "retrieval", "request_id": "7f22f22dbc334fe2b3cb8eea1dd7337a", "timestamp": "2026-10-01T04:12:26.351089+00:00", "mode": "bm25", "hits": 1, "vector_state": "not_used", "latency_ms": 9.567}
+{"event": "http_request", "request_id": "7f22f22dbc334fe2b3cb8eea1dd7337a", "timestamp": "2026-10-01T04:12:26.372465+00:00", "method": "POST", "status": 201, "latency_ms": 48.891}
+ok
+test_seed_survives_an_empty_mounted_data_volume (test_engineering.EngineeringTest.test_seed_survives_an_empty_mounted_data_volume) ... ok
+test_sentence_boundaries_and_heading_context (test_engineering.EngineeringTest.test_sentence_boundaries_and_heading_context) ... ok
+test_smoke_script_uses_real_isolated_citation (test_engineering.EngineeringTest.test_smoke_script_uses_real_isolated_citation) ... {"event": "retrieval", "request_id": "", "timestamp": "2026-10-01T04:12:26.693768+00:00", "mode": "bm25", "hits": 1, "vector_state": "not_used", "latency_ms": 6.132}
+ok
+test_stable_keys_and_versioned_documents (test_engineering.EngineeringTest.test_stable_keys_and_versioned_documents) ... {"event": "retrieval", "request_id": "", "timestamp": "2026-10-01T04:12:26.791174+00:00", "mode": "bm25", "hits": 1, "vector_state": "not_used", "latency_ms": 6.409}
+{"event": "retrieval", "request_id": "", "timestamp": "2026-10-01T04:12:26.812507+00:00", "mode": "bm25", "hits": 1, "vector_state": "not_used", "latency_ms": 6.698}
+ok
+test_timeout_has_no_retry_or_secret_log (test_engineering.EngineeringTest.test_timeout_has_no_retry_or_secret_log) ... {"event": "retrieval", "request_id": "", "timestamp": "2026-10-01T04:12:26.911030+00:00", "mode": "bm25", "hits": 1, "vector_state": "not_used", "latency_ms": 6.607}
+generation_failed error_type=APITimeoutError
+ok
+test_vector_missing_and_model_mismatch (test_engineering.EngineeringTest.test_vector_missing_and_model_mismatch) ... {"event": "retrieval", "request_id": "", "timestamp": "2026-10-01T04:12:27.016096+00:00", "mode": "bm25", "hits": 1, "vector_state": "not_used", "latency_ms": 7.713}
+ok
+test_vector_runtime_failure_is_observable_and_recovers (test_engineering.EngineeringTest.test_vector_runtime_failure_is_observable_and_recovers) ... {"event": "retrieval", "request_id": "", "timestamp": "2026-10-01T04:12:27.140833+00:00", "mode": "bm25", "hits": 1, "vector_state": "not_used", "latency_ms": 6.721}
+{"event": "retrieval", "request_id": "", "timestamp": "2026-10-01T04:12:27.169306+00:00", "mode": "hybrid", "hits": 1, "vector_state": "runtime_failed", "latency_ms": 12.769}
+{"event": "retrieval", "request_id": "", "timestamp": "2026-10-01T04:12:27.190957+00:00", "mode": "hybrid", "hits": 1, "vector_state": "ready", "latency_ms": 15.728}
+ok
+test_wrong_tenant_context_is_not_sent_to_model (test_engineering.EngineeringTest.test_wrong_tenant_context_is_not_sent_to_model) ... {"event": "retrieval", "request_id": "", "timestamp": "2026-10-01T04:12:27.291939+00:00", "mode": "bm25", "hits": 1, "vector_state": "not_used", "latency_ms": 6.954}
+generation_context_rejected error_type=ValueError
+ok
+
+----------------------------------------------------------------------
+Ran 35 tests in 7.727s
+
+OK
+{"enabled": true, "provider": "mimo", "model": "mimo-v2.5-pro"}
+{"answer_ok": true, "citation_ids": [1]}

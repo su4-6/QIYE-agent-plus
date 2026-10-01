@@ -1,0 +1,4 @@
+# Keep raw evaluation and dataset SHA-256 identical across Windows/Linux checkouts.
+data/simulated_sops.json -text
+evaluation/*.json -text
+evaluation/results/** -text

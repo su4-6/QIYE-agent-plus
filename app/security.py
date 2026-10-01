@@ -68,11 +68,14 @@ def check_access_token(token: str, expected_hash: str) -> bool:
 
 
 def use_quota(scope: str, key: str, limit: int, seconds: int) -> bool:
-    bucket = str(int(time.time()) // seconds)
+    current_time = int(time.time())
+    bucket = str(current_time // seconds)
     identity = hashlib.sha256(key.encode()).hexdigest()[:24]
     with get_connection() as db:
-        db.execute("""INSERT INTO rate_limits(scope,bucket,count) VALUES(?,?,1)
-            ON CONFLICT(scope,bucket) DO UPDATE SET count=count+1""", (scope + ":" + identity, bucket))
+        db.execute("DELETE FROM rate_limits WHERE expires_at <= ?", (current_time,))
+        db.execute("""INSERT INTO rate_limits(scope,bucket,count,expires_at) VALUES(?,?,1,?)
+            ON CONFLICT(scope,bucket) DO UPDATE SET count=count+1""",
+            (scope + ":" + identity, bucket, (int(bucket)+1)*seconds))
         count = db.execute("SELECT count FROM rate_limits WHERE scope=? AND bucket=?",
                            (scope + ":" + identity, bucket)).fetchone()[0]
     return count <= limit

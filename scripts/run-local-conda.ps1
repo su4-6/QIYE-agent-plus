@@ -1,7 +1,9 @@
 param(
     [string]$EnvironmentName = "ticket-agent",
     [int]$Port = 8000,
-    [switch]$UseMimo
+    [switch]$UseMimo,
+    [switch]$UseVectors,
+    [switch]$ImportSimulatedKnowledge
 )
 
 $ErrorActionPreference = "Stop"
@@ -37,7 +39,8 @@ if (-not (Get-Command conda -ErrorAction SilentlyContinue)) {
 
 $env:PYTHON_DOTENV_DISABLED = "1"
 $env:APP_ENV = "dev"
-$env:EMBEDDING_PROVIDER = "disabled"
+$env:EMBEDDING_PROVIDER = $(if ($UseVectors) { "local" } else { "disabled" })
+$env:PYTHONUTF8 = "1"
 if ($UseMimo) {
     $env:LLM_PROVIDER = "mimo"
 }
@@ -78,11 +81,24 @@ finally {
     Remove-Variable plainPassword -ErrorAction SilentlyContinue
 }
 
+if ($ImportSimulatedKnowledge) {
+    Write-Host "Importing the explicitly requested simulated SOP corpus..."
+    $importArguments = @("run", "--no-capture-output", "-n", $EnvironmentName, "python", "scripts/import-demo.py")
+    if (-not $UseVectors) { $importArguments += "--without-vectors" }
+    & conda @importArguments
+    if ($LASTEXITCODE -ne 0) { throw "Simulated knowledge import failed." }
+    if ($UseVectors) {
+        & conda run --no-capture-output -n $EnvironmentName python -m app.knowledge reindex
+        if ($LASTEXITCODE -ne 0) { throw "Vector reindex failed." }
+    }
+}
+
 Write-Host ""
 Write-Host "Atlas Desk is starting..." -ForegroundColor Cyan
 Write-Host "Public page: http://127.0.0.1:$Port"
 Write-Host "Admin page:  http://127.0.0.1:$Port/admin"
 Write-Host "LLM mode:    $(if ($UseMimo) { 'MiMo' } else { 'offline' })"
+Write-Host "Vector mode: $(if ($UseVectors) { 'local BGE' } else { 'disabled' })"
 Write-Host "Press Ctrl+C to stop."
 Write-Host ""
 

@@ -26,9 +26,14 @@ def save_ticket(ticket: dict) -> None:
             json.dumps(ticket.get("retrieval", {}), ensure_ascii=False),
             float(ticket.get("confidence", 0)), now, now,
         ))
+        db.execute("UPDATE tickets SET evidence_score=?,handoff_reason=?,request_id=? WHERE ticket_id=?",
+            (ticket.get("evidence_score"), ticket.get("handoff_reason", ""),
+             ticket.get("request_id", ""), ticket["ticket_id"]))
         _audit(db, ticket["ticket_id"], ticket["tenant_id"], "工单创建", "system", {
             "category": ticket["category"], "risk_level": ticket["risk_level"],
             "status": ticket["status"], "confidence": ticket.get("confidence", 0),
+            "evidence_score": ticket.get("evidence_score"), "handoff_reason": ticket.get("handoff_reason", ""),
+            "request_id": ticket.get("request_id", ""),
         })
 
 

@@ -1,0 +1,41 @@
+{
+  "version": 1,
+  "default_mode": "hybrid",
+  "thresholds": {
+    "bm25": 0.4,
+    "hybrid": 0.510423
+  },
+  "calibration": {
+    "bm25": {
+      "threshold": 0.4,
+      "accepted": 46,
+      "precision": 0.9565217391304348,
+      "reason": "calibrated",
+      "eligible": 75
+    },
+    "hybrid": {
+      "threshold": 0.510423,
+      "accepted": 60,
+      "precision": 0.95,
+      "reason": "calibrated",
+      "eligible": 75
+    }
+  },
+  "cases_sha256": "7e02c2df75c52daabfa20a3205f8304357261a25f3c54c4206ed6c678a4e97c0",
+  "corpus_sha256": "b93fef32e250925d4e7220f473f7eb0ee97674a9be10af5265ba6010253a1e66",
+  "selection_rule": "maximize coverage at precision>=.95 and accepted>=20; higher threshold breaks ties",
+  "release_gate": {
+    "bm25": {
+      "accepted": 37,
+      "precision": 0.8648648648648649,
+      "passed": false,
+      "reason": "held_out_precision_below_95pct"
+    },
+    "hybrid": {
+      "accepted": 54,
+      "precision": 0.7962962962962963,
+      "passed": false,
+      "reason": "held_out_precision_below_95pct"
+    }
+  }
+}

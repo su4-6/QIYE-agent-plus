@@ -1,4 +1,4 @@
-"""项目共享常量 —— 分类规则、领域词权重等，tools.py 和 rag.py 都从这里引用。"""
+"""分类规则与冻结的旧关键词评测共用词表；在线检索使用 knowledge.py。"""
 
 # 工单分类规则：分类名 → 关键词列表
 CATEGORY_RULES: dict[str, list[str]] = {

@@ -40,7 +40,10 @@ class TicketResponse(BaseModel):
     answer: str
     answer_source: str
     needs_human_approval: bool
-    confidence: float
+    confidence: float = Field(description="兼容字段，新记录等于 evidence_score；不是答案正确概率", deprecated=True)
+    evidence_score: float | None = None
+    handoff_reason: str = ""
+    request_id: str = ""
     citations: list[dict]
 
 
@@ -51,3 +54,4 @@ class HealthResponse(BaseModel):
     llm_enabled: bool
     llm_provider: str
     llm_model: str
+    vector: dict = Field(default_factory=dict)

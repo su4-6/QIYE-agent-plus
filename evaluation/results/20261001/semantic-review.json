@@ -1,0 +1,164 @@
+{
+  "reviewer": "Codex AI source-by-source review, 2026-10-01; no human inter-rater validation",
+  "generation_raw_sha256": "ee42f7a7fa0c2c1b6ac1b46be3207aed5d62d4e8c396eb8fa7a4d84153f54712",
+  "rubric": "严格审查核心场景、操作、时间数字及平台路径是否被实际引用的来源支持；合理常识不自动算作来源证据。",
+  "summary": {
+    "total": 30,
+    "structural_accepted": 27,
+    "supported_core": 17,
+    "unsupported_detail": 10,
+    "rejected_before_display": 3
+  },
+  "rows": [
+    {
+      "case_id": "T02-Q1",
+      "verdict": "unsupported_detail",
+      "note": "声称重复尝试会延长锁定时间，资料未给出这一账号策略；核心步骤虽有来源，严格审核记为包含未支持细节。"
+    },
+    {
+      "case_id": "T02-Q2",
+      "verdict": "unsupported_detail",
+      "note": "引用VPN认证资料解释账号锁定，额外给出15–30分钟和Windows凭据操作路径，引用不能支持这些企业规则。"
+    },
+    {
+      "case_id": "T04-Q1",
+      "verdict": "supported_core",
+      "note": "核心判断和建议可以对应本次引用的模拟SOP，未发现主要未支持动作或企业规则；此结论仅为AI审查。"
+    },
+    {
+      "case_id": "T04-Q2",
+      "verdict": "supported_core",
+      "note": "核心判断和建议可以对应本次引用的模拟SOP，未发现主要未支持动作或企业规则；此结论仅为AI审查。"
+    },
+    {
+      "case_id": "T08-Q2",
+      "verdict": "supported_core",
+      "note": "核心判断和建议可以对应本次引用的模拟SOP，未发现主要未支持动作或企业规则；此结论仅为AI审查。"
+    },
+    {
+      "case_id": "T10-Q1",
+      "verdict": "rejected_before_display",
+      "note": "模型未返回有效引用，服务端已拒绝展示；不计为已通过的答案。"
+    },
+    {
+      "case_id": "T10-Q2",
+      "verdict": "supported_core",
+      "note": "核心判断和建议可以对应本次引用的模拟SOP，未发现主要未支持动作或企业规则；此结论仅为AI审查。"
+    },
+    {
+      "case_id": "T12-Q1",
+      "verdict": "supported_core",
+      "note": "核心判断和建议可以对应本次引用的模拟SOP，未发现主要未支持动作或企业规则；此结论仅为AI审查。"
+    },
+    {
+      "case_id": "T12-Q2",
+      "verdict": "unsupported_detail",
+      "note": "网口问题引用扩展坞资料，答案额外增加交换机供电和更换网络端口等步骤，缺少直接来源。"
+    },
+    {
+      "case_id": "T14-Q1",
+      "verdict": "supported_core",
+      "note": "核心判断和建议可以对应本次引用的模拟SOP，未发现主要未支持动作或企业规则；此结论仅为AI审查。"
+    },
+    {
+      "case_id": "T14-Q2",
+      "verdict": "supported_core",
+      "note": "核心判断和建议可以对应本次引用的模拟SOP，未发现主要未支持动作或企业规则；此结论仅为AI审查。"
+    },
+    {
+      "case_id": "T16-Q1",
+      "verdict": "supported_core",
+      "note": "核心判断和建议可以对应本次引用的模拟SOP，未发现主要未支持动作或企业规则；此结论仅为AI审查。"
+    },
+    {
+      "case_id": "T16-Q2",
+      "verdict": "supported_core",
+      "note": "核心判断和建议可以对应本次引用的模拟SOP，未发现主要未支持动作或企业规则；此结论仅为AI审查。"
+    },
+    {
+      "case_id": "T18-Q1",
+      "verdict": "supported_core",
+      "note": "核心判断和建议可以对应本次引用的模拟SOP，未发现主要未支持动作或企业规则；此结论仅为AI审查。"
+    },
+    {
+      "case_id": "T18-Q2",
+      "verdict": "rejected_before_display",
+      "note": "模型未返回有效引用，服务端已拒绝展示；不计为已通过的答案。"
+    },
+    {
+      "case_id": "T20-Q1",
+      "verdict": "unsupported_detail",
+      "note": "答案增加关闭电源及打开卡纸区域盖板等动作；资料写的是按设备指南关闭相关盖板，操作表述存在偏差。"
+    },
+    {
+      "case_id": "T20-Q2",
+      "verdict": "unsupported_detail",
+      "note": "答案增加重新启动打印任务的操作，给定资料未说明该步骤。"
+    },
+    {
+      "case_id": "T22-Q1",
+      "verdict": "supported_core",
+      "note": "核心判断和建议可以对应本次引用的模拟SOP，未发现主要未支持动作或企业规则；此结论仅为AI审查。"
+    },
+    {
+      "case_id": "T22-Q2",
+      "verdict": "supported_core",
+      "note": "核心判断和建议可以对应本次引用的模拟SOP，未发现主要未支持动作或企业规则；此结论仅为AI审查。"
+    },
+    {
+      "case_id": "T24-Q1",
+      "verdict": "supported_core",
+      "note": "核心判断和建议可以对应本次引用的模拟SOP，未发现主要未支持动作或企业规则；此结论仅为AI审查。"
+    },
+    {
+      "case_id": "T24-Q2",
+      "verdict": "rejected_before_display",
+      "note": "模型未返回有效引用，服务端已拒绝展示；不计为已通过的答案。"
+    },
+    {
+      "case_id": "T26-Q1",
+      "verdict": "unsupported_detail",
+      "note": "磁盘空间问题引用软件安装资料，并给出卸载程序、迁移文档等未获资料支持的建议。"
+    },
+    {
+      "case_id": "T26-Q2",
+      "verdict": "unsupported_detail",
+      "note": "资料要求按保留规则迁移工作文件，答案额外建议云存储，未限定经企业批准的分享渠道。"
+    },
+    {
+      "case_id": "T28-Q1",
+      "verdict": "supported_core",
+      "note": "核心判断和建议可以对应本次引用的模拟SOP，未发现主要未支持动作或企业规则；此结论仅为AI审查。"
+    },
+    {
+      "case_id": "T28-Q2",
+      "verdict": "unsupported_detail",
+      "note": "显示器问题引用投影资料，额外给出Fn+F4等设备按键路径；资料不能支持这些具体操作。"
+    },
+    {
+      "case_id": "T30-Q1",
+      "verdict": "supported_core",
+      "note": "核心判断和建议可以对应本次引用的模拟SOP，未发现主要未支持动作或企业规则；此结论仅为AI审查。"
+    },
+    {
+      "case_id": "T30-Q2",
+      "verdict": "supported_core",
+      "note": "核心判断和建议可以对应本次引用的模拟SOP，未发现主要未支持动作或企业规则；此结论仅为AI审查。"
+    },
+    {
+      "case_id": "T32-Q1",
+      "verdict": "supported_core",
+      "note": "核心判断和建议可以对应本次引用的模拟SOP，未发现主要未支持动作或企业规则；此结论仅为AI审查。"
+    },
+    {
+      "case_id": "T32-Q2",
+      "verdict": "unsupported_detail",
+      "note": "资料没有更换新品牌电池、设备管理器、重启电脑等步骤，生成添加了未支持的操作。"
+    },
+    {
+      "case_id": "T34-Q1",
+      "verdict": "unsupported_detail",
+      "note": "答案称这些均为只读检查，但同时建议关闭其他应用，表述与动作不一致。"
+    }
+  ]
+}

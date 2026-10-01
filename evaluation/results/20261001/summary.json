@@ -1,0 +1,458 @@
+{
+  "environment": {
+    "python": "3.13.13 | packaged by Anaconda, Inc. | (main, Apr 14 2026, 06:12:50) [MSC v.1942 64 bit (AMD64)]",
+    "platform": "Windows-11-10.0.26300-SP0",
+    "processor": "Intel64 Family 6 Model 183 Stepping 1, GenuineIntel",
+    "logical_cpus": 32,
+    "commit": "f8694049e8e43c321823e773a61f14bcf73a233f",
+    "working_tree": "M .gitignore\n M app/agent.py\n M app/constants.py\n M app/database.py\n M app/embeddings.py\n M app/knowledge.py\n M app/llm.py\n M app/main.py\n D app/rag.py\n M app/repository.py\n M app/schemas.py\n M app/security.py\n M app/templates/admin.html\n M app/templates/index.html\n M deploy/k3s/deployment.yaml\n M evaluation/run.py\n M scripts/run-local-conda.ps1\n M tests/test_app.py\n?? app/evidence.py\n?? app/metrics.py\n?? app/observability.py\n?? app/retrieval_health.py\n?? data/simulated_sops.json\n?? evaluation/benchmark-cases.json\n?? evaluation/external-fixture.json\n?? evaluation/legacy.py\n?? evaluation/performance.py\n?? evaluation/policy.json\n?? evaluation/reproduce_lexical.py\n?? evaluation/results/\n?? scripts/evaluate-conda.ps1\n?? scripts/import-demo.py\n?? tests/test_engineering.py",
+    "model": "BAAI/bge-small-zh-v1.5",
+    "model_threads": 2,
+    "utc": "2026-10-01T03:48:56Z",
+    "packages": {
+      "fastembed": "0.8.1",
+      "sqlite-vec": "0.1.9",
+      "jieba": "0.42.1",
+      "langgraph": "0.2.60",
+      "fastapi": "0.115.6",
+      "openai": "1.90.0",
+      "numpy": "2.5.3",
+      "onnxruntime": "1.30.0"
+    },
+    "source_sha256_normalized_lf": {
+      "app\\agent.py": "802b0b97d62fb46890d4c41daa629010e7689b5a4416f0d83992b1233879c859",
+      "app\\config.py": "435acaf948574fe936b75d42291a393c69ed9d977adc21284f8adecaa4749472",
+      "app\\constants.py": "ed8efbc07bafc3aea2dddddb45c97fc8cc65ef445a47785ee00bcaefc1a3e118",
+      "app\\database.py": "b20777c8cf8612c9017d9af2c613a2b6e3d034d2a832293085dd98f1d97de7d7",
+      "app\\embeddings.py": "30f23db4cd36893464e84610edee8b2f4ca21fd893cf8b6020f60ff4c6c02c6d",
+      "app\\evidence.py": "9fe6cd6312db4369dc972cdfcbac034a751ae964b3a02aa396fdfaf4a3262337",
+      "app\\knowledge.py": "b7f7099bd34b9377d8bcd610ec8231ce84788843dfe4ac34686988724b20216c",
+      "app\\llm.py": "a9d2d638345348bb5f346876b5a892daac6e3f59e027e83af8a797771076c208",
+      "app\\main.py": "6e597861dcf5d4fdaeb7eb181f3e14b6d453cd2a85ec8b380d04a3613de47e9d",
+      "app\\metrics.py": "c7d9a3a72d647e8ddd74100763fef7aed5cc2a9f08078da1a61e35dbccf359d3",
+      "app\\observability.py": "e8aa8229e31fffdbe3926c2073c35cbc61a633c2491333283833fb1d8d7e0dec",
+      "app\\repository.py": "162d26987a82853d70dc708809206f94ba8f6df04ba7599335a27d664b200ed9",
+      "app\\retrieval_health.py": "0de5f8b7263aa5e53602934c1788e34048e92cd9e75c4c022f8f5f6455e037d2",
+      "app\\schemas.py": "dc266dfc0be951cd2ea4406461522f5a9b5af2a473869871d4537e55dad7b4ae",
+      "app\\security.py": "2fbd2ec19ebd1ed5cb7ed88a103984538bbc0a873575b86d413cd4a63e41ab17",
+      "app\\tools.py": "468d3424dbd40b335595287565c78a5055553192caa5f77259b5c0112384686d",
+      "app\\__init__.py": "83434065d9190b6a029c949ffd1e666685a496a9584b41268797374b9572c66d",
+      "evaluation\\legacy.py": "0a45c0b00cf9db724ddbabaa2856fc3deb538effe2574752bbec1f6a2506e40f",
+      "evaluation\\performance.py": "d1a7ae5a3ffcb4464752c155d0c8f28403de1b38da1d8316299897f887fee422",
+      "evaluation\\reproduce_lexical.py": "f7d5298b62a0c4461760bf8875a483df0b4e8a432246ed93ba87c25c16403455",
+      "evaluation\\run.py": "a6fc599cf87d587475360b7d89b467f30b70dcc6f6bebeb6b0e520c714d3967c",
+      "scripts\\check-llm.py": "42deaa2d755edadf437a98cee9f691f2d229782942140b327918c792c3a92013",
+      "scripts\\import-demo.py": "12cfc5a7547c6cf1025e69e4bb1e889efe8eaa7ba823eb604269c8e8096eab82"
+    }
+  },
+  "dataset": {
+    "topics": 60,
+    "chunks": 60,
+    "cases": 180,
+    "split": "90 calibration / 90 test",
+    "label_source": "AI-assisted synthetic"
+  },
+  "indexing_seconds": 4.869778499999484,
+  "vector_health": {
+    "state": "ready",
+    "reason": "",
+    "coverage": 60,
+    "total": 60,
+    "coverage_ratio": 1.0,
+    "model": "BAAI/bge-small-zh-v1.5",
+    "extension_available": true,
+    "runtime_checked": true
+  },
+  "variants": {
+    "legacy_keyword": {
+      "calibration": {
+        "answerable_cases": 60,
+        "hit_at_1": 0.31666666666666665,
+        "hit_at_3": 0.4666666666666667,
+        "hit_at_5": 0.5,
+        "mrr_at_5": 0.38333333333333336,
+        "recall_at_3": 0.4666666666666667,
+        "zero_retrieval_count": 0,
+        "all_cases": 90,
+        "zero_retrieval_rate": 0.0,
+        "vector_degraded_count": 0,
+        "latency_ms": {
+          "p50": 0.65,
+          "p95": 0.756,
+          "p99": 1.149
+        }
+      },
+      "test": {
+        "answerable_cases": 60,
+        "hit_at_1": 0.18333333333333332,
+        "hit_at_3": 0.4,
+        "hit_at_5": 0.4666666666666667,
+        "mrr_at_5": 0.2972222222222222,
+        "recall_at_3": 0.4,
+        "zero_retrieval_count": 0,
+        "all_cases": 90,
+        "zero_retrieval_rate": 0.0,
+        "vector_degraded_count": 0,
+        "latency_ms": {
+          "p50": 0.66,
+          "p95": 0.744,
+          "p99": 0.949
+        }
+      }
+    },
+    "bm25": {
+      "calibration": {
+        "answerable_cases": 60,
+        "hit_at_1": 0.8833333333333333,
+        "hit_at_3": 0.9666666666666667,
+        "hit_at_5": 0.9666666666666667,
+        "mrr_at_5": 0.9222222222222223,
+        "recall_at_3": 0.9666666666666667,
+        "zero_retrieval_count": 10,
+        "all_cases": 90,
+        "zero_retrieval_rate": 0.1111111111111111,
+        "vector_degraded_count": 0,
+        "latency_ms": {
+          "p50": 21.124,
+          "p95": 43.465,
+          "p99": 49.088
+        }
+      },
+      "test": {
+        "answerable_cases": 60,
+        "hit_at_1": 0.7333333333333333,
+        "hit_at_3": 0.85,
+        "hit_at_5": 0.8666666666666667,
+        "mrr_at_5": 0.7847222222222222,
+        "recall_at_3": 0.85,
+        "zero_retrieval_count": 12,
+        "all_cases": 90,
+        "zero_retrieval_rate": 0.13333333333333333,
+        "vector_degraded_count": 0,
+        "latency_ms": {
+          "p50": 20.744,
+          "p95": 39.831,
+          "p99": 47.457
+        }
+      }
+    },
+    "vector": {
+      "calibration": {
+        "answerable_cases": 60,
+        "hit_at_1": 0.95,
+        "hit_at_3": 0.9666666666666667,
+        "hit_at_5": 0.9666666666666667,
+        "mrr_at_5": 0.9583333333333334,
+        "recall_at_3": 0.9666666666666667,
+        "zero_retrieval_count": 0,
+        "all_cases": 90,
+        "zero_retrieval_rate": 0.0,
+        "vector_degraded_count": 0,
+        "latency_ms": {
+          "p50": 29.797,
+          "p95": 35.982,
+          "p99": 39.167
+        }
+      },
+      "test": {
+        "answerable_cases": 60,
+        "hit_at_1": 0.9,
+        "hit_at_3": 0.9333333333333333,
+        "hit_at_5": 0.9333333333333333,
+        "mrr_at_5": 0.9166666666666666,
+        "recall_at_3": 0.9333333333333333,
+        "zero_retrieval_count": 0,
+        "all_cases": 90,
+        "zero_retrieval_rate": 0.0,
+        "vector_degraded_count": 0,
+        "latency_ms": {
+          "p50": 30.632,
+          "p95": 34.814,
+          "p99": 38.879
+        }
+      }
+    },
+    "hybrid_rrf": {
+      "calibration": {
+        "answerable_cases": 60,
+        "hit_at_1": 0.9666666666666667,
+        "hit_at_3": 0.9666666666666667,
+        "hit_at_5": 0.9666666666666667,
+        "mrr_at_5": 0.9666666666666667,
+        "recall_at_3": 0.9666666666666667,
+        "zero_retrieval_count": 0,
+        "all_cases": 90,
+        "zero_retrieval_rate": 0.0,
+        "vector_degraded_count": 0,
+        "latency_ms": {
+          "p50": 42.838,
+          "p95": 55.048,
+          "p99": 62.239
+        }
+      },
+      "test": {
+        "answerable_cases": 60,
+        "hit_at_1": 0.8333333333333334,
+        "hit_at_3": 0.8833333333333333,
+        "hit_at_5": 0.9166666666666666,
+        "mrr_at_5": 0.8666666666666667,
+        "recall_at_3": 0.8833333333333333,
+        "zero_retrieval_count": 0,
+        "all_cases": 90,
+        "zero_retrieval_rate": 0.0,
+        "vector_degraded_count": 0,
+        "latency_ms": {
+          "p50": 43.864,
+          "p95": 58.897,
+          "p99": 66.381
+        }
+      }
+    },
+    "hybrid": {
+      "calibration": {
+        "answerable_cases": 60,
+        "hit_at_1": 0.95,
+        "hit_at_3": 0.9666666666666667,
+        "hit_at_5": 0.9666666666666667,
+        "mrr_at_5": 0.9583333333333334,
+        "recall_at_3": 0.9666666666666667,
+        "zero_retrieval_count": 0,
+        "all_cases": 90,
+        "zero_retrieval_rate": 0.0,
+        "vector_degraded_count": 0,
+        "latency_ms": {
+          "p50": 41.512,
+          "p95": 61.663,
+          "p99": 70.357
+        }
+      },
+      "test": {
+        "answerable_cases": 60,
+        "hit_at_1": 0.7833333333333333,
+        "hit_at_3": 0.8666666666666667,
+        "hit_at_5": 0.9166666666666666,
+        "mrr_at_5": 0.8358333333333333,
+        "recall_at_3": 0.8666666666666667,
+        "zero_retrieval_count": 0,
+        "all_cases": 90,
+        "zero_retrieval_rate": 0.0,
+        "vector_degraded_count": 0,
+        "latency_ms": {
+          "p50": 40.406,
+          "p95": 56.092,
+          "p99": 60.119
+        }
+      }
+    },
+    "hybrid_no_rewrite": {
+      "calibration": {
+        "answerable_cases": 60,
+        "hit_at_1": 0.9666666666666667,
+        "hit_at_3": 0.9833333333333333,
+        "hit_at_5": 0.9833333333333333,
+        "mrr_at_5": 0.975,
+        "recall_at_3": 0.9833333333333333,
+        "zero_retrieval_count": 0,
+        "all_cases": 90,
+        "zero_retrieval_rate": 0.0,
+        "vector_degraded_count": 0,
+        "latency_ms": {
+          "p50": 43.635,
+          "p95": 60.97,
+          "p99": 72.518
+        }
+      },
+      "test": {
+        "answerable_cases": 60,
+        "hit_at_1": 0.7833333333333333,
+        "hit_at_3": 0.8666666666666667,
+        "hit_at_5": 0.9166666666666666,
+        "mrr_at_5": 0.8358333333333333,
+        "recall_at_3": 0.8666666666666667,
+        "zero_retrieval_count": 0,
+        "all_cases": 90,
+        "zero_retrieval_rate": 0.0,
+        "vector_degraded_count": 0,
+        "latency_ms": {
+          "p50": 42.468,
+          "p95": 57.519,
+          "p99": 62.818
+        }
+      }
+    },
+    "hybrid_no_title": {
+      "calibration": {
+        "answerable_cases": 60,
+        "hit_at_1": 0.9666666666666667,
+        "hit_at_3": 0.9666666666666667,
+        "hit_at_5": 0.9666666666666667,
+        "mrr_at_5": 0.9666666666666667,
+        "recall_at_3": 0.9666666666666667,
+        "zero_retrieval_count": 0,
+        "all_cases": 90,
+        "zero_retrieval_rate": 0.0,
+        "vector_degraded_count": 0,
+        "latency_ms": {
+          "p50": 43.427,
+          "p95": 61.099,
+          "p99": 71.713
+        }
+      },
+      "test": {
+        "answerable_cases": 60,
+        "hit_at_1": 0.8166666666666667,
+        "hit_at_3": 0.8833333333333333,
+        "hit_at_5": 0.9166666666666666,
+        "mrr_at_5": 0.8575,
+        "recall_at_3": 0.8833333333333333,
+        "zero_retrieval_count": 0,
+        "all_cases": 90,
+        "zero_retrieval_rate": 0.0,
+        "vector_degraded_count": 0,
+        "latency_ms": {
+          "p50": 42.969,
+          "p95": 60.659,
+          "p99": 64.788
+        }
+      }
+    }
+  },
+  "policy": {
+    "version": 1,
+    "default_mode": "hybrid",
+    "thresholds": {
+      "bm25": 0.4,
+      "hybrid": 0.510423
+    },
+    "calibration": {
+      "bm25": {
+        "threshold": 0.4,
+        "accepted": 46,
+        "precision": 0.9565217391304348,
+        "reason": "calibrated",
+        "eligible": 75
+      },
+      "hybrid": {
+        "threshold": 0.510423,
+        "accepted": 60,
+        "precision": 0.95,
+        "reason": "calibrated",
+        "eligible": 75
+      }
+    },
+    "cases_sha256": "7e02c2df75c52daabfa20a3205f8304357261a25f3c54c4206ed6c678a4e97c0",
+    "corpus_sha256": "b93fef32e250925d4e7220f473f7eb0ee97674a9be10af5265ba6010253a1e66",
+    "selection_rule": "maximize coverage at precision>=.95 and accepted>=20; higher threshold breaks ties",
+    "release_gate": {
+      "bm25": {
+        "accepted": 37,
+        "precision": 0.8648648648648649,
+        "passed": false,
+        "reason": "held_out_precision_below_95pct"
+      },
+      "hybrid": {
+        "accepted": 54,
+        "precision": 0.7962962962962963,
+        "passed": false,
+        "reason": "held_out_precision_below_95pct"
+      }
+    }
+  },
+  "routing": {
+    "bm25": {
+      "confusion_matrix": {
+        "tp": 41,
+        "fp": 12,
+        "tn": 32,
+        "fn": 5
+      },
+      "human_precision": 0.7735849056603774,
+      "human_recall": 0.8913043478260869,
+      "auto_coverage": 0.4111111111111111
+    },
+    "hybrid": {
+      "confusion_matrix": {
+        "tp": 32,
+        "fp": 4,
+        "tn": 43,
+        "fn": 11
+      },
+      "human_precision": 0.8888888888888888,
+      "human_recall": 0.7441860465116279,
+      "auto_coverage": 0.6
+    }
+  },
+  "limitations": [
+    "Local simulated corpus and AI-assisted labels; not production performance",
+    "Citation validity is not semantic faithfulness",
+    "Latency excludes initial model warmup"
+  ],
+  "generation": {
+    "calls": 30,
+    "completed_records": 30,
+    "call_limit": 30,
+    "max_output_tokens_per_call": 1000,
+    "model": "mimo-v2.5-pro",
+    "thinking": "disabled",
+    "retries": 0,
+    "selection": "first 30 held-out low-risk queries passing calibrated evidence threshold; generator experiment bypasses release gate, not automatic production answers",
+    "completion_tokens": 4324,
+    "prompt_tokens": 10807,
+    "structured_success_rate": 1.0,
+    "citation_valid_rate": 0.9,
+    "answer_success_rate": 0.9,
+    "latency_ms": {
+      "p50": 4228.874,
+      "p95": 7626.747,
+      "p99": 23965.202
+    },
+    "semantic_review": {
+      "total": 30,
+      "structural_accepted": 27,
+      "supported_core": 17,
+      "unsupported_detail": 10,
+      "rejected_before_display": 3
+    }
+  },
+  "performance": {
+    "mode": "real local HTTP, LLM disabled; POST + authenticated GET workflow",
+    "concurrency": {
+      "1": {
+        "requests": 100,
+        "successes": 100,
+        "elapsed_seconds": 11.044036700000106,
+        "throughput_workflows_per_second": 9.054660240308603,
+        "latency_ms": {
+          "p50": 105.86,
+          "p95": 125.858,
+          "p99": 266.919
+        }
+      },
+      "5": {
+        "requests": 100,
+        "successes": 100,
+        "elapsed_seconds": 4.433429499999875,
+        "throughput_workflows_per_second": 22.55590170092991,
+        "latency_ms": {
+          "p50": 217.041,
+          "p95": 271.812,
+          "p99": 333.432
+        }
+      },
+      "10": {
+        "requests": 100,
+        "successes": 100,
+        "elapsed_seconds": 3.3074298999999883,
+        "throughput_workflows_per_second": 30.234956755999683,
+        "latency_ms": {
+          "p50": 302.927,
+          "p95": 484.987,
+          "p99": 619.791
+        }
+      }
+    },
+    "baseline_rss_mib": 295.578125,
+    "sampled_peak_rss_mib": 313.12109375,
+    "memory_scope": "whole benchmark process including BGE model and evaluation data; 20ms sampling"
+  }
+}

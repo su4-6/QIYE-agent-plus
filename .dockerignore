@@ -4,7 +4,15 @@ __pycache__
 *.pyc
 .pytest_cache
 .env
-data/tickets.db
+data/*.db
+data/*.db-*
+data/backups
+data/eval-temp-*
+data/models
+*.log
+.playwright-cli
+output/playwright
+evaluation/results
 dist
 build
 *.spec

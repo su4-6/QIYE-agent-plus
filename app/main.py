@@ -1,15 +1,17 @@
 from __future__ import annotations
 
 import logging
+import time
+import uuid
 from contextlib import asynccontextmanager
 from pathlib import Path
 
 from fastapi import FastAPI, File, Header, HTTPException, Query, Request, Response, UploadFile
-from fastapi.responses import HTMLResponse
+from fastapi.responses import HTMLResponse, JSONResponse
 
 from app.agent import ticket_graph
 from app.config import settings
-from app.database import init_database
+from app.database import init_database, get_connection
 from app.knowledge import extract_text, import_document, seed_demo
 from app.llm import llm_status
 from app.repository import (approve_ticket, count_tickets, get_ticket, get_ticket_with_secret,
@@ -17,6 +19,9 @@ from app.repository import (approve_ticket, count_tickets, get_ticket, get_ticke
 from app.schemas import ApprovalRequest, HealthResponse, LoginRequest, TicketRequest, TicketResponse
 from app.security import (admin_claims, check_access_token, check_password, create_session,
                           new_access_token, use_quota, validate_production_config, verify_turnstile)
+from app.retrieval_health import vector_health
+from app.metrics import retrieval_metrics
+from app.observability import request_id, event, configure_logging
 
 logger = logging.getLogger(__name__)
 INDEX_PATH = Path(__file__).parent / "templates" / "index.html"
@@ -26,19 +31,29 @@ DEMO_TENANT = "demo"
 
 @asynccontextmanager
 async def lifespan(_: FastAPI):
+    configure_logging()
     validate_production_config()
     init_database()
     seed_demo()
     yield
 
 
-app = FastAPI(title=settings.app_name, version="2.0.0", lifespan=lifespan,
+app = FastAPI(title=settings.app_name, version="2.1.0", lifespan=lifespan,
               docs_url="/api/docs" if settings.app_env != "production" else None)
 
 
 @app.middleware("http")
 async def security_headers(request: Request, call_next):
-    response = await call_next(request)
+    correlation = uuid.uuid4().hex
+    token = request_id.set(correlation)
+    started = time.perf_counter()
+    try:
+        response = await call_next(request)
+        event("http_request", method=request.method, status=response.status_code,
+              latency_ms=round((time.perf_counter()-started)*1000, 3))
+    finally:
+        request_id.reset(token)
+    response.headers["X-Request-ID"] = correlation
     response.headers["X-Content-Type-Options"] = "nosniff"
     response.headers["X-Frame-Options"] = "DENY"
     response.headers["Referrer-Policy"] = "same-origin"
@@ -72,11 +87,27 @@ def admin_page():
 
 @app.get("/health", response_model=HealthResponse, include_in_schema=False)
 def health():
-    retrieval = "bm25" if settings.embedding_provider == "disabled" else "bm25+vector"
     model = llm_status()
-    return {"status": "ok", "database": "ok", "retrieval": retrieval,
+    try:
+        with get_connection() as db:
+            db.execute("SELECT COUNT(*) FROM knowledge_documents").fetchone()
+    except Exception as exc:
+        logger.warning("database_health_failed type=%s", type(exc).__name__)
+        return JSONResponse(status_code=503, content={"status": "error", "database": "unavailable",
+            "retrieval": "unavailable", "vector": {"state": "runtime_failed", "reason": "database_unavailable"},
+            "llm_enabled": model["enabled"], "llm_provider": model["provider"], "llm_model": model["model"]})
+    vector = vector_health()
+    ready = vector["state"] == "ready"
+    retrieval = "bm25+vector" if ready else "bm25"
+    return {"status": "ok" if ready or vector["state"] == "disabled" else "degraded",
+            "database": "ok", "retrieval": retrieval, "vector": vector,
             "llm_enabled": model["enabled"], "llm_provider": model["provider"],
             "llm_model": model["model"]}
+
+
+@app.get("/health/live", include_in_schema=False)
+def live():
+    return {"status": "alive"}
 
 
 @app.get("/api/v1/public-config")
@@ -90,9 +121,8 @@ def create_ticket(payload: TicketRequest, request: Request):
     client_ip = request.client.host if request.client else "unknown"
     if not use_quota("ticket-hour", client_ip, settings.max_public_hourly, 3600):
         raise HTTPException(status_code=429, detail="提交过于频繁，请稍后再试")
-    llm_allowed = use_quota("llm-day", DEMO_TENANT, settings.max_llm_daily, 86400)
     state = payload.model_dump(exclude={"turnstile_token"})
-    result = ticket_graph.invoke({**state, "tenant_id": DEMO_TENANT, "allow_llm": llm_allowed})
+    result = ticket_graph.invoke({**state, "tenant_id": DEMO_TENANT, "allow_llm": True})
     token, token_hash = new_access_token()
     stored = {**result, "tenant_id": DEMO_TENANT, "access_token_hash": token_hash}
     save_ticket(stored)
@@ -156,6 +186,14 @@ def admin_audit(ticket_id: str, request: Request):
 def admin_knowledge(request: Request):
     claims = admin_claims(request)
     return list_documents(claims["tenant_id"])
+
+
+@app.get("/api/v1/admin/retrieval-metrics")
+def admin_metrics(request: Request, days: int = Query(7)):
+    claims = admin_claims(request)
+    if days not in {1, 7, 30}:
+        raise HTTPException(status_code=422, detail="统计窗口仅支持 1、7、30 天")
+    return retrieval_metrics(claims["tenant_id"], days)
 
 
 @app.post("/api/v1/admin/knowledge", status_code=201)

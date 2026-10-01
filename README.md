@@ -9,10 +9,10 @@
 - SQLite FTS5 BM25 与 `sqlite-vec` 中文向量召回，使用 RRF 和业务信号重排。
 - 版本化知识库，管理员可导入 TXT、Markdown 和文本 PDF。
 - 访客工单访问凭证、管理员签名会话、CSRF 校验、租户过滤、限流和 Turnstile。
-- 高风险及低置信度人工接管，审批状态使用条件更新防止重复处理。
+- 高风险、证据不足及评测发布保护触发时人工接管，审批状态使用条件更新防止重复处理。
 - 支持从 `MIMO_API_KEY` 自动接入 MiMo；模型失败或引用校验失败时转人工。
 - 工单、状态变化和审计日志同事务保存。
-- Docker Compose 部署和 30 条固定工单检索评测。
+- Docker/K3s 部署配置、35 项工程测试、60 段模拟语料和 180 条固定评测查询。
 
 ## 处理流程
 
@@ -21,23 +21,26 @@ FastAPI 接收工单
 → 服务端确定租户并校验访问边界
 → LangGraph 进行意图识别和风险判断
 → 查询改写
-→ FTS5 BM25 与 sqlite-vec 并行召回
+→ FTS5 BM25 与 sqlite-vec 双路召回
 → RRF 合并、去重和轻量重排
 → 判断资料相关度
-→ 有依据时生成建议并校验引用
-→ 高风险或证据不足时转人工
+→ 校准阈值与独立测试发布门槛通过后生成建议并校验引用
+→ 高风险、证据不足或发布保护触发时转人工
 → SQLite 保存工单、答案、来源和审计记录
 ```
 
-架构图见 [docs/architecture.md](docs/architecture.md)，本次实测见 [docs/evaluation-results.md](docs/evaluation-results.md)。
+架构图见 [docs/architecture.md](docs/architecture.md)，最新实测见 [工程评测报告](docs/engineering-evaluation-20261001.md)，可复制的简历描述见 [简历证据](docs/resume-evidence.md)。
+
+当前校准阈值在独立测试集上未达到 95% 的放行精确率，自动建议发布保护默认开启。提交后会展示资料并等待人工审核；这是实际评测结果触发的保护。MiMo 已完成 30 次真实生成实验，原始答案与语义审查单独保存。
 
 ## 本地启动
 
 ### Conda 一键启动（推荐）
 
-项目已使用名为 `ticket-agent` 的 Conda 环境时，在 PowerShell 中执行：
+项目已使用名为 `ticket-agent` 的 Conda 环境时，先进入项目目录，再启动。在你当前电脑上：
 
 ```powershell
+Set-Location -LiteralPath "C:\Users\hp\Desktop\Agent学习\企业工单智能处理 Agent 系统练习"
 powershell -ExecutionPolicy Bypass -File .\scripts\run-local-conda.ps1
 ```
 
@@ -48,11 +51,14 @@ powershell -ExecutionPolicy Bypass -File .\scripts\run-local-conda.ps1
 需要使用 Windows 环境变量中的 `MIMO_API_KEY` 做真实生成时，增加开关：
 
 ```powershell
-powershell -ExecutionPolicy Bypass -File .\scripts\run-local-conda.ps1 -UseMimo
+powershell -ExecutionPolicy Bypass -File .\scripts\run-local-conda.ps1 -UseMimo -UseVectors -ImportSimulatedKnowledge
 ```
 
-管理员首页会显示当前生成模型；也可运行 `conda run -n ticket-agent python
-scripts/check-llm.py` 做不含真实业务数据的模型与引用冒烟检查。
+`-UseVectors` 开启本地 BGE；`-ImportSimulatedKnowledge` 显式导入 60 个模拟 SOP 并重建向量，不替换管理员文档。首次下载模型需要联网。此次已导入本机 `data/local-verify.db`，共 66 个有效段落。
+
+管理员入口是启动窗口打印的 `/admin` 地址，密码使用本次启动时设置的值。页面会显示模型配置、检索健康和发布保护状态。`-UseMimo` 启用生成器，当前发布保护仍要求人工审核，不保证每张工单都会调用模型。
+
+真实生成对照通过后面的评测命令查看，结果包含每条答案及引用，调用上限明确。旧 `scripts/check-llm.py` 也可作少量模型冒烟检查，**不计入本次已经完成的30次实验**；运行它会另外调用模型。
 
 ### Python 虚拟环境
 
@@ -64,7 +70,7 @@ copy .env.example .env
 uvicorn app.main:app --reload
 ```
 
-打开 `http://127.0.0.1:8000`。开发环境不强制 Turnstile；没有大模型密钥时会返回有引用的知识库答复。
+打开 `http://127.0.0.1:8000`。开发环境不强制 Turnstile；未通过发布门槛或证据不足时进入人工审核；未启用模型且具备合格证据时可返回可追溯知识库资料。
 
 首次使用本地向量模型会下载约 90 MB 的 `BAAI/bge-small-zh-v1.5`。如需主动重建向量：
 
@@ -83,18 +89,26 @@ python -m app.knowledge reindex
 | `POST` | `/api/v1/admin/tickets/{id}/approval` | 管理员会话 + CSRF |
 | `GET` | `/api/v1/admin/tickets/{id}/audit-logs` | 管理员会话 |
 | `GET/POST` | `/api/v1/admin/knowledge` | 管理员会话，写操作加 CSRF |
-| `GET` | `/health` | 健康检查 |
+| `GET` | `/api/v1/admin/retrieval-metrics?days=7` | 管理员会话，窗口支持1/7/30天 |
+| `GET` | `/health` | 数据库及真实向量状态检查，不调用模型 |
+| `GET` | `/health/live` | 进程存活检查 |
 
 旧的 `/工单` 和 `/tickets` 只保留提交兼容。旧查询和审批路径已删除，避免绕过新权限层。
 
 ## 测试与评测
 
 ```powershell
-python -m unittest discover -s tests -v
-python -m evaluation.run
+conda run -n ticket-agent python -m unittest discover -s tests -v
+powershell -ExecutionPolicy Bypass -File .\scripts\evaluate-conda.ps1 -Performance
+# 可选：每次新实验最多30次MiMo调用；关闭自动重试，每次最多1000输出tokens
+powershell -ExecutionPolicy Bypass -File .\scripts\evaluate-conda.ps1 -LiveMimo -Performance
 ```
 
-固定评测集包含 30 条模拟工单。当前本机结果：原关键词检索 Recall@3 为 93.33%，混合检索为 100%；中位检索延迟 10.30 ms，P95 为 11.90 ms。数据规模扩大、模型变化或部署到服务器后必须重新运行，不应将这组数字外推为生产性能。
+最新评测为 60 段模拟语料／180 问，主题分组校准与测试各90问。测试60条可回答查询的 Hit@3：旧关键词40%，BM25 85%，真实向量93.33%，混合86.67%。本地关闭LLM的300次HTTP工作流全部成功；35项工程测试通过。指标定义、失败案例、时延及内存见[报告](docs/engineering-evaluation-20261001.md)。
+
+评测数据库临时隔离，不改现有工单库。模型原始结果可用 `--reuse-generation` 复用，绝不发送LLM请求。历史六段／30问实验保留在[旧评测记录](docs/evaluation-results.md)，不能与新语料混用提升数字。
+
+工单新增 `evidence_score`、`handoff_reason` 和 `request_id`；`confidence` 仅保留兼容别名。评分不是正确概率。向量使用精确余弦扫描，当前未使用 ANN 或 Cross-Encoder。首次升级前自动在线备份SQLite；限流桶按绝对过期时间清理。
 
 ## 生产部署
 

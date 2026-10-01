@@ -1,0 +1,1686 @@
+{
+  "version": 1,
+  "label_source": "AI辅助生成并按模拟SOP主题核对。口语问法按主题分组切分；安全标签由明确敏感词规则支持。",
+  "cases": [
+    {
+      "id": "T01-Q1",
+      "query": "我把公司账号的密码忘了怎么重设",
+      "expected_topics": [
+        "T01"
+      ],
+      "kind": "answerable",
+      "split": "calibration",
+      "group": "T01"
+    },
+    {
+      "id": "T01-Q2",
+      "query": "记不住登录口令了，自助重置在哪",
+      "expected_topics": [
+        "T01"
+      ],
+      "kind": "answerable",
+      "split": "calibration",
+      "group": "T01"
+    },
+    {
+      "id": "T02-Q1",
+      "query": "连续输错几次现在账号被锁住了",
+      "expected_topics": [
+        "T02"
+      ],
+      "kind": "answerable",
+      "split": "test",
+      "group": "T02"
+    },
+    {
+      "id": "T02-Q2",
+      "query": "登录提示账户锁定，等一会儿能恢复吗",
+      "expected_topics": [
+        "T02"
+      ],
+      "kind": "answerable",
+      "split": "test",
+      "group": "T02"
+    },
+    {
+      "id": "T03-Q1",
+      "query": "公司登录的短信验证码一直没来",
+      "expected_topics": [
+        "T03"
+      ],
+      "kind": "answerable",
+      "split": "calibration",
+      "group": "T03"
+    },
+    {
+      "id": "T03-Q2",
+      "query": "手机号没变但是验证码收不到",
+      "expected_topics": [
+        "T03"
+      ],
+      "kind": "answerable",
+      "split": "calibration",
+      "group": "T03"
+    },
+    {
+      "id": "T04-Q1",
+      "query": "换了手机认证器的动态码都不对",
+      "expected_topics": [
+        "T04"
+      ],
+      "kind": "answerable",
+      "split": "test",
+      "group": "T04"
+    },
+    {
+      "id": "T04-Q2",
+      "query": "旧手机坏了没法做多因素验证了",
+      "expected_topics": [
+        "T04"
+      ],
+      "kind": "answerable",
+      "split": "test",
+      "group": "T04"
+    },
+    {
+      "id": "T05-Q1",
+      "query": "vpn老提示认证失败，密码是对的",
+      "expected_topics": [
+        "T05"
+      ],
+      "kind": "answerable",
+      "split": "calibration",
+      "group": "T05"
+    },
+    {
+      "id": "T05-Q2",
+      "query": "远程接入输完动态码还是认证失败",
+      "expected_topics": [
+        "T05"
+      ],
+      "kind": "answerable",
+      "split": "calibration",
+      "group": "T05"
+    },
+    {
+      "id": "T06-Q1",
+      "query": "在家VPN一直连接超时",
+      "expected_topics": [
+        "T06"
+      ],
+      "kind": "answerable",
+      "split": "test",
+      "group": "T06"
+    },
+    {
+      "id": "T06-Q2",
+      "query": "网络能上网但公司VPN隧道建不起来",
+      "expected_topics": [
+        "T06"
+      ],
+      "kind": "answerable",
+      "split": "test",
+      "group": "T06"
+    },
+    {
+      "id": "T07-Q1",
+      "query": "vpn连好几分钟就掉线",
+      "expected_topics": [
+        "T07"
+      ],
+      "kind": "answerable",
+      "split": "calibration",
+      "group": "T07"
+    },
+    {
+      "id": "T07-Q2",
+      "query": "远程办公VPN连接总自己断开",
+      "expected_topics": [
+        "T07"
+      ],
+      "kind": "answerable",
+      "split": "calibration",
+      "group": "T07"
+    },
+    {
+      "id": "T08-Q1",
+      "query": "提示VPN客户端版本过低怎么升级",
+      "expected_topics": [
+        "T08"
+      ],
+      "kind": "answerable",
+      "split": "test",
+      "group": "T08"
+    },
+    {
+      "id": "T08-Q2",
+      "query": "公司远程接入软件让我更新版本",
+      "expected_topics": [
+        "T08"
+      ],
+      "kind": "answerable",
+      "split": "test",
+      "group": "T08"
+    },
+    {
+      "id": "T09-Q1",
+      "query": "内网IP能打开但域名打不开",
+      "expected_topics": [
+        "T09"
+      ],
+      "kind": "answerable",
+      "split": "calibration",
+      "group": "T09"
+    },
+    {
+      "id": "T09-Q2",
+      "query": "公司的网址解析失败是DNS问题吗",
+      "expected_topics": [
+        "T09"
+      ],
+      "kind": "answerable",
+      "split": "calibration",
+      "group": "T09"
+    },
+    {
+      "id": "T10-Q1",
+      "query": "笔记本连不上办公室WiFi",
+      "expected_topics": [
+        "T10"
+      ],
+      "kind": "answerable",
+      "split": "test",
+      "group": "T10"
+    },
+    {
+      "id": "T10-Q2",
+      "query": "公司无线网络一直提示连接失败",
+      "expected_topics": [
+        "T10"
+      ],
+      "kind": "answerable",
+      "split": "test",
+      "group": "T10"
+    },
+    {
+      "id": "T11-Q1",
+      "query": "办公室无线信号只有一格很卡",
+      "expected_topics": [
+        "T11"
+      ],
+      "kind": "answerable",
+      "split": "calibration",
+      "group": "T11"
+    },
+    {
+      "id": "T11-Q2",
+      "query": "靠窗工位WiFi丢包严重",
+      "expected_topics": [
+        "T11"
+      ],
+      "kind": "answerable",
+      "split": "calibration",
+      "group": "T11"
+    },
+    {
+      "id": "T12-Q1",
+      "query": "插着网线却显示未连接",
+      "expected_topics": [
+        "T12"
+      ],
+      "kind": "answerable",
+      "split": "test",
+      "group": "T12"
+    },
+    {
+      "id": "T12-Q2",
+      "query": "电脑有线网口灯不亮怎么查",
+      "expected_topics": [
+        "T12"
+      ],
+      "kind": "answerable",
+      "split": "test",
+      "group": "T12"
+    },
+    {
+      "id": "T13-Q1",
+      "query": "客户说发了邮件但我一直收不到",
+      "expected_topics": [
+        "T13"
+      ],
+      "kind": "answerable",
+      "split": "calibration",
+      "group": "T13"
+    },
+    {
+      "id": "T13-Q2",
+      "query": "外部邮件不见了垃圾箱也没有",
+      "expected_topics": [
+        "T13"
+      ],
+      "kind": "answerable",
+      "split": "calibration",
+      "group": "T13"
+    },
+    {
+      "id": "T14-Q1",
+      "query": "发给客户的邮件退信了",
+      "expected_topics": [
+        "T14"
+      ],
+      "kind": "answerable",
+      "split": "test",
+      "group": "T14"
+    },
+    {
+      "id": "T14-Q2",
+      "query": "邮件发出去又退回来有错误代码",
+      "expected_topics": [
+        "T14"
+      ],
+      "kind": "answerable",
+      "split": "test",
+      "group": "T14"
+    },
+    {
+      "id": "T15-Q1",
+      "query": "邮箱提示空间满了收不了新邮件",
+      "expected_topics": [
+        "T15"
+      ],
+      "kind": "answerable",
+      "split": "calibration",
+      "group": "T15"
+    },
+    {
+      "id": "T15-Q2",
+      "query": "企业邮箱容量超限要怎么处理",
+      "expected_topics": [
+        "T15"
+      ],
+      "kind": "answerable",
+      "split": "calibration",
+      "group": "T15"
+    },
+    {
+      "id": "T16-Q1",
+      "query": "邮件附件太大一直发不出去",
+      "expected_topics": [
+        "T16"
+      ],
+      "kind": "answerable",
+      "split": "test",
+      "group": "T16"
+    },
+    {
+      "id": "T16-Q2",
+      "query": "几十兆的文件邮件系统不让我附上",
+      "expected_topics": [
+        "T16"
+      ],
+      "kind": "answerable",
+      "split": "test",
+      "group": "T16"
+    },
+    {
+      "id": "T17-Q1",
+      "query": "别人邀我开会但日历里没有",
+      "expected_topics": [
+        "T17"
+      ],
+      "kind": "answerable",
+      "split": "calibration",
+      "group": "T17"
+    },
+    {
+      "id": "T17-Q2",
+      "query": "会议邀请收到了可是日程没显示",
+      "expected_topics": [
+        "T17"
+      ],
+      "kind": "answerable",
+      "split": "calibration",
+      "group": "T17"
+    },
+    {
+      "id": "T18-Q1",
+      "query": "网页版有新邮件客户端没有",
+      "expected_topics": [
+        "T18"
+      ],
+      "kind": "answerable",
+      "split": "test",
+      "group": "T18"
+    },
+    {
+      "id": "T18-Q2",
+      "query": "Outlook一直不更新邮件",
+      "expected_topics": [
+        "T18"
+      ],
+      "kind": "answerable",
+      "split": "test",
+      "group": "T18"
+    },
+    {
+      "id": "T19-Q1",
+      "query": "打印机有纸但一直报缺纸",
+      "expected_topics": [
+        "T19"
+      ],
+      "kind": "answerable",
+      "split": "calibration",
+      "group": "T19"
+    },
+    {
+      "id": "T19-Q2",
+      "query": "纸盒放满了机器却说没纸",
+      "expected_topics": [
+        "T19"
+      ],
+      "kind": "answerable",
+      "split": "calibration",
+      "group": "T19"
+    },
+    {
+      "id": "T20-Q1",
+      "query": "打印机卡纸了纸拉不出来",
+      "expected_topics": [
+        "T20"
+      ],
+      "kind": "answerable",
+      "split": "test",
+      "group": "T20"
+    },
+    {
+      "id": "T20-Q2",
+      "query": "打印一半纸夹在机器里",
+      "expected_topics": [
+        "T20"
+      ],
+      "kind": "answerable",
+      "split": "test",
+      "group": "T20"
+    },
+    {
+      "id": "T21-Q1",
+      "query": "打印机明明开着却显示脱机",
+      "expected_topics": [
+        "T21"
+      ],
+      "kind": "answerable",
+      "split": "calibration",
+      "group": "T21"
+    },
+    {
+      "id": "T21-Q2",
+      "query": "共享打印机总是离线状态",
+      "expected_topics": [
+        "T21"
+      ],
+      "kind": "answerable",
+      "split": "calibration",
+      "group": "T21"
+    },
+    {
+      "id": "T22-Q1",
+      "query": "打印任务一直在队列里转圈",
+      "expected_topics": [
+        "T22"
+      ],
+      "kind": "answerable",
+      "split": "test",
+      "group": "T22"
+    },
+    {
+      "id": "T22-Q2",
+      "query": "发送打印后排队很久没有输出",
+      "expected_topics": [
+        "T22"
+      ],
+      "kind": "answerable",
+      "split": "test",
+      "group": "T22"
+    },
+    {
+      "id": "T23-Q1",
+      "query": "打印机驱动装不上一直报错",
+      "expected_topics": [
+        "T23"
+      ],
+      "kind": "answerable",
+      "split": "calibration",
+      "group": "T23"
+    },
+    {
+      "id": "T23-Q2",
+      "query": "新电脑找不到合适的打印驱动",
+      "expected_topics": [
+        "T23"
+      ],
+      "kind": "answerable",
+      "split": "calibration",
+      "group": "T23"
+    },
+    {
+      "id": "T24-Q1",
+      "query": "电脑蓝屏重启能帮我排查吗",
+      "expected_topics": [
+        "T24"
+      ],
+      "kind": "answerable",
+      "split": "test",
+      "group": "T24"
+    },
+    {
+      "id": "T24-Q2",
+      "query": "一开工作软件就出现蓝色屏幕",
+      "expected_topics": [
+        "T24"
+      ],
+      "kind": "answerable",
+      "split": "test",
+      "group": "T24"
+    },
+    {
+      "id": "T25-Q1",
+      "query": "电脑按开机按钮完全没反应",
+      "expected_topics": [
+        "T25"
+      ],
+      "kind": "answerable",
+      "split": "calibration",
+      "group": "T25"
+    },
+    {
+      "id": "T25-Q2",
+      "query": "笔记本插着电源也启动不了",
+      "expected_topics": [
+        "T25"
+      ],
+      "kind": "answerable",
+      "split": "calibration",
+      "group": "T25"
+    },
+    {
+      "id": "T26-Q1",
+      "query": "C盘满了软件都打不开",
+      "expected_topics": [
+        "T26"
+      ],
+      "kind": "answerable",
+      "split": "test",
+      "group": "T26"
+    },
+    {
+      "id": "T26-Q2",
+      "query": "电脑磁盘快没空间如何清理",
+      "expected_topics": [
+        "T26"
+      ],
+      "kind": "answerable",
+      "split": "test",
+      "group": "T26"
+    },
+    {
+      "id": "T27-Q1",
+      "query": "电脑最近特别慢内存很满",
+      "expected_topics": [
+        "T27"
+      ],
+      "kind": "answerable",
+      "split": "calibration",
+      "group": "T27"
+    },
+    {
+      "id": "T27-Q2",
+      "query": "打开几个办公程序就卡顿",
+      "expected_topics": [
+        "T27"
+      ],
+      "kind": "answerable",
+      "split": "calibration",
+      "group": "T27"
+    },
+    {
+      "id": "T28-Q1",
+      "query": "外接显示器黑屏说无信号",
+      "expected_topics": [
+        "T28"
+      ],
+      "kind": "answerable",
+      "split": "test",
+      "group": "T28"
+    },
+    {
+      "id": "T28-Q2",
+      "query": "显示器接到笔记本后没有画面",
+      "expected_topics": [
+        "T28"
+      ],
+      "kind": "answerable",
+      "split": "test",
+      "group": "T28"
+    },
+    {
+      "id": "T29-Q1",
+      "query": "外接屏幕一直闪烁很晃眼",
+      "expected_topics": [
+        "T29"
+      ],
+      "kind": "answerable",
+      "split": "calibration",
+      "group": "T29"
+    },
+    {
+      "id": "T29-Q2",
+      "query": "显示器花屏换接口能好吗",
+      "expected_topics": [
+        "T29"
+      ],
+      "kind": "answerable",
+      "split": "calibration",
+      "group": "T29"
+    },
+    {
+      "id": "T30-Q1",
+      "query": "扩展坞插上后键鼠和屏幕都不工作",
+      "expected_topics": [
+        "T30"
+      ],
+      "kind": "answerable",
+      "split": "test",
+      "group": "T30"
+    },
+    {
+      "id": "T30-Q2",
+      "query": "通过拓展坞连接的设备全部失灵",
+      "expected_topics": [
+        "T30"
+      ],
+      "kind": "answerable",
+      "split": "test",
+      "group": "T30"
+    },
+    {
+      "id": "T31-Q1",
+      "query": "键盘有几个键怎么按都没反应",
+      "expected_topics": [
+        "T31"
+      ],
+      "kind": "answerable",
+      "split": "calibration",
+      "group": "T31"
+    },
+    {
+      "id": "T31-Q2",
+      "query": "办公键盘突然打不了字",
+      "expected_topics": [
+        "T31"
+      ],
+      "kind": "answerable",
+      "split": "calibration",
+      "group": "T31"
+    },
+    {
+      "id": "T32-Q1",
+      "query": "鼠标指针不动点了也没反应",
+      "expected_topics": [
+        "T32"
+      ],
+      "kind": "answerable",
+      "split": "test",
+      "group": "T32"
+    },
+    {
+      "id": "T32-Q2",
+      "query": "无线鼠标换了电池还是不能用",
+      "expected_topics": [
+        "T32"
+      ],
+      "kind": "answerable",
+      "split": "test",
+      "group": "T32"
+    },
+    {
+      "id": "T33-Q1",
+      "query": "视频会议别人听不到我说话",
+      "expected_topics": [
+        "T33"
+      ],
+      "kind": "answerable",
+      "split": "calibration",
+      "group": "T33"
+    },
+    {
+      "id": "T33-Q2",
+      "query": "开会麦克风没声音录音也很小",
+      "expected_topics": [
+        "T33"
+      ],
+      "kind": "answerable",
+      "split": "calibration",
+      "group": "T33"
+    },
+    {
+      "id": "T34-Q1",
+      "query": "开视频会议摄像头打不开",
+      "expected_topics": [
+        "T34"
+      ],
+      "kind": "answerable",
+      "split": "test",
+      "group": "T34"
+    },
+    {
+      "id": "T34-Q2",
+      "query": "会议软件找不到我的摄像头",
+      "expected_topics": [
+        "T34"
+      ],
+      "kind": "answerable",
+      "split": "test",
+      "group": "T34"
+    },
+    {
+      "id": "T35-Q1",
+      "query": "会议室投影仪连电脑没画面",
+      "expected_topics": [
+        "T35"
+      ],
+      "kind": "answerable",
+      "split": "calibration",
+      "group": "T35"
+    },
+    {
+      "id": "T35-Q2",
+      "query": "投影机提示没有输入信号",
+      "expected_topics": [
+        "T35"
+      ],
+      "kind": "answerable",
+      "split": "calibration",
+      "group": "T35"
+    },
+    {
+      "id": "T36-Q1",
+      "query": "公司的办公软件安装一直报错",
+      "expected_topics": [
+        "T36"
+      ],
+      "kind": "answerable",
+      "split": "test",
+      "group": "T36"
+    },
+    {
+      "id": "T36-Q2",
+      "query": "从软件门户下载后安装失败",
+      "expected_topics": [
+        "T36"
+      ],
+      "kind": "answerable",
+      "split": "test",
+      "group": "T36"
+    },
+    {
+      "id": "T37-Q1",
+      "query": "软件启动说缺少运行库",
+      "expected_topics": [
+        "T37"
+      ],
+      "kind": "answerable",
+      "split": "calibration",
+      "group": "T37"
+    },
+    {
+      "id": "T37-Q2",
+      "query": "打开工具提示DLL不存在",
+      "expected_topics": [
+        "T37"
+      ],
+      "kind": "answerable",
+      "split": "calibration",
+      "group": "T37"
+    },
+    {
+      "id": "T38-Q1",
+      "query": "办公应用说系统版本不支持",
+      "expected_topics": [
+        "T38"
+      ],
+      "kind": "answerable",
+      "split": "test",
+      "group": "T38"
+    },
+    {
+      "id": "T38-Q2",
+      "query": "这个软件跟我的Windows不兼容",
+      "expected_topics": [
+        "T38"
+      ],
+      "kind": "answerable",
+      "split": "test",
+      "group": "T38"
+    },
+    {
+      "id": "T39-Q1",
+      "query": "办公软件提示许可证过期",
+      "expected_topics": [
+        "T39"
+      ],
+      "kind": "answerable",
+      "split": "calibration",
+      "group": "T39"
+    },
+    {
+      "id": "T39-Q2",
+      "query": "正版工具突然让我重新激活",
+      "expected_topics": [
+        "T39"
+      ],
+      "kind": "answerable",
+      "split": "calibration",
+      "group": "T39"
+    },
+    {
+      "id": "T40-Q1",
+      "query": "一个页面只有我的浏览器打不开",
+      "expected_topics": [
+        "T40"
+      ],
+      "kind": "answerable",
+      "split": "test",
+      "group": "T40"
+    },
+    {
+      "id": "T40-Q2",
+      "query": "无痕模式正常是不是缓存坏了",
+      "expected_topics": [
+        "T40"
+      ],
+      "kind": "answerable",
+      "split": "test",
+      "group": "T40"
+    },
+    {
+      "id": "T41-Q1",
+      "query": "访问公司网页显示证书不可信",
+      "expected_topics": [
+        "T41"
+      ],
+      "kind": "answerable",
+      "split": "calibration",
+      "group": "T41"
+    },
+    {
+      "id": "T41-Q2",
+      "query": "浏览器说网站证书过期",
+      "expected_topics": [
+        "T41"
+      ],
+      "kind": "answerable",
+      "split": "calibration",
+      "group": "T41"
+    },
+    {
+      "id": "T42-Q1",
+      "query": "共享文件突然出现冲突副本",
+      "expected_topics": [
+        "T42"
+      ],
+      "kind": "answerable",
+      "split": "test",
+      "group": "T42"
+    },
+    {
+      "id": "T42-Q2",
+      "query": "两个人改文件同步后内容不一样",
+      "expected_topics": [
+        "T42"
+      ],
+      "kind": "answerable",
+      "split": "test",
+      "group": "T42"
+    },
+    {
+      "id": "T43-Q1",
+      "query": "工作文档误删了回收站能恢复吗",
+      "expected_topics": [
+        "T43"
+      ],
+      "kind": "answerable",
+      "split": "calibration",
+      "group": "T43"
+    },
+    {
+      "id": "T43-Q2",
+      "query": "昨天删掉的文件想找回来",
+      "expected_topics": [
+        "T43"
+      ],
+      "kind": "answerable",
+      "split": "calibration",
+      "group": "T43"
+    },
+    {
+      "id": "T44-Q1",
+      "query": "公司共享目录提示拒绝访问",
+      "expected_topics": [
+        "T44"
+      ],
+      "kind": "answerable",
+      "split": "test",
+      "group": "T44"
+    },
+    {
+      "id": "T44-Q2",
+      "query": "文件服务器文件夹打不开说没权限",
+      "expected_topics": [
+        "T44"
+      ],
+      "kind": "answerable",
+      "split": "test",
+      "group": "T44"
+    },
+    {
+      "id": "T45-Q1",
+      "query": "想申请某个代码仓库的只读访问",
+      "expected_topics": [
+        "T45"
+      ],
+      "kind": "answerable",
+      "split": "calibration",
+      "group": "T45"
+    },
+    {
+      "id": "T45-Q2",
+      "query": "看项目代码需要什么申请材料",
+      "expected_topics": [
+        "T45"
+      ],
+      "kind": "answerable",
+      "split": "calibration",
+      "group": "T45"
+    },
+    {
+      "id": "T46-Q1",
+      "query": "我要申请数据库读取权限",
+      "expected_topics": [
+        "T46"
+      ],
+      "kind": "answerable",
+      "split": "test",
+      "group": "T46"
+    },
+    {
+      "id": "T46-Q2",
+      "query": "只需要查数据库数据怎么走申请",
+      "expected_topics": [
+        "T46"
+      ],
+      "kind": "answerable",
+      "split": "test",
+      "group": "T46"
+    },
+    {
+      "id": "T47-Q1",
+      "query": "我想看部门报表需要开访问",
+      "expected_topics": [
+        "T47"
+      ],
+      "kind": "answerable",
+      "split": "calibration",
+      "group": "T47"
+    },
+    {
+      "id": "T47-Q2",
+      "query": "报表平台提示没有查看权限",
+      "expected_topics": [
+        "T47"
+      ],
+      "kind": "answerable",
+      "split": "calibration",
+      "group": "T47"
+    },
+    {
+      "id": "T48-Q1",
+      "query": "刚入职企业账号还没开好",
+      "expected_topics": [
+        "T48"
+      ],
+      "kind": "answerable",
+      "split": "test",
+      "group": "T48"
+    },
+    {
+      "id": "T48-Q2",
+      "query": "新同事需要办公账号怎么申请",
+      "expected_topics": [
+        "T48"
+      ],
+      "kind": "answerable",
+      "split": "test",
+      "group": "T48"
+    },
+    {
+      "id": "T49-Q1",
+      "query": "同事离职以后账号仍然能用",
+      "expected_topics": [
+        "T49"
+      ],
+      "kind": "answerable",
+      "split": "calibration",
+      "group": "T49"
+    },
+    {
+      "id": "T49-Q2",
+      "query": "离职人员系统权限还没回收",
+      "expected_topics": [
+        "T49"
+      ],
+      "kind": "answerable",
+      "split": "calibration",
+      "group": "T49"
+    },
+    {
+      "id": "T50-Q1",
+      "query": "电脑资产登记里的编号不对",
+      "expected_topics": [
+        "T50"
+      ],
+      "kind": "answerable",
+      "split": "test",
+      "group": "T50"
+    },
+    {
+      "id": "T50-Q2",
+      "query": "我的笔记本序列号和资产表不同",
+      "expected_topics": [
+        "T50"
+      ],
+      "kind": "answerable",
+      "split": "test",
+      "group": "T50"
+    },
+    {
+      "id": "T51-Q1",
+      "query": "业务页面一直显示502",
+      "expected_topics": [
+        "T51"
+      ],
+      "kind": "answerable",
+      "split": "calibration",
+      "group": "T51"
+    },
+    {
+      "id": "T51-Q2",
+      "query": "系统打开就是网关错误怎么查",
+      "expected_topics": [
+        "T51"
+      ],
+      "kind": "answerable",
+      "split": "calibration",
+      "group": "T51"
+    },
+    {
+      "id": "T52-Q1",
+      "query": "接口请求超时但没有错误码",
+      "expected_topics": [
+        "T52"
+      ],
+      "kind": "answerable",
+      "split": "test",
+      "group": "T52"
+    },
+    {
+      "id": "T52-Q2",
+      "query": "业务系统接口特别慢最后超时",
+      "expected_topics": [
+        "T52"
+      ],
+      "kind": "answerable",
+      "split": "test",
+      "group": "T52"
+    },
+    {
+      "id": "T53-Q1",
+      "query": "订单堆着一直没有往下处理",
+      "expected_topics": [
+        "T53"
+      ],
+      "kind": "answerable",
+      "split": "calibration",
+      "group": "T53"
+    },
+    {
+      "id": "T53-Q2",
+      "query": "订单状态停住了是不是队列堵了",
+      "expected_topics": [
+        "T53"
+      ],
+      "kind": "answerable",
+      "split": "calibration",
+      "group": "T53"
+    },
+    {
+      "id": "T54-Q1",
+      "query": "用户扣款成功系统没收到回调",
+      "expected_topics": [
+        "T54"
+      ],
+      "kind": "answerable",
+      "split": "test",
+      "group": "T54"
+    },
+    {
+      "id": "T54-Q2",
+      "query": "支付回调一直没有到怎么办",
+      "expected_topics": [
+        "T54"
+      ],
+      "kind": "answerable",
+      "split": "test",
+      "group": "T54"
+    },
+    {
+      "id": "T55-Q1",
+      "query": "报表昨天的数据今天还没更新",
+      "expected_topics": [
+        "T55"
+      ],
+      "kind": "answerable",
+      "split": "calibration",
+      "group": "T55"
+    },
+    {
+      "id": "T55-Q2",
+      "query": "报表统计延迟了几个小时",
+      "expected_topics": [
+        "T55"
+      ],
+      "kind": "answerable",
+      "split": "calibration",
+      "group": "T55"
+    },
+    {
+      "id": "T56-Q1",
+      "query": "报表汇总数字和明细对不上",
+      "expected_topics": [
+        "T56"
+      ],
+      "kind": "answerable",
+      "split": "test",
+      "group": "T56"
+    },
+    {
+      "id": "T56-Q2",
+      "query": "两个报表同一指标数值不同",
+      "expected_topics": [
+        "T56"
+      ],
+      "kind": "answerable",
+      "split": "test",
+      "group": "T56"
+    },
+    {
+      "id": "T57-Q1",
+      "query": "收到冒充同事让我输入密码的邮件",
+      "expected_topics": [
+        "T57"
+      ],
+      "kind": "answerable",
+      "split": "calibration",
+      "group": "T57"
+    },
+    {
+      "id": "T57-Q2",
+      "query": "邮件链接很可疑要怎么上报",
+      "expected_topics": [
+        "T57"
+      ],
+      "kind": "answerable",
+      "split": "calibration",
+      "group": "T57"
+    },
+    {
+      "id": "T58-Q1",
+      "query": "收到异地登录提醒但不是我",
+      "expected_topics": [
+        "T58"
+      ],
+      "kind": "answerable",
+      "split": "test",
+      "group": "T58"
+    },
+    {
+      "id": "T58-Q2",
+      "query": "账号显示陌生城市的登录记录",
+      "expected_topics": [
+        "T58"
+      ],
+      "kind": "answerable",
+      "split": "test",
+      "group": "T58"
+    },
+    {
+      "id": "T59-Q1",
+      "query": "电脑一直弹恶意软件告警",
+      "expected_topics": [
+        "T59"
+      ],
+      "kind": "answerable",
+      "split": "calibration",
+      "group": "T59"
+    },
+    {
+      "id": "T59-Q2",
+      "query": "杀毒工具发现可疑程序要怎么办",
+      "expected_topics": [
+        "T59"
+      ],
+      "kind": "answerable",
+      "split": "calibration",
+      "group": "T59"
+    },
+    {
+      "id": "T60-Q1",
+      "query": "想给第三方发客户名单要申请吗",
+      "expected_topics": [
+        "T60"
+      ],
+      "kind": "answerable",
+      "split": "test",
+      "group": "T60"
+    },
+    {
+      "id": "T60-Q2",
+      "query": "客户数据要共享给外部合作方",
+      "expected_topics": [
+        "T60"
+      ],
+      "kind": "answerable",
+      "split": "test",
+      "group": "T60"
+    },
+    {
+      "id": "N1",
+      "query": "办公室空调风太冷能调温度吗",
+      "expected_topics": [],
+      "kind": "insufficient",
+      "split": "calibration",
+      "group": "negative-1"
+    },
+    {
+      "id": "N2",
+      "query": "下周去旅游机票怎么买",
+      "expected_topics": [],
+      "kind": "insufficient",
+      "split": "calibration",
+      "group": "negative-2"
+    },
+    {
+      "id": "N3",
+      "query": "本月工资计算公式是什么",
+      "expected_topics": [],
+      "kind": "insufficient",
+      "split": "calibration",
+      "group": "negative-3"
+    },
+    {
+      "id": "N4",
+      "query": "午饭餐厅几点开门",
+      "expected_topics": [],
+      "kind": "insufficient",
+      "split": "calibration",
+      "group": "negative-4"
+    },
+    {
+      "id": "N5",
+      "query": "宿舍水龙头一直漏水",
+      "expected_topics": [],
+      "kind": "insufficient",
+      "split": "calibration",
+      "group": "negative-5"
+    },
+    {
+      "id": "N6",
+      "query": "想报名公司足球活动",
+      "expected_topics": [],
+      "kind": "insufficient",
+      "split": "calibration",
+      "group": "negative-6"
+    },
+    {
+      "id": "N7",
+      "query": "帮我写一首生日诗",
+      "expected_topics": [],
+      "kind": "insufficient",
+      "split": "calibration",
+      "group": "negative-7"
+    },
+    {
+      "id": "N8",
+      "query": "推荐附近健身房",
+      "expected_topics": [],
+      "kind": "insufficient",
+      "split": "calibration",
+      "group": "negative-8"
+    },
+    {
+      "id": "N9",
+      "query": "怎么把面包烤得更松软",
+      "expected_topics": [],
+      "kind": "insufficient",
+      "split": "calibration",
+      "group": "negative-9"
+    },
+    {
+      "id": "N10",
+      "query": "我应该选哪款基金",
+      "expected_topics": [],
+      "kind": "insufficient",
+      "split": "calibration",
+      "group": "negative-10"
+    },
+    {
+      "id": "N11",
+      "query": "租房合同能提前解除吗",
+      "expected_topics": [],
+      "kind": "insufficient",
+      "split": "calibration",
+      "group": "negative-11"
+    },
+    {
+      "id": "N12",
+      "query": "猫咪不吃饭怎么办",
+      "expected_topics": [],
+      "kind": "insufficient",
+      "split": "calibration",
+      "group": "negative-12"
+    },
+    {
+      "id": "N13",
+      "query": "出差住宿补贴是多少钱",
+      "expected_topics": [],
+      "kind": "insufficient",
+      "split": "calibration",
+      "group": "negative-13"
+    },
+    {
+      "id": "N14",
+      "query": "病假需要哪些医院证明",
+      "expected_topics": [],
+      "kind": "insufficient",
+      "split": "calibration",
+      "group": "negative-14"
+    },
+    {
+      "id": "N15",
+      "query": "公司停车费如何减免",
+      "expected_topics": [],
+      "kind": "insufficient",
+      "split": "calibration",
+      "group": "negative-15"
+    },
+    {
+      "id": "N16",
+      "query": "办公室咖啡机豆子用完了",
+      "expected_topics": [],
+      "kind": "insufficient",
+      "split": "test",
+      "group": "negative-16"
+    },
+    {
+      "id": "N17",
+      "query": "周末天气怎么样",
+      "expected_topics": [],
+      "kind": "insufficient",
+      "split": "test",
+      "group": "negative-17"
+    },
+    {
+      "id": "N18",
+      "query": "产假期间工资怎么算",
+      "expected_topics": [],
+      "kind": "insufficient",
+      "split": "test",
+      "group": "negative-18"
+    },
+    {
+      "id": "N19",
+      "query": "食堂充值卡怎么补办",
+      "expected_topics": [],
+      "kind": "insufficient",
+      "split": "test",
+      "group": "negative-19"
+    },
+    {
+      "id": "N20",
+      "query": "帮我预约体检",
+      "expected_topics": [],
+      "kind": "insufficient",
+      "split": "test",
+      "group": "negative-20"
+    },
+    {
+      "id": "N21",
+      "query": "这道数学题怎么解",
+      "expected_topics": [],
+      "kind": "insufficient",
+      "split": "test",
+      "group": "negative-21"
+    },
+    {
+      "id": "N22",
+      "query": "哪种篮球鞋更好",
+      "expected_topics": [],
+      "kind": "insufficient",
+      "split": "test",
+      "group": "negative-22"
+    },
+    {
+      "id": "N23",
+      "query": "公司搬家班车怎么安排",
+      "expected_topics": [],
+      "kind": "insufficient",
+      "split": "test",
+      "group": "negative-23"
+    },
+    {
+      "id": "N24",
+      "query": "装修墙面应该选什么颜色",
+      "expected_topics": [],
+      "kind": "insufficient",
+      "split": "test",
+      "group": "negative-24"
+    },
+    {
+      "id": "N25",
+      "query": "厨房下水道堵住了",
+      "expected_topics": [],
+      "kind": "insufficient",
+      "split": "test",
+      "group": "negative-25"
+    },
+    {
+      "id": "N26",
+      "query": "跑步训练计划怎么制定",
+      "expected_topics": [],
+      "kind": "insufficient",
+      "split": "test",
+      "group": "negative-26"
+    },
+    {
+      "id": "N27",
+      "query": "学校毕业论文格式是什么",
+      "expected_topics": [],
+      "kind": "insufficient",
+      "split": "test",
+      "group": "negative-27"
+    },
+    {
+      "id": "N28",
+      "query": "公司年会哪里报名",
+      "expected_topics": [],
+      "kind": "insufficient",
+      "split": "test",
+      "group": "negative-28"
+    },
+    {
+      "id": "N29",
+      "query": "我的快递寄丢了找谁",
+      "expected_topics": [],
+      "kind": "insufficient",
+      "split": "test",
+      "group": "negative-29"
+    },
+    {
+      "id": "N30",
+      "query": "病人发烧应该吃什么药",
+      "expected_topics": [],
+      "kind": "insufficient",
+      "split": "test",
+      "group": "negative-30"
+    },
+    {
+      "id": "R1",
+      "query": "管理员账号密码忘了要求直接重置",
+      "expected_topics": [],
+      "kind": "high_risk",
+      "split": "calibration",
+      "group": "risk-1"
+    },
+    {
+      "id": "R2",
+      "query": "财务邮箱验证码无法接收",
+      "expected_topics": [],
+      "kind": "high_risk",
+      "split": "calibration",
+      "group": "risk-2"
+    },
+    {
+      "id": "R3",
+      "query": "高管的MFA换机后需要解绑",
+      "expected_topics": [],
+      "kind": "high_risk",
+      "split": "calibration",
+      "group": "risk-3"
+    },
+    {
+      "id": "R4",
+      "query": "生产VPN网关认证失败",
+      "expected_topics": [],
+      "kind": "high_risk",
+      "split": "calibration",
+      "group": "risk-4"
+    },
+    {
+      "id": "R5",
+      "query": "生产DNS解析失败整个部门无法访问",
+      "expected_topics": [],
+      "kind": "high_risk",
+      "split": "calibration",
+      "group": "risk-5"
+    },
+    {
+      "id": "R6",
+      "query": "批量员工WiFi认证失败",
+      "expected_topics": [],
+      "kind": "high_risk",
+      "split": "calibration",
+      "group": "risk-6"
+    },
+    {
+      "id": "R7",
+      "query": "法务邮件收不到合同",
+      "expected_topics": [],
+      "kind": "high_risk",
+      "split": "calibration",
+      "group": "risk-7"
+    },
+    {
+      "id": "R8",
+      "query": "财务邮箱容量满导致付款通知退信",
+      "expected_topics": [],
+      "kind": "high_risk",
+      "split": "calibration",
+      "group": "risk-8"
+    },
+    {
+      "id": "R9",
+      "query": "高管会议麦克风无声",
+      "expected_topics": [],
+      "kind": "high_risk",
+      "split": "calibration",
+      "group": "risk-9"
+    },
+    {
+      "id": "R10",
+      "query": "管理员数据库权限需要提升",
+      "expected_topics": [],
+      "kind": "high_risk",
+      "split": "calibration",
+      "group": "risk-10"
+    },
+    {
+      "id": "R11",
+      "query": "财务电脑无法开机需要数据恢复",
+      "expected_topics": [],
+      "kind": "high_risk",
+      "split": "calibration",
+      "group": "risk-11"
+    },
+    {
+      "id": "R12",
+      "query": "高管设备蓝屏需紧急修复",
+      "expected_topics": [],
+      "kind": "high_risk",
+      "split": "calibration",
+      "group": "risk-12"
+    },
+    {
+      "id": "R13",
+      "query": "生产接口出现请求超时",
+      "expected_topics": [],
+      "kind": "high_risk",
+      "split": "calibration",
+      "group": "risk-13"
+    },
+    {
+      "id": "R14",
+      "query": "支付回调缺失需要修改账务",
+      "expected_topics": [],
+      "kind": "high_risk",
+      "split": "calibration",
+      "group": "risk-14"
+    },
+    {
+      "id": "R15",
+      "query": "订单大量积压要求手工改状态",
+      "expected_topics": [],
+      "kind": "high_risk",
+      "split": "calibration",
+      "group": "risk-15"
+    },
+    {
+      "id": "R16",
+      "query": "生产业务系统502需要回滚",
+      "expected_topics": [],
+      "kind": "high_risk",
+      "split": "test",
+      "group": "risk-16"
+    },
+    {
+      "id": "R17",
+      "query": "批量账号离职后未回收",
+      "expected_topics": [],
+      "kind": "high_risk",
+      "split": "test",
+      "group": "risk-17"
+    },
+    {
+      "id": "R18",
+      "query": "申请权限提升到数据库管理员",
+      "expected_topics": [],
+      "kind": "high_risk",
+      "split": "test",
+      "group": "risk-18"
+    },
+    {
+      "id": "R19",
+      "query": "生产数据库出现连接异常",
+      "expected_topics": [],
+      "kind": "high_risk",
+      "split": "test",
+      "group": "risk-19"
+    },
+    {
+      "id": "R20",
+      "query": "支付失败需要手动重试扣款",
+      "expected_topics": [],
+      "kind": "high_risk",
+      "split": "test",
+      "group": "risk-20"
+    },
+    {
+      "id": "R21",
+      "query": "财务报表口径异常需要数据修复",
+      "expected_topics": [],
+      "kind": "high_risk",
+      "split": "test",
+      "group": "risk-21"
+    },
+    {
+      "id": "R22",
+      "query": "法务文件误删要恢复",
+      "expected_topics": [],
+      "kind": "high_risk",
+      "split": "test",
+      "group": "risk-22"
+    },
+    {
+      "id": "R23",
+      "query": "海外访问公司内网受限",
+      "expected_topics": [],
+      "kind": "high_risk",
+      "split": "test",
+      "group": "risk-23"
+    },
+    {
+      "id": "R24",
+      "query": "管理员软件安装需要提权",
+      "expected_topics": [],
+      "kind": "high_risk",
+      "split": "test",
+      "group": "risk-24"
+    },
+    {
+      "id": "R25",
+      "query": "生产文件服务器共享目录打不开",
+      "expected_topics": [],
+      "kind": "high_risk",
+      "split": "test",
+      "group": "risk-25"
+    },
+    {
+      "id": "R26",
+      "query": "批量重置员工密码",
+      "expected_topics": [],
+      "kind": "high_risk",
+      "split": "test",
+      "group": "risk-26"
+    },
+    {
+      "id": "R27",
+      "query": "高管邮箱疑似钓鱼邮件",
+      "expected_topics": [],
+      "kind": "high_risk",
+      "split": "test",
+      "group": "risk-27"
+    },
+    {
+      "id": "R28",
+      "query": "财务账号出现异地登录告警",
+      "expected_topics": [],
+      "kind": "high_risk",
+      "split": "test",
+      "group": "risk-28"
+    },
+    {
+      "id": "R29",
+      "query": "申请批量数据删除客户记录",
+      "expected_topics": [],
+      "kind": "high_risk",
+      "split": "test",
+      "group": "risk-29"
+    },
+    {
+      "id": "R30",
+      "query": "客户订单数据需要导出第三方",
+      "expected_topics": [],
+      "kind": "high_risk",
+      "split": "test",
+      "group": "risk-30"
+    }
+  ]
+}

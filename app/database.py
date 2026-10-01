@@ -1,7 +1,9 @@
 from __future__ import annotations
 
 import sqlite3
-from contextlib import contextmanager
+import logging
+from datetime import datetime, timezone
+from contextlib import contextmanager, closing
 from collections.abc import Iterator
 
 from app.config import settings
@@ -21,8 +23,10 @@ def get_connection() -> Iterator[sqlite3.Connection]:
         db.enable_load_extension(True)
         sqlite_vec.load(db)
         db.enable_load_extension(False)
-    except ImportError:
-        pass
+    except (ImportError, sqlite3.Error, OSError) as exc:
+        logging.getLogger(__name__).warning("sqlite_vec_load_failed type=%s", type(exc).__name__)
+    finally:
+        db.enable_load_extension(False)
     try:
         yield db
         db.commit()
@@ -40,6 +44,18 @@ def _add_column(db: sqlite3.Connection, table: str, name: str, definition: str) 
 
 
 def init_database() -> None:
+    # Online backup handles WAL safely; user_version makes repeated startup cheap.
+    path = settings.database_path
+    if path.exists():
+        with closing(sqlite3.connect(path)) as source:
+            version = source.execute("PRAGMA user_version").fetchone()[0]
+            tables = source.execute("SELECT 1 FROM sqlite_master WHERE name='tickets'").fetchone()
+            if tables and version < 3:
+                backup_dir = path.parent / "backups"
+                backup_dir.mkdir(parents=True, exist_ok=True)
+                stamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%S%f")
+                with closing(sqlite3.connect(backup_dir / f"{path.stem}-{stamp}.db")) as backup:
+                    source.backup(backup)
     with get_connection() as db:
         db.execute("""CREATE TABLE IF NOT EXISTS tickets (
             ticket_id TEXT PRIMARY KEY, title TEXT NOT NULL, description TEXT NOT NULL,
@@ -55,6 +71,9 @@ def init_database() -> None:
             ("retrieval_json", "TEXT NOT NULL DEFAULT '[]'"),
             ("confidence", "REAL NOT NULL DEFAULT 0"),
             ("answer_source", "TEXT NOT NULL DEFAULT '规则答复'"),
+            ("evidence_score", "REAL"),
+            ("handoff_reason", "TEXT NOT NULL DEFAULT ''"),
+            ("request_id", "TEXT NOT NULL DEFAULT ''"),
         ):
             _add_column(db, "tickets", name, definition)
         db.execute("""CREATE TABLE IF NOT EXISTS audit_logs (
@@ -78,5 +97,18 @@ def init_database() -> None:
         db.execute("""CREATE TABLE IF NOT EXISTS rate_limits (
             scope TEXT NOT NULL, bucket TEXT NOT NULL, count INTEGER NOT NULL,
             PRIMARY KEY(scope,bucket))""")
+        _add_column(db, "knowledge_chunks", "heading_path", "TEXT NOT NULL DEFAULT ''")
+        _add_column(db, "knowledge_chunks", "chunk_key", "TEXT NOT NULL DEFAULT ''")
+        _add_column(db, "rate_limits", "expires_at", "INTEGER")
+        # Known legacy buckets use different units. Unknown scopes are kept
+        # conservatively for one day rather than compared as hourly integers.
+        db.execute("""UPDATE rate_limits SET expires_at=CASE
+            WHEN scope LIKE 'llm-day:%' THEN (CAST(bucket AS INTEGER)+1)*86400
+            WHEN scope LIKE 'ticket-hour:%' OR scope LIKE 'admin-login-hour:%'
+                THEN (CAST(bucket AS INTEGER)+1)*3600
+            ELSE CAST(strftime('%s','now') AS INTEGER)+86400 END WHERE expires_at IS NULL""")
+        db.execute("CREATE INDEX IF NOT EXISTS idx_quota_expiry ON rate_limits(expires_at)")
+        db.execute("DELETE FROM rate_limits WHERE expires_at <= CAST(strftime('%s','now') AS INTEGER)")
         db.execute("CREATE INDEX IF NOT EXISTS idx_tickets_tenant_created ON tickets(tenant_id,created_at)")
         db.execute("CREATE INDEX IF NOT EXISTS idx_chunks_tenant_active ON knowledge_chunks(tenant_id,active)")
+        db.execute("PRAGMA user_version=3")

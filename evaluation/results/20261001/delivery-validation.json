@@ -1,0 +1,71 @@
+{
+  "utc": "2026-10-01T04:17:48.421732+00:00",
+  "engineering_tests": {
+    "passed": 35,
+    "elapsed_seconds": 7.727
+  },
+  "model_calls": 30,
+  "completion_tokens": 4324,
+  "current_source_sha256_normalized_lf": {
+    "app/__init__.py": "83434065d9190b6a029c949ffd1e666685a496a9584b41268797374b9572c66d",
+    "app/agent.py": "802b0b97d62fb46890d4c41daa629010e7689b5a4416f0d83992b1233879c859",
+    "app/config.py": "435acaf948574fe936b75d42291a393c69ed9d977adc21284f8adecaa4749472",
+    "app/constants.py": "ed8efbc07bafc3aea2dddddb45c97fc8cc65ef445a47785ee00bcaefc1a3e118",
+    "app/database.py": "b20777c8cf8612c9017d9af2c613a2b6e3d034d2a832293085dd98f1d97de7d7",
+    "app/embeddings.py": "30f23db4cd36893464e84610edee8b2f4ca21fd893cf8b6020f60ff4c6c02c6d",
+    "app/evidence.py": "9fe6cd6312db4369dc972cdfcbac034a751ae964b3a02aa396fdfaf4a3262337",
+    "app/knowledge.py": "c79d0b76651f3cc9f83f6da78479f2f242351df5b7651d2ab0409b2e691d171a",
+    "app/llm.py": "6eee8182cdb5380ddb7fdd84ff4bd7879c617396b7cb3c01d7976f34fd573d2e",
+    "app/main.py": "6e597861dcf5d4fdaeb7eb181f3e14b6d453cd2a85ec8b380d04a3613de47e9d",
+    "app/metrics.py": "c7d9a3a72d647e8ddd74100763fef7aed5cc2a9f08078da1a61e35dbccf359d3",
+    "app/observability.py": "e8aa8229e31fffdbe3926c2073c35cbc61a633c2491333283833fb1d8d7e0dec",
+    "app/repository.py": "162d26987a82853d70dc708809206f94ba8f6df04ba7599335a27d664b200ed9",
+    "app/resources.py": "cdddb2fb08c2abc5f6add67ca19b7f85b00c6394e2a6877a87e82759f134b792",
+    "app/retrieval_health.py": "0de5f8b7263aa5e53602934c1788e34048e92cd9e75c4c022f8f5f6455e037d2",
+    "app/schemas.py": "dc266dfc0be951cd2ea4406461522f5a9b5af2a473869871d4537e55dad7b4ae",
+    "app/security.py": "2fbd2ec19ebd1ed5cb7ed88a103984538bbc0a873575b86d413cd4a63e41ab17",
+    "app/tools.py": "468d3424dbd40b335595287565c78a5055553192caa5f77259b5c0112384686d",
+    "evaluation/legacy.py": "0a45c0b00cf9db724ddbabaa2856fc3deb538effe2574752bbec1f6a2506e40f",
+    "evaluation/performance.py": "d1a7ae5a3ffcb4464752c155d0c8f28403de1b38da1d8316299897f887fee422",
+    "evaluation/reproduce_lexical.py": "f7d5298b62a0c4461760bf8875a483df0b4e8a432246ed93ba87c25c16403455",
+    "evaluation/run.py": "a6fc599cf87d587475360b7d89b467f30b70dcc6f6bebeb6b0e520c714d3967c",
+    "scripts/check-llm.py": "aff73120ae030f4438df528e2c0e705f2d8610d107f50afe6dc0990c397508c7",
+    "scripts/finalize-evidence.py": "53dbdf4536653a2bccd466a7d468f4aa2f9eb815e992352aa457d9f656c247f6",
+    "scripts/import-demo.py": "4de27dfe0cd9eb9519ca78857dec8903130771f52c18e0b3d2a1fd26004f632f",
+    "tests/test_app.py": "1fb0ec8679dcbcea5fddf509bb9d04c2a8bfddcec803e9ba58775ef8416061a8",
+    "tests/test_engineering.py": "378f258e2222d8e146cfdd4196d82fe06b586baa10bea2fef5f1535cefc1d789"
+  },
+  "changed_since_retrieval_performance_snapshot": [
+    "app/knowledge.py",
+    "app/llm.py",
+    "scripts/check-llm.py",
+    "scripts/import-demo.py"
+  ],
+  "additional_sources_since_snapshot": [
+    "app/resources.py",
+    "scripts/finalize-evidence.py",
+    "tests/test_app.py",
+    "tests/test_engineering.py"
+  ],
+  "chronology": [
+    "The 30 paid calls preceded the final offline context-preflight and packaged-resource fixes.",
+    "summary.json records the completed retrieval/performance rerun, reusing saved generation outputs.",
+    "The original live-call source snapshot was not separately frozen; do not claim it matches final sources.",
+    "Final offline unittest output includes the later fixes; no extra paid calls were made."
+  ],
+  "validation_limits": {
+    "docker_image_built": false,
+    "server_deployed": false,
+    "initial_performance_failure": "HTTP ReadError WinError 10053; exact cause not established; incomplete run excluded",
+    "browser": "Admin login and empty metrics/day-window verified; final added copy checked statically only"
+  },
+  "commands": [
+    "conda run -n ticket-agent python -m unittest discover -s tests -v",
+    "conda run -n ticket-agent python -m evaluation.run --reuse-generation --performance --output evaluation/results/20261001",
+    "conda run -n ticket-agent python scripts/finalize-evidence.py"
+  ],
+  "input_sha256": {
+    "data/simulated_sops.json": "b93fef32e250925d4e7220f473f7eb0ee97674a9be10af5265ba6010253a1e66",
+    "evaluation/benchmark-cases.json": "7e02c2df75c52daabfa20a3205f8304357261a25f3c54c4206ed6c678a4e97c0"
+  }
+}

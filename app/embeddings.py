@@ -16,6 +16,16 @@ def model_id() -> str:
     return "gemini-embedding-2:768" if settings.embedding_provider == "gemini" else settings.embedding_model
 
 
+@lru_cache(maxsize=8)
+def local_dimension(model: str) -> int:
+    # Metadata lookup only: no model download or inference in health checks.
+    from fastembed import TextEmbedding
+    for description in TextEmbedding.list_supported_models():
+        if description["model"] == model:
+            return description["dim"]
+    raise ValueError("unsupported_embedding_model")
+
+
 def embed(text: str, *, document: bool = False) -> bytes | None:
     if settings.embedding_provider == "disabled":
         return None
