@@ -30,7 +30,7 @@ sha256:8dd94bfd4f6d8c4505efe4b84356007d9038719b064237add41a2cc63a2c501f
 
 生产转换仅更新 Atlas Secret / ConfigMap / Deployment，并新增 Atlas HTTPRoute / ReferenceGrant。原有工作负载规格、镜像及 PVC 身份核对一致。转换前后节点可用内存快照为 484 / 609 MiB；这不是公网持续负载测试。当前无 Secret 的生产清单和检查结果保存在 `deploy/releases/20261001/production.yaml`、`atlas-production-deployment.json`、`atlas-public-smoke.json`；`internal.yaml` 保留为先前内网部署记录。
 
-管理员密码、会话密钥及模型密钥只留在私密配置和 Kubernetes Secret 中，不进入交付包、截图、公开页面或镜像。
+初始部署时，管理员密码、会话密钥及模型密钥只留在私密配置和 Kubernetes Secret 中。随后用户明确要求向访客开放管理员体验，经核实该账号为 Atlas 单独生成、仅进入 `demo` 租户，现将共享演示管理员 `admin` 的登录密码展示在项目介绍页，供处理模拟工单、维护演示知识库与配置演示审批规则。没有服务器控制或真实企业操作接口；请仅使用模拟内容。会话、模型、云服务与验证码密钥仍不进入公开页面、交付包或镜像。
 
 ## 原环境与瘦身边界
 
