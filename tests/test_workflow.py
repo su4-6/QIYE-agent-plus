@@ -150,6 +150,57 @@ class WorkflowTest(unittest.TestCase):
         self.assertEqual(t['status'],'待人工处理');factory.assert_not_called()
         self.assertIn('接管原因',t['handoff_summary'])
 
+    def test_business_urgency_does_not_force_ordinary_faults_to_manual(self):
+        for k,v in {'low_risk_assistance':True,'auto_approve_low_risk':True,'llm_provider':'mimo','mimo_api_key':'test-only'}.items():object.__setattr__(settings,k,v)
+        response=SimpleNamespace(choices=[SimpleNamespace(message=SimpleNamespace(content=json.dumps({
+            'decision':'clarify','understanding':'需要确认当前故障提示。',
+            'questions':['当前界面出现了什么错误提示？']},ensure_ascii=False)))])
+        with patch('app.llm.OpenAI') as factory:
+            factory.return_value.chat.completions.create.return_value=response
+            for title in ['打印机缺纸影响工作','邮箱收不到邮件','VPN连接超时']:
+                r=self.client.post('/api/v1/tickets',json={'title':title,'description':'今天办公时出现故障，之前一直正常，请帮我排查。','requester':'员工'})
+                self.assertEqual(r.status_code,201,r.text);t=r.json()
+                self.assertEqual(t['priority'],'中');self.assertEqual(t['risk_level'],'低风险')
+                self.assertEqual(t['status'],'等待补充信息（AI）');self.assertFalse(t['needs_human_approval'])
+                with get_connection() as db:
+                    audit=db.execute('SELECT action FROM audit_logs WHERE ticket_id=?',(t['ticket_id'],)).fetchall()
+                self.assertIn('只读自助自动放行',[x['action'] for x in audit])
+            self.assertEqual(factory.return_value.chat.completions.create.call_count,3)
+
+    def test_automatic_self_service_switch_is_effective(self):
+        for k,v in {'low_risk_assistance':True,'auto_approve_low_risk':False,'llm_provider':'mimo','mimo_api_key':'test-only'}.items():object.__setattr__(settings,k,v)
+        with patch('app.llm.OpenAI') as factory:t=self.create(auto=False)
+        factory.assert_not_called();self.assertEqual(t['status'],'待人工处理')
+        self.assertEqual(t['handoff_reason'],'automatic_support_disabled')
+
+    def test_old_urgent_fault_can_retry_but_deliberate_handoff_cannot_loop(self):
+        r=self.client.post('/api/v1/tickets',json={'title':'VPN连接超时','description':'今天办公网络VPN无法连接，公网可以正常上网。','requester':'员工'})
+        self.assertEqual(r.status_code,201);t=r.json();self.assertEqual(t['risk_level'],'中风险')
+        object.__setattr__(settings,'low_risk_assistance',True)
+        from app.repository import get_ticket
+        from app.workflow import change_ticket
+        self.assertTrue(get_ticket(t['ticket_id'],'demo')['can_retry_ai'])
+        result=change_ticket(t['ticket_id'],'demo','employee','retry_ai',expected_version=t['workflow_version'])
+        self.assertEqual(result['status'],'AI处理中')
+        with get_connection() as db:
+            db.execute("UPDATE tickets SET status='待人工处理',handoff_reason='clarification_limit' WHERE ticket_id=?",(t['ticket_id'],))
+        self.assertFalse(get_ticket(t['ticket_id'],'demo')['can_retry_ai'])
+        with self.assertRaises(LookupError):change_ticket(t['ticket_id'],'demo','employee','retry_ai')
+
+    def test_printer_topic_correction_retains_history_and_admin_edits(self):
+        import runpy
+        importer=runpy.run_path(str(Path('scripts/import-demo.py')))['import_simulated']
+        content=Path('data/printer_self_help.md').read_text(encoding='utf-8')
+        legacy_title='员工自助支持 T05 打印机缺纸'
+        old=import_document('correction',legacy_title,'md',content,with_embedding=False)
+        admin=import_document('admin-preserve',legacy_title,'md','管理员自定义排查资料：纸盒中已经有纸，不要重复装纸，设备信息需核验。',with_embedding=False)
+        importer('correction',vectors=False);importer('admin-preserve',vectors=False)
+        with get_connection() as db:
+            self.assertEqual(db.execute('SELECT active FROM knowledge_documents WHERE id=?',(old['document_id'],)).fetchone()['active'],0)
+            self.assertEqual(db.execute('SELECT active FROM knowledge_documents WHERE id=?',(admin['document_id'],)).fetchone()['active'],1)
+            self.assertTrue(db.execute("SELECT 1 FROM knowledge_documents WHERE tenant_id='correction' AND title='员工自助支持 T19 打印机缺纸' AND active=1").fetchone())
+            self.assertTrue(db.execute('SELECT 1 FROM knowledge_chunks WHERE document_id=?',(old['document_id'],)).fetchone())
+
     def test_employee_followup_preserves_chronology_without_ai_risk_contamination(self):
         t=self.create()
         warning='请放入纸张。无需修改生产数据库权限。'

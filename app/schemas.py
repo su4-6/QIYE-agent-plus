@@ -1,7 +1,44 @@
 from __future__ import annotations
 
 from typing import Literal
-from pydantic import BaseModel, ConfigDict, Field, field_validator
+from pydantic import BaseModel, ConfigDict, Field, field_validator, model_validator
+
+
+class ServiceRequest(BaseModel):
+    model_config=ConfigDict(extra='forbid')
+    service_type: Literal['software_install','equipment_loan']
+    item: str=Field(min_length=1,max_length=80)
+    company_device: bool=False
+    requires_privilege: bool=False
+    loan_days: int=Field(default=1,ge=1,le=90)
+
+    @field_validator('item')
+    @classmethod
+    def item_nonempty(cls,value):
+        if not value.strip():raise ValueError('请填写申请的软件或设备')
+        return value.strip()
+
+
+class ServicePolicyRequest(BaseModel):
+    model_config=ConfigDict(extra='forbid')
+    expected_version: int=Field(ge=0)
+    enabled: bool
+    software: list[str]=Field(max_length=30)
+    equipment: list[str]=Field(max_length=30)
+    denied_items: list[str]=Field(max_length=30)
+    max_loan_days: int=Field(ge=1,le=30)
+
+    @field_validator('software','equipment','denied_items')
+    @classmethod
+    def policy_items(cls,values):
+        if any(not v.strip() or len(v.strip())>80 for v in values):raise ValueError('每项规则需为1至80字')
+        return list(dict.fromkeys(v.strip() for v in values))
+
+    @model_validator(mode='after')
+    def distinct_lists(self):
+        allowed={v.casefold() for v in self.software+self.equipment}
+        if allowed & {v.casefold() for v in self.denied_items}:raise ValueError('允许与禁用清单不能包含同一项目')
+        return self
 
 
 class TicketRequest(BaseModel):
@@ -10,6 +47,14 @@ class TicketRequest(BaseModel):
     description: str = Field(..., alias="工单描述", min_length=8, max_length=3000)
     requester: str = Field(default="演示访客", alias="提交人", min_length=1, max_length=50)
     turnstile_token: str = Field(default="", alias="人机验证令牌", exclude=True)
+    request_kind: Literal['incident','service']='incident'
+    service_request: ServiceRequest | None=None
+
+    @model_validator(mode='after')
+    def service_fields(self):
+        if (self.request_kind=='service') != (self.service_request is not None):
+            raise ValueError('服务申请需填写申请类型和具体信息；报修不能携带服务申请字段')
+        return self
 
     @field_validator("title", "description", "requester")
     @classmethod
@@ -96,6 +141,9 @@ class TicketResponse(BaseModel):
     updated_at: str = ""
     approval_passed: bool = False
     handoff_summary: str = ''
+    can_retry_ai: bool = False
+    request_kind: Literal['incident','service']='incident'
+    service_request: dict=Field(default_factory=dict)
 
 
 class HealthResponse(BaseModel):

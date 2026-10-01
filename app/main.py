@@ -19,7 +19,7 @@ from app.repository import (approve_ticket, count_tickets, get_ticket, get_ticke
                             list_audit_logs, list_documents, list_tickets, save_ticket, continue_assistance)
 from app.schemas import (ApprovalRequest, HealthResponse, LoginRequest, TicketRequest, TicketResponse,
                          TicketMessageRequest, EmployeeActionRequest, AdminWorkRequest,
-                         EmployeeLoginRequest, EmployeeRegisterRequest)
+                         EmployeeLoginRequest, EmployeeRegisterRequest, ServicePolicyRequest)
 from app.employees import employee_claims, authenticate, COOKIE
 from app.workflow import change_ticket
 from app.security import (admin_claims, check_access_token, check_password, create_session,
@@ -166,8 +166,27 @@ def live():
 
 @app.get("/api/v1/public-config")
 def public_config():
+    from app.approvals import get_policy
     return {"turnstile_site_key": settings.turnstile_site_key if settings.app_env == "production" else "",
-            "low_risk_assistance": settings.low_risk_assistance}
+            "low_risk_assistance": settings.low_risk_assistance,
+            'service_policy':get_policy(DEMO_TENANT)}
+
+
+@app.get('/api/v1/admin/service-policy')
+def read_service_policy(request: Request):
+    from app.approvals import get_policy
+    claims=admin_claims(request)
+    return get_policy(claims['tenant_id'])
+
+
+@app.put('/api/v1/admin/service-policy')
+def update_service_policy(payload: ServicePolicyRequest, request: Request):
+    from app.approvals import publish_policy
+    claims=admin_claims(request,csrf=True)
+    try:
+        return publish_policy(claims['tenant_id'],payload.expected_version,
+                              payload.model_dump(exclude={'expected_version'}),claims['username'])
+    except LookupError as exc:raise HTTPException(status_code=409,detail=str(exc))
 
 
 @app.post("/api/v1/tickets", response_model=TicketResponse, status_code=201)
@@ -178,6 +197,8 @@ def create_ticket(payload: TicketRequest, request: Request):
         raise HTTPException(status_code=429, detail="提交过于频繁，请稍后再试")
     state = payload.model_dump(exclude={"turnstile_token"})
     employee = employee_claims(request, csrf=True, optional=True)
+    if payload.request_kind=='service' and not employee:
+        raise HTTPException(status_code=401,detail='请先登录员工账号再提交服务申请')
     if employee:
         state['requester'] = employee['display_name']
     result = ticket_graph.invoke({**state, "tenant_id": DEMO_TENANT, "allow_llm": True})

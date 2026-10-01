@@ -6,7 +6,8 @@ from langgraph.graph import END, StateGraph
 
 from app.knowledge import retrieve
 from app.llm import generate_grounded_answer, is_llm_enabled, last_generation
-from app.tools import classify_category, create_it_ticket, evaluate_priority, evaluate_risk_level
+from app.tools import (classify_category, create_it_ticket, evaluate_priority, evaluate_risk_level,
+                       evaluate_assistance_risk, decide_approval)
 from app.observability import request_id
 from app.config import settings
 from app.security import use_quota
@@ -37,13 +38,42 @@ class TicketState(TypedDict):
     retrieval_query: NotRequired[str]
     conversation: NotRequired[list[dict]]
     initial_description: NotRequired[str]
+    request_kind: NotRequired[str]
+    service_request: NotRequired[dict | None]
+    approval_passed: NotRequired[bool]
+
+
+def service_policy(state: TicketState) -> dict:
+    if state.get('request_kind','incident')!='service':return {}
+    from app.approvals import evaluate_request
+    rule=evaluate_request(state['tenant_id'],state['service_request'])
+    # A checkbox cannot override sensitive context elsewhere in the request.
+    if rule['decision']=='approve' and evaluate_assistance_risk(state['title'],state['description'])!='低风险':
+        rule={**rule,'decision':'manual','reason':'描述中涉及敏感操作，须由 IT 核对完整申请范围，不能仅按清单自动放行。'}
+    decision=rule['decision']
+    status={'approve':'审批通过，待人工执行','reject':'审批拒绝','manual':'待人工处理'}[decision]
+    suffix=('审批已通过；IT 将确认库存或安装安排后执行。尚未交付或安装，完成后需你确认。'
+            if decision=='approve' else '这次申请未获批准，不会执行。需要调整申请时可重新打开并联系 IT。'
+            if decision=='reject' else '申请和具体信息已交给 IT，无需重复提交。')
+    public=f"{rule['reason']}\n{suffix}\n依据：演示服务申请规则 v{rule['policy_version']}。"
+    return {'ticket_id':create_it_ticket(),'category':'软件服务申请' if state['service_request']['service_type']=='software_install' else '设备借用申请',
+            'priority':evaluate_priority(state['title'],state['description']),'risk_level':'中风险' if decision=='manual' else '低风险',
+            'status':status,'needs_human_approval':decision=='manual','approval_passed':decision=='approve',
+            'answer':public,'public_answer':public,'answer_source':'服务申请规则自动审批' if decision!='manual' else '服务申请待人工审批',
+            'citations':[],'retrieval':{'service_approval':rule},'confidence':0,'evidence_score':None,
+            'handoff_reason':'service_policy_review' if decision=='manual' else ''}
+
+
+def route_service(state: TicketState) -> Literal['service','incident']:
+    return 'service' if state.get('request_kind','incident')=='service' else 'incident'
 
 
 def triage(state: TicketState) -> dict:
     category = classify_category(state["title"], state["description"])
     priority = evaluate_priority(state["title"], state["description"])
-    return {"category": category, "priority": priority,
-            "risk_level": evaluate_risk_level(state["title"], state["description"], priority)}
+    risk=(evaluate_assistance_risk(state['title'],state['description']) if settings.low_risk_assistance
+          else evaluate_risk_level(state['title'],state['description'],priority))
+    return {"category": category, "priority": priority,"risk_level":risk}
 
 
 def search(state: TicketState) -> dict:
@@ -58,16 +88,21 @@ def decide(state: TicketState) -> dict:
     score = result["evidence_score"]
     # This opt-in permits read-only assistance in the personal demo, not execution
     # or automatic closure. The held-out release report remains unchanged.
-    assistance = (settings.low_risk_assistance and not high_risk and bool(hits)
+    assistance = (settings.low_risk_assistance and not decide_approval(state['risk_level']) and bool(hits)
                   and state['category'] != DEFAULT_CATEGORY
                   and is_llm_enabled() and state['allow_llm'])
     needs_human = high_risk or not (result["sufficient"] or assistance)
+    if settings.low_risk_assistance and decide_approval(state['risk_level']):needs_human=True
     citations = [{"chunk_id": h["id"], "document_id": h["document_id"], "title": h["title"],
                   "version": h["version"], "chunk_key": h.get("chunk_key", ""),
                   "heading_path": h.get("heading_path", ""), "excerpt": h["content"][:180]} for h in hits[:4]]
-    return {"ticket_id": create_it_ticket(), "confidence": score, "evidence_score": score,
+    if settings.low_risk_assistance:
+        result={**result,'approval_policy':{'kind':'read_only_self_service','allowed':not decide_approval(state['risk_level']),
+                  'reason':'低风险故障可自动进入只读AI自助；不授予权限、不执行维修',
+                  'policy_version':'self-service-v1'}}
+    return {"ticket_id": create_it_ticket(), "confidence": score, "evidence_score": score,"retrieval":result,
             "request_id": request_id.get(),
-            "handoff_reason": "high_risk" if high_risk else "evaluation_gate" if needs_human and result.get("calibrated_sufficient") and not result.get("automation_enabled") else "insufficient_evidence" if needs_human else "",
+            "handoff_reason": "high_risk" if high_risk else "automatic_support_disabled" if settings.low_risk_assistance and not settings.auto_approve_low_risk else "evaluation_gate" if needs_human and result.get("calibrated_sufficient") and not result.get("automation_enabled") else "insufficient_evidence" if needs_human else "",
             "needs_human_approval": needs_human, "citations": citations}
 
 
@@ -140,12 +175,14 @@ def answer(state: TicketState) -> dict:
 
 def build_graph():
     graph = StateGraph(TicketState)
+    graph.add_node('服务申请策略判断',service_policy)
     graph.add_node("意图与风险识别", triage)
     graph.add_node("查询改写与混合召回", search)
     graph.add_node("证据与人工转接判断", decide)
     graph.add_node("人工接管", human_handoff)
     graph.add_node("生成与引用校验", answer)
-    graph.set_entry_point("意图与风险识别")
+    graph.set_entry_point('服务申请策略判断')
+    graph.add_conditional_edges('服务申请策略判断',route_service,{'service':END,'incident':'意图与风险识别'})
     graph.add_edge("意图与风险识别", "查询改写与混合召回")
     graph.add_edge("查询改写与混合召回", "证据与人工转接判断")
     graph.add_conditional_edges("证据与人工转接判断", route_after_evidence,

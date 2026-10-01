@@ -30,6 +30,7 @@ class Settings:
     max_llm_daily: int = int(os.getenv("MAX_LLM_DAILY", "100"))
     max_public_hourly: int = int(os.getenv("MAX_PUBLIC_HOURLY", "10"))
     low_risk_assistance: bool = os.getenv('LOW_RISK_ASSISTANCE', 'false').lower() == 'true'
+    auto_approve_low_risk: bool = os.getenv('AUTO_APPROVE_LOW_RISK', 'true').lower() == 'true'
     admin_username: str = os.getenv('ADMIN_USERNAME', 'admin').strip()
     high_risk_keywords: tuple[str, ...] = tuple(
         word.strip() for word in os.getenv(

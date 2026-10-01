@@ -1,0 +1,17 @@
+{
+  "date": "2026-10-01",
+  "tag": "docker.io/suqihang/atlas-desk:20261001-business.2",
+  "image": "docker.io/suqihang/atlas-desk@sha256:ffd26cec82d7db74601cdfe4d670fdde12c3aaf3fea28c752bd1fa47cb8a1b8a",
+  "namespace": "atlas-desk",
+  "oldTicketCount": 27,
+  "oldIdentitiesPreserved": true,
+  "otherWorkloadsImagesAndPvcPreserved": true,
+  "unitTests": 75,
+  "localBrowserChecks": 39,
+  "publicReadonlyChecks": 16,
+  "publicLayoutChecks": 19,
+  "isolatedCapacityRequests": 40,
+  "offlineStartupPassed": true,
+  "formalQualityGatePassed": false,
+  "automaticResourceExecutionImplemented": false
+}

@@ -2,6 +2,7 @@
 from app.database import get_connection
 from app.repository import get_ticket, utc_now, _audit
 from app.config import settings
+from app.tools import can_retry_assistance
 
 
 def change_ticket(ticket_id, tenant_id, actor, action, body="", expected_version=None, operator=None):
@@ -16,6 +17,8 @@ def change_ticket(ticket_id, tenant_id, actor, action, body="", expected_version
         status = row["status"]
         target = status
         owner = row["assigned_to"]
+        service=row['request_kind']=='service'
+        scope_update=False
         if actor == "employee":
             if action == "message":
                 if status == 'AI处理中':
@@ -24,8 +27,12 @@ def change_ticket(ticket_id, tenant_id, actor, action, body="", expected_version
                     raise LookupError("请先重新打开工单，再补充问题")
                 if not body:
                     raise ValueError("请输入补充内容")
-                if status == "待补充信息": target = "处理中"
+                if status == "待补充信息": target = "待人工处理" if service and not row['approval_passed'] else "处理中"
                 if status in {'等待补充信息（AI）','已给出处理建议'}:target='AI处理中'
+                # Approved scope is immutable. A new employee message may change
+                # it; recheck before fulfillment rather than silently expand it.
+                if service and row['approval_passed']:
+                    target='待人工处理';scope_update=True
             elif action == "resolve" and status in {"已给出处理建议", "待员工确认"}:
                 target = "已解决"
             elif action == "escalate" and status in {"已给出处理建议", "待员工确认", '等待补充信息（AI）'}:
@@ -34,17 +41,16 @@ def change_ticket(ticket_id, tenant_id, actor, action, body="", expected_version
             elif action == "reopen" and status in {"已解决", "审批拒绝"}:
                 target = "待人工处理"
                 body = body or "问题仍然存在，申请重新处理。"
-            elif (action=='retry_ai' and settings.low_risk_assistance and status=='待人工处理'
-                  and row['risk_level']=='低风险' and not row['assigned_to']):
-                target='AI处理中'
-                # Retrying is an audit action, not a statement the employee typed.
-                body=''
+            elif action=='retry_ai':
+                messages=[r['body'] for r in db.execute("SELECT body FROM ticket_messages WHERE ticket_id=? AND tenant_id=? AND actor='employee' ORDER BY id",(ticket_id,tenant_id))]
+                if not can_retry_assistance(row,messages):raise LookupError('当前工单不能重新进入AI自助')
+                target='AI处理中';body=''
             else:
                 raise LookupError("当前状态不允许此操作")
         elif actor == "admin":
             if status in {"已解决", "审批拒绝"}:
                 raise LookupError("工单已关闭，等待员工重新打开")
-            sensitive = row["risk_level"] in {"中风险", "高风险"}
+            sensitive = service or row["risk_level"] in {"中风险", "高风险"}
             if action == "start":
                 if sensitive and not row["approval_passed"]:
                     raise LookupError("敏感申请须先完成人工审批")
@@ -59,14 +65,14 @@ def change_ticket(ticket_id, tenant_id, actor, action, body="", expected_version
                         raise LookupError("敏感申请须先完成人工审批")
                     target = "待员工确认"
                 elif action == "request_info":
-                    if sensitive and not row["approval_passed"]:
+                    if sensitive and not service and not row["approval_passed"]:
                         raise LookupError("请先审批敏感申请；审批前可发送普通回复")
                     target = "待补充信息"
             else:
                 raise LookupError("未知处理操作")
         else:
             raise ValueError("未知角色")
-        approval=0 if actor=='employee' and action=='reopen' else row['approval_passed']
+        approval=0 if scope_update or (actor=='employee' and action=='reopen') else row['approval_passed']
         db.execute("UPDATE tickets SET status=?,assigned_to=?,approval_passed=?,workflow_version=workflow_version+1,updated_at=? WHERE ticket_id=? AND tenant_id=?",
                    (target, owner, approval, utc_now(), ticket_id, tenant_id))
         if body:
@@ -74,5 +80,11 @@ def change_ticket(ticket_id, tenant_id, actor, action, body="", expected_version
                        (ticket_id,tenant_id,actor,operator or actor,body,utc_now()))
         if actor=='employee' and action in {'escalate','reopen'}:
             db.execute("UPDATE tickets SET handoff_reason='employee_request' WHERE ticket_id=? AND tenant_id=?",(ticket_id,tenant_id))
+            if service:
+                db.execute('UPDATE tickets SET needs_human_approval=1,public_answer=? WHERE ticket_id=? AND tenant_id=?',
+                           ('申请重新进入 IT 队列，原审批已失效，需复核后继续处理。',ticket_id,tenant_id))
+        if scope_update:
+            db.execute("UPDATE tickets SET handoff_reason='service_scope_update',needs_human_approval=1,public_answer=? WHERE ticket_id=? AND tenant_id=?",
+                       ('你的补充已保留。为避免按旧申请范围执行，IT 将复核后继续处理。',ticket_id,tenant_id))
         _audit(db,ticket_id,tenant_id,"工单流转",operator or actor,{"action":action,"from":status,"to":target})
     return get_ticket(ticket_id,tenant_id)

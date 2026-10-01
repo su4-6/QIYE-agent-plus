@@ -16,6 +16,14 @@ class ContextualSupportTest(unittest.TestCase):
                 validate_plan({'decision':'advise','steps':[{'text':text,'source_ids':ids}],
                                'check_result':'检查能否打印。'},catalog)
 
+    def test_official_self_service_guidance_is_not_a_request_for_secrets(self):
+        catalog={'7:1':{'chunk_id':7,'text':'普通员工使用官方门户自助重置密码。'}}
+        result=validate_plan({'decision':'advise','steps':[{'text':'通过企业官方自助门户重置密码。','source_ids':['7:1']}],
+                              'check_result':'在官方门户确认是否恢复登录。'},catalog)
+        self.assertEqual(result['decision'],'advise')
+        with self.assertRaises(ValueError):
+            validate_plan({'decision':'clarify','questions':['请把账号密码发给我？']},catalog)
+
     def test_independent_rejection_does_not_publish_repeated_advice(self):
         old=dict(vars(settings))
         object.__setattr__(settings,'llm_provider','mimo')

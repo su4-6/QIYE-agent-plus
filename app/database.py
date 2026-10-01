@@ -50,7 +50,7 @@ def init_database() -> None:
         with closing(sqlite3.connect(path)) as source:
             version = source.execute("PRAGMA user_version").fetchone()[0]
             tables = source.execute("SELECT 1 FROM sqlite_master WHERE name='tickets'").fetchone()
-            if tables and version < 6:
+            if tables and version < 7:
                 backup_dir = path.parent / "backups"
                 backup_dir.mkdir(parents=True, exist_ok=True)
                 stamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%S%f")
@@ -79,6 +79,8 @@ def init_database() -> None:
             ("workflow_version", "INTEGER NOT NULL DEFAULT 0"),
             ("approval_passed", "INTEGER NOT NULL DEFAULT 0"),
             ("employee_id", "TEXT NOT NULL DEFAULT ''"),
+            ("request_kind", "TEXT NOT NULL DEFAULT 'incident'"),
+            ("service_request_json", "TEXT NOT NULL DEFAULT '{}'"),
         ):
             _add_column(db, "tickets", name, definition)
         db.execute("""CREATE TABLE IF NOT EXISTS audit_logs (
@@ -141,4 +143,9 @@ def init_database() -> None:
             needs_human_approval=1,workflow_version=workflow_version+1,
             public_answer='AI 跟进被中断，已保留你的补充并交给 IT 服务台继续处理。'
             WHERE status='AI处理中'""")
-        db.execute("PRAGMA user_version=6")
+        db.execute('''CREATE TABLE IF NOT EXISTS service_policies (
+            tenant_id TEXT NOT NULL, version INTEGER NOT NULL, policy_json TEXT NOT NULL,
+            operator TEXT NOT NULL, created_at TEXT NOT NULL, PRIMARY KEY(tenant_id,version))''')
+        from app.approvals import seed_demo_policy
+        seed_demo_policy(db)
+        db.execute("PRAGMA user_version=7")
