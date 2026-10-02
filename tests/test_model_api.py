@@ -15,7 +15,8 @@ from app.database import get_connection, init_database
 from app.llm import generate_support_plan, is_llm_enabled, llm_status
 from app.main import app
 from app.model_api import (ModelApiInput, PROVIDERS, public_configuration, resolve_connection,
-                           restore_default, save_configuration, test_configuration, validate_endpoint)
+                           restore_default, save_configuration, test_configuration, validate_endpoint,
+                           ModelConnection, generation_options)
 from app.security import create_session, password_hash
 
 
@@ -83,6 +84,49 @@ class ModelApiTest(unittest.TestCase):
             save_configuration('demo', 'admin', ModelApiInput(expected_version=1, provider='compatible',
                 base_url='https://models.two.example/v1', model='test-model'))
         self.assertEqual(resolve_connection().base_url, 'https://models.one.example/v1')
+
+    def test_siliconflow_china_requires_own_key_and_preserves_mimo_profile(self):
+        save_configuration('demo', 'admin', ModelApiInput(expected_version=0, provider='mimo',
+            base_url=PROVIDERS['mimo']['base_url'], model='mimo-v2.6-flash'))
+        candidate=ModelApiInput(expected_version=1,provider='siliconflow_cn',
+            base_url=PROVIDERS['siliconflow_cn']['base_url'],model='Qwen/Qwen3-8B')
+        with self.assertRaisesRegex(ValueError,'尚未配置 Key'):
+            save_configuration('demo','admin',candidate)
+        self.assertEqual(resolve_connection().provider,'mimo')
+        candidate=ModelApiInput(expected_version=1,provider='siliconflow_cn',
+            base_url=PROVIDERS['siliconflow_cn']['base_url'],model='Qwen/Qwen3-8B',api_key='local-siliconflow-fake-key')
+        saved=save_configuration('demo','admin',candidate)
+        self.assertEqual(resolve_connection().api_key,'local-siliconflow-fake-key')
+        self.assertEqual(resolve_connection().driver,'siliconflow')
+        self.assertNotIn('local-siliconflow-fake-key',json.dumps(saved))
+        save_configuration('demo','admin',ModelApiInput(expected_version=2,provider='mimo',
+            base_url=PROVIDERS['mimo']['base_url'],model='mimo-v2.6-flash'))
+        self.assertEqual(resolve_connection().api_key,'dedicated-fake-environment-key')
+
+    def test_siliconflow_china_address_binding_and_parameter_scope(self):
+        china=PROVIDERS['siliconflow_cn']['base_url']
+        for url in ['https://api.siliconflow.com/v1',china+'/chat/completions',
+                    'https://api.siliconflow.cn.evil.example/v1']:
+            with self.assertRaises(ValueError):validate_endpoint('siliconflow_cn',url)
+        for provider in ['siliconflow_cn','compatible']:
+            connection=ModelConnection(provider,china,'Qwen/Qwen3-8B','fake')
+            self.assertEqual(generation_options(connection,400),{'max_tokens':400,'extra_body':{'enable_thinking':False}})
+        self.assertEqual(generation_options(ModelConnection('siliconflow_cn',china,'THUDM/GLM-4-9B-0414','fake'),400),{'max_tokens':400})
+        self.assertEqual(generation_options(ModelConnection('deepseek',PROVIDERS['deepseek']['base_url'],'Qwen/Qwen3-8B','fake'),400),{'max_tokens':400})
+
+    def test_siliconflow_probe_disables_thinking_without_activating_candidate(self):
+        payload=ModelApiInput(expected_version=0,provider='siliconflow_cn',
+            base_url=PROVIDERS['siliconflow_cn']['base_url'],model='Qwen/Qwen3-8B',api_key='local-siliconflow-fake-key')
+        good=SimpleNamespace(choices=[SimpleNamespace(message=SimpleNamespace(content='{"ok":true}'))])
+        with patch('app.model_api.create_client') as factory:
+            client=factory.return_value.__enter__.return_value
+            client.chat.completions.create.return_value=good
+            self.assertTrue(test_configuration('demo',payload)['passed'])
+            arguments=client.chat.completions.create.call_args.kwargs
+        self.assertEqual(arguments['extra_body'],{'enable_thinking':False})
+        self.assertEqual(arguments['max_tokens'],256)
+        self.assertEqual(public_configuration('demo')['version'],0)
+        self.assertEqual(resolve_connection().provider,'mimo')
 
     def test_stale_version_cannot_overwrite_or_restore(self):
         save_configuration('demo', 'admin', self.payload())

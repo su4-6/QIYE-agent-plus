@@ -24,6 +24,7 @@ PROVIDERS = {
     'mimo': {'label': '小米 MiMo', 'base_url': 'https://api.xiaomimimo.com/v1', 'model': 'mimo-v2.6-flash'},
     'deepseek': {'label': 'DeepSeek', 'base_url': 'https://api.deepseek.com/v1', 'model': 'deepseek-chat'},
     'openai': {'label': 'OpenAI', 'base_url': 'https://api.openai.com/v1', 'model': 'gpt-4o-mini'},
+    'siliconflow_cn': {'label': '硅基流动（国内版）', 'base_url': 'https://api.siliconflow.cn/v1', 'model': 'Qwen/Qwen3-8B'},
     'compatible': {'label': '其他 OpenAI 兼容服务', 'base_url': '', 'model': ''},
 }
 
@@ -71,6 +72,8 @@ class ModelConnection:
 
     @property
     def driver(self):
+        if self.base_url == PROVIDERS['siliconflow_cn']['base_url']:
+            return 'siliconflow'
         return 'mimo' if self.provider == 'mimo' else 'generic'
 
     @property
@@ -234,6 +237,16 @@ def create_client(connection, timeout=30.0):
     return OpenAI(**client_arguments(connection, timeout))
 
 
+def generation_options(connection, output_limit):
+    """Provider-specific output options shared by probes, drafts and reviews."""
+    if connection.driver == 'mimo':
+        return {'max_completion_tokens': output_limit, 'extra_body': {'thinking': {'type': 'disabled'}}}
+    options = {'max_tokens': output_limit}
+    if connection.driver == 'siliconflow' and connection.model == 'Qwen/Qwen3-8B':
+        options['extra_body'] = {'enable_thinking': False}
+    return options
+
+
 def test_configuration(tenant_id, payload):
     from app.security import use_quota
     with get_connection() as db:
@@ -241,8 +254,7 @@ def test_configuration(tenant_id, payload):
     if not use_quota('model-api-test-hour', tenant_id, 10, 3600) or not use_quota('llm-day', tenant_id, settings.max_llm_daily, 86400):
         raise OverflowError('模型测试额度已用完，请稍后再试')
     try:
-        options = ({'max_completion_tokens': 256, 'extra_body': {'thinking': {'type': 'disabled'}}}
-                   if connection.driver == 'mimo' else {'max_tokens': 256})
+        options = generation_options(connection, 256)
         with create_client(connection, timeout=15.0) as client:
             response = client.chat.completions.create(model=connection.model,
                 messages=[{'role': 'user', 'content': '这是连接测试。只返回 JSON：{"ok":true}，不要返回其他内容。'}],

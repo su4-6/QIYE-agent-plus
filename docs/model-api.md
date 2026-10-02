@@ -2,7 +2,7 @@
 
 登录 `/admin`，打开「模型 API」。默认连接来自部署环境；在线演示配置 MiMo，首次本地配置为无模型。保存后使用管理台选择的连接，恢复默认后重新使用环境配置。
 
-1. 选择 MiMo、DeepSeek、OpenAI 或其他 OpenAI 兼容服务，填写供应商给出的模型 ID。
+1. 选择 MiMo、DeepSeek、OpenAI、硅基流动国内版或其他 OpenAI 兼容服务，填写供应商给出的模型 ID。
 2. 第一次使用该 API 时填入演示专用 Key；已保存的配置留空保留该 API 的 Key。更换兼容服务地址必须填写新 Key，旧 Key 不会被发送到新地址。
 3. 「测试连接与 JSON 输出」只发出一次短测试请求，不创建工单、不切换配置。供应商可能计费。此测试只验证连接和结构化输出，不能代表工单答复质量。
 4. 「保存并切换」先再次测试，成功后才保存生效。失败保留原配置。新的 AI 请求使用新连接，已开始的草案和审查仍使用同一个连接。
@@ -19,3 +19,11 @@ MiMo 官方地址为 `https://api.xiaomimimo.com/v1`；DeepSeek 为 `https://api
 MiMo 2.6 Flash 的官方 ID 为 `mimo-v2.6-flash`；型号和深度思考开关见 [MiMo 官方说明](https://mimo.mi.com/docs/zh-CN/quick-start/usage-guide/text-generation/deep-thinking)。管理台仍允许输入其他兼容型号，不把这一默认值当作对所有模型的质量保证。
 
 来源：[MiMo Chat API](https://mimo.mi.com/docs/en-US/api/chat)、[DeepSeek 首次调用](https://api-docs.deepseek.com/)、[Chat Completions API](https://developers.openai.com/api/reference/resources/chat/subresources/completions/methods/create)、[Fernet](https://cryptography.io/en/latest/fernet/)。
+
+## 硅基流动国内版 · Qwen3-8B
+
+登录管理台 → 模型 API → API 类型选择 **硅基流动（国内版）**。默认地址为 **https://api.siliconflow.cn/v1**，模型 ID 为 **Qwen/Qwen3-8B**（区分大小写）；只填写国内版控制台创建的演示专用 Key，点击「测试连接与 JSON 输出」，成功后「保存并切换」。国际版账号和地址不适用这项配置。Key 不需要写入源代码、README 或聊天。
+
+服务端对该地址的 Qwen3-8B 请求明确发送 **enable_thinking=false**，覆盖连接测试、正式生成、辅助草案、审查和修正。模型提供有依据的下一步，原引用校验、独立审查、限时预算、规则审批与员工确认继续保留。非思考参数见 [硅基流动官方接口](https://docs.siliconflow.cn/docs/api/chat-completions-post)。
+
+保存成功前仍使用原连接；保存成功后新请求使用硅基流动，原 MiMo Key 和历史保留。供应商可能限流、调整模型或收费，请在自己的模型详情核对当前价格和额度。连接成功不代表工单质量或速度已达标，应另用模拟工单检查澄清、补充和针对性建议。此接入已完成模拟 API 与本地测试；真实调用需要维护者或体验者自行配置有效 Key。

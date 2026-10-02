@@ -10,6 +10,24 @@ from app.model_api import ModelConnection
 
 
 class ContextualSupportTest(unittest.TestCase):
+    def test_siliconflow_draft_review_and_repair_all_disable_thinking(self):
+        draft={'decision':'advise','understanding':'纸盒为空。','steps':[{'text':'放入平整纸张。','source_ids':['7:1']}],
+               'check_result':'观察缺纸提示是否消失。'}
+        outputs=[draft,{'passed':False,'reason':'需要修正。'},draft,{'passed':True}]
+        calls=[]
+        def respond(**kwargs):
+            calls.append(kwargs)
+            return SimpleNamespace(choices=[SimpleNamespace(message=SimpleNamespace(content=json.dumps(outputs.pop(0),ensure_ascii=False)))])
+        with patch('app.llm.OpenAI') as client, patch('app.llm.validate_citations',return_value=[7]), patch('app.security.use_quota',return_value=True):
+            client.return_value.chat.completions.create.side_effect=respond
+            text,citations=generate_support_plan('打印机缺纸','纸盒是空的。','硬件与办公设备',
+                {'7:1':{'chunk_id':7,'text':'纸盒为空时放入平整纸张。'}},[],'demo',[],
+                connection=ModelConnection('siliconflow_cn','https://api.siliconflow.cn/v1','Qwen/Qwen3-8B','local-fake'))
+        self.assertTrue(text);self.assertEqual(citations,[7]);self.assertEqual(len(calls),4)
+        self.assertTrue(all(c['extra_body']=={'enable_thinking':False} for c in calls))
+        self.assertEqual([c['max_tokens'] for c in calls],[1800,400,1800,400])
+        self.assertEqual([c['stage'] for c in last_generation.get()['model_calls']],['draft','review','repair','review'])
+
     def test_fast_draft_still_requires_independent_review(self):
         draft={'decision':'advise','understanding':'纸盒为空。','steps':[{'text':'放入平整纸张。','source_ids':['7:1']}],
                'check_result':'观察缺纸提示是否消失。'}

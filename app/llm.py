@@ -11,7 +11,7 @@ from openai import OpenAI, OpenAIError
 from app.config import settings
 from app.database import get_connection
 from app.answer_validation import sentence_catalog, render_selection
-from app.model_api import resolve_connection, client_arguments
+from app.model_api import resolve_connection, client_arguments, generation_options
 
 logger = logging.getLogger(__name__)
 last_generation = contextvars.ContextVar("last_generation", default={})
@@ -106,8 +106,7 @@ questions 只用于澄清当前问题，不能索取密码、验证码、密钥�
     try:
         started = time.perf_counter()
         last_generation.set({"called": True, "structured": False, "citations_valid": False})
-        output_options = ({"max_completion_tokens": 1000, "extra_body": {"thinking": {"type": "disabled"}}}
-                          if connection.driver == "mimo" else {"max_tokens": 1000})
+        output_options = generation_options(connection, 1000)
         client = OpenAI(**client_args)
         response = client.chat.completions.create(
             model=connection.model,
@@ -166,8 +165,7 @@ def generate_support_plan(title,description,category,catalog,hits,tenant_id,conv
         # A second model still reviews advice; routine help does not need two
         # 4096-token reasoning runs before the employee can see a response.
         output_limit=400 if stage=='review' else 1800
-        options=({'max_completion_tokens':output_limit,'extra_body':{'thinking':{'type':'disabled'}}}
-                 if connection.driver=='mimo' else {'max_tokens':output_limit})
+        options=generation_options(connection, output_limit)
         called_at=time.perf_counter()
         result=client.chat.completions.create(model=connection.model,
                     messages=[{'role':'system','content':'严格遵守任务，只输出合法JSON。'}, {'role':'user','content':prompt}],
