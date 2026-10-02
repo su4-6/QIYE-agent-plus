@@ -156,29 +156,42 @@ def generate_support_plan(title,description,category,catalog,hits,tenant_id,conv
     from app.security import use_quota
     connection=connection or resolve_connection(tenant_id or 'demo')
     args=client_arguments(connection)
-    options=({'max_completion_tokens':4096,'extra_body':{'thinking':{'type':'enabled'}}}
-             if connection.driver=='mimo' else {'max_tokens':1200})
     client=OpenAI(**args)
-    def call(prompt):
+    start=time.perf_counter()
+    budget=max(5.0,min(settings.support_budget_seconds,60.0))
+    calls=[]
+    def call(prompt,stage):
+        remaining=budget-(time.perf_counter()-start)
+        if remaining<1:raise ValueError('support_time_budget_exceeded')
+        # A second model still reviews advice; routine help does not need two
+        # 4096-token reasoning runs before the employee can see a response.
+        output_limit=400 if stage=='review' else 1800
+        options=({'max_completion_tokens':output_limit,'extra_body':{'thinking':{'type':'disabled'}}}
+                 if connection.driver=='mimo' else {'max_tokens':output_limit})
+        called_at=time.perf_counter()
         result=client.chat.completions.create(model=connection.model,
                     messages=[{'role':'system','content':'严格遵守任务，只输出合法JSON。'}, {'role':'user','content':prompt}],
-                    response_format={'type':'json_object'},**options)
+                    response_format={'type':'json_object'},timeout=min(12.0 if stage=='review' else 18.0,remaining),**options)
+        elapsed=(time.perf_counter()-called_at)*1000
+        calls.append({'stage':stage,'latency_ms':round(elapsed,3)})
+        last_generation.set({**last_generation.get(),'model_calls':list(calls)})
+        logger.info('support_model_call stage=%s latency_ms=%.3f model=%s',stage,elapsed,connection.model)
         return json.loads(result.choices[0].message.content or '{}')
     try:
-        start=time.perf_counter();last_generation.set({'called':True,'method':'contextual_support_v1'})
+        last_generation.set({'called':True,'method':'contextual_support_v1','budget_seconds':budget})
         prompt=plan_prompt(title,description,category,catalog,conversation)
         attempts=[]
         for attempt in range(2):
             if attempt and not use_quota('llm-day',tenant_id or 'demo',settings.max_llm_daily,86400):
                 raise ValueError('repair_quota_exceeded')
-            data=validate_plan(call(prompt),catalog)
+            data=validate_plan(call(prompt,'draft' if attempt==0 else 'repair'),catalog)
             last_generation.set({**last_generation.get(),'support_plan':data})
             cited=list(dict.fromkeys(catalog[i]['chunk_id'] for step in data['steps'] for i in step['source_ids']))
             if cited:cited=validate_citations(cited,hits,tenant_id)
             if data['decision']=='advise':
                 if not use_quota('llm-day',tenant_id or 'demo',settings.max_llm_daily,86400):
                     raise ValueError('review_quota_exceeded')
-                review=call(review_prompt(data,catalog,description,conversation))
+                review=call(review_prompt(data,catalog,description,conversation),'review')
             else:
                 review={'passed':True,'reason':'clarification_or_handoff_without_actions'}
             attempts.append({'draft':data,'review':review})
@@ -188,6 +201,7 @@ def generate_support_plan(title,description,category,catalog,hits,tenant_id,conv
         else:raise ValueError('support_logic_review_failed')
         text=render_plan(data)
         last_generation.set({'called':True,'method':'contextual_support_v1','structured':True,
+            'model_calls':calls,'budget_seconds':budget,
             'latency_ms':(time.perf_counter()-start)*1000,'citations_valid':bool(cited),
             'support_plan':data,'attempts':attempts,'public_answer':text,'handoff':data['decision']=='handoff',
             'questions':data['questions'],'answer_validation':{'passed':True,'method':'source_scope_and_model_logic_review_v1',
@@ -195,6 +209,7 @@ def generate_support_plan(title,description,category,catalog,hits,tenant_id,conv
         return (text,cited) if data['decision']=='advise' else (None,[])
     except (OpenAIError,ValueError,TypeError,KeyError) as exc:
         last_generation.set({**last_generation.get(),'error_type':type(exc).__name__,
+                             'latency_ms':(time.perf_counter()-start)*1000,'model_calls':calls,
                              'answer_validation':{'passed':False,'method':'contextual_support_v1','reason':type(exc).__name__ if isinstance(exc,OpenAIError) else str(exc)[:100],
                                 'draft':last_generation.get().get('support_plan'), 'review':last_generation.get().get('logic_review')}})
         logger.warning('support_plan_failed error_type=%s',type(exc).__name__)

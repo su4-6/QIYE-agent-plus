@@ -42,14 +42,20 @@ $env:APP_ENV = "dev"
 $env:EMBEDDING_PROVIDER = $(if ($UseVectors) { "local" } else { "disabled" })
 $env:PYTHONUTF8 = "1"
 if ($UseMimo) {
+    if (-not $env:MIMO_API_KEY -or -not $env:MIMO_API_KEY.Trim()) {
+        throw "-UseMimo requires MIMO_API_KEY in the current process environment. The project .env is not loaded."
+    }
     $env:LLM_PROVIDER = "mimo"
+    $env:LOW_RISK_ASSISTANCE = "true"
 }
 else {
     $env:LLM_PROVIDER = "disabled"
+    $env:LOW_RISK_ASSISTANCE = "false"
     # A whitespace value overrides any key in .env, while the app treats it as disabled.
     $env:LLM_API_KEY = " "
 }
 $env:DATABASE_URL = "data/local-verify.db"
+$env:ADMIN_USERNAME = "admin"
 $env:SESSION_SECRET = "local-verification-secret-32-bytes-minimum"
 
 $plainPassword = $env:ATLAS_LOCAL_ADMIN_PASSWORD

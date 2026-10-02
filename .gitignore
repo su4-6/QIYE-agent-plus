@@ -10,4 +10,5 @@ data/models/
 data/eval-temp-*/
 *.log
 .playwright-cli/
+output/playwright/
 work/

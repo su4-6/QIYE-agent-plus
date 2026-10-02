@@ -21,7 +21,7 @@ from app.database import get_connection
 
 
 PROVIDERS = {
-    'mimo': {'label': '小米 MiMo', 'base_url': 'https://api.xiaomimimo.com/v1', 'model': 'mimo-v2.5-pro'},
+    'mimo': {'label': '小米 MiMo', 'base_url': 'https://api.xiaomimimo.com/v1', 'model': 'mimo-v2.6-flash'},
     'deepseek': {'label': 'DeepSeek', 'base_url': 'https://api.deepseek.com/v1', 'model': 'deepseek-chat'},
     'openai': {'label': 'OpenAI', 'base_url': 'https://api.openai.com/v1', 'model': 'gpt-4o-mini'},
     'compatible': {'label': '其他 OpenAI 兼容服务', 'base_url': '', 'model': ''},

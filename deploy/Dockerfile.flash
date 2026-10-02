@@ -1,0 +1,4 @@
+# Incremental build over the verified offline BGE bundle. Full builds: Dockerfile.bge.
+FROM docker.io/suqihang/atlas-desk:20261002-model-api.1@sha256:cc06a3f6e7e02c32422450238bbd6a6d6865e02193b71fab228e7e5fa3f9058a
+COPY app /app/app
+ENV MIMO_MODEL=mimo-v2.6-flash

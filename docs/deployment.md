@@ -1,59 +1,63 @@
-# `ticket.su46proj.site` 部署清单
+# 生产部署指南
 
-## 上线前硬门槛
+本指南面向自行部署的维护者。本地运行使用 [本地指南](local-development.md)；生产必须配置认证、人机验证、HTTPS、持久化和备份。仓库中的域名、Gateway 名称及镜像仓库是演示环境实例值，部署到自己的环境时须调整。
 
-1. 在模型服务商后台撤销曾进入 Git 历史的旧密钥，创建新密钥；不要把新值提交到仓库。
-2. 在 Cloudflare 创建仅允许 `ticket.su46proj.site` 的 Turnstile 小组件。
-3. 生成管理员密码哈希：`python -m app.security`。
-4. 生成至少 32 字节的随机 `SESSION_SECRET`，完成服务器 `.env`。
-5. 检查服务器可用内存、磁盘、80/443 监听和现有容器。本地 BGE 已在 384 MiB / 1 CPU / 单 worker 下通过隔离容量验证。内网部署使用 384 MiB 容器上限和至少 320 MiB 节点保留余量，启动前 MemAvailable 至少 704 MiB；启动过程中监测余量，不足只停止 Atlas。公网流量的容量验收仍需单独执行，不能把内网启动证明当作持续服务能力。容量不足就停止发布；不静默切换检索模型或关闭向量，换模型必须另行重建索引与评测。
-6. 检查 evaluation/policy.json 的发布门槛。当前独立测试未达到95%的自动放行精确率，应用默认提供人工审核流程；不得将校准集结果当作生产自动处理准确率。
+## 必填配置与启动条件
 
-## 部署方式
+1. Python 3.11 / Docker 或可用的 Kubernetes 集群，足够的磁盘和内存。
+2. 私有随机 SESSION_SECRET（至少 32 字节）、ADMIN_USERNAME 与 scrypt ADMIN_PASSWORD_HASH；密码哈希用 python -m app.security 生成。
+3. Cloudflare Turnstile site key 和 secret，允许自己的域名；生产启动会校验安全项非空且会话密钥长度足够。腾讯或其他 CDN 不替代此验证配置。
+4. APP_ENV=production、持久化 DATABASE_URL，反向代理与 HTTPS。不要把 dev 模式直接暴露公网。
+5. AI 需演示专用模型 Key / API 连接；启用多轮辅助需 LOW_RISK_ASSISTANCE=true。服务申请规则审批独立于模型。
+6. 选择检索模式：local 使用 BGE，disabled 使用 BM25；不同模型向量不能混用。
+7. 真实 .env、Secret、Key 和数据库不得进入 Git 或镜像；曾公开的旧 Key 应在服务商撤销。
+8. 部署前核对当前可用资源与业务负载。历史 384 MiB / 1 CPU 隔离启动通过，不代表任意并发都足够；不要为部署 Atlas 停止或清理其他业务。
 
-当前服务器已经运行 K3s 和 NGINX Gateway Fabric，优先使用
-[`deploy/k3s`](../deploy/k3s/README.md) 中的清单复用现有 80/443 入口和通配符证书。
-应用使用独立命名空间、ClusterIP 服务和持久卷；跨命名空间路由通过
-`ReferenceGrant` 明确授权。服务器资源不足时只准备清单，不执行发布。
+SQLite 使用单副本、单 worker。K3s Deployment 采用 Recreate 与 PVC，避免多个实例共享写库。正式评测保护仍未达到 95% 目标；开启只读辅助不是正式质量放行。
 
-Docker Compose 保留为独立服务器或本机验收方案。
+## Docker Compose：独立服务器
 
-### 保持当前 BGE 检索的候选镜像
+在受限位置配置项目 .env；Compose 会将 APP_ENV 强制设为 production，所以本地快速启动生成的空 Turnstile 配置不足以启动它。
 
-使用独立的 `Dockerfile.bge` 在构建时预下载 BGE，避免第一次线上请求下载模型。
-`deploy/overlays/local-bge` 覆盖旧清单中的 Gemini 配置，并增加启动探针；原来的 Dockerfile 和基础清单保留。
-
-```bash
-docker build -f Dockerfile.bge -t atlas-desk:review-bge .
-kubectl kustomize deploy/overlays/local-bge
-```
-
-当前镜像已发布到 `docker.io/suqihang/atlas-desk:20261002-model-api.1`，overlay 固定已验证的 digest。该版本通过 `deploy/Dockerfile.model-api` 复用 business.2 的离线 BGE 模型层；完整构建仍可使用 `Dockerfile.bge`。这个 overlay 包含生产路由，只有生产密钥配置齐全并完成公网容量检查后才能应用。初始内网部署的无 Secret 清单保存在 `deploy/releases/20261001/internal.yaml`，不包含 HTTPRoute。管理台模型 API 使用方法见 [模型配置](model-api.md)。
-已有知识库启动时只做本地向量生成与 SQLite 向量距离自检，不重写知识库，不调用大模型或远程向量服务。
-工程测试覆盖重启自检、失败降级和不对远程模式新增启动调用。
-
-本次本地 Linux 镜像在 384 MiB / 1 CPU / 单 worker、swap 禁用时导入 66 个模拟片段，处理 40 张模拟工单（并发 4），40/40 返回 201，无 OOM。
-工作集约 343 MiB；cgroup 峰值达到 384 MiB，包含可回收缓存，不能只用工作集数值当作上线预算。
-此验证关闭 LLM、使用独立临时数据卷，既不是线上负载证明，也不代表真实模型答复质量。
-
-服务器已经完成授权的 MiniPay JVM / 静态服务瘦身；Atlas 在独立命名空间运行，已配置 MiMo，BGE / sqlite-vec 自检通过。内网管理员登录、知识读取、高风险工单转人工和工单令牌访问均通过。Atlas 部署前后原有 25 个工作负载规格、镜像及原 PVC UID 保持一致。已通过 Cloudflare 插件配置生产 Turnstile 并添加 Atlas 公网路由；公网 API 与模拟审批验收通过，用户已确认正常浏览器真实人机验证与工单创建成功。完整状态见 [部署记录](deployment-status-20261001.md)。
-
-## Docker Compose 部署与验证
-
-```bash
+~~~bash
 docker compose build
 docker compose up -d
 docker compose ps
 curl --fail http://127.0.0.1:8000/health
-```
+~~~
 
-Nginx 为 `ticket.su46proj.site` 配置独立虚拟主机并反向代理到 `127.0.0.1:8000`。应用端口不要直接暴露到公网；TLS 证书和 Cloudflare DNS 生效后，再执行公开页面、工单提交、访问凭证、管理员审批和审计日志的端到端检查。
-代理必须传递 `Host`、`X-Real-IP`、`X-Forwarded-For` 和 `X-Forwarded-Proto`；应用只信任来自本机 Nginx 的代理头，限流才会按真实访客 IP 生效。
+现有 Compose 使用普通 Dockerfile 构建，并把 ./data 挂载到 /app/data。BGE 可能在首次初始化下载；需要构建时预加载模型时，用 Dockerfile.bge 构建，再在自己的 Compose 配置中指定该镜像或 Dockerfile。它使用 /opt/atlas-models 预置缓存并设置 HF_HUB_OFFLINE=1，不依赖运行时下载。
 
-## 备份
+Nginx / 网关以 HTTPS 反向代理到 127.0.0.1:8000，不直接公开应用端口。普通 Dockerfile 的启动参数仅信任 127.0.0.1 的代理头，容器桥接时应按实际可信代理地址调整，不能把所有不可信客户端作为代理。代理传递 Host、X-Forwarded-For 与 X-Forwarded-Proto 后，应实际验证客户端 IP、限流和 Secure Cookie。
 
-升级迁移前，应用使用 SQLite 在线备份接口生成一致快照，保存到数据库所在目录的 backups 子目录。日常备份也应使用在线备份接口并至少保留最近7份，避免仅复制处于WAL模式的主数据库文件。恢复演练检查工单、知识文档、向量模型标识和审计日志。切换向量模型后运行 `python -m app.knowledge reindex`，不同模型产生的向量不能混用。
+## K3s：现有演示集群或自建集群
 
-员工/IT 工作流版本及原镜像、旧工单保留验证见 [部署状态](deployment-status-20261001.md) 与 [工作流说明](employee-workflow.md)。
+[deploy/k3s](../deploy/k3s/README.md) 的基础清单引用现有 Gateway、域名与命名空间，不能直接用于任意集群。它还保留旧 Gemini 配置。当前 BGE 版本通过 **deploy/overlays/local-bge** 覆盖，部署前必须先渲染并检查镜像、配置、资源与跨命名空间路由。
 
-最新版本启用 `LOW_RISK_ASSISTANCE=true` 的个人只读辅助；`ADMIN_USERNAME=admin`，密码哈希与会话/Turnstile/MiMo密钥沿用原Secret。仅更新Atlas，迁移前备份SQLite，不清理原镜像、PVC或MiniPay工作负载。评测策略与历史报告保持原值，工程和真实模型验收单独记录。
+~~~bash
+docker build -f Dockerfile.bge -t YOUR_REGISTRY/atlas-desk:YOUR_VERSION .
+kubectl kustomize deploy/overlays/local-bge
+~~~
+
+在自己的镜像仓库发布并固定 digest；替换域名、Gateway / 命名空间引用、TLS 和 StorageClass 后，再按 K3s 文档创建私有 Secret 并发布。不要把未经修改的基础清单覆盖到已有 BGE 服务。
+
+当前演示发布镜像、摘要与验证范围见 [部署历史](deployment-status-20261001.md) 最后一个版本记录；静态版本记录不能代替重新核对正在运行的 Pod 和配置。
+
+## 发布验收
+
+- Pod Ready，数据库路径正确，持久卷绑定，日志无重复迁移或模型下载失败。
+- /health 数据库正常；BGE 模式向量 ready，BM25 模式向量 disabled，不能仅看 HTTP 200。
+- 员工注册、登录、提交和自己的列表；另一账号不能读取或修改前一账号工单。
+- 管理员登录、CSRF、接单、回复、补充、解决确认和重开；正常浏览器完成人机验证。
+- 模拟申请覆盖自动获批、拒绝、人工审核；获批之后仍需交付和验收。
+- 隔离验收真实模型的追问、针对新事实的建议、敏感请求交接；连接测试不替代答复验收。
+- 重启后账号、工单、知识与模型配置保留；确认可回滚，监控 OOM、节点内存与现有业务。
+- 公开演示管理员只能配低额度演示 Key；私有部署不要公开管理员密码。
+
+## 备份与回滚
+
+应用升级迁移前自动使用 SQLite 在线备份接口，在数据库旁的 backups 目录保存一致快照。维护者另需定期备份与恢复演练，保护数据和 SESSION_SECRET；仅备份 WAL 模式的主文件可能漏数据。
+
+记录升级前镜像 digest、配置与数据库备份。失败时回退 Atlas 镜像与兼容配置，不删除 PVC。若新 schema 不能由旧代码读取，停止 Atlas 后从经过验证的备份恢复；不能在活跃写库时复制覆盖。模型 / 会话密钥改变时同步检查加密 Key 和索引兼容性。
+
+历史容量实验、服务器快照和已发布版本均归档在 [部署历史](deployment-status-20261001.md)，不作为新服务器的通用启动条件。

@@ -6,7 +6,10 @@ from pathlib import Path
 
 from dotenv import load_dotenv
 
-load_dotenv()
+# python-dotenv 1.0.1 does not implement this flag itself. Isolated launch and
+# evaluation scripts must not inherit credentials from the repository .env.
+if os.getenv("PYTHON_DOTENV_DISABLED", "").lower() not in {"1", "true", "yes"}:
+    load_dotenv()
 
 
 @dataclass(frozen=True)
@@ -20,7 +23,8 @@ class Settings:
     llm_model: str = os.getenv("LLM_MODEL", "gemini-2.5-flash")
     mimo_api_key: str = os.getenv("MIMO_API_KEY", "")
     mimo_base_url: str = os.getenv("MIMO_BASE_URL", "https://api.xiaomimimo.com/v1")
-    mimo_model: str = os.getenv("MIMO_MODEL", "mimo-v2.5-pro")
+    mimo_model: str = os.getenv("MIMO_MODEL", "mimo-v2.6-flash")
+    support_budget_seconds: float = float(os.getenv("SUPPORT_BUDGET_SECONDS", "40"))
     embedding_provider: str = os.getenv("EMBEDDING_PROVIDER", "local")
     embedding_model: str = os.getenv("EMBEDDING_MODEL", "BAAI/bge-small-zh-v1.5")
     session_secret: str = os.getenv("SESSION_SECRET", "")

@@ -1,153 +1,136 @@
-# Atlas Desk · 智能工单处理 Agent（个人项目）
+# Atlas Desk · 智能工单处理 Agent
 
-面向个人作品演示的模拟 IT 服务台系统。访客提交模拟工单后，系统进行风险分诊、向量优先检索、证据判断和引用校验；高风险或证据不足的问题进入人工处理。系统不会声称已经自动执行生产、权限或数据变更。
+一个面向 IT 服务台的个人演示项目：员工提交问题后，AI 根据知识库和后续补充提供排查建议；需要 IT 介入时，带着已知情况和处理记录转交人工。软件安装、设备借用等服务申请走独立审批规则，避免用模型猜测企业政策。
 
-## 已实现能力
+包含员工服务台、管理员工作台、Agent 编排、知识库与持久化存储，可在本地运行，也提供在线演示。
 
-- FastAPI API、员工服务台与 IT 管理工作台。
-- 员工账号与工单归属，服务端按当前账号查询；同名员工不会共享工单。
-- 保留原 Agent / RAG / MiMo 节点与技术栈；低风险只读辅助支持模型追问、有引用建议与同工单跟进，正式评测门槛仍未通过。
-- 员工补充、确认解决、申请人工与重开；管理员接单、回复、要求补充与标记处理完成，状态版本控制防止重复流转。
-- LangGraph 编排“分诊 → 查询改写 → 检索 → 证据判断 → 生成与引用校验”；默认正式模式选择句子ID，显式辅助模式结合多轮上下文生成下一步并审查。
-- 默认使用 `sqlite-vec` BGE 中文向量召回，故障或关闭向量时降级至 SQLite FTS5 BM25；RRF 混合与业务重排保留为对照配置。
-- 版本化知识库，管理员可导入 TXT、Markdown 和文本 PDF。
-- 访客工单访问凭证、管理员签名会话、CSRF 校验、租户过滤、限流和 Turnstile。
-- 高风险、证据不足及评测发布保护触发时人工接管，审批状态使用条件更新防止重复处理。
-- 支持从 `MIMO_API_KEY` 自动接入 MiMo；模型失败或引用校验失败时转人工。
-- 工单、状态变化和审计日志同事务保存。
-- Docker/K3s 部署配置、75 项工程测试、60 段模拟语料和 180 条固定评测查询；员工自助资料另作新增文档。
+## 在线体验
 
-## 当前部署与主页
+| 入口 | 内容 |
+| --- | --- |
+| [员工服务台](https://ticket.su46proj.site/) | 注册演示账号、提交问题或服务申请、跟进自己的工单 |
+| [管理员工作台](https://ticket.su46proj.site/admin) | 人工处理、审批规则、知识库、检索监控、模型 API 配置 |
+| [项目介绍与演示账号](https://su46proj.site/atlas-desk/index.html) | 项目背景、实现说明与公开的演示管理员账号和密码 |
 
-2026-10-01：[Atlas 公网演示](https://ticket.su46proj.site/)已开放，在服务器独立 K3s 命名空间运行，使用 MiMo、本地 BGE 和生产 Turnstile。公网健康、管理员会话、访问边界与模拟审批检查通过；用户已在正常浏览器确认通过 Turnstile 并成功创建工单；自动化检查未绕过人机验证。已发布的[个人主页](https://su46proj.site/)和[Atlas 项目介绍](https://su46proj.site/atlas-desk/index.html)源码保存在 `portfolio/`。
+演示环境使用模拟知识和规则，请提交模拟问题。公开管理员账号仅用于体验；不要在共享演示环境填入私人模型 Key。管理员可切换演示模型，也可能消耗已配置 Key 的额度。详见 [模型配置与密钥边界](docs/model-api.md)。
 
-[员工与 IT 工作流说明](docs/employee-workflow.md)包含状态、自动回复范围与操作边界。
+## 可以做什么
 
-当前镜像、容量验证、生产清单和原 MiniPay 保留边界见 [部署记录](docs/deployment-status-20261001.md)。主页和项目介绍中的 GitHub 入口指向本仓库主分支。
+**故障排查：** 员工描述问题 → 风险分诊与知识检索 → AI 追问或提供有来源的下一步 → 员工补充或确认解决。超出支持范围、涉及敏感操作、无法可靠回答或员工主动申请时，转 IT 接单处理；IT 标记完成后仍需员工确认。
 
-## 处理流程
+**服务申请：** 员工填写软件安装或设备借用条件 → 按版本化规则自动批准、拒绝或转人工 → IT 执行交付 → 员工验收。默认模拟规则允许公司设备安装 7-Zip / Visual Studio Code、借用键盘 / 鼠标 / 显示器不超过 7 天，禁用破解或盗版软件。管理员可以发布新规则或关闭自动审批。
 
-```text
-FastAPI 接收工单
-→ 服务端确定租户并校验访问边界
-→ LangGraph 进行意图识别和风险判断
-→ 查询改写
-→ 默认 sqlite-vec 向量召回，失败时降级至 FTS5 BM25
-→ 混合配置可选 RRF 合并、去重和轻量重排
-→ 判断资料相关度
-→ 校准阈值与发布门槛通过后模型选择句子ID，服务端校验引用并从原文组装答复
-→ 高风险、证据不足或发布保护触发时转人工
-→ SQLite 保存工单、答案、来源和审计记录
-```
+- 服务端按账号 ID 和租户过滤“我的工单”，同名员工也不会共享工单。
+- 同一工单支持多轮补充、人工接管、确认解决与重新打开；版本检查防止重复操作和过期回复覆盖新状态。
+- 管理台支持接单、回复、要求补充、审批、知识导入、审计记录及检索健康统计。
+- 模型 API 支持 MiMo、DeepSeek、OpenAI 和维护者允许的兼容服务；测试成功后保存切换，失败保留原配置。
+- 生产环境使用 Turnstile、限流、签名会话与 CSRF 校验；模型 Key 加密保存，读取接口不返回 Key。
 
-架构图见 [docs/architecture.md](docs/architecture.md)，最新实测见 [新预留集与协议实测](docs/new-heldout-20261001.md)，可复制的简历描述见 [简历证据](docs/resume-evidence.md)。
+AI 提供排查建议，**不会直接修电脑、修改企业权限或自动执行安装**；自动获批也不等于已经交付或解决。当前是单租户演示、单管理员配置，未接入企业 SSO、真实资产库存或软件分发系统。
 
-默认向量模式已经单独校准阈值，但在原冻结测试集上未达到 95% 的放行精确率，自动建议发布保护默认开启。提交后会展示资料并等待人工审核；这是实际评测结果触发的保护。MiMo 已完成 30 次真实生成实验，原始答案与语义审查单独保存。
+## 技术与处理链
 
-## 本地启动
+| 层次 | 实现 |
+| --- | --- |
+| 接口与页面 | FastAPI、Pydantic、原生 HTML / CSS / JavaScript |
+| 流程编排 | LangGraph；服务申请策略分支与故障排查分支 |
+| 知识检索 | BGE 中文向量 + sqlite-vec，失败回退 SQLite FTS5 / BM25；保留 RRF 混合对照 |
+| AI 答复 | OpenAI 兼容 Chat Completions；多轮上下文、引用校验、建议审查与有限修正 |
+| 数据与安全 | SQLite WAL、事务审计、scrypt、签名 Cookie、CSRF、Fernet、Turnstile |
+| 运行与部署 | Python 3.11、Uvicorn、Docker、K3s 单副本持久化 |
 
-### Conda 一键启动（推荐）
+故障排查沿“分诊 → 查询改写 → 检索 → 证据判断 → 生成与校验”执行，服务申请走前置策略分支。详细流程图和访问边界见 [架构说明](docs/architecture.md)、[员工与 IT 工作流](docs/employee-workflow.md)。
 
-项目已使用名为 `ticket-agent` 的 Conda 环境时，先进入项目目录，再启动。在你当前电脑上：
+## 本地快速启动
 
-```powershell
-Set-Location -LiteralPath "C:\Users\hp\Desktop\Agent学习\企业工单智能处理 Agent 系统练习"
-powershell -ExecutionPolicy Bypass -File .\scripts\run-local-conda.ps1
-```
+**前置条件：** Git、Python **3.11** 和可用的 pip。首次安装依赖需要联网；默认启动不需要模型 Key、Conda、Docker、云服务器或 Turnstile，也不下载 BGE 模型。从仓库根目录执行命令。
 
-根据提示设置一个仅用于本机的管理员密码，然后打开
-`http://127.0.0.1:8000`。脚本使用独立的 `data/local-verify.db`，关闭窗口或按
-`Ctrl+C` 即可停止，不会连接线上 K3s，也不会读取项目现有 `.env` 中的模型密钥。
-
-需要使用 Windows 环境变量中的 `MIMO_API_KEY` 做真实生成时，增加开关：
-
-```powershell
-powershell -ExecutionPolicy Bypass -File .\scripts\run-local-conda.ps1 -UseMimo -UseVectors -ImportSimulatedKnowledge
-```
-
-`-UseVectors` 开启本地 BGE；`-ImportSimulatedKnowledge` 显式导入 60 个模拟 SOP 并重建向量，不替换管理员文档。首次下载模型需要联网。此次已导入本机 `data/local-verify.db`，共 66 个有效段落。
-
-管理员入口是启动窗口打印的 `/admin` 地址，密码使用本次启动时设置的值。页面会显示模型配置、检索健康和发布保护状态。`-UseMimo` 启用生成器，当前发布保护仍要求人工审核，不保证每张工单都会调用模型。
-
-真实生成对照通过后面的评测命令查看，结果包含每条答案及引用，调用上限明确。旧 `scripts/check-llm.py` 也可作少量模型冒烟检查，**不计入本次已经完成的30次实验**；运行它会另外调用模型。
-
-### Python 虚拟环境
-
-```powershell
+~~~bash
+git clone https://github.com/su4-6/QIYE-agent-plus.git
+cd QIYE-agent-plus
 python -m venv .venv
-.\.venv\Scripts\Activate.ps1
-pip install -r requirements.txt
-copy .env.example .env
-uvicorn app.main:app --reload
-```
+~~~
 
-打开 `http://127.0.0.1:8000`。开发环境不强制 Turnstile；未通过发布门槛或证据不足时进入人工审核；未启用模型且具备合格证据时可返回可追溯知识库资料。
+Windows PowerShell：
 
-首次使用本地向量模型会下载约 90 MB 的 `BAAI/bge-small-zh-v1.5`。如需主动重建向量：
+~~~powershell
+.\.venv\Scripts\python.exe -m pip install -r requirements.txt
+.\.venv\Scripts\python.exe scripts/setup-local.py
+.\.venv\Scripts\python.exe -m app.knowledge
+.\.venv\Scripts\python.exe scripts/import-demo.py --without-vectors
+.\.venv\Scripts\python.exe -m uvicorn app.main:app --host 127.0.0.1 --port 8000
+~~~
 
-```powershell
-python -m app.knowledge reindex
-```
+Linux / macOS（创建环境时可用 python3.11 -m venv .venv）：
 
-## 主要接口
+~~~bash
+.venv/bin/python -m pip install -r requirements.txt
+.venv/bin/python scripts/setup-local.py
+.venv/bin/python -m app.knowledge
+.venv/bin/python scripts/import-demo.py --without-vectors
+.venv/bin/python -m uvicorn app.main:app --host 127.0.0.1 --port 8000
+~~~
 
-| 方法 | 路径 | 权限 |
-| --- | --- | --- |
-| `POST` | `/api/v1/tickets` | 公开，生产环境要求 Turnstile |
-| `GET` | `/api/v1/tickets/{id}` | 所属员工会话；旧访客凭据兼容 |
-| `POST` | `/api/v1/admin/login` | 管理员账号、密码与生产 Turnstile |
-| `GET` | `/api/v1/admin/tickets` | 管理员会话 |
-| `POST` | `/api/v1/admin/tickets/{id}/approval` | 管理员会话 + CSRF |
-| `GET` | `/api/v1/admin/tickets/{id}/audit-logs` | 管理员会话 |
-| `GET/POST` | `/api/v1/admin/knowledge` | 管理员会话，写操作加 CSRF |
-| `GET` | `/api/v1/admin/retrieval-metrics?days=7` | 管理员会话，窗口支持1/7/30天 |
-| `GET` | `/health` | 数据库及真实向量状态检查，不调用模型 |
-| `GET` | `/health/live` | 进程存活检查 |
+配置脚本会要求输入并确认不少于 8 位的本地管理员密码，生成随机会话密钥和密码哈希，写入被 Git 忽略的 **.env**。**已有 .env 时拒绝覆盖**；已有环境请参考 [本地配置说明](docs/local-development.md) 手动补齐配置。首次启动会创建 SQLite 数据库并加载基础知识，导入脚本补充模拟 SOP 和员工自助资料。
 
-旧的 `/工单` 和 `/tickets` 只保留提交兼容。旧查询和审批路径已删除，避免绕过新权限层。
+启动后打开：
+
+- 员工端：<http://127.0.0.1:8000/>，先注册一个本地演示账号。
+- 管理端：<http://127.0.0.1:8000/admin>，账号 **admin**，密码为刚才设置的值。
+- 健康检查：<http://127.0.0.1:8000/health>。
+- 开发 API 文档：<http://127.0.0.1:8000/api/docs>。
+
+此时为 **BM25 + 无模型** 模式，可验证账号、工单、人工协作和规则审批；不会生成 AI 答复。Ctrl+C 停止服务，SQLite 数据保留。端口被占用时改成空闲端口，并使用对应地址。
+
+### 启用 AI 排查
+
+停止服务，在 .env 中设置：
+
+~~~dotenv
+LOW_RISK_ASSISTANCE=true
+AUTO_APPROVE_LOW_RISK=true
+LLM_PROVIDER=mimo
+MIMO_API_KEY=填写自己的演示专用Key
+MIMO_MODEL=mimo-v2.6-flash
+~~~
+
+重启后，支持范围内的低风险故障可以进入 AI 多轮辅助。也可设置 LLM_PROVIDER=auto、LOW_RISK_ASSISTANCE=true，重启后从管理台「模型 API」配置供应商；测试和保存会产生真实模型请求，可能计费。已有管理台模型配置优先于 .env 的默认连接，恢复部署默认后才使用环境配置。
+
+### 启用 BGE 向量检索
+
+将 .env 的 EMBEDDING_PROVIDER 改为 local，在启动服务前执行：
+
+~~~powershell
+# Windows；Linux / macOS 使用 .venv/bin/python
+.\.venv\Scripts\python.exe -m app.knowledge reindex
+~~~
+
+首次运行需要联网下载模型，完成后重启。/health 应显示向量状态 ready；模型或索引不可用时标记降级并回退 BM25。Conda 启动、环境变量优先级和排错见 [完整本地指南](docs/local-development.md)。
 
 ## 测试与评测
 
-```powershell
-conda run -n ticket-agent python -m unittest discover -s tests -v
-powershell -ExecutionPolicy Bypass -File .\scripts\evaluate-conda.ps1 -Performance
-# 可选：每次新实验最多30次MiMo调用；关闭自动重试，每次最多1000输出tokens
-powershell -ExecutionPolicy Bypass -File .\scripts\evaluate-conda.ps1 -LiveMimo -Performance
-```
+~~~powershell
+# Windows；Linux / macOS 的准备命令见本地指南
+New-Item -ItemType Directory -Force work | Out-Null
+.\.venv\Scripts\python.exe -m unittest discover -s tests -v
+~~~
 
-历史180问按主题分组，校准与测试各90问；其中60条可回答测试查询的Hit@3为旧关键词40%、BM25 85%、纯向量93.33%、混合86.67%。这些方法使用同一语料与查询，分开报告，不能与新60题成绩混用。历史15条证据不足负例与30条额外挑战见[b8dcbf3复测快照](docs/review-followup-20261001.md)。
+工程测试覆盖员工隔离、会话与 CSRF、工单流转、服务审批、多轮上下文、引用校验、向量降级、备份和模型配置。模型调用被模拟，不需要真实 Key；测试使用独立数据库，详见 [本地指南](docs/local-development.md#运行工程测试)。
 
-当前75项工程测试通过，包含已有向量索引在进程重启后的运行自检。先前版本关闭LLM的300次HTTP工作流全部成功，该历史成绩不与本次容量验证混用。最新60题预留集与追加10次MiMo协议验证见[新报告](docs/new-heldout-20261001.md)，人工审核保护继续开启。
+原冻结测试的 **95% 是检索放行精确率目标，目前未通过**，不是单条工单的正确概率或自动解决率。LOW_RISK_ASSISTANCE=false 保留正式模式的评测保护；在线演示显式开启只读辅助，并经过引用与建议审查，但不代表正式质量门槛已经通过。
 
-评测数据库临时隔离，不改现有工单库。模型原始结果可用 `--reuse-generation` 复用，绝不发送LLM请求。历史六段／30问实验保留在[旧评测记录](docs/evaluation-results.md)，不能与新语料混用提升数字。
+历史实验从 [评测索引](docs/evaluation.md) 查阅或复现，包含数据规模、分母、配置及限制。工程测试通过、检索命中、引用有效和实际解决问题是不同指标，不互相替代。
 
-工单新增 `evidence_score`、`handoff_reason` 和 `request_id`；`confidence` 仅保留兼容别名。评分不是正确概率。向量使用精确余弦扫描，当前未使用 ANN、Cross-Encoder或NLI；模型只选择句子ID，服务端从原文组装答复，仍不能证明来源与问题相关。首次升级前自动在线备份SQLite；限流桶按绝对过期时间清理。
+## 部署与文档
 
-## 生产部署
+| 文档 | 内容 |
+| --- | --- |
+| [本地开发](docs/local-development.md) | 首次配置、AI / 向量开关、Conda、测试、排错 |
+| [系统架构](docs/architecture.md) | 模块、处理分支、存储和访问边界 |
+| [员工与 IT 工作流](docs/employee-workflow.md) | 状态流转、自动建议与自动审批范围 |
+| [模型 API](docs/model-api.md) | 管理台切换、Key 保存和共享管理员风险 |
+| [部署指南](docs/deployment.md) | Docker / K3s、生产必填配置、持久化与验收 |
+| [评测索引](docs/evaluation.md) | 离线复现、历史实验与质量边界 |
+| [部署历史](docs/deployment-status-20261001.md) | 按版本记录的发布与验证证据 |
 
-复制 `.env.example` 并填写生产配置。生产启动会强制检查管理员、会话和 Turnstile 配置。完整步骤见 [docs/deployment.md](docs/deployment.md)。
-
-安全提醒：旧 `.env` 曾被 Git 跟踪。部署前必须在服务商后台撤销旧模型密钥并创建新密钥；仅从当前版本删除文件不能消除历史泄露风险。
-
-### 后续预留集与多信号实验
-
-8信号逻辑回归只用原校准集75条非高风险记录训练，按主题做五折交叉验证。模型与阈值冻结后新增60题，其中40条可回答问题所属主题不在训练集；单评分与逻辑回归的放行判断精确率为76.09%与93.55%，覆盖率为76.67%与51.67%。逻辑回归仍未通过95%门槛，保留为离线实验；没有将新题用于再次调参。
-
-新句子ID协议获得追加10次MiMo授权，结构化10/10、组装原文9/10，输出177 tokens；严格来源主题匹配6/10，不能写成答案正确率90%。详细数字和限制见[新评测报告](docs/new-heldout-20261001.md)。
-
-已有新预留实验可离线复核：`conda run -n ticket-agent python -m evaluation.reproduce_heldout --output evaluation/results/heldout-reproduction`。它重新计算训练权重与冻结决策，不重新调阈值，也不调用MiMo。
-
-## 员工自助与 IT 协作
-
-员工登录后仅查看自己的工单。个人演示开放低风险、只读AI辅助：沿原检索链，新增上下文答复模块，MiMo根据最新事实生成有来源的下一步，信息不足时提出具体问题，避免重复已尝试无效的操作。建议经引用和独立模型审查，失败最多修正一次；补充在同一工单继续。员工确认解决，或带着上下文转IT。管理端使用账号、密码、人机验证，默认人工队列。原技术栈和图节点保留，固定答复分支已移除；正式模式仍使用原句子ID选择协议。
-
-`LOW_RISK_ASSISTANCE`默认关闭，生产演示显式开启。原95%检索发布目标尚未通过，辅助功能不代表自动维修或正式质量放行。完整状态、认证范围与验证限制见[员工工作流](docs/employee-workflow.md)。
-
-
-### 故障排查与服务申请分开流转
-
-报修保留原图节点与检索技术：紧急程度不再直接变成操作风险，普通低风险问题自动进入 AI 自助。`AUTO_APPROVE_LOW_RISK=true` 控制自助预审；不是授予系统权限。员工反馈后依据最新事实继续，失败或明确需要 IT 才交接。
-
-服务申请新增原图前置策略节点。员工选择软件安装或设备借用，填写具体项目、用途和条件。按版本化演示规则自动批准、拒绝或转人工，不用检索评分替代业务规则，也不由模型猜公司政策。初始清单：公司设备的7-Zip/Visual Studio Code、7天以内键盘/鼠标/显示器借用；明确禁用破解/盗版软件。管理员可在“自动审批规则”调整或关闭，历史版本及工单依据保留。
-
-获批后等待 IT 安装或确认库存并交付，再由员工验收，不能提前报已解决。额外权限、清单外或敏感描述交人工；获批后新增补充会撤销旧执行许可并复核，重新打开也须重新审批。这是模拟申请审批流程，未接企业资产、软件分发或真实账号授权接口。
+生产环境必须配置私有会话密钥、管理员密码哈希、Turnstile 与 HTTPS。使用单副本和持久卷保存 SQLite；升级前备份，不把真实 .env、Key 或数据库提交到 Git。生产部署与本地快速启动的配置要求不同，见部署指南。

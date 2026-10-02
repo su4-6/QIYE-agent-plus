@@ -1,4 +1,6 @@
-# 复用现有 K3s 集群
+# K3s 部署清单使用说明
+
+这不是通用的一键安装清单。首次部署请先阅读[生产部署指南](../../docs/deployment.md)，调整自己的域名、Gateway、命名空间引用、TLS、StorageClass 和镜像。当前 BGE 配置入口是 `deploy/overlays/local-bge`，基础目录保留旧 Gemini 配置，不能直接覆盖已有 BGE 服务。
 
 这套清单针对当前服务器上的 K3s、NGINX Gateway Fabric 和
 `minipay/minipay-gateway`。应用运行在独立的 `atlas-desk` 命名空间；只有
@@ -7,7 +9,7 @@
 
 ## 发布门槛
 
-- 节点内存与当前镜像经过容量验证；本次内网 BGE 部署要求启动前至少 704 MiB，并保留至少 320 MiB。公网流量仍需单独验收。
+- 节点资源须重新测量并保留现有业务余量。历史隔离实验的 384 MiB 上限和 320 MiB 节点余量是当时的验收预算，不是任意服务器的通用条件；公网持续负载须单独验收。
 - 镜像已经发布，并在 `kustomization.yaml` 中固定为不可变版本号或 digest。
 - `ticket.su46proj.site` DNS 指向当前 Cloudflare 入口。
 - 旧模型密钥已撤销，Turnstile 已限制到该子域名。
@@ -35,18 +37,22 @@ sudo k3s kubectl -n atlas-desk create secret generic atlas-desk-secrets \
 下列基础生产清单包含公网路由。当前生产实例已配置 Turnstile，实际无 Secret 清单位于 `../releases/20261001/production.yaml`；重新部署前需要核对私有 Secret 与节点容量。当前实际部署状态见 [部署记录](../../docs/deployment-status-20261001.md)。生产配置齐全后，优先渲染 `../overlays/local-bge` 并核对固定镜像摘要及资源限制，再执行发布。
 
 ```bash
-sudo k3s kubectl apply -k deploy/k3s
+sudo k3s kubectl kustomize deploy/overlays/local-bge
+# 确认生产 Secret、域名、网关、镜像和节点资源后再应用
+sudo k3s kubectl apply -k deploy/overlays/local-bge
 sudo k3s kubectl -n atlas-desk rollout status deploy/atlas-desk --timeout=120s
 sudo k3s kubectl -n atlas-desk get pod,svc,pvc
 sudo k3s kubectl -n minipay get httproute atlas-desk
 curl --fail --resolve ticket.su46proj.site:443:127.0.0.1 https://ticket.su46proj.site/health
 ```
 
-部署后继续验证访客提交、访问凭证、管理员登录、审批冲突、审计日志和重启后的
+部署后继续验证员工认证与归属、旧访客凭据、管理员登录、审批冲突、审计日志和重启后的
 SQLite 数据。若 Pod 接近 384 MiB 限制、节点发生内存压力或现有服务延迟上升，
 立即回滚并扩容服务器。
 
-## 回滚
+## 临时停止 Atlas 公网服务
+
+以下操作用于停止入口与应用，不是镜像版本回滚。版本回滚应按部署指南恢复记录的 Atlas 镜像与兼容配置；不操作其他业务。
 
 ```bash
 sudo k3s kubectl -n minipay delete httproute atlas-desk

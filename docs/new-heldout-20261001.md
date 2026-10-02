@@ -1,5 +1,7 @@
 # 新预留集、多信号判断与句子ID协议实测（2026-10-01）
 
+> 历史实验归档：本文的生成协议与“尚未公开部署”描述对应实验阶段。当前已提供在线演示，并支持多轮辅助与服务规则审批，见 [README](../README.md) 与 [部署历史](deployment-status-20261001.md)；新功能不计入本文旧实验成绩。
+
 本轮基于b8dcbf3改造，代码由Codex辅助实现。原始实验不覆盖：20261001是旧混合实验及30次MiMo；20261001-review是默认向量与严格字符串校验；本轮为20261001-heldout。当前项目仍为个人模拟IT服务台，尚未公开部署。
 
 ## 1. 修复0/27的协议冲突
@@ -61,7 +63,7 @@
 ## 复现现有实验
 
 ```powershell
-Set-Location -LiteralPath "C:\Users\hp\Desktop\Agent学习\企业工单智能处理 Agent 系统练习"
+# 从仓库根目录执行，先按本地指南创建环境。
 conda run -n ticket-agent python -m unittest discover -s tests -v
 conda run -n ticket-agent python -m evaluation.reproduce_heldout --output evaluation/results/heldout-reproduction
 conda run -n ticket-agent python scripts/verify-heldout.py

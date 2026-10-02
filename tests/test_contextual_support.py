@@ -6,9 +6,49 @@ from unittest.mock import patch
 from app.assistance import validate_plan
 from app.config import settings
 from app.llm import generate_support_plan, last_generation
+from app.model_api import ModelConnection
 
 
 class ContextualSupportTest(unittest.TestCase):
+    def test_fast_draft_still_requires_independent_review(self):
+        draft={'decision':'advise','understanding':'纸盒为空。','steps':[{'text':'放入平整纸张。','source_ids':['7:1']}],
+               'check_result':'观察缺纸提示是否消失。'}
+        outputs=[draft,{'passed':True,'reason':'操作依据与当前事实一致。'}]
+        calls=[]
+        def respond(**kwargs):
+            calls.append(kwargs)
+            return SimpleNamespace(choices=[SimpleNamespace(message=SimpleNamespace(content=json.dumps(outputs.pop(0),ensure_ascii=False)))])
+        with patch('app.llm.OpenAI') as client, patch('app.llm.validate_citations',return_value=[7]), patch('app.security.use_quota',return_value=True):
+            client.return_value.chat.completions.create.side_effect=respond
+            text,citations=generate_support_plan('打印机缺纸','纸盒是空的。','硬件与办公设备',
+                {'7:1':{'chunk_id':7,'text':'纸盒为空时放入平整纸张。'}},[],'demo',[],
+                connection=ModelConnection('mimo','https://api.xiaomimimo.com/v1','mimo-v2.6-flash','test-only'))
+        self.assertTrue(text);self.assertEqual(citations,[7]);self.assertEqual(len(calls),2)
+        self.assertTrue(all(c['extra_body']['thinking']['type']=='disabled' for c in calls))
+        self.assertEqual(calls[0]['max_completion_tokens'],1800)
+        self.assertEqual(calls[1]['max_completion_tokens'],400)
+        self.assertLessEqual(calls[0]['timeout'],18)
+        self.assertLessEqual(calls[1]['timeout'],12)
+        self.assertEqual([c['stage'] for c in last_generation.get()['model_calls']],['draft','review'])
+
+    def test_expired_shared_budget_never_publishes_unreviewed_draft(self):
+        draft={'decision':'advise','understanding':'纸盒为空。','steps':[{'text':'放入平整纸张。','source_ids':['7:1']}],
+               'check_result':'观察缺纸提示是否消失。'}
+        clock=[0.0]
+        def respond(**kwargs):
+            clock[0]=100.0
+            return SimpleNamespace(choices=[SimpleNamespace(message=SimpleNamespace(content=json.dumps(draft,ensure_ascii=False)))])
+        with patch('app.llm.time.perf_counter',side_effect=lambda:clock[0]), patch('app.llm.OpenAI') as client, \
+             patch('app.llm.validate_citations',return_value=[7]), patch('app.security.use_quota',return_value=True):
+            client.return_value.chat.completions.create.side_effect=respond
+            text,citations=generate_support_plan('打印机缺纸','纸盒是空的。','硬件与办公设备',
+                {'7:1':{'chunk_id':7,'text':'纸盒为空时放入平整纸张。'}},[],'demo',[],
+                connection=ModelConnection('mimo','https://api.xiaomimimo.com/v1','mimo-v2.6-flash','test-only'))
+            self.assertEqual(client.return_value.chat.completions.create.call_count,1)
+        self.assertIsNone(text);self.assertEqual(citations,[])
+        self.assertFalse(last_generation.get()['answer_validation']['passed'])
+        self.assertEqual(last_generation.get()['answer_validation']['reason'],'support_time_budget_exceeded')
+
     def test_unknown_sources_and_unsafe_steps_cannot_be_published(self):
         catalog={'7:1':{'chunk_id':7,'text':'放入平整纸张。'}}
         for text, ids in [('放入纸张。',['9:1']),('关闭防火墙。',['7:1'])]:
